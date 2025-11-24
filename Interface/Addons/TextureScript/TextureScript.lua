@@ -6,6 +6,20 @@ local table_remove = table.remove
 local GetTime, UnitCastingInfo, UnitChannelInfo = GetTime, UnitCastingInfo, UnitChannelInfo
 local np = {}
 local string_split = string.split
+local string_format = string.format
+
+local CUSTOM_CLASS_COLORS = {
+    ["HUNTER"] = { r = 0.6, g = 0.85, b = 0.2 },
+    ["WARLOCK"] = { r = 0.4, g = 0, b = 0.8 },
+    ["PRIEST"] = { r = 1.0, g = 1.0, b = 1.0 },
+    ["PALADIN"] = { r = 0.96, g = 0.55, b = 0.73 },
+    ["MAGE"] = { r = 0, g = 0.82, b = 1 },
+    ["ROGUE"] = { r = 1.0, g = 0.96, b = 0.41 },
+    ["DRUID"] = { r = 1.0, g = 0.49, b = 0.04 },
+    ["SHAMAN"] = { r = 0.0, g = 0.44, b = 0.87 },
+    ["WARRIOR"] = { r = 0.7, g = 0.56, b = 0.42 },
+    ["DEATHKNIGHT"] = { r = 0, g = 1 , b = 0.6 },
+};
 
 --dark theme
 local function DarkenFrames(addon)
@@ -126,7 +140,7 @@ local function ColorGuildTabs()
         if not class then
             break
         end
-        color = RAID_CLASS_COLORS[class]
+        color = CUSTOM_CLASS_COLORS[class]
         _G["GuildFrameButton" .. i .. "Class"]:SetTextColor(color.r, color.g, color.b)
     end
 end
@@ -217,7 +231,7 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
         local powertype = UnitPowerType(pFrame.unit)
 
         local _, class = UnitClass(pFrame.unit)
-        local c = RAID_CLASS_COLORS[class]
+        local c = CUSTOM_CLASS_COLORS[class]
         if c then
             healthbar:SetStatusBarColor(c.r, c.g, c.b)
         end
@@ -288,7 +302,7 @@ local function OnInit()
 
     TargetFrameHealthBar:SetWidth(115)
     TargetFrameHealthBar:SetHeight(30)
-    TargetFrameHealthBar:SetPoint("TOPRIGHT", -92, -25)
+    TargetFrameHealthBar:SetPoint("TOPRIGHT", -93, -25)
     TargetFrameTextureFrameName:SetPoint("CENTER", -30, 35)
     TargetFrameHealthBar.TextString:SetPoint("CENTER", -35, 8)
     TargetFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 16, "OUTLINE")
@@ -296,7 +310,7 @@ local function OnInit()
 
     FocusFrameHealthBar:SetWidth(115)
     FocusFrameHealthBar:SetHeight(30)
-    FocusFrameHealthBar:SetPoint("TOPRIGHT", -92, -25)
+    FocusFrameHealthBar:SetPoint("TOPRIGHT", -93, -25)
     FocusFrameTextureFrameName:SetPoint("CENTER", -30, 35)
     FocusFrameHealthBar.TextString:SetPoint("CENTER", -35, 8)
     FocusFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 16, "OUTLINE")
@@ -435,9 +449,40 @@ local function OnInit()
 end
 
 -- SpeedyActions level: Garage clicker & Pro Gaymer
-local GetBindingKey, SetOverrideBindingClick = _G.GetBindingKey, _G.SetOverrideBindingClick
-local InCombatLockdown = _G.InCombatLockdown
-local tonumber = _G.tonumber
+local wahkFrames = {}
+local buttonNames = {
+    ["ACTIONBUTTON"] = "ActionButton",
+    ["MULTIACTIONBAR1BUTTON"] = "MultiBarBottomLeftButton",
+    ["MULTIACTIONBAR2BUTTON"] = "MultiBarBottomRightButton",
+    ["MULTIACTIONBAR3BUTTON"] = "MultiBarRightButton",
+    ["MULTIACTIONBAR4BUTTON"] = "MultiBarLeftButton",
+    ["CLICK BT4Button"] = "BT4Button",
+    ["MULTIACTIONBAR5BUTTON"] = "MultiBar5Button",
+    ["MULTIACTIONBAR6BUTTON"] = "MultiBar6Button",
+    ["MULTIACTIONBAR7BUTTON"] = "MultiBar7Button",
+    ["CLICK DominosActionButton"] = "DominosActionButton",
+}
+
+local function ConvertActionButtonName(name)
+    -- remove "CLICK "
+    name = name:gsub("^CLICK ", "")
+    -- remove ":Keybind"
+    name = name:gsub(":Keybind$", "")
+
+    if dominos or elvUI then
+        if string.match(name, "Dominos") or string.match(name, "ElvUI") then
+            name = name:gsub(":LeftButton", "")
+            name = name:gsub(":HOTKEY", "")
+        end
+    end
+
+    local button, buttonNumber = name:match("^(.-)(%d+)$")
+    if button and tonumber(buttonNumber) and buttonNames[button] then
+        name = buttonNames[button] .. buttonNumber
+    end
+
+    return name
+end
 
 local function WAHK(button, ok)
     if not button then
@@ -450,49 +495,90 @@ local function WAHK(button, ok)
     end
 
     local clickButton, id
-    local clk = tostring(button)
+    if button:match("BT4Button") then
+        clickButton = ("CLICK %s:LeftButton"):format(button)
+    elseif button:match("DominosActionButton") then
+        clickButton = ("CLICK %s:HOTKEY"):format(button)
+    end
+
     id = tonumber(button:match("(%d+)"))
+
+    if button:match("MultiBar5") then
+        id = tonumber(button:match("MultiBar5Button(%d+)"))
+    elseif button:match("MultiBar6") then
+        id = tonumber(button:match("MultiBar6Button(%d+)"))
+    elseif button:match("MultiBar7") then
+        id = tonumber(button:match("MultiBar7Button(%d+)"))
+    end
+
     local actionButtonType = btn.buttonType
     local buttonType = actionButtonType and (actionButtonType .. id) or ("ACTIONBUTTON%d"):format(id)
     clickButton = buttonType or ("CLICK " .. button .. ":LeftButton")
 
-    local key = GetBindingKey(clickButton)
+    local key, key2 = GetBindingKey(clickButton)
+    if not key and not key2 then
+        return
+    end
 
-    if btn then
-        if ok then
-            local wahk = CreateFrame("Button", "WAHK" .. button, nil, "SecureActionButtonTemplate")
-            wahk:RegisterForClicks("AnyDown", "AnyUp")
-            btn:RegisterForClicks("AnyDown", "AnyUp")
-            wahk:SetAttribute("type", "macro")
-            wahk:SetAllPoints(btn)
-            local onclick = string.format([[ local id = tonumber(self:GetName():match("(%d+)")) if down then self:SetAttribute("macrotext", "/click [vehicleui] OverrideActionBarButton" .. id .. "; ActionButton" .. id) else self:SetAttribute("macrotext", "/click [vehicleui] OverrideActionBarButton" .. id .. "; ActionButton" .. id) end]], id, id, id)
-            SecureHandlerWrapScript(wahk, "OnClick", wahk, onclick)
-            if key then
-                SetOverrideBindingClick(wahk, true, key, wahk:GetName())
+    local cacheKeys = {}
+    if key then
+        cacheKeys[key] = key
+    end
+    if key2 then
+        cacheKeys[key2] = key2
+    end
+
+    for v in pairs(cacheKeys) do
+        local action = GetBindingAction(v, true)
+        if action and action ~= "" then
+            btn = _G[ConvertActionButtonName(action)]
+        end
+
+        if btn then
+            local btnName = btn:GetName()
+            local clk = tostring(btnName)
+
+            if not id then
+                id = tonumber(button:match("(%d+)"))
             end
+
+            local wahkName = "WAHK" .. v .. button
+            local wahk = _G[wahkName] or CreateFrame("Button", wahkName, nil, "SecureActionButtonTemplate")
+            wahkFrames[wahkName] = true
+
+            wahk:RegisterForClicks("AnyDown", "AnyUp")
+            wahk:SetAttribute("type", "click")
+            wahk:SetAttribute("pressAndHoldAction", "1")
+            wahk:SetAttribute("typerelease", "click")
+            wahk:SetAttribute("clickbutton", _G[button])
+
+
+            SetOverrideBindingClick(wahk, true, v, wahk:GetName())
+
             wahk:SetScript("OnMouseDown", function()
-                if HasVehicleActionBar() then
-                    _G["OverrideActionBarButton" .. id]:SetButtonState("PUSHED")
+                if OverrideActionBar and OverrideActionBar:IsShown() and id then
+                    local obtn = _G["OverrideActionBarButton" .. id]
+                    if obtn then
+                        obtn:SetButtonState("PUSHED")
+                    end
                 else
-                    btn:SetButtonState("PUSHED")
+                    if btn then
+                        btn:SetButtonState("PUSHED")
+                    end
                 end
             end)
             wahk:SetScript("OnMouseUp", function()
-                if HasVehicleActionBar() then
-                    _G["OverrideActionBarButton" .. id]:SetButtonState("NORMAL")
+                if OverrideActionBar and OverrideActionBar:IsShown() and id then
+                    local obtn = _G["OverrideActionBarButton" .. id]
+                    if obtn then
+                        obtn:SetButtonState("NORMAL")
+                    end
                 else
-                    btn:SetButtonState("NORMAL")
+                    if btn then
+                        btn:SetButtonState("NORMAL")
+                    end
                 end
             end)
-        else
-            btn:RegisterForClicks("AnyDown", "AnyUp")
-            local onclick = ([[ if down then
-        self:SetAttribute("macrotext", "/click clk") else self:SetAttribute("macrotext", "/click clk") end
-    ]]):gsub("clk", clk), nil
-            --SecureHandlerWrapScript(btn, "OnClick", btn, onclick)
-            if key then
-                SetOverrideBindingClick(btn, true, key, btn:GetName())
-            end
         end
     end
 end
@@ -503,12 +589,24 @@ local function UpdateBinds(frame)
         return
     end
 
+    for name in pairs(wahkFrames) do
+        local wahk = _G[name]
+        if wahk then
+            ClearOverrideBindings(wahk)
+            SecureHandlerUnwrapScript(wahk, "OnClick")
+        end
+    end
+    wipe(wahkFrames)
+
     for i = 1, 12 do
         WAHK("ActionButton" .. i, true)
         WAHK("MultiBarBottomRightButton" .. i)
         WAHK("MultiBarBottomLeftButton" .. i)
         WAHK("MultiBarRightButton" .. i)
         WAHK("MultiBarLeftButton" .. i)
+        WAHK("MultiBar6Button" .. i)
+        WAHK("MultiBar5Button" .. i)
+        WAHK("MultiBar7Button" .. i)
     end
 end
 
@@ -524,18 +622,18 @@ hooksecurefunc(PetHitIndicator, "Show", PetHitIndicator.Hide)
 hooksecurefunc("GuildStatus_Update", ColorGuildTabs)
 
 -- Pet Frame
---hooksecurefunc("PetFrame_Update", function()
---    PetFrameHealthBar:SetWidth(70)
---    PetFrameHealthBar:SetHeight(18)
---    PetFrameManaBar:SetWidth(71)
---    PetFrameManaBar:SetHeight(10)
---    PetFrameHealthBar:SetPoint("TOPLEFT", 45, -14)
---    PetFrameHealthBarText:SetPoint("CENTER", 19, 4)
---    PetFrameHealthBarText:SetFont("Fonts/FRIZQT__.TTF", 14, "OUTLINE")
---    PetFrameManaBarText:SetPoint("CENTER", 19, -10)
---    PetFrameManaBarText:SetFont("Fonts/FRIZQT__.TTF", 9, "OUTLINE")
---    PetFrameManaBar:SetPoint("TOPLEFT", 45, -32)
---end)
+hooksecurefunc(PetFrame, "Update", function()
+    PetFrameHealthBar:SetWidth(70)
+    PetFrameHealthBar:SetHeight(18)
+    PetFrameManaBar:SetWidth(71)
+    PetFrameManaBar:SetHeight(10)
+    PetFrameHealthBar:SetPoint("TOPLEFT", 45, -14)
+    PetFrameHealthBarText:SetPoint("CENTER", 19, 4)
+    PetFrameHealthBarText:SetFont("Fonts/FRIZQT__.TTF", 14, "OUTLINE")
+    PetFrameManaBarText:SetPoint("CENTER", 19, -10)
+    PetFrameManaBarText:SetFont("Fonts/FRIZQT__.TTF", 9, "OUTLINE")
+    PetFrameManaBar:SetPoint("TOPLEFT", 45, -32)
+end)
 
 -- Hidden Player glow combat/rested flashes + Hidden Focus Flash on Focused Target + Hiding the red glowing status on target/focus frames when they have low HP
 local playerTextures = { PlayerStatusTexture, PlayerRestGlow, PlayerRestIcon, PlayerAttackIcon, PlayerAttackGlow, PlayerStatusGlow, PlayerAttackBackground }
@@ -580,6 +678,9 @@ hooksecurefunc(TargetFrameManaBar, "UpdateTextStringWithValues", TextStatusBar_U
 
 hooksecurefunc(FocusFrameHealthBar, "UpdateTextStringWithValues", TextStatusBar_UpdateTextString)
 hooksecurefunc(FocusFrameManaBar, "UpdateTextStringWithValues", TextStatusBar_UpdateTextString)
+
+hooksecurefunc(PetFrameHealthBar, "UpdateTextStringWithValues", TextStatusBar_UpdateTextString)
+hooksecurefunc(PetFrameManaBar, "UpdateTextStringWithValues", TextStatusBar_UpdateTextString)
 
 local function Classification(self, forceNormalTexture)
     local classification = UnitClassification(self.unit);
@@ -710,7 +811,7 @@ local function colour(statusbar, unit)
             if (UnitIsConnected(unit) and UnitClass(unit) and unit ~= "player" and not statusbar.lockColor) then
                 -- ArenaFrames lock/unlock color
                 local _, class = UnitClass(unit)
-                local c = RAID_CLASS_COLORS[class]
+                local c = CUSTOM_CLASS_COLORS[class]
                 if c then
                     if class == "DEATHKNIGHT" then
                         -- experimental DK recoulouring feature (part1)
@@ -890,7 +991,7 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
 
         -- Add class-coloured names on mouseover tooltips
         local _, class = UnitClass(unit)
-        local color = class and RAID_CLASS_COLORS[class]
+        local color = class and CUSTOM_CLASS_COLORS[class]
         if color and UnitIsPlayer(unit) then
             local text = GameTooltipTextLeft1:GetText()
             if text then
@@ -947,6 +1048,21 @@ local ShowNameplatePetIds = {
 	["185317"] = true, -- Incubus
 }
 
+local classmarkers = {
+    ["ROGUE"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Rogue",
+    ["PRIEST"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Priest",
+    ["WARRIOR"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Warrior",
+    ["PALADIN"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Paladin",
+    ["HUNTER"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Hunter",
+    ["DRUID"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Druid",
+    ["MAGE"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Mage",
+    ["SHAMAN"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Shaman",
+    ["WARLOCK"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Warlock",
+    ["DEATHKNIGHT"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\DeathKnight",
+    ["Shadowfiend"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Fiend",
+    ["Elemental"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Elemental",
+}
+
 local tremorTotems = {} -- {[totem GUID] = {[shaman]=GUID, nameplate=<nameplate frame>}, ...}
 local nameplatesToRecheck = {}
 
@@ -983,7 +1099,7 @@ local function HandleNewNameplate(nameplate, unit)
         nameplate.UnitFrame:SetScale(0.5)
         nameplate.UnitFrame.name:SetAlpha(0)
     elseif name == "Tremor Totem" then
-        local texture = (nameplate.UnitFrame.healthBar.border:GetRegions())
+        local texture = (nameplate.UnitFrame.HealthBarsContainer.border:GetRegions())
         local guid = UnitGUID(unit)
         if guid then
             local totem = tremorTotems[guid]
@@ -996,8 +1112,22 @@ local function HandleNewNameplate(nameplate, unit)
             texture:SetTexture("Interface/Addons/TextureScript/Nameplate-Border-TREMOR.blp")
         end
     elseif name == "Ebon Gargoyle" then
-        local texture = (nameplate.UnitFrame.healthBar.border:GetRegions())
+        local texture = (nameplate.UnitFrame.HealthBarsContainer.border:GetRegions())
         texture:SetTexture("Interface/Addons/TextureScript/Nameplate-Border-GARGOYLE.blp")
+    elseif UnitIsUnit(unit, "pet") and (name == "Shadowfiend" or name == "Water Elemental") then
+        local texture = (nameplate.UnitFrame.HealthBarsContainer.border:GetRegions())
+        if not nameplate.UnitFrame.texture then
+            nameplate.UnitFrame.texture = nameplate.UnitFrame:CreateTexture(nil, "OVERLAY")
+            nameplate.UnitFrame.texture:SetSize(30, 30)
+            nameplate.UnitFrame.texture:SetPoint("CENTER", nameplate.UnitFrame, "CENTER", 0, 20)
+            nameplate.UnitFrame.texture:Hide()
+        end
+        if name == "Shadowfiend" then
+            nameplate.UnitFrame.texture:SetTexture(classmarkers["Shadowfiend"])
+        elseif name == "Water Elemental" then
+            nameplate.UnitFrame.texture:SetTexture(classmarkers["Elemental"])
+        end
+        nameplate.UnitFrame.texture:Show()
     end
 end
 
@@ -1079,20 +1209,101 @@ local function PlateScript()
 end
 
 -- Adding class icons on party members inside arena for more clarity where teammates are positioned
-local classmarkers = {
-    ["ROGUE"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Rogue",
-    ["PRIEST"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Priest",
-    ["WARRIOR"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Warrior",
-    ["PALADIN"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Paladin",
-    ["HUNTER"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Hunter",
-    ["DRUID"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Druid",
-    ["MAGE"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Mage",
-    ["SHAMAN"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Shaman",
-    ["WARLOCK"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Warlock",
-	["DEATHKNIGHT"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\DeathKnight",
-    ["Shadowfiend"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Fiend",
-    ["Elemental"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Elemental",
+
+local spellColors = {
+    --Mage
+    ["Frostbolt"] = { r = 0, g = 0.67, b = 1 },
+    ["Frostfire Bolt"] = { r = 0, g = 0.67, b = 1 },
+    ["Polymorph"] = { r = 1, g = 1, b = 1 },
+    ["Arcane Blast"] = { r = 1, g = 1, b = 1 },
+    ["Arcane Missiles"] = { r = 1, g = 1, b = 1 },
+    ["Blizzard"] = { r = 0, g = 0.67, b = 1 },
+    ["Fireball"] = { r = 1, g = 0.16, b = 0 },
+    ["Flamestrike"] = { r = 1, g = 0.16, b = 0 },
+    ["Scorch"] = { r = 1, g = 0.16, b = 0 },
+    --Priest
+    ["Mana Burn"] = { r = 0.4, g = 0.4, b = 0.4 },
+    ["Mind Blast"] = { r = 0.4, g = 0.4, b = 0.4 },
+    ["Mind Flay"] = { r = 0.4, g = 0.4, b = 0.4 },
+    ["Mind Sear"] = { r = 0.4, g = 0.4, b = 0.4 },
+    ["Mind Control"] = { r = 0.4, g = 0.4, b = 0.4 },
+    ["Vampiric Touch"] = { r = 0.4, g = 0.4, b = 0.4 },
+    ["Flash Heal"] = { r = 0.6, g = 1, b = 0 },
+    ["Greater Heal"] = { r = 0.6, g = 1, b = 0 },
+    ["Binding Heal"] = { r = 0.6, g = 1, b = 0 },
+    ["Heal"] = { r = 0.6, g = 1, b = 0 },
+    ["Lesser Heal"] = { r = 0.6, g = 1, b = 0 },
+    ["Prayer of Healing"] = { r = 0.6, g = 1, b = 0 },
+    ["Divine Hymn"] = { r = 0.6, g = 1, b = 0 },
+    ["Smite"] = { r = 1, g = 1, b = 0 },
+    ["Holy Fire"] = { r = 1, g = 1, b = 0 },
+    ["Hymn of Hope"] = { r = 0, g = 0.67, b = 1 },
+    --Warlock
+    ["Shadow Bolt"] = { r = 0.5, g = 0.2, b = 0.8 },
+    ["Fear"] = { r = 0.5, g = 0.2, b = 0.8 },
+    ["Howl of Terror"] = { r = 0.5, g = 0.2, b = 0.8 },
+    ["Incinerate"] = { r = 1, g = 0.16, b = 0 },
+    ["Searing Pain"] = { r = 1, g = 0.16, b = 0 },
+    ["Rain of Fire"] = { r = 1, g = 0.16, b = 0 },
+    ["Immolate"] = { r = 1, g = 0.16, b = 0 },
+    ["Hellfire"] = { r = 1, g = 0.16, b = 0 },
+    ["Soul Fire"] = { r = 1, g = 0.16, b = 0 },
+    ["Drain Mana"] = { r = 0, g = 0.67, b = 1 },
+    ["Drain Life"] = { r = 0.6, g = 1, b = 0 },
+    ["Drain Soul"] = { r = 0.4, g = 0.4, b = 0.4 },
+    --Druid
+    ["Cyclone"] = { r = 0.4, g = 0.4, b = 0.4 },
+    ["Entangling Roots"] = { r = 1, g = 0.5, b = 0 },
+    ["Healing Touch"] = { r = 0.6, g = 1, b = 0 },
+    ["Regrowth"] = { r = 0.6, g = 1, b = 0 },
+    ["Nourish"] = { r = 0.6, g = 1, b = 0 },
+    ["Tranquility"] = { r = 0.6, g = 1, b = 0 },
+    ["Wrath"] = { r = 1, g = 1, b = 0 },
+    ["Hurricane"] = { r = 0.4, g = 0.4, b = 0.4 },
+    --Hunter
+    --Shaman
+    ["Healing Wave"] = { r = 0.6, g = 1, b = 0 },
+    ["Chain Heal"] = { r = 0.6, g = 1, b = 0 },
+    ["Lesser Healing Wave"] = { r = 0.6, g = 1, b = 0 },
+    ["Lava Burst"] = { r = 1, g = 0.16, b = 0 },
+    --Paladin
+    ["Flash of Light"] = { r = 0.6, g = 1, b = 0 },
+    ["Holy Light"] = { r = 0.6, g = 1, b = 0 },
+    --Death Knight
 }
+
+local function getSpellColor(spellName)
+    local color = spellColors[spellName]
+    if color then
+        return color.r, color.g, color.b
+    else
+        return 1.0, 0.7, 0.0
+    end
+end
+
+-- Custom colored Target & Focus Castbar
+for _, v in pairs({ TargetFrameSpellBar, FocusFrameSpellBar }) do
+    if v then
+        v:HookScript("OnUpdate", function(self, elapsed)
+            local r, g, b
+            local castText = self.Text and self.Text:GetText()
+
+            if castText == INTERRUPTED or castText == FAILED then
+                self.holdTime = 0 -- faster fade out
+                return
+            else
+                local name = UnitCastingInfo(self.unit)
+
+                if not name then
+                    name = UnitChannelInfo(self.unit)
+                end
+                if not name then return end
+                local r, g, b = getSpellColor(name)
+                self:SetStatusBarColor(r, g, b)
+            end
+        end)
+    end
+end
 
 local function AddPlates(unit)
     local nameplate = C_NamePlate.GetNamePlateForUnit(unit)
@@ -1101,7 +1312,41 @@ local function AddPlates(unit)
     end
     -- Change border plate
     local texture = (nameplate.UnitFrame.HealthBarsContainer.border:GetRegions())
-    texture:SetTexture("Interface/Addons/TextureScript/Nameplate-Border.blp")
+    if UnitIsUnit(unit, "target") then
+        texture:SetTexture("Interface\\Addons\\TextureScript\\Nameplate-Border-Target-Highlight")
+    else
+        texture:SetTexture("Interface/Addons/TextureScript/Nameplate-Border.blp")
+    end
+
+    if not np[nameplate] then
+        np[nameplate] = true
+        nameplate:RegisterEvent("PLAYER_TARGET_CHANGED")
+        nameplate:HookScript("OnEvent", function(self, event)
+            if event == "PLAYER_TARGET_CHANGED" then
+                if UnitIsUnit("target", self.UnitFrame.unit) then
+                    texture:SetTexture("Interface\\Addons\\TextureScript\\Nameplate-Border-Target-Highlight")
+                elseif UnitName(self.UnitFrame.unit) == "Tremor Totem" then
+                    texture:SetTexture("Interface\\Addons\\TextureScript\\Nameplate-Border-TREMOR")
+                else
+                    texture:SetTexture("Interface\\Addons\\TextureScript\\Nameplate-Border")
+                end
+            end
+        end)
+
+        nameplate.UnitFrame.castBar:HookScript("OnUpdate", function(self)
+            local unit = self:GetParent().unit
+            if unit then
+                local name = UnitCastingInfo(unit)
+
+                if not name then
+                    name = UnitChannelInfo(self.unit)
+                end
+                if not name then return end
+                local r, g, b = getSpellColor(name)
+                self:SetStatusBarColor(r, g, b)
+            end
+        end)
+    end
 
     -- hide level and expand healthbar
     nameplate.UnitFrame.LevelFrame:Hide()
@@ -1119,7 +1364,23 @@ local function AddPlates(unit)
     -- Class icon on friendly plates in arena, WRATH??
     local _, unitClass = UnitClass(unit)
 
-    if UnitIsPlayer(unit) and UnitIsFriend("player", unit) and not UnitIsEnemy("player", unit) then
+    local name = nameplate.UnitFrame.name
+    if name then
+        if UnitIsPlayer(unit) then
+            local classColor = CUSTOM_CLASS_COLORS[unitClass]
+            if classColor then
+                name:SetTextColor(classColor.r, classColor.g, classColor.b)
+                -- Color HealthBar
+                hb.healthBar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+            else
+                name:SetTextColor(1, 1, 1)
+            end
+        else
+            name:SetTextColor(1, 1, 1)
+        end
+    end
+
+    if UnitIsPlayer(unit) and UnitIsFriend("player", unit) and not UnitIsEnemy("player", unit) and inArena then
         if not nameplate.UnitFrame.texture then
             nameplate.UnitFrame.texture = nameplate.UnitFrame:CreateTexture(nil, "OVERLAY")
             nameplate.UnitFrame.texture:SetSize(40, 40)
@@ -1207,6 +1468,8 @@ local function Usable(button)
 end
 
 hooksecurefunc("ActionButton_UpdateRangeIndicator", function(self)
+    if not self.action then return end
+
     local _, oom = IsUsableAction(self.action)
     local valid = IsActionInRange(self.action);
     local checksRange = (valid ~= nil);
@@ -1261,17 +1524,19 @@ hooksecurefunc("Nameplate_CastBar_AdjustPosition", function(self)
         return
     end
 
-    if UnitIsFriend("player", self.unit) then
+    if UnitIsFriend("player", self.unit) and not UnitIsEnemy("player", self.unit) then
         self:Hide()
     end
+
+    self.Text:Show()
 
     local parentFrame = self:GetParent()
     if self.BorderShield:IsShown() then
         self:ClearAllPoints()
-        self:SetPoint("TOP", parentFrame.healthBar, "BOTTOM", 9, -12)
+        self:SetPoint("TOP", parentFrame.HealthBarsContainer, "BOTTOM", 9, -12)
     else
         self:ClearAllPoints()
-        self:SetPoint("TOP", parentFrame.healthBar, "BOTTOM", 9, -4)
+        self:SetPoint("TOP", parentFrame.HealthBarsContainer, "BOTTOM", 9, -4)
     end
 end)
 
@@ -1399,6 +1664,22 @@ hooksecurefunc(getmetatable(ActionButton1Cooldown).__index, 'SetCooldown', funct
     self:SetDrawBling(false)
 end)
 
+-- Distinguish r1 debuffs from the full-rank ones
+local pinkSpells = {
+    [589] = true, -- SW:P (pain)
+    [8921] = true, -- Moonfire
+    [5570] = true, -- Swarm Insect
+};
+
+local function Evolve_Auras(self)
+    for index, info in ipairs(self.auraFrames) do
+        local dbf = C_UnitAuras.GetDebuffDataByIndex("player", index)
+        if dbf and dbf.spellId and pinkSpells[dbf.spellId] then
+            info.DebuffBorder:SetVertexColor(0.78, 0.61, 0.43)
+        end
+    end
+end
+hooksecurefunc(DebuffFrame, "Update", Evolve_Auras)
 
 
 local evolvedFrame = CreateFrame("Frame")
