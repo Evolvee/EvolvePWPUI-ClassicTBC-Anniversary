@@ -1,9 +1,6 @@
 --EVOLVE PWP UI
 
-local string_match = string.match
-local table_insert = table.insert
-local table_remove = table.remove
-local GetTime, UnitCastingInfo, UnitChannelInfo = GetTime, UnitCastingInfo, UnitChannelInfo
+local UnitCastingInfo, UnitChannelInfo = UnitCastingInfo, UnitChannelInfo
 local np = {}
 local string_split = string.split
 local string_format = string.format
@@ -61,6 +58,10 @@ local function DarkenFrames(addon)
 		SecondaryStatusTrackingBarContainer.StandaloneFrameTexture3,
 		SecondaryStatusTrackingBarContainer.StandaloneFrameTexture4,
 		SecondaryStatusTrackingBarContainer.StandaloneFrameTexture5,
+		PlayerStatFrameLeftDropdown.Background,
+		PlayerStatFrameRightDropdown.Background,
+		PetActionBar.BackgroundArt1,
+		PetActionBar.BackgroundArt2,
         MinimapBorder,
         CastingBarFrameBorder,
         MiniMapBattlefieldBorder,
@@ -110,7 +111,6 @@ local cvars = {
     threatWarning = "0",
     predictedHealth = "1",
     Sound_EnableDSPEffects = "0",
-    countdownForCooldowns = "1",
     nameplateShowFriendlyNPCs = "0",
     nameplateShowFriendlyMinions = "0",
     nameplateShowFriendlyPets = "0",
@@ -154,10 +154,10 @@ local sounds = {
     567407, -- sound/interface/uchatscrollbutton.ogg annoying clicking sound when you press a spell on action bar
     567453, -- target
     567520, -- untarget
-	601649, -- Naaru cancer (Alar sounds)
-	601652, -- Naaru cancer 2
-	567518, -- Friendlist (when someone logs in)
-	567407, -- Chat scroll button
+    601649, -- Naaru cancer (Alar sounds)
+    601652, -- Naaru cancer 2
+    567518, -- Friendlist (when someone logs in)
+    567407, -- Chat scroll button
 }
 
 local tooltipOwnerBlacklist = {
@@ -166,6 +166,7 @@ local tooltipOwnerBlacklist = {
     "MultiBarBottomRightButton",
     "MultiBarLeftButton",
     "MultiBarRightButton",
+	"MultiBar5Button",
     "MinimapZoneTextButton",
     "CharacterMicroButton",
     "SpellbookMicroButton",
@@ -174,6 +175,7 @@ local tooltipOwnerBlacklist = {
     "SocialsMicroButton",
     "LFGMicroButton",
     "HelpMicroButton",
+	--"WorldMapMicroButton",
     "^KeyRingButton$", -- key ring
     "^CharacterBag%dSlot$", -- bags
     "^MainMenuBarBackpackButton$", -- backpack
@@ -182,7 +184,7 @@ local tooltipOwnerBlacklist = {
 local function PlayerFrameArt()
     PlayerFrameTexture:SetTexture("Interface\\AddOns\\TextureScript\\UI-TargetingFrame")
     PlayerStatusTexture:SetTexture("Interface\\AddOns\\TextureScript\\UI-Player-Status")
-    PlayerFrameHealthBar:SetPoint("TOPLEFT", 93, -28)
+    PlayerFrameHealthBar:SetPoint("TOPLEFT", 91, -28)
     PlayerFrameHealthBar:SetWidth(117)
     PlayerFrameHealthBar:SetHeight(27)
     PlayerName:SetPoint("CENTER", 50, 35)
@@ -278,6 +280,12 @@ local function OnInit()
     MinimapZoneTextButton:Hide()
 	MinimapToggleButton:Hide()
     PlayerPVPTimerText:SetAlpha(0)
+	
+	-- Reputation XP bar left and right art hidden
+	SecondaryStatusTrackingBarContainer.StandaloneFrameTextureRightCapBottom:Hide()
+	SecondaryStatusTrackingBarContainer.StandaloneFrameTextureRightCapTop:Hide()
+	SecondaryStatusTrackingBarContainer.StandaloneFrameTextureLeftCapBottom:Hide()
+	SecondaryStatusTrackingBarContainer.StandaloneFrameTextureLeftCapTop:Hide()
 
     -- Color Clock
     select(1, TimeManagerClockButton:GetRegions()):SetVertexColor(0, 0, 0)
@@ -300,17 +308,17 @@ local function OnInit()
     -- Player Frame, Focus Frame, Target Frame
     PlayerFrameArt()
 
-    TargetFrameHealthBar:SetWidth(115)
+    TargetFrameHealthBar:SetWidth(116)
     TargetFrameHealthBar:SetHeight(30)
-    TargetFrameHealthBar:SetPoint("TOPRIGHT", -93, -25)
+    TargetFrameHealthBar:SetPoint("TOPRIGHT", -92, -25)
     TargetFrameTextureFrameName:SetPoint("CENTER", -30, 35)
     TargetFrameHealthBar.TextString:SetPoint("CENTER", -35, 8)
     TargetFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 16, "OUTLINE")
     TargetFrameManaBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 10, "OUTLINE")
 
-    FocusFrameHealthBar:SetWidth(115)
+    FocusFrameHealthBar:SetWidth(116)
     FocusFrameHealthBar:SetHeight(30)
-    FocusFrameHealthBar:SetPoint("TOPRIGHT", -93, -25)
+    FocusFrameHealthBar:SetPoint("TOPRIGHT", -92, -25)
     FocusFrameTextureFrameName:SetPoint("CENTER", -30, 35)
     FocusFrameHealthBar.TextString:SetPoint("CENTER", -35, 8)
     FocusFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 16, "OUTLINE")
@@ -341,8 +349,6 @@ local function OnInit()
 
     TargetFrameTextureFrameLevelText:SetAlpha(0)
     TargetFrameTextureFrameLeaderIcon:SetAlpha(0)
-
-    ChatFrameMenuButton:Hide()
 	
     -- TargetFrame castbar slight up-scaling
     TargetFrameSpellBar:SetScale(1.1)
@@ -357,10 +363,10 @@ local function OnInit()
     MainMenuMicroButton.PerformanceIndicator:SetAlpha(0)
 
     -- move target of target to the right side in order to allow cleaner vision of buffs/debuffs on a target/focus
-    TargetFrameToT:ClearAllPoints();
-    TargetFrameToT:SetPoint("RIGHT", "TargetFrame", "BOTTOMRIGHT", -20, 5);
-    FocusFrameToT:ClearAllPoints();
-    FocusFrameToT:SetPoint("RIGHT", "FocusFrame", "BOTTOMRIGHT", -20, 5);
+    --TargetFrameToT:ClearAllPoints();
+    --TargetFrameToT:SetPoint("RIGHT", "TargetFrame", "BOTTOMRIGHT", -20, 5);
+    --FocusFrameToT:ClearAllPoints();
+    --FocusFrameToT:SetPoint("RIGHT", "FocusFrame", "BOTTOMRIGHT", -20, 5);
 
     --disable mouseover flashing on buttons
     for i = 1, 12 do
@@ -383,6 +389,11 @@ local function OnInit()
         if texture then
             texture:SetAlpha(0)
         end
+		
+		texture = _G["MultiBar5Button" .. i]:GetHighlightTexture()
+        if texture then
+            texture:SetAlpha(0)
+        end
 
         texture = _G["ActionButton" .. i]:GetHighlightTexture()
         if texture then
@@ -390,6 +401,17 @@ local function OnInit()
         end
     end
 
+	-- Pet bar only (for some reason it errors on 2.5.5 otherwise)
+	for i = 1, 10 do
+    local btn = _G["PetActionButton"..i]
+    if btn then
+        local texture = btn:GetHighlightTexture()
+        if texture then
+            texture:SetAlpha(0)
+        end
+    end
+	end
+	
     local texture = MainMenuBarBackpackButton:GetHighlightTexture()
     texture:SetAlpha(0)
 
@@ -425,6 +447,9 @@ local function OnInit()
 
     texture = HelpMicroButton:GetHighlightTexture()
     texture:SetAlpha(0)
+	
+	--texture = WorldMapMicroButton:GetHighlightTexture()
+    --texture:SetAlpha(0)
 	
 	-- Remove Fizzle sounds (this was previously done by replacing the actual sound in Data/Sounds)
     for _, fdid in pairs(sounds) do
@@ -468,13 +493,6 @@ local function ConvertActionButtonName(name)
     name = name:gsub("^CLICK ", "")
     -- remove ":Keybind"
     name = name:gsub(":Keybind$", "")
-
-    if dominos or elvUI then
-        if string.match(name, "Dominos") or string.match(name, "ElvUI") then
-            name = name:gsub(":LeftButton", "")
-            name = name:gsub(":HOTKEY", "")
-        end
-    end
 
     local button, buttonNumber = name:match("^(.-)(%d+)$")
     if button and tonumber(buttonNumber) and buttonNames[button] then
@@ -723,11 +741,11 @@ local barstosmooth = {
     PlayerFrameManaBar = "player",
     TargetFrameHealthBar = "target",
     TargetFrameManaBar = "target",
-	PetFrameHealthBar = "pet",
+    PetFrameHealthBar = "pet",
     PetFrameManaBar = "pet",
     FocusFrameHealthBar = "focus",
     FocusFrameManaBar = "focus",
-	MainMenuExpBar = "",
+    MainMenuExpBar = "",
     ReputationWatchStatusBar = "",
 }
 
@@ -953,7 +971,7 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
         return
     end
 
-	if UnitIsPlayer(unit) then
+    if UnitIsPlayer(unit) then
         local name = UnitName(unit)
         GameTooltipTextLeft1:SetFormattedText("%s", name)
 
@@ -1002,11 +1020,12 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
     self:Show()
 end)
 
+-- Handling in 2.5.5 EDIT MODE
 -- Change BuffFrame position
-hooksecurefunc("UIParent_UpdateTopFramePositions", function()
-    BuffFrame:ClearAllPoints()
-    BuffFrame:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -180, -13)
-end)
+--hooksecurefunc("UIParent_UpdateTopFramePositions", function()
+--    BuffFrame:ClearAllPoints()
+--    BuffFrame:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -180, -13)
+--end)
 
 -- stop Gladdy from showing nameplates (necessary for the next script)
 -- "Lock Frame" inside Gladdy must be Toggled ON!
@@ -1045,7 +1064,7 @@ local HideNameplateUnits = {
 local ShowNameplatePetIds = {
     ["417"] = true, -- Felhunter
     ["1863"] = true, -- Succubus
-	["185317"] = true, -- Incubus
+    ["185317"] = true, -- Incubus
 }
 
 local classmarkers = {
@@ -1145,7 +1164,7 @@ local function plateOnUpdateFrame()
 end
 
 
--- PlaySound whenever an enemy casts Tremor Totem inside arena (this is unnecessary overcomplicated due to being backported from clASSic where totems dont disappear instantly upon destroying them)
+-- PlaySound whenever an enemy casts Tremor Totem inside arena
 local COMBATLOG_FILTER_HOSTILE_PLAYERS = COMBATLOG_FILTER_HOSTILE_PLAYERS;
 local CombatLog_Object_IsA = CombatLog_Object_IsA
 local eventRegistered = {
@@ -1297,7 +1316,9 @@ for _, v in pairs({ TargetFrameSpellBar, FocusFrameSpellBar }) do
                 if not name then
                     name = UnitChannelInfo(self.unit)
                 end
-                if not name then return end
+                if not name then
+                    return
+                end
                 local r, g, b = getSpellColor(name)
                 self:SetStatusBarColor(r, g, b)
             end
@@ -1323,6 +1344,9 @@ local function AddPlates(unit)
         nameplate:RegisterEvent("PLAYER_TARGET_CHANGED")
         nameplate:HookScript("OnEvent", function(self, event)
             if event == "PLAYER_TARGET_CHANGED" then
+                if not self.UnitFrame then
+                    return
+                end
                 if UnitIsUnit("target", self.UnitFrame.unit) then
                     texture:SetTexture("Interface\\Addons\\TextureScript\\Nameplate-Border-Target-Highlight")
                 elseif UnitName(self.UnitFrame.unit) == "Tremor Totem" then
@@ -1341,7 +1365,9 @@ local function AddPlates(unit)
                 if not name then
                     name = UnitChannelInfo(self.unit)
                 end
-                if not name then return end
+                if not name then
+                    return
+                end
                 local r, g, b = getSpellColor(name)
                 self:SetStatusBarColor(r, g, b)
             end
@@ -1363,22 +1389,6 @@ local function AddPlates(unit)
 
     -- Class icon on friendly plates in arena, WRATH??
     local _, unitClass = UnitClass(unit)
-
-    local name = nameplate.UnitFrame.name
-    if name then
-        if UnitIsPlayer(unit) then
-            local classColor = CUSTOM_CLASS_COLORS[unitClass]
-            if classColor then
-                name:SetTextColor(classColor.r, classColor.g, classColor.b)
-                -- Color HealthBar
-                hb.healthBar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-            else
-                name:SetTextColor(1, 1, 1)
-            end
-        else
-            name:SetTextColor(1, 1, 1)
-        end
-    end
 
     if UnitIsPlayer(unit) and UnitIsFriend("player", unit) and not UnitIsEnemy("player", unit) and inArena then
         if not nameplate.UnitFrame.texture then
@@ -1446,6 +1456,65 @@ local function RemovePlate(unit)
     end
 end
 
+hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
+    if not string.find(frame.unit, "nameplate") or frame:IsForbidden() then
+        return
+    end
+
+    local unit = frame.unit
+    local name = frame.name
+    local _, unitClass = UnitClass(unit)
+
+    if name and unitClass then
+        if UnitIsPlayer(unit) then
+            local classColor = CUSTOM_CLASS_COLORS[unitClass]
+            if classColor then
+                name:SetTextColor(classColor.r, classColor.g, classColor.b)
+            else
+                name:SetTextColor(1, 1, 1)
+            end
+        else
+            name:SetTextColor(1, 1, 1)
+        end
+    end
+end)
+
+hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
+    if not string.find(frame.unit, "nameplate") or frame:IsForbidden() then
+        return
+    end
+
+    local unit = frame.unit
+    local name = frame.name
+    local _, unitClass = UnitClass(unit)
+
+    if name and unitClass then
+        if UnitIsPlayer(unit) then
+            local classColor = CUSTOM_CLASS_COLORS[unitClass]
+            if classColor then
+                name:SetTextColor(classColor.r, classColor.g, classColor.b)
+            else
+                name:SetTextColor(1, 1, 1)
+            end
+        else
+            name:SetTextColor(1, 1, 1)
+        end
+    end
+end)
+
+hooksecurefunc("CompactUnitFrame_UpdateHealthColor", function(frame)
+    if not frame.unit or frame:IsForbidden() or not string.find(frame.unit, "nameplate") then
+        return
+    end
+
+    if UnitIsConnected(frame.unit) and UnitIsPlayer(frame.unit) then
+        local _, class = UnitClass(frame.unit)
+        local c = CUSTOM_CLASS_COLORS[class]
+        if c then
+            frame.healthBar:SetStatusBarColor(c.r, c.g, c.b)
+        end
+    end
+end)
 
 -- Since we disabled macro & keybind text above, there is no way to tell when target is too far to cast on, so adding this mechanic instead... (colouring action bar buttons that are out of range & out of mana to be casted...)
 local IsActionInRange = IsActionInRange
@@ -1468,7 +1537,9 @@ local function Usable(button)
 end
 
 hooksecurefunc("ActionButton_UpdateRangeIndicator", function(self)
-    if not self.action then return end
+    if not self.action then
+        return
+    end
 
     local _, oom = IsUsableAction(self.action)
     local valid = IsActionInRange(self.action);
@@ -1498,14 +1569,14 @@ end)
 
 -- Remove debuffs from Target of Target frame
 for _, totFrame in ipairs({ TargetFrameToT, FocusFrameToT }) do
-    totFrame:HookScript("OnShow", function()
-        for i = 1, 4 do
-            local dbf = _G[totFrame:GetName() .. "Debuff" .. i]
-            if dbf and dbf:GetAlpha() > 0 then
-                dbf:SetAlpha(0)
-            end
+    -- totFrame:HookScript("OnShow", function()
+    for i = 1, 4 do
+        local dbf = _G[totFrame:GetName() .. "Debuff" .. i]
+        if dbf and dbf:GetAlpha() > 0 then
+            dbf:SetAlpha(0)
         end
-    end)
+    end
+    --  end)
 end
 
 -- Change position of widget showing below minimap
@@ -1654,15 +1725,16 @@ end)
 teamRatingFrame:RegisterEvent("UPDATE_BATTLEFIELD_SCORE")
 teamRatingFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
+-- There doesnt seem to be any animation on 2.5.5 (just keeping it in here in case this shit comes back...)
 -- Removing the flashing animation of coooldown finish at action bars
-for k, v in pairs(_G) do
-    if type(v) == "table" and type(v.SetDrawBling) == "function" then
-        v:SetDrawBling(false)
-    end
-end
-hooksecurefunc(getmetatable(ActionButton1Cooldown).__index, 'SetCooldown', function(self)
-    self:SetDrawBling(false)
-end)
+--for k, v in pairs(_G) do
+--    if type(v) == "table" and type(v.SetDrawBling) == "function" then
+--        v:SetDrawBling(false)
+--    end
+--end
+--hooksecurefunc(getmetatable(ActionButton1Cooldown).__index, 'SetCooldown', function(self)
+--    self:SetDrawBling(false)
+--end)
 
 -- Distinguish r1 debuffs from the full-rank ones
 local pinkSpells = {
@@ -1680,6 +1752,51 @@ local function Evolve_Auras(self)
     end
 end
 hooksecurefunc(DebuffFrame, "Update", Evolve_Auras)
+
+
+--Action bar buttons are now bigger, better looking and also fixes spellbook/wep switch bugging of dark theme [CHATGPT Fix 2.5.5]
+local bars = {
+    "Action", "MultiBarBottomLeft", "MultiBarBottomRight",
+    "MultiBarLeft", "MultiBarRight", "Stance", "PetAction", "BonusAction"
+}
+
+for _, bar in ipairs(bars) do
+    for i = 1, 12 do
+        local btnName = bar .. "Button" .. i
+        local button = _G[btnName]
+        if button then
+            -- Fix icon tex coords
+            local icon = _G[btnName .. "Icon"]
+            if icon then
+                icon:SetTexCoord(0.06, 0.94, 0.06, 0.94)
+            end
+
+            -- Fix NormalTexture color
+            if button:GetNormalTexture() then
+                button:GetNormalTexture():SetVertexColor(1, 1, 1, 1)
+            end
+        end
+    end
+end
+
+-- PetActionButtons are only 10
+for i = 1, 10 do
+    local button = _G["PetActionButton"..i]
+    if button then
+        local icon = _G["PetActionButton"..i.."Icon"]
+        if icon then
+            icon:SetTexCoord(0.06, 0.94, 0.06, 0.94)
+        end
+        if button:GetNormalTexture() then
+            button:GetNormalTexture():SetVertexColor(1, 1, 1, 1)
+        end
+    end
+end
+
+
+
+
+
 
 
 local evolvedFrame = CreateFrame("Frame")
@@ -1753,34 +1870,52 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
 end)
 
 
--- TODO: fix fade macro
 
--- classic cancer to fix the healing on VE party members: /console floatingCombatTextCombatHealing 0
--- ^^ yea idk... dogshit gayme
+--Hiding some 2.5.5 shit that requires event handling (Google Gemini, fuck ChatGPT xd)
+local HideOnLoadFrame = CreateFrame("Frame")
+HideOnLoadFrame:RegisterEvent("PLAYER_LOGIN")
+
+HideOnLoadFrame:SetScript("OnEvent", function(self, event)
+    if event == "PLAYER_LOGIN" then
+        -- Stop listening immediately
+        self:UnregisterEvent("PLAYER_LOGIN")
+        self:SetScript("OnEvent", nil)
+
+        -- Execute the hide commands after a slight delay (0.5 seconds).
+        -- This is necessary for dynamic frames like LFGMinimapFrame.
+        C_Timer.After(0.5, function()
+            -- Hide the Chat Frame Menu Button
+            if ChatFrameMenuButton then
+                ChatFrameMenuButton:Hide()
+            end
+			-- Hide the Chat Channel Button
+			if ChatFrameChannelButton then
+				ChatFrameChannelButton:Hide()
+			end
+			-- Hide the Friends button next to chat
+			if FriendsMicroButton then
+				FriendsMicroButton:Hide()
+			end
+            -- Hide the Looking For Group (LFG) Minimap Button container
+            if LFGMinimapFrame then
+                LFGMinimapFrame:Hide()
+            end
+        end)
+    end
+end)
+
 
 -- Temporary way to disable the dogshit cata spellqueue they brought to tbc instead of using the proper Retail TBC one that bypasses GCD: /console SpellQueueWindow 0
 -- ^^ current value: 130 (100+ latency)
 
 -- trying to remove the cancer weather that is not part of the video settings as it used to be in 2.4.3: /console set weatherdensity 0 // /console WeatherDensity 0
 
--- trying to reduce the view distance (maybe reduces fps drops?) because this dragonshit client doesnt even allow you to change it in interface options: /run SetCVar("farclip", 0)
-
 -- Disable the ability to scroll chat with mouse wheel (fucks binds with the mouse-wheel-up/down): /console chatMouseScroll 0
-
--- FUCK BLIZZARD, garbage company:
--- https://eu.forums.blizzard.com/en/wow/t/lf-a-blizzard-response-all-talents-that-reduce-spell-resists-in-pvp-no-longer-works-since-phase-2/320188
--- https://us.forums.blizzard.com/en/wow/t/all-talents-that-reduce-spell-resists-in-pvp-no-longer-works-since-phase-2/1114096/5
-
 
 
 COMBAT_TEXT_RESIST = "FUCK BLIZZARD"
 
 --Login message informing all scripts of this file were properly executed
 ChatFrame1:AddMessage("EvolvePWPUI-ClassicTBC-Anniversary v0.1 Loaded successfully!", 0, 205, 255)
-ChatFrame1:AddMessage("Check for updates at:", 153, 0, 0)
-ChatFrame1:AddMessage("https://github.com/Evolvee/EvolvePWPUI-ClassicTBC-Anniversary", 153, 0, 0)
-
-
--- trying to remove the cancer weather that is not part of the video settings as it used to be in 2.4.3: /console set weatherdensity 0 // /console WeatherDensity 0
-
--- Disable the ability to scroll chat with mouse wheel (fucks binds with the mouse-wheel-up/down): /console chatMouseScroll 0
+ChatFrame1:AddMessage("Check for updates at:", 89, 89, 89)
+ChatFrame1:AddMessage("https://github.com/Evolvee/EvolvePWPUI-ClassicTBC-Anniversary", 89, 89, 89)
