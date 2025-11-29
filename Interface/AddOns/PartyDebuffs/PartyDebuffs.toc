@@ -1,0 +1,4 @@
+## Interface: 30300
+## Title: PartyDebuffs
+## Author: Xyz, Evolve edit
+core.lua

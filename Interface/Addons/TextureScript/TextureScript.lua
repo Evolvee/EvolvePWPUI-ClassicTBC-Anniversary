@@ -118,7 +118,10 @@ local cvars = {
     showPartyPets = "0",
 	UnitNameFriendlySpecialNPCName = "0",
     UnitNameHostleNPC = "0",
-    UnitNameInteractiveNPC = "0"
+    UnitNameInteractiveNPC = "0",
+	-- nameplates always focused (prevent fading/graying-out nonselected nameplates)
+	nameplateSelectedAlpha = "1",
+	nameplateNotSelectedAlpha = "1"
 }
 
 local function CustomCvar()
@@ -291,10 +294,11 @@ local function OnInit()
     select(1, TimeManagerClockButton:GetRegions()):SetVertexColor(0, 0, 0)
 
     -- Position
+	-- Handling in the EDIT MODE (2.5.5)
     FocusFrame:StopMovingOrSizing()
-    FocusFrame:ClearAllPoints()
-    FocusFrame:SetPoint("CENTER", UIParent, "CENTER", -237, 115)
-    FocusFrame:SetUserPlaced(true)
+    --FocusFrame:ClearAllPoints()
+    --FocusFrame:SetPoint("CENTER", UIParent, "CENTER", -237, 115)
+    --FocusFrame:SetUserPlaced(true)
     FocusFrame:SetAttribute("*type2", "target") -- right click target focus
 
     -- ToT texture closing the alpha gap (previously handled by ClassPortraits itself)
@@ -311,7 +315,7 @@ local function OnInit()
     TargetFrameHealthBar:SetWidth(116)
     TargetFrameHealthBar:SetHeight(30)
     TargetFrameHealthBar:SetPoint("TOPRIGHT", -92, -25)
-    TargetFrameTextureFrameName:SetPoint("CENTER", -30, 35)
+    TargetFrameTextureFrameName:SetPoint("CENTER", -33, 32)
     TargetFrameHealthBar.TextString:SetPoint("CENTER", -35, 8)
     TargetFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 16, "OUTLINE")
     TargetFrameManaBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 10, "OUTLINE")
@@ -319,7 +323,7 @@ local function OnInit()
     FocusFrameHealthBar:SetWidth(116)
     FocusFrameHealthBar:SetHeight(30)
     FocusFrameHealthBar:SetPoint("TOPRIGHT", -92, -25)
-    FocusFrameTextureFrameName:SetPoint("CENTER", -30, 35)
+    FocusFrameTextureFrameName:SetPoint("CENTER", -33, 32)
     FocusFrameHealthBar.TextString:SetPoint("CENTER", -35, 8)
     FocusFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 16, "OUTLINE")
     FocusFrameManaBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 10, "OUTLINE")
