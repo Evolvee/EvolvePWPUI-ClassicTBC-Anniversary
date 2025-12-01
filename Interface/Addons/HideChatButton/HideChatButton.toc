@@ -1,6 +1,0 @@
-## Interface: 30300
-## Author: Backport by Evolve, Xyz
-## Notes: Left-bottom button to hide/show chat.
-## Version: 3.4.0.45572 (3.3.5a)
-## Title: HideChatButton
-HideChatButton.lua

@@ -1,7 +1,0 @@
-<Bindings>
-   <Binding name="Toggle Chat Visibility" runOnUp="true" header="HIDECHATBUTTON">
-      if ( keystate == "down" ) then
-         HCBframe.ToggleVisible();
-      end
-   </Binding>
-</Bindings>
