@@ -1,8 +1,0 @@
-## Interface: 30300
-## Title: DeBuffFilter
-## Version: v4.8 (3.3.5a TBC)
-## Author: Xyz, Asuri, Evolve
-## SavedVariables: DeBuffFilterDB
-
-Embeds.xml
-DeBuffFilter.lua

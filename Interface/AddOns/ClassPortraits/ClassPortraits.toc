@@ -1,5 +1,0 @@
-## Interface: 30300
-## Title: ClassPortraits
-## Notes: Clown Fiesta
-## Author: Schaka, Pyralis, Evolve, Xyz
-ClassPortraits.lua
