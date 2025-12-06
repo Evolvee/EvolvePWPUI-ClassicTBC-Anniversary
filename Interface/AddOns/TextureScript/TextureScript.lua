@@ -60,9 +60,10 @@ local function DarkenFrames(addon)
 		SecondaryStatusTrackingBarContainer.StandaloneFrameTexture5,
 		PlayerStatFrameLeftDropdown.Background,
 		PlayerStatFrameRightDropdown.Background,
-		PetActionBar.BackgroundArt1,
-		PetActionBar.BackgroundArt2,
+		--PetActionBar.BackgroundArt1,
+		--PetActionBar.BackgroundArt2,
         --CastingBarFrameBorder,
+		TargetFrameToTTextureFrameTexture,
         MiniMapBattlefieldBorder,
         --FocusFrameSpellBarBorder,
         --CastingBarBorder,
@@ -190,9 +191,9 @@ local function PlayerFrameArt()
     PlayerFrameHealthBar:SetWidth(118)
     PlayerFrameHealthBar:SetHeight(28)
     PlayerName:SetPoint("CENTER", 50, 35)
-    PlayerFrameHealthBarText:SetPoint("CENTER", 35, 8)
-    PlayerFrameHealthBarText:SetFont("Fonts/FRIZQT__.TTF", 16, "OUTLINE")
-    PlayerFrameManaBarText:SetFont("Fonts/FRIZQT__.TTF", 10, "OUTLINE")
+    PlayerFrameHealthBarText:SetPoint("CENTER", 33, 8)
+    PlayerFrameHealthBarText:SetFont("Fonts/FRIZQT__.TTF", 18, "THICKOUTLINE")
+    PlayerFrameManaBarText:SetFont("Fonts/FRIZQT__.TTF", 10, "THICKOUTLINE")
 end
 hooksecurefunc("PlayerFrame_ToPlayerArt", PlayerFrameArt)
 
@@ -201,24 +202,24 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
 
     pFrame:SetScale(1.25)
     pFrame.PartyMemberOverlay.Texture:SetTexture("Interface\\AddOns\\TextureScript\\UI-PartyFrame")
-    pFrame.HealthBar:SetWidth(70)
+    pFrame.HealthBar:SetWidth(72)
     pFrame.HealthBar:SetHeight(18)
     pFrame.ManaBar:SetWidth(72)
     pFrame.ManaBar:SetHeight(10)
-    pFrame.HealthBar:SetPoint("TOPLEFT", 45, -12)
+    pFrame.HealthBar:SetPoint("TOPLEFT", 44.5, -12)
     pFrame.ManaBar:SetPoint("TOPLEFT", 44.5, -31)
 
     pFrame.PartyMemberOverlay.LeaderIcon:SetAlpha(0)
     pFrame.PartyMemberOverlay.MasterIcon:SetAlpha(0)
 
     local healthText = pFrame.healthbar:CreateFontString(nil, "OVERLAY", "GameFontWhite")
-    healthText:SetFont("Fonts/FRIZQT__.TTF", 15, "OUTLINE")
-    healthText:SetPoint("CENTER")
+    healthText:SetFont("Fonts/FRIZQT__.TTF", 15, "THICKOUTLINE")
+    healthText:SetPoint("CENTER", 0, -1)
     healthText:Show()
 
     local manaText = pFrame.manabar:CreateFontString(nil, "OVERLAY", "GameFontWhite")
     manaText:SetFont("Fonts/FRIZQT__.TTF", 9, "OUTLINE")
-    manaText:SetPoint("CENTER")
+    manaText:SetPoint("CENTER", 0, -0.5)
     manaText:Show()
 
     pFrame.healthbar.fontString = healthText
@@ -300,9 +301,6 @@ local function OnInit()
     --FocusFrame:SetUserPlaced(true)
     FocusFrame:SetAttribute("*type2", "target") -- right click target focus
 
-    -- ToT texture closing the alpha gap (previously handled by ClassPortraits itself)
-    TargetFrameToTTextureFrameTexture:SetVertexColor(0, 0, 0)
-
     -- Hide PVP Icon
     PlayerPVPIcon:SetAlpha(0)
     TargetFrameTextureFramePVPIcon:SetAlpha(0)
@@ -315,17 +313,17 @@ local function OnInit()
     TargetFrameHealthBar:SetHeight(30)
     TargetFrameHealthBar:SetPoint("TOPRIGHT", -90.5, -27)
     TargetFrameTextureFrameName:SetPoint("CENTER", -33, 32)
-    TargetFrameHealthBar.TextString:SetPoint("CENTER", -35, 8)
-    TargetFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 16, "OUTLINE")
-    TargetFrameManaBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 10, "OUTLINE")
+    TargetFrameHealthBar.TextString:SetPoint("CENTER", -33, 8)
+    TargetFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 17, "THICKOUTLINE")
+    TargetFrameManaBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 10, "THICKOUTLINE")
 
     FocusFrameHealthBar:SetWidth(118)
     FocusFrameHealthBar:SetHeight(30)
     FocusFrameHealthBar:SetPoint("TOPRIGHT", -90.5, -27)
     FocusFrameTextureFrameName:SetPoint("CENTER", -33, 32)
-    FocusFrameHealthBar.TextString:SetPoint("CENTER", -35, 8)
-    FocusFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 16, "OUTLINE")
-    FocusFrameManaBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 10, "OUTLINE")
+    FocusFrameHealthBar.TextString:SetPoint("CENTER", -33, 8)
+    FocusFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 17, "THICKOUTLINE")
+    FocusFrameManaBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 10, "THICKOUTLINE")
 
     -- Hide Gryphons
     MainMenuBarLeftEndCap:Hide()
@@ -366,10 +364,10 @@ local function OnInit()
     MainMenuMicroButton.PerformanceIndicator:SetAlpha(0)
 
     -- move target of target to the right side in order to allow cleaner vision of buffs/debuffs on a target/focus
-    --TargetFrameToT:ClearAllPoints();
-    --TargetFrameToT:SetPoint("RIGHT", "TargetFrame", "BOTTOMRIGHT", -20, 5);
-    --FocusFrameToT:ClearAllPoints();
-    --FocusFrameToT:SetPoint("RIGHT", "FocusFrame", "BOTTOMRIGHT", -20, 5);
+    TargetFrameToT:ClearAllPoints();
+    TargetFrameToT:SetPoint("RIGHT", "TargetFrame", "BOTTOMRIGHT", -5, 3);
+    FocusFrameToT:ClearAllPoints();
+    FocusFrameToT:SetPoint("RIGHT", "FocusFrame", "BOTTOMRIGHT", -5, 3);
 
     --disable mouseover flashing on buttons
     for i = 1, 12 do
@@ -473,8 +471,13 @@ local function OnInit()
         _G["MultiBarBottomLeftButton" .. i .. "Name"]:SetAlpha(0)
         _G["MultiBarRightButton" .. i .. "Name"]:SetAlpha(0)
         _G["MultiBarLeftButton" .. i .. "Name"]:SetAlpha(0)
+		_G["MultiBar5Button" .. i .. "Name"]:SetAlpha(0)
     end
 end
+	-- Hide	Macro & Keybind texts from Pet Action Bar (only has 10 slots)
+	for i = 1, 10 do
+        _G["PetActionButton" .. i .. "HotKey"]:SetAlpha(0)
+    end
 
 -- SpeedyActions level: Garage clicker & Pro Gaymer
 local wahkFrames = {}
@@ -644,16 +647,16 @@ hooksecurefunc("GuildStatus_Update", ColorGuildTabs)
 
 -- Pet Frame
 hooksecurefunc(PetFrame, "Update", function()
-    PetFrameHealthBar:SetWidth(70)
+    PetFrameHealthBar:SetWidth(72)
     PetFrameHealthBar:SetHeight(18)
-    PetFrameManaBar:SetWidth(71)
-    PetFrameManaBar:SetHeight(10)
-    PetFrameHealthBar:SetPoint("TOPLEFT", 45, -14)
+    PetFrameManaBar:SetWidth(72)
+    PetFrameManaBar:SetHeight(11)
+    PetFrameHealthBar:SetPoint("TOPLEFT", 44, -13)
     PetFrameHealthBarText:SetPoint("CENTER", 19, 4)
     PetFrameHealthBarText:SetFont("Fonts/FRIZQT__.TTF", 14, "OUTLINE")
     PetFrameManaBarText:SetPoint("CENTER", 19, -10)
     PetFrameManaBarText:SetFont("Fonts/FRIZQT__.TTF", 9, "OUTLINE")
-    PetFrameManaBar:SetPoint("TOPLEFT", 45, -32)
+    PetFrameManaBar:SetPoint("TOPLEFT", 44, -31)
 end)
 
 -- Hidden Player glow combat/rested flashes + Hidden Focus Flash on Focused Target + Hiding the red glowing status on target/focus frames when they have low HP
@@ -745,8 +748,9 @@ local barstosmooth = {
     PlayerFrameManaBar = "player",
     TargetFrameHealthBar = "target",
     TargetFrameManaBar = "target",
-    PetFrameHealthBar = "pet",
-    PetFrameManaBar = "pet",
+	-- Causes taints:
+    --PetFrameHealthBar = "pet",
+    --PetFrameManaBar = "pet",
     FocusFrameHealthBar = "focus",
     FocusFrameManaBar = "focus",
     MainMenuExpBar = "",
@@ -951,7 +955,7 @@ manager:HookScript("OnEnter", function(self)
 end)
 
 manager:HookScript("OnLeave", function(self)
-    if manager.collapsed and not FindParent(GetMouseFocus(), self) then
+    if manager.collapsed and not FindParent(GetMouseFoci()[1], self) then
         self:SetAlpha(0)
     end
 end)
@@ -1021,6 +1025,10 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
             end
         end
     end
+	-- moving the tooltip frame due to dogshit blizzard fucking up positions of random frames once again
+	local xOffset, yOffset = -110, 110
+    self:ClearAllPoints()
+    self:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", xOffset, yOffset)
     self:Show()
 end)
 
@@ -1469,8 +1477,13 @@ hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
     local name = frame.name
     local _, unitClass = UnitClass(unit)
 
-    if name and unitClass then
-        if UnitIsPlayer(unit) then
+    if name then
+        -- Add outline to the font
+        local font, size, _ = name:GetFont()
+        name:SetFont(font, size, "THICKOUTLINE") -- "OUTLINE" / "THICKOUTLINE" (subject to testing)
+
+        -- Set text color based on class
+        if unitClass and UnitIsPlayer(unit) then
             local classColor = CUSTOM_CLASS_COLORS[unitClass]
             if classColor then
                 name:SetTextColor(classColor.r, classColor.g, classColor.b)
@@ -1483,28 +1496,6 @@ hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
     end
 end)
 
-hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
-    if not string.find(frame.unit, "nameplate") or frame:IsForbidden() then
-        return
-    end
-
-    local unit = frame.unit
-    local name = frame.name
-    local _, unitClass = UnitClass(unit)
-
-    if name and unitClass then
-        if UnitIsPlayer(unit) then
-            local classColor = CUSTOM_CLASS_COLORS[unitClass]
-            if classColor then
-                name:SetTextColor(classColor.r, classColor.g, classColor.b)
-            else
-                name:SetTextColor(1, 1, 1)
-            end
-        else
-            name:SetTextColor(1, 1, 1)
-        end
-    end
-end)
 
 hooksecurefunc("CompactUnitFrame_UpdateHealthColor", function(frame)
     if not frame.unit or frame:IsForbidden() or not string.find(frame.unit, "nameplate") then
@@ -1801,7 +1792,30 @@ for i = 1, 10 do
     end
 end
 
+-- Move the Target,Focus and ToT names slightly & change the text formating/size/outlines and shit
+local function StyleUnitName(frame, offsetX, offsetY)
+    if not frame or not frame.name or not frame.portrait then return end
 
+    local nameText = frame.name
+    local font, size = nameText:GetFont()
+
+    nameText:SetFont(font, size + 1, "THICKOUTLINE")
+
+    nameText:ClearAllPoints()
+    nameText:SetPoint("LEFT", frame.portrait, "RIGHT", offsetX or -0.5, offsetY or -16)
+end
+
+-- Target-of-Target
+StyleUnitName(TargetFrameToT, -0.5, -16)
+
+-- Focus Target-of-Target
+StyleUnitName(FocusFrameToT, -0.5, -16)
+
+-- Target frame
+StyleUnitName(TargetFrame, -173, 30)
+
+-- Focus frame
+StyleUnitName(FocusFrame, -173, 30)
 
 
 

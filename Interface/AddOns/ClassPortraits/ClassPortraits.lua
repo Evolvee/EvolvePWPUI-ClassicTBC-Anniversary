@@ -3,19 +3,44 @@ local ClassPortraits=CreateFrame("Frame", nil, UIParent)
 
 local iconPath="Interface\\Addons\\ClassPortraits\\DO NOT STEAL THIS PLS.BLP"
 
+-- TARGET
 local TargetToTPortrait = TargetFrameToT:CreateTexture(nil, "ARTWORK")
-TargetToTPortrait:SetSize(TargetFrameToT.portrait:GetSize())
-for i=1, TargetFrameToT.portrait:GetNumPoints() do
-	TargetToTPortrait:SetPoint(TargetFrameToT.portrait:GetPoint(i))
-end
+local w, h = TargetFrameToT.portrait:GetSize()
+TargetToTPortrait:SetSize(w * 1.13, h * 1.13)   -- 13% bigger
+TargetToTPortrait:ClearAllPoints()
+TargetToTPortrait:SetPoint("CENTER", TargetFrameToT, "CENTER", -22.5, -0.5)
+
 local lastTargetToTGuid = nil
 
+-- non player TARGET TOT handling
+local basePortrait = TargetFrameToT.portrait
+local bw, bh = basePortrait:GetSize()
+basePortrait:SetSize(bw * 1.13, bh * 1.13)  -- 13% bigger
+basePortrait:ClearAllPoints()
+basePortrait:SetPoint("CENTER", TargetFrameToT, "CENTER", -22.5, -0.5)
+
+-- FOCUS
 local FocusToTPortrait = FocusFrameToT:CreateTexture(nil, "ARTWORK")
-FocusToTPortrait:SetSize(FocusFrameToT.portrait:GetSize())
-for i=1, FocusFrameToT.portrait:GetNumPoints() do
-	FocusToTPortrait:SetPoint(FocusFrameToT.portrait:GetPoint(i))
-end
+local fw, fh = FocusFrameToT.portrait:GetSize()
+FocusToTPortrait:SetSize(fw * 1.13, fh * 1.13)  -- 13% bigger
+FocusToTPortrait:ClearAllPoints()
+FocusToTPortrait:SetPoint("CENTER", FocusFrameToT, "CENTER", -22.5, -0.5)
+
 local lastFocusToTGuid = nil
+
+-- non player FOCUS TOT handling
+local baseFocusPortrait = FocusFrameToT.portrait
+local bw2, bh2 = baseFocusPortrait:GetSize()
+baseFocusPortrait:SetSize(bw2 * 1.13, bh2 * 1.13) -- 13% bigger
+baseFocusPortrait:ClearAllPoints()
+baseFocusPortrait:SetPoint("CENTER", FocusFrameToT, "CENTER", -22.5, -0.5)
+
+-- PET PORTRAIT FRAME (due to the new slimmer frames, we have to adjust the position of pet texture as well... otherwise theres blank alpha space inbetween the circle and NPC texture)
+local petPortrait = PetFrame.portrait
+local w, h = petPortrait:GetSize()
+petPortrait:SetSize(w * 1.1, h * 1.1)
+petPortrait:ClearAllPoints()
+petPortrait:SetPoint("CENTER", PetFrame, "CENTER", -39, 0)
 
 local function UpdatePortrait(texture, unit)
    if not texture or not texture.SetTexture then return end  -- <-- ChatGPT FIX
