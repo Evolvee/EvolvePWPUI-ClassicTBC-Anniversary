@@ -1817,7 +1817,27 @@ StyleUnitName(TargetFrame, -173, 30)
 -- Focus frame
 StyleUnitName(FocusFrame, -173, 30)
 
-
+-- Auto open/close minimap when entering/leaving BGs (chatGPT)
+local f = CreateFrame("Frame")
+local function UpdateBattleMapVisibility()
+local _, instanceType = IsInInstance()
+	if instanceType == "pvp" then
+		if not BattlefieldMinimap then
+		ToggleBattlefieldMinimap() -- Load it first if it hasn't been loaded yet
+		end
+	if BattlefieldMinimap then
+		BattlefieldMinimap:Show()
+	end
+else
+	if BattlefieldMinimap then
+		BattlefieldMinimap:Hide()
+	end
+end
+end
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function()
+C_Timer.After(1, UpdateBattleMapVisibility)
+end)
 
 
 

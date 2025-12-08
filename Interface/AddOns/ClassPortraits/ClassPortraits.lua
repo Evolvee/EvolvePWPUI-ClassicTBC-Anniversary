@@ -239,7 +239,6 @@ end
 -- Try to hook immediately for frames that may already exist
 if SpellBookFrame then HookPortraitForFrame(SpellBookFrame) end
 if QuestLogFrame then HookPortraitForFrame(QuestLogFrame) end
-if QuestFrame then HookPortraitForFrame(QuestFrame) end
 if FriendsFrame then HookPortraitForFrame(FriendsFrame) end
 
 -- also wait for addon load events for Blizzard UI pieces that create those frames
@@ -251,7 +250,6 @@ loader:SetScript("OnEvent", function(self, _, addon)
     end
     if addon == "Blizzard_QuestLog" or addon == "Blizzard_QuestFrame" or addon == "Blizzard_QuestUI" then
         if QuestLogFrame then HookPortraitForFrame(QuestLogFrame) end
-        if QuestFrame then HookPortraitForFrame(QuestFrame) end
     end
     if addon == "Blizzard_SocialUI" or addon == "Blizzard_Friends" then
         if FriendsFrame then HookPortraitForFrame(FriendsFrame) end
