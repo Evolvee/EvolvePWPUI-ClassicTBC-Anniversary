@@ -42,6 +42,111 @@ petPortrait:SetSize(w * 1.1, h * 1.1)
 petPortrait:ClearAllPoints()
 petPortrait:SetPoint("CENTER", PetFrame, "CENTER", -39, 0)
 
+-- PARTY FRAME PORTRAITS (TBC Classic 2.5.5 Modern UI)
+
+-- 1. Helper to safely find a portrait texture on any frame
+local function GetPortraitFromFrame(frame)
+    if not frame then return nil end
+
+    -- Check 1: Does it have a .Portrait key?
+    if frame.Portrait then return frame.Portrait end
+
+    -- Check 2: Does it have a global name? (e.g. PartyMemberFrame1Portrait)
+    if frame.GetName then
+        local name = frame:GetName()
+        if name then
+            local globalPortrait = _G[name.."Portrait"]
+            if globalPortrait then return globalPortrait end
+        end
+    end
+
+    -- Check 3: Scan regions (Backup for anonymous frames)
+    if frame.GetRegions then
+        local regions = { frame:GetRegions() }
+        for _, region in ipairs(regions) do
+            if region and region.GetObjectType and region:GetObjectType() == "Texture" then
+                -- Usually the portrait is the first texture, or we can check texture path if needed
+                -- For simple unit frames, the first texture is often the portrait or background.
+                -- We'll assume if we are calling this on a UnitFrame, the first texture is relevant.
+                return region 
+            end
+        end
+    end
+    return nil
+end
+
+-- 2. Define the logic to force the position
+local function EnforcePortraitPosition(portrait, parent)
+    if not portrait or not parent then return end
+    
+    -- Recursion Guard
+    if portrait.cpIsMoving then return end
+    
+    portrait.cpIsMoving = true
+    portrait:ClearAllPoints()
+    portrait:SetPoint("CENTER", parent, "CENTER", -40.5, 1)
+    portrait.cpIsMoving = false
+end
+
+-- 3. Initialize a specific party frame
+local function InitPartyPortrait(frame)
+    if not frame then return end
+    
+    -- Use our safe helper instead of assuming GetName() exists
+    local portrait = GetPortraitFromFrame(frame)
+    
+    if portrait then
+        -- A. Apply Scale (Only once)
+        if not portrait.cpScaled then
+            local w, h = portrait:GetSize()
+            -- Safety check to ensure we aren't scaling a tiny 0x0 texture
+            if w and w > 1 then 
+                portrait:SetSize(w * 1.05, h * 1.05)
+                portrait.cpScaled = true
+                
+                -- B. Hook SetPoint to prevent resetting
+                hooksecurefunc(portrait, "SetPoint", function()
+                    EnforcePortraitPosition(portrait, frame)
+                end)
+            end
+        end
+        
+        -- C. Force position immediately
+        EnforcePortraitPosition(portrait, frame)
+    end
+end
+
+-- 4. Scanner
+local function AdjustModernPartyPortraits()
+    -- Check child frames (Modern)
+    if PartyFrame then
+        for i = 1, PartyFrame:GetNumChildren() do
+            local child = select(i, PartyFrame:GetChildren())
+            -- Only process if it looks like a frame
+            if child and child.IsObjectType and child:IsObjectType("Frame") then
+                InitPartyPortrait(child)
+            end
+        end
+    end
+    
+    -- Check globals (Classic)
+    for i = 1, 4 do
+        local frame = _G["PartyMemberFrame"..i]
+        if frame then InitPartyPortrait(frame) end
+    end
+end
+
+-- 5. Events
+local partyLoader = CreateFrame("Frame")
+partyLoader:RegisterEvent("PLAYER_LOGIN")
+partyLoader:RegisterEvent("GROUP_ROSTER_UPDATE")
+partyLoader:RegisterEvent("PLAYER_ENTERING_WORLD")
+partyLoader:SetScript("OnEvent", function()
+    C_Timer.After(0.1, AdjustModernPartyPortraits)
+end)
+
+
+
 local function UpdatePortrait(texture, unit)
    if not texture or not texture.SetTexture then return end  -- <-- ChatGPT FIX
 
@@ -256,12 +361,9 @@ loader:SetScript("OnEvent", function(self, _, addon)
     end
 end)
 
--- PVP frame hook (kept as-is)
-PVPFrame:HookScript("OnShow", function()
-    C_Timer.After(0.01, function() 
-        PVPFramePortrait:SetTexture("Interface\\Addons\\ClassPortraits\\MYSKIN") 
-    end)
-end)
+-- PVP frame hook (Gemini-pilled for 2.5.5)
+PVPFrame:HookScript("OnShow", function() C_Timer.After(0.01, function() if PVPFramePortrait then
+PVPFramePortrait:SetTexture("Interface\\Addons\\ClassPortraits\\MYSKIN") end end) end)
 
 -- LFD doesnt exist in TBC (left commented)
 --LFDParentFrame:HookScript("OnShow", function()

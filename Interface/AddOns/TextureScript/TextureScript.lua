@@ -1579,13 +1579,18 @@ for _, totFrame in ipairs({ TargetFrameToT, FocusFrameToT }) do
 end
 
 -- Change position of widget showing below minimap
-local widget = _G["UIWidgetBelowMinimapContainerFrame"]
-hooksecurefunc(widget, "SetPoint", function(self, _, parent)
-    if parent and (parent == "MinimapCluster" or parent == _G["MinimapCluster"]) then
+local WIDGET_FRAME_NAME = "UIWidgetBelowMinimapContainerFrame"
+local widget = _G[WIDGET_FRAME_NAME]
+local addonFrame = CreateFrame("Frame")
+-- Function to handle the frame repositioning
+local function MoveWidget()
+    if widget and _G["MinimapCluster"] then
+        --Clear existing anchors
         widget:ClearAllPoints()
-        widget:SetPoint("TOPRIGHT", UIWidgetTopCenterContainerFrame, "BOTTOMRIGHT", 580, -345)
+        -- Anchor the TOPRIGHT of your widget to the TOPRIGHT of the Minimap
+        widget:SetPoint("TOPLEFT", _G["MinimapCluster"], "BOTTOMLEFT", -150, -320)
     end
-end)
+end
 
 -- copy pasting features from wotlk classic
 
@@ -1817,27 +1822,6 @@ StyleUnitName(TargetFrame, -173, 30)
 -- Focus frame
 StyleUnitName(FocusFrame, -173, 30)
 
--- Auto open/close minimap when entering/leaving BGs (chatGPT)
-local f = CreateFrame("Frame")
-local function UpdateBattleMapVisibility()
-local _, instanceType = IsInInstance()
-	if instanceType == "pvp" then
-		if not BattlefieldMinimap then
-		ToggleBattlefieldMinimap() -- Load it first if it hasn't been loaded yet
-		end
-	if BattlefieldMinimap then
-		BattlefieldMinimap:Show()
-	end
-else
-	if BattlefieldMinimap then
-		BattlefieldMinimap:Hide()
-	end
-end
-end
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent", function()
-C_Timer.After(1, UpdateBattleMapVisibility)
-end)
 
 
 
@@ -1857,6 +1841,7 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
         SetSmooth() -- SmoothBar init
         hooksecurefunc("CompactUnitFrame_UpdateName", PlateNames) -- has to be called after event
         UpdateBinds(self)
+		MoveWidget() -- UIWidgetBelowMinimapContainerFrame
 	-- tullarange thingy
 		hooksecurefunc("ActionButton_UpdateRangeIndicator", EvolveRange)
 		ActionBarButtonUpdateFrame:SetScript("OnUpdate", nil)
