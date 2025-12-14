@@ -1,7 +1,8 @@
-## Interface: 30300
+## Interface: 20505
 ## Author: Evolve, Xyz, Pyralis
 ## Title: |cff69ccf0EvolvePWPUI - ClassicTBC - Anniversary|r
 ## Notes: Evolve PWP UI for Classic TBC Anniversary
 ## IconTexture: Interface\AddOns\TextureScript\icon
+## Category: Evolve PWP UI
 
 TextureScript.lua

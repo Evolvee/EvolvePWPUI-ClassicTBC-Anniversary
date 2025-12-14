@@ -113,6 +113,7 @@ local cvars = {
     Sound_EnableDSPEffects = "0",
     nameplateShowFriendlyNPCs = "0",
     nameplateShowFriendlyMinions = "0",
+	nameplateShowEnemyMinions = "1", -- needed for our nameplate filtering aparently? otherwise no pets show up (felhunter)
     nameplateShowFriendlyPets = "0",
     nameplateShowFriendlyTotems = "0",
     showPartyPets = "0",
@@ -200,7 +201,10 @@ hooksecurefunc("PlayerFrame_ToPlayerArt", PlayerFrameArt)
 -- Create PartyMemberFrame StatusText
 for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
 
-    pFrame:SetScale(1.25)
+    pFrame.Background:SetHeight(30)
+	pFrame.Background:SetWidth(71)
+    pFrame.Background:SetPoint("TOPLEFT", pFrame, "TOPLEFT", 45, -13)
+	pFrame:SetScale(1.25)
     pFrame.PartyMemberOverlay.Texture:SetTexture("Interface\\AddOns\\TextureScript\\UI-PartyFrame")
     pFrame.HealthBar:SetWidth(72)
     pFrame.HealthBar:SetHeight(18)
@@ -458,20 +462,37 @@ local function OnInit()
     end
 
     -- Hide	Macro & Keybind texts from Action Bar buttons
-    for i = 1, 12 do
-        _G["ActionButton" .. i .. "HotKey"]:SetAlpha(0)
-        _G["MultiBarBottomRightButton" .. i .. "HotKey"]:SetAlpha(0)
-        _G["MultiBarBottomLeftButton" .. i .. "HotKey"]:SetAlpha(0)
-        _G["MultiBarRightButton" .. i .. "HotKey"]:SetAlpha(0)
-        _G["MultiBarLeftButton" .. i .. "HotKey"]:SetAlpha(0)
-    end
-    for i = 1, 12 do
-        _G["ActionButton" .. i .. "Name"]:SetAlpha(0)
-        _G["MultiBarBottomRightButton" .. i .. "Name"]:SetAlpha(0)
-        _G["MultiBarBottomLeftButton" .. i .. "Name"]:SetAlpha(0)
-        _G["MultiBarRightButton" .. i .. "Name"]:SetAlpha(0)
-        _G["MultiBarLeftButton" .. i .. "Name"]:SetAlpha(0)
-		_G["MultiBar5Button" .. i .. "Name"]:SetAlpha(0)
+    local buttonPrefixes = {
+        "ActionButton",
+        "MultiBarBottomRightButton",
+        "MultiBarBottomLeftButton",
+        "MultiBarRightButton",
+        "MultiBarLeftButton",
+		"MultiBar5Button",
+        "PetActionButton",
+    }
+
+    for _, prefix in ipairs(buttonPrefixes) do
+        for i = 1, 12 do
+            local button = _G[prefix .. i]
+            if button then
+                if button.HotKey then
+                    button.HotKey:SetAlpha(0)
+                end
+
+                if button.Name then
+                    button.Name:SetAlpha(0)
+                end
+
+                if button.Border then
+                    button.Border:AddMaskTexture(button.IconMask) -- fk blizz
+                end
+
+                if button.SlotBackground then
+                    button.SlotBackground:SetAlpha(0)
+                end
+            end
+        end
     end
 end
 	-- Hide	Macro & Keybind texts from Pet Action Bar (only has 10 slots)
@@ -762,7 +783,7 @@ local smoothing = {}
 local inArena
 
 local function AnimationTick()
-    local limit = 30 / GetFramerate()
+    local limit = 60 / GetFramerate()
 
     for bar, value in pairs(smoothing) do
         local cur = bar:GetValue()
@@ -1078,7 +1099,7 @@ local ShowNameplatePetIds = {
     ["1863"] = true, -- Succubus
     ["185317"] = true, -- Incubus
 }
-
+-- Adding class icons on party members inside arena for more clarity where teammates are positioned
 local classmarkers = {
     ["ROGUE"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Rogue",
     ["PRIEST"] = "Interface\\AddOns\\TextureScript\\PartyIcons\\Priest",
@@ -1145,21 +1166,7 @@ local function HandleNewNameplate(nameplate, unit)
     elseif name == "Ebon Gargoyle" then
         local texture = (nameplate.UnitFrame.HealthBarsContainer.border:GetRegions())
         texture:SetTexture("Interface/Addons/TextureScript/Nameplate-Border-GARGOYLE.blp")
-    elseif UnitIsUnit(unit, "pet") and (name == "Shadowfiend" or name == "Water Elemental") then
-        local texture = (nameplate.UnitFrame.HealthBarsContainer.border:GetRegions())
-        if not nameplate.UnitFrame.texture then
-            nameplate.UnitFrame.texture = nameplate.UnitFrame:CreateTexture(nil, "OVERLAY")
-            nameplate.UnitFrame.texture:SetSize(30, 30)
-            nameplate.UnitFrame.texture:SetPoint("CENTER", nameplate.UnitFrame, "CENTER", 0, 20)
-            nameplate.UnitFrame.texture:Hide()
         end
-        if name == "Shadowfiend" then
-            nameplate.UnitFrame.texture:SetTexture(classmarkers["Shadowfiend"])
-        elseif name == "Water Elemental" then
-            nameplate.UnitFrame.texture:SetTexture(classmarkers["Elemental"])
-        end
-        nameplate.UnitFrame.texture:Show()
-    end
 end
 
 local function plateOnUpdateFrame()
@@ -1239,8 +1246,7 @@ local function PlateScript()
     end
 end
 
--- Adding class icons on party members inside arena for more clarity where teammates are positioned
-
+-- Custom colored Target & Focus Castbar
 local spellColors = {
     --Mage
     ["Frostbolt"] = { r = 0, g = 0.67, b = 1 },
@@ -1312,7 +1318,6 @@ local function getSpellColor(spellName)
     end
 end
 
--- Custom colored Target & Focus Castbar
 for _, v in pairs({ TargetFrameSpellBar, FocusFrameSpellBar }) do
     if v then
         v:HookScript("OnUpdate", function(self, elapsed)
@@ -1335,6 +1340,62 @@ for _, v in pairs({ TargetFrameSpellBar, FocusFrameSpellBar }) do
                 self:SetStatusBarColor(r, g, b)
             end
         end)
+    end
+end
+
+local function ClassIcons(nameplate, unit)
+    local _, unitClass = UnitClass(unit)
+    local name = UnitName(unit)
+
+    if (UnitIsPlayer(unit) and UnitIsFriend("player", unit) and not UnitIsEnemy("player", unit)) or (UnitIsUnit(unit, "pet") and name and (name == "Shadowfiend" or name == "Water Elemental")) then
+        if not nameplate.UnitFrame.texture then
+            nameplate.UnitFrame.texture = nameplate.UnitFrame:CreateTexture(nil, "OVERLAY")
+            nameplate.UnitFrame.texture:SetSize(40, 40)
+            nameplate.UnitFrame.texture:SetPoint("CENTER", nameplate.UnitFrame, "CENTER", 0, 20)
+            nameplate.UnitFrame.texture:Hide()
+        end
+        if name == "Shadowfiend" then
+            unitClass = "Shadowfiend"
+        elseif name == "Water Elemental" then
+            unitClass = "Elemental"
+        end
+        if unitClass then
+            nameplate.UnitFrame.texture:SetTexture(classmarkers[unitClass])
+            if not nameplate.UnitFrame.texture:IsShown() then
+                nameplate.UnitFrame.texture:Show()
+            end
+        end
+        if nameplate.UnitFrame.name:GetAlpha() > 0 then
+            nameplate.UnitFrame.name:SetAlpha(0)
+        end
+        if nameplate.UnitFrame.HealthBarsContainer:GetAlpha() > 0 then
+            nameplate.UnitFrame.HealthBarsContainer:SetAlpha(0)
+        end
+        if nameplate.UnitFrame.LevelFrame:GetAlpha() > 0 then
+            nameplate.UnitFrame.LevelFrame:SetAlpha(0)
+        end
+        if nameplate.UnitFrame.selectionHighlight:GetAlpha() > 0 then
+            nameplate.UnitFrame.selectionHighlight:SetAlpha(0)
+        end
+        if nameplate.UnitFrame.RaidTargetFrame:GetAlpha() > 0 then
+            nameplate.UnitFrame.RaidTargetFrame:SetAlpha(0)
+        end
+    else
+        if nameplate.UnitFrame.texture then
+            nameplate.UnitFrame.texture:Hide()
+        end
+        if nameplate.UnitFrame.name:GetAlpha() < 1 then
+            nameplate.UnitFrame.name:SetAlpha(1)
+        end
+        if nameplate.UnitFrame.HealthBarsContainer:GetAlpha() < 1 then
+            nameplate.UnitFrame.HealthBarsContainer:SetAlpha(1)
+        end
+        if nameplate.UnitFrame.LevelFrame:GetAlpha() < 1 then
+            nameplate.UnitFrame.LevelFrame:SetAlpha(1)
+        end
+        if nameplate.UnitFrame.RaidTargetFrame:GetAlpha() < 1 then
+            nameplate.UnitFrame.RaidTargetFrame:SetAlpha(1)
+        end
     end
 end
 
@@ -1395,55 +1456,12 @@ local function AddPlates(unit)
 
     -- make the selection highlight a tiny bit smaller
     local sh = nameplate.UnitFrame.selectionHighlight
-    sh:ClearAllPoints()
-    sh:SetPoint("TOPLEFT", sh:GetParent(), "TOPLEFT", 1, -1)
-    sh:SetPoint("BOTTOMRIGHT", sh:GetParent(), "BOTTOMRIGHT", -1, 1)
+    --sh:ClearAllPoints()
+    --sh:SetPoint("TOPLEFT", sh:GetParent(), "TOPLEFT", 1, -1)
+    --sh:SetPoint("BOTTOMRIGHT", sh:GetParent(), "BOTTOMRIGHT", -1, 1)
+    sh:SetAlpha(0)
 
-    -- Class icon on friendly plates in arena, WRATH??
-    local _, unitClass = UnitClass(unit)
-
-    if UnitIsPlayer(unit) and UnitIsFriend("player", unit) and not UnitIsEnemy("player", unit) and inArena then
-        if not nameplate.UnitFrame.texture then
-            nameplate.UnitFrame.texture = nameplate.UnitFrame:CreateTexture(nil, "OVERLAY")
-            nameplate.UnitFrame.texture:SetSize(40, 40)
-            nameplate.UnitFrame.texture:SetPoint("CENTER", nameplate.UnitFrame, "CENTER", 0, 20)
-            nameplate.UnitFrame.texture:Hide()
-        end
-        if unitClass then
-            nameplate.UnitFrame.texture:SetTexture(classmarkers[unitClass])
-            if not nameplate.UnitFrame.texture:IsShown() then
-                nameplate.UnitFrame.texture:Show()
-            end
-        end
-        if nameplate.UnitFrame.name:GetAlpha() > 0 then
-            nameplate.UnitFrame.name:SetAlpha(0)
-        end
-        if nameplate.UnitFrame.HealthBarsContainer:GetAlpha() > 0 then
-            nameplate.UnitFrame.HealthBarsContainer:SetAlpha(0)
-        end
-        if nameplate.UnitFrame.LevelFrame:GetAlpha() > 0 then
-            nameplate.UnitFrame.LevelFrame:SetAlpha(0)
-        end
-        if nameplate.UnitFrame.selectionHighlight:GetAlpha() > 0 then
-            nameplate.UnitFrame.selectionHighlight:SetAlpha(0)
-        end
-    else
-        if nameplate.UnitFrame.texture then
-            nameplate.UnitFrame.texture:Hide()
-        end
-        if nameplate.UnitFrame.name:GetAlpha() < 1 then
-            nameplate.UnitFrame.name:SetAlpha(1)
-        end
-        if nameplate.UnitFrame.HealthBarsContainer:GetAlpha() < 1 then
-            nameplate.UnitFrame.HealthBarsContainer:SetAlpha(1)
-        end
-        if nameplate.UnitFrame.LevelFrame:GetAlpha() < 1 then
-            nameplate.UnitFrame.LevelFrame:SetAlpha(1)
-        end
-        if nameplate.UnitFrame.selectionHighlight:GetAlpha() == 0 then
-            nameplate.UnitFrame.selectionHighlight:SetAlpha(0.25)
-        end
-    end
+    ClassIcons(nameplate, unit)
 
     -- This is needed to restore scale due to the ShrinkPlates
     if nameplate.UnitFrame:GetScale() < 1.0 then
@@ -1512,52 +1530,42 @@ hooksecurefunc("CompactUnitFrame_UpdateHealthColor", function(frame)
 end)
 
 -- Since we disabled macro & keybind text above, there is no way to tell when target is too far to cast on, so adding this mechanic instead... (colouring action bar buttons that are out of range & out of mana to be casted...)
+-- Requires no #showtooltip in the macro (dogshit 2.5.5 client piss of shit)
 local IsActionInRange = IsActionInRange
 local IsUsableAction = IsUsableAction
 
-local function Usable(button)
-    local isUsable, notEnoughMana = IsUsableAction(button.action)
-    local icon = button.icon
-
-    if isUsable then
-        icon:SetVertexColor(1.0, 1.0, 1.0, 1.0)
-        icon:SetDesaturated(false)
-    elseif notEnoughMana then
-        icon:SetVertexColor(0.3, 0.3, 0.3, 1.0)
-        icon:SetDesaturated(true)
-    else
-        icon:SetVertexColor(0.4, 0.4, 0.4, 1.0)
-        icon:SetDesaturated(true)
-    end
-end
-
--- ===========================================
---     NEW NAMED FUNCTION (was anonymous)
--- ===========================================
 local function EvolveRange(self)
     if not self.action then
         return
     end
 
-    local _, oom = IsUsableAction(self.action)
-    local valid = IsActionInRange(self.action)
-    local checksRange = (valid ~= nil)
-    local inRange = checksRange and valid
-
-    if self.HotKey and self.HotKey:GetText() == RANGE_INDICATOR then
-        self.HotKey:Hide()
+    local icon = self.icon
+    if not icon then
+        return
     end
 
-    if checksRange and not inRange then
-        if oom then
-            self.icon:SetVertexColor(0.3, 0.3, 0.3, 1.0)
-            self.icon:SetDesaturated(true)
+    local inRange = IsActionInRange(self.action)
+    local isUsable, notEnoughMana = IsUsableAction(self.action)
+
+    if inRange == false then
+        if notEnoughMana then
+            icon:SetVertexColor(0.3, 0.3, 0.3, 1.0)
+            icon:SetDesaturated(false)
         else
-            self.icon:SetVertexColor(1.0, 0.35, 0.35, 0.75)
-            self.icon:SetDesaturated(true)
+            icon:SetVertexColor(1.0, 0.35, 0.35, 0.75)
+            icon:SetDesaturated(true)
         end
     else
-        Usable(self)
+        if isUsable then
+            icon:SetVertexColor(1.0, 1.0, 1.0, 1.0)
+            icon:SetDesaturated(false)
+        elseif notEnoughMana then
+            icon:SetVertexColor(0.3, 0.3, 0.3, 1.0)
+            icon:SetDesaturated(true)
+        else
+            icon:SetVertexColor(0.4, 0.4, 0.4, 1.0)
+            icon:SetDesaturated(true)
+        end
     end
 
     -- Fix disappearing black borders
@@ -1842,13 +1850,14 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
         hooksecurefunc("CompactUnitFrame_UpdateName", PlateNames) -- has to be called after event
         UpdateBinds(self)
 		MoveWidget() -- UIWidgetBelowMinimapContainerFrame
-	-- tullarange thingy
-		hooksecurefunc("ActionButton_UpdateRangeIndicator", EvolveRange)
+	-- EvolveRange thingy
 		ActionBarButtonUpdateFrame:SetScript("OnUpdate", nil)
-        for btn in pairs(ActionBarButtonUpdateFrame.frames) do
-			btn:HookScript("OnUpdate", EvolveRange)
-        end
-	-- end of tullrange thingy
+        ActionBarButtonEventsFrame:HookScript("OnUpdate", function(self)
+            for _, btn in pairs(self.frames) do
+                EvolveRange(btn)
+            end
+        end)
+	-- end of EvolveRange thingy
 	-- Hiding some 2.5.5 shit that requires event handling
 		C_Timer.After(0.5, function()
             -- Hide the Chat Frame Menu Button
@@ -1925,6 +1934,18 @@ end)
 
 
 
+--for testing fps
+local holder = CreateFrame("Frame", "FPSHolder", UIParent)
+holder:SetSize(60, 20)
+holder:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -680, -720)
+holder:EnableMouse(true)
+holder:SetMovable(true)
+holder:RegisterForDrag("LeftButton")
+holder:SetScript("OnDragStart", holder.StartMoving)
+holder:SetScript("OnDragStop", holder.StopMovingOrSizing)
+
+FramerateLabel:ClearAllPoints()
+FramerateLabel:SetPoint("CENTER", holder, "CENTER")
 
 
 -- Temporary way to disable the dogshit cata spellqueue they brought to tbc instead of using the proper Retail TBC one that bypasses GCD: /console SpellQueueWindow 0
