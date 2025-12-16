@@ -1,5 +1,6 @@
-## Interface: 30300
+## Interface: 20505
 ## Title: ClassPortraits
 ## Notes: Clown Fiesta
-## Author: Schaka, Pyralis, Evolve, Xyz
+## Category: Evolve PWP UI
+## Author: Xyz, Evolve, Pyralis
 ClassPortraits.lua

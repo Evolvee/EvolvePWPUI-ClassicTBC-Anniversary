@@ -1,5 +1,8 @@
 # Changelog
 
+## 110
+- TBC Era support
+
 ## 109
 - Version update
 

@@ -23439,6 +23439,17 @@ WeakAuras.ModelPaths = {
    {
     children = {
      {
+      fileId = "6996898",
+      text = "mechasabermount.m2",
+      value = "mechasabermount.m2",
+     },
+    },
+    text = "mechasabermount",
+    value = "mechasabermount",
+   },
+   {
+    children = {
+     {
       fileId = "124865",
       text = "gnomemechastrider.m2",
       value = "gnomemechastrider.m2",
@@ -25280,6 +25291,28 @@ WeakAuras.ModelPaths = {
     },
     text = "netherray",
     value = "netherray",
+   },
+   {
+    children = {
+     {
+      fileId = "7275517",
+      text = "netherwingmount.m2",
+      value = "netherwingmount.m2",
+     },
+    },
+    text = "netherwingmount",
+    value = "netherwingmount",
+   },
+   {
+    children = {
+     {
+      fileId = "7276845",
+      text = "netherwingpet.m2",
+      value = "netherwingpet.m2",
+     },
+    },
+    text = "netherwingpet",
+    value = "netherwingpet",
    },
    {
     children = {
@@ -34082,6 +34115,17 @@ WeakAuras.ModelPaths = {
     },
     text = "steamtonk",
     value = "steamtonk",
+   },
+   {
+    children = {
+     {
+      fileId = "7259723",
+      text = "steelsabermount.m2",
+      value = "steelsabermount.m2",
+     },
+    },
+    text = "steelsabermount",
+    value = "steelsabermount",
    },
    {
     children = {
@@ -59028,6 +59072,16 @@ WeakAuras.ModelPaths = {
         value = "chest_leather_raiddruid_r_01_ed_m.m2",
        },
        {
+        fileId = "6852923",
+        text = "chest_leather_raiddruidethereal_d_01_ed_f.m2",
+        value = "chest_leather_raiddruidethereal_d_01_ed_f.m2",
+       },
+       {
+        fileId = "6852924",
+        text = "chest_leather_raiddruidethereal_d_01_ed_m.m2",
+        value = "chest_leather_raiddruidethereal_d_01_ed_m.m2",
+       },
+       {
         fileId = "5424494",
         text = "chest_leather_raiddruidnerubian_d_01_be_f.m2",
         value = "chest_leather_raiddruidnerubian_d_01_be_f.m2",
@@ -67428,16 +67482,6 @@ WeakAuras.ModelPaths = {
         value = "cloth_raidpriestethereal_d_01_dw_m.m2",
        },
        {
-        fileId = "6785418",
-        text = "cloth_raidpriestethereal_d_01_ed_f.m2",
-        value = "cloth_raidpriestethereal_d_01_ed_f.m2",
-       },
-       {
-        fileId = "6785417",
-        text = "cloth_raidpriestethereal_d_01_ed_m.m2",
-        value = "cloth_raidpriestethereal_d_01_ed_m.m2",
-       },
-       {
         fileId = "6121908",
         text = "cloth_raidpriestethereal_d_01_gn_f.m2",
         value = "cloth_raidpriestethereal_d_01_gn_f.m2",
@@ -68931,16 +68975,6 @@ WeakAuras.ModelPaths = {
         fileId = "6122010",
         text = "cloth_raidwarlockethereal_d_01_dw_m.m2",
         value = "cloth_raidwarlockethereal_d_01_dw_m.m2",
-       },
-       {
-        fileId = "6852800",
-        text = "cloth_raidwarlockethereal_d_01_ed_f.m2",
-        value = "cloth_raidwarlockethereal_d_01_ed_f.m2",
-       },
-       {
-        fileId = "6852799",
-        text = "cloth_raidwarlockethereal_d_01_ed_m.m2",
-        value = "cloth_raidwarlockethereal_d_01_ed_m.m2",
        },
        {
         fileId = "6122013",
@@ -106268,16 +106302,6 @@ WeakAuras.ModelPaths = {
         value = "leather_raiddruidethereal_d_01_dw_m.m2",
        },
        {
-        fileId = "6852923",
-        text = "leather_raiddruidethereal_d_01_ed_f.m2",
-        value = "leather_raiddruidethereal_d_01_ed_f.m2",
-       },
-       {
-        fileId = "6852924",
-        text = "leather_raiddruidethereal_d_01_ed_m.m2",
-        value = "leather_raiddruidethereal_d_01_ed_m.m2",
-       },
-       {
         fileId = "6121698",
         text = "leather_raiddruidethereal_d_01_gn_f.m2",
         value = "leather_raiddruidethereal_d_01_gn_f.m2",
@@ -120776,6 +120800,26 @@ WeakAuras.ModelPaths = {
         fileId = "4994859",
         text = "robe_cloth_raidpriestemerald_d_01_za_m.m2",
         value = "robe_cloth_raidpriestemerald_d_01_za_m.m2",
+       },
+       {
+        fileId = "6785418",
+        text = "robe_cloth_raidpriestethereal_d_01_ed_f.m2",
+        value = "robe_cloth_raidpriestethereal_d_01_ed_f.m2",
+       },
+       {
+        fileId = "6785417",
+        text = "robe_cloth_raidpriestethereal_d_01_ed_m.m2",
+        value = "robe_cloth_raidpriestethereal_d_01_ed_m.m2",
+       },
+       {
+        fileId = "6852800",
+        text = "robe_cloth_raidwarlockethereal_d_01_ed_f.m2",
+        value = "robe_cloth_raidwarlockethereal_d_01_ed_f.m2",
+       },
+       {
+        fileId = "6852799",
+        text = "robe_cloth_raidwarlockethereal_d_01_ed_m.m2",
+        value = "robe_cloth_raidwarlockethereal_d_01_ed_m.m2",
        },
        {
         fileId = "5686708",
@@ -308708,11 +308752,6 @@ WeakAuras.ModelPaths = {
         value = "shoulder_plate_zuldazarraidmythic_d_01_r.m2",
        },
        {
-        fileId = "4498018",
-        text = "shoulder_primalist_l.m2",
-        value = "shoulder_primalist_l.m2",
-       },
-       {
         fileId = "5424415",
         text = "shoulder_raiddeathknightnerubian_d_01_l.m2",
         value = "shoulder_raiddeathknightnerubian_d_01_l.m2",
@@ -316413,6 +316452,11 @@ WeakAuras.ModelPaths = {
         fileId = "2060600",
         text = "hand_1h_piratehook_b_01.m2",
         value = "hand_1h_piratehook_b_01.m2",
+       },
+       {
+        fileId = "4498018",
+        text = "hand_1h_primalistraid_d_01.m2",
+        value = "hand_1h_primalistraid_d_01.m2",
        },
        {
         fileId = "304828",
@@ -330806,61 +330850,6 @@ WeakAuras.ModelPaths = {
      {
       children = {
        {
-        fileId = "6927669",
-        text = "6927669.m2",
-        value = "6927669.m2",
-       },
-      },
-      text = "unk_exp10_6927669",
-      value = "unk_exp10_6927669",
-     },
-     {
-      children = {
-       {
-        fileId = "6996898",
-        text = "6996898.m2",
-        value = "6996898.m2",
-       },
-      },
-      text = "unk_exp10_6996898",
-      value = "unk_exp10_6996898",
-     },
-     {
-      children = {
-       {
-        fileId = "7259723",
-        text = "7259723.m2",
-        value = "7259723.m2",
-       },
-      },
-      text = "unk_exp10_7259723",
-      value = "unk_exp10_7259723",
-     },
-     {
-      children = {
-       {
-        fileId = "7275517",
-        text = "7275517.m2",
-        value = "7275517.m2",
-       },
-      },
-      text = "unk_exp10_7275517",
-      value = "unk_exp10_7275517",
-     },
-     {
-      children = {
-       {
-        fileId = "7276845",
-        text = "7276845.m2",
-        value = "7276845.m2",
-       },
-      },
-      text = "unk_exp10_7276845",
-      value = "unk_exp10_7276845",
-     },
-     {
-      children = {
-       {
         fileId = "7336488",
         text = "7336488.m2",
         value = "7336488.m2",
@@ -335733,17 +335722,6 @@ WeakAuras.ModelPaths = {
       text = "unk_exp10_7301967",
       value = "unk_exp10_7301967",
      },
-     {
-      children = {
-       {
-        fileId = "7301968",
-        text = "7301968.m2",
-        value = "7301968.m2",
-       },
-      },
-      text = "unk_exp10_7301968",
-      value = "unk_exp10_7301968",
-     },
     },
     text = "unknown",
     value = "unknown",
@@ -336146,6 +336124,17 @@ WeakAuras.ModelPaths = {
      {
       children = {
        {
+        fileId = "6927669",
+        text = "6927669.m2",
+        value = "6927669.m2",
+       },
+      },
+      text = "unk_exp10_6927669",
+      value = "unk_exp10_6927669",
+     },
+     {
+      children = {
+       {
         fileId = "6927674",
         text = "6927674.m2",
         value = "6927674.m2",
@@ -336219,6 +336208,17 @@ WeakAuras.ModelPaths = {
       },
       text = "unk_exp10_7235001",
       value = "unk_exp10_7235001",
+     },
+     {
+      children = {
+       {
+        fileId = "7301968",
+        text = "7301968.m2",
+        value = "7301968.m2",
+       },
+      },
+      text = "unk_exp10_7301968",
+      value = "unk_exp10_7301968",
      },
      {
       children = {

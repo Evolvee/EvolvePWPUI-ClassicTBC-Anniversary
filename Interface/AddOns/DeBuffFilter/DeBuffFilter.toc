@@ -1,8 +1,12 @@
-## Interface: 30300
+## Interface: 20505
 ## Title: DeBuffFilter
-## Version: v4.8 (3.3.5a TBC)
-## Author: Xyz, Asuri, Evolve
+## Version: v5.3
+## Notes: discord.gg/CtxPasSQnQ
+## Author: Xyz, Asuri (bugs, jk)
 ## SavedVariables: DeBuffFilterDB
+## IconTexture: Interface\AddOns\DeBuffFilter\icon
 
 Embeds.xml
+Options.lua
 DeBuffFilter.lua
+BuffFrame.lua

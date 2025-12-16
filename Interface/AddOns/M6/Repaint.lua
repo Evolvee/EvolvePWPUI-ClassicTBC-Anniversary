@@ -1,6 +1,6 @@
 local COMPAT, _, T = select(4, GetBuildInfo()), ...
 local EV, MC = T.Evie, T.M6Core
-local MODERN = COMPAT >= 10e4
+local MODERN = ActionBarActionButtonMixin ~= nil
 if not (EV and MC) then return end
 
 local watcherOnUpdate, watcherMarkAllUpdated
@@ -115,6 +115,7 @@ local ShowOverlayGlow, HideOverlayGlow do
 			clear[k] = nil
 		end
 	end
+	if type(ActionButton_HideOverlayGlow) == "function" then
 	hooksecurefunc("ActionButton_HideOverlayGlow", function(self)
 		if assigned[self] then
 			clear[self] = 1
@@ -124,6 +125,7 @@ local ShowOverlayGlow, HideOverlayGlow do
 			end
 		end
 	end)
+end
 end
 
 local cv_noCountdownForCooldowns do
@@ -460,11 +462,18 @@ if MODERN then
 	hooksecurefunc(ActionBarActionButtonMixin, "OnUpdate", queueFromOnUpdate)
 	hooksecurefunc(ActionBarActionButtonMixin, "UpdateState", cueButtonRepaint)
 	hooksecurefunc(ActionBarActionButtonMixin, "UpdateUsable", cueButtonRepaint)
-else -- not MODERN
-	hooksecurefunc("ActionButton_OnUpdate", queueFromOnUpdate)
-	hooksecurefunc("ActionButton_UpdateState", cueButtonRepaint)
-	hooksecurefunc("ActionButton_UpdateUsable", cueButtonRepaint)
+else -- legacy clients only
+	if type(ActionButton_OnUpdate) == "function" then
+		hooksecurefunc("ActionButton_OnUpdate", queueFromOnUpdate)
+	end
+	if type(ActionButton_UpdateState) == "function" then
+		hooksecurefunc("ActionButton_UpdateState", cueButtonRepaint)
+	end
+	if type(ActionButton_UpdateUsable) == "function" then
+		hooksecurefunc("ActionButton_UpdateUsable", cueButtonRepaint)
+	end
 end
+
 
 do -- Cursor Icons
 	local oldMacro, oldIcon, ignoreUpdates

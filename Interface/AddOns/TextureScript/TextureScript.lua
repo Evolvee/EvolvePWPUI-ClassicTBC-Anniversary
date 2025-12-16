@@ -210,7 +210,7 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
     pFrame.HealthBar:SetHeight(18)
     pFrame.ManaBar:SetWidth(72)
     pFrame.ManaBar:SetHeight(10)
-    pFrame.HealthBar:SetPoint("TOPLEFT", 44.5, -12)
+    pFrame.HealthBar:SetPoint("TOPLEFT", 44.5, -13)
     pFrame.ManaBar:SetPoint("TOPLEFT", 44.5, -31)
 
     pFrame.PartyMemberOverlay.LeaderIcon:SetAlpha(0)
@@ -372,6 +372,9 @@ local function OnInit()
     TargetFrameToT:SetPoint("RIGHT", "TargetFrame", "BOTTOMRIGHT", -5, 3);
     FocusFrameToT:ClearAllPoints();
     FocusFrameToT:SetPoint("RIGHT", "FocusFrame", "BOTTOMRIGHT", -5, 3);
+	
+	-- adjust the ToT background texture (because current Blizzard is a piss of shit company that cant even maintain their OWN fucking UI that somebody else made for them)
+    TargetFrameToTBackground:SetPoint("BOTTOMLEFT", TargetFrameToT, "BOTTOMLEFT", 46, 15)
 
     --disable mouseover flashing on buttons
     for i = 1, 12 do
@@ -679,6 +682,11 @@ hooksecurefunc(PetFrame, "Update", function()
     PetFrameManaBarText:SetFont("Fonts/FRIZQT__.TTF", 9, "OUTLINE")
     PetFrameManaBar:SetPoint("TOPLEFT", 44, -31)
 end)
+-- Creating a brand new pet frame background texture because Blizzard is too dogshit to maintain their own fucking UI and completely missed it
+local PetBG = PetFrame:CreateTexture(nil, "BACKGROUND")
+        PetBG:SetSize(72, 28)
+        PetBG:SetPoint("BOTTOMLEFT", PetFrame, "BOTTOMLEFT", 44, 12)
+        PetBG:SetColorTexture(0, 0, 0, 0.5)
 
 -- Hidden Player glow combat/rested flashes + Hidden Focus Flash on Focused Target + Hiding the red glowing status on target/focus frames when they have low HP
 local playerTextures = { PlayerStatusTexture, PlayerRestGlow, PlayerRestIcon, PlayerAttackIcon, PlayerAttackGlow, PlayerStatusGlow, PlayerAttackBackground }
@@ -1872,10 +1880,6 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
 			if FriendsMicroButton then
 				FriendsMicroButton:Hide()
 			end
-            -- Hide the Looking For Group (LFG) Minimap Button container
-            if LFGMinimapFrame then
-                LFGMinimapFrame:Hide()
-            end
         end)
 	-- end of Hiding some 2.5.5 chat shit
         self:UnregisterEvent("PLAYER_LOGIN")
@@ -1921,6 +1925,10 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
         else
             plateEventFrame:SetScript("OnEvent", PlateScript)
         end
+		-- Hide the Looking For Group (LFG) Minimap Button container
+		if LFGMinimapFrame then
+			LFGMinimapFrame:Hide()
+		end
     elseif event == "GOSSIP_SHOW" then
         skipEventFrame()
     elseif event == "NAME_PLATE_UNIT_ADDED" then

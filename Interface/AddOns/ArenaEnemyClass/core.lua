@@ -126,11 +126,26 @@ local function CreateScaleAnim(group, order, duration, scaleX, scaleY, delay, sm
     end
 end
 
+-- FIX: Updated function to use SetFromAlpha/SetToAlpha instead of SetChange
 local function CreateAlphaAnim(group, order, duration, change, delay, smoothing, endDelay)
     local anim = group:CreateAnimation("Alpha")
     anim:SetOrder(order)
     anim:SetDuration(duration)
-    anim:SetChange(change)
+
+    -- Use SetFromAlpha and SetToAlpha based on 'change'
+    if change > 0 then
+        -- Fading in (e.g., change = 1)
+        anim:SetFromAlpha(0)
+        anim:SetToAlpha(1)
+    elseif change < 0 then
+        -- Fading out (e.g., change = -1)
+        anim:SetFromAlpha(1)
+        anim:SetToAlpha(0)
+    else
+        -- If change is 0, just set start/end to current alpha (fallback)
+        anim:SetFromAlpha(anim:GetParent():GetAlpha() or 1)
+        anim:SetToAlpha(anim:GetParent():GetAlpha() or 1)
+    end
 
     if delay then
         anim:SetStartDelay(delay)
@@ -141,6 +156,8 @@ local function CreateAlphaAnim(group, order, duration, change, delay, smoothing,
     if smoothing then
         anim:SetSmoothing(smoothing)
     end
+    
+    return anim
 end
 
 local AtlasInfo = {
@@ -233,8 +250,6 @@ BannerMiddle.animForAnimIn = BannerMiddle:CreateAnimationGroup()
 BannerTopGlow.animForAnimIn = BannerTopGlow:CreateAnimationGroup()
 BannerBottomGlow.animForAnimIn = BannerBottomGlow:CreateAnimationGroup()
 BannerMiddleGlow.animForAnimIn = BannerMiddleGlow:CreateAnimationGroup()
-ACDNumTwo.animForAnimIn = ACDNumTwo:CreateAnimationGroup()
-ACDNumThree.animForAnimIn = ACDNumThree:CreateAnimationGroup()
 
 -- Order 2 of AnimIn (with order 1 set to 0.15s endDelay)
 CreateAlphaAnim(BannerTop.animForAnimIn, 1, 0, -1, nil, nil, 0.15)
@@ -252,11 +267,44 @@ CreateAlphaAnim(BannerMiddle.animForAnimIn, 2, 0.25, 1, 0.2)
 CreateScaleAnim(BannerMiddle.animForAnimIn, 1, 0, 0.1, 1, 0.15)
 CreateScaleAnim(BannerMiddle.animForAnimIn, 2, 0.3, 10, 1, 0.1)
 
-CreateAlphaAnim(ACDNumTwo.animForAnimIn, 1, 0, -1, 0.25)
-CreateAlphaAnim(ACDNumTwo.animForAnimIn, 2, 0.25, 1)
 
-CreateAlphaAnim(ACDNumThree.animForAnimIn, 1, 0, -1, 0.25)
-CreateAlphaAnim(ACDNumThree.animForAnimIn, 2, 0.25, 1)
+-- FIX: Icon animation groups reset to include only the delayed fade-in AND a long hold animation.
+
+-- ACDNumTwo
+ACDNumTwo.animForAnimIn = ACDNumTwo:CreateAnimationGroup()
+-- Order 1: The actual Fade-In
+local fadeInAnim2 = ACDNumTwo.animForAnimIn:CreateAnimation("Alpha")
+fadeInAnim2:SetOrder(1)
+fadeInAnim2:SetDuration(0.25)
+fadeInAnim2:SetFromAlpha(0)
+fadeInAnim2:SetToAlpha(1)
+fadeInAnim2:SetStartDelay(0.25) -- The original delay
+
+-- Order 2 (NEW): A long "hold" animation to keep alpha at 1 until AnimIn.Stop() is called
+local holdAnim2 = ACDNumTwo.animForAnimIn:CreateAnimation("Alpha")
+holdAnim2:SetOrder(2)
+holdAnim2:SetDuration(100) -- Very long duration
+holdAnim2:SetFromAlpha(1)
+holdAnim2:SetToAlpha(1)
+
+
+-- ACDNumThree
+ACDNumThree.animForAnimIn = ACDNumThree:CreateAnimationGroup()
+-- Order 1: The actual Fade-In
+local fadeInAnim3 = ACDNumThree.animForAnimIn:CreateAnimation("Alpha")
+fadeInAnim3:SetOrder(1)
+fadeInAnim3:SetDuration(0.25)
+fadeInAnim3:SetFromAlpha(0)
+fadeInAnim3:SetToAlpha(1)
+fadeInAnim3:SetStartDelay(0.25) -- The original delay
+
+-- Order 2 (NEW): A long "hold" animation to keep alpha at 1 until AnimIn.Stop() is called
+local holdAnim3 = ACDNumThree.animForAnimIn:CreateAnimation("Alpha")
+holdAnim3:SetOrder(2)
+holdAnim3:SetDuration(100) -- Very long duration
+holdAnim3:SetFromAlpha(1)
+holdAnim3:SetToAlpha(1)
+
 
 CreateAlphaAnim(BannerTopGlow.animForAnimIn, 1, 0, -1, nil, nil, 0.15)
 CreateAlphaAnim(BannerTopGlow.animForAnimIn, 2, 0.25, 1, 0.9)
@@ -323,6 +371,8 @@ local function DetectClass(class1, class2)
     
     if class1 then
         ACDNumTwo:SetTexture(classmarkers[class1])
+        -- FIX: Explicitly set alpha to 0 right before playing the animation group
+        ACDNumTwo:SetAlpha(0)
         ACDNumTwo.animForAnimIn:Stop()
         ACDNumTwo.animForAnimIn:Play()
     else
@@ -331,6 +381,8 @@ local function DetectClass(class1, class2)
     
     if class2 then
         ACDNumThree:SetTexture(classmarkers[class2])
+        -- FIX: Explicitly set alpha to 0 right before playing the animation group
+        ACDNumThree:SetAlpha(0)
         ACDNumThree.animForAnimIn:Stop()
         ACDNumThree.animForAnimIn:Play()
     else

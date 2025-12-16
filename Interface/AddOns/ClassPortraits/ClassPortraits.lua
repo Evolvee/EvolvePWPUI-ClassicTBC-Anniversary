@@ -145,6 +145,17 @@ partyLoader:SetScript("OnEvent", function()
     C_Timer.After(0.1, AdjustModernPartyPortraits)
 end)
 
+-- Core Helper for Scaling up portraits on Character/Spellbook/PVP/talents frame etc.
+local function ScaleUIPortraitOnly(portrait, scale)
+    if not portrait or portrait.cpScaled then return end
+
+    local w, h = portrait:GetSize()
+    if not w or w <= 1 then return end
+
+    portrait:SetSize(w * scale, h * scale)
+    portrait.cpScaled = true
+end
+
 
 
 local function UpdatePortrait(texture, unit)
@@ -234,8 +245,10 @@ end)
 
 -- character sheet frame
 CharacterFrame:HookScript("OnShow", function()
-   UpdatePortrait(CharacterFramePortrait, "player")
+    UpdatePortrait(CharacterFramePortrait, "player")
+    ScaleUIPortraitOnly(CharacterFramePortrait, 1.03)
 end)
+
 
 CharacterFrame:HookScript("OnEvent", function(self, event)
    if event == "UNIT_PORTRAIT_UPDATE" then
@@ -249,16 +262,19 @@ addonLoadEvent:SetScript("OnEvent", function(self, e, addon)
 
    -- talent frame
    if addon == "Blizzard_TalentUI" then
-      hooksecurefunc(PlayerTalentFrame, "updateFunction", function()
-         UpdatePortrait(PlayerTalentFramePortrait, PlayerTalentFrame.unit or "player")
-      end)
-      hooksecurefunc("PlayerTalentFrame_OnEvent", function()
-         if event == "UNIT_PORTRAIT_UPDATE" and UnitIsUnit(arg1, "player") then
+    hooksecurefunc(PlayerTalentFrame, "updateFunction", function()
+        UpdatePortrait(PlayerTalentFramePortrait, PlayerTalentFrame.unit or "player")
+        ScaleUIPortraitOnly(PlayerTalentFramePortrait, 1.02)
+    end)
+    hooksecurefunc("PlayerTalentFrame_OnEvent", function()
+        if event == "UNIT_PORTRAIT_UPDATE" and UnitIsUnit(arg1, "player") then
             UpdatePortrait(PlayerTalentFramePortrait, "player")
-         end
-      end)
-      return
-   end
+            ScaleUIPortraitOnly(PlayerTalentFramePortrait, 1.02)
+        end
+    end)
+    return
+end
+
    -- inspect frame
    if addon == "Blizzard_InspectUI" then
       InspectFrame:HookScript("OnShow", function()

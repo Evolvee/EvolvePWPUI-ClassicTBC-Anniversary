@@ -1,4 +1,4 @@
-local MAJOR, MINOR = "LibDispel-1.0", 20
+local MAJOR, MINOR = "LibDispel-1.0", 21
 assert(LibStub, MAJOR.." requires LibStub")
 
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
@@ -1285,7 +1285,7 @@ do
 
 	local function CheckPetSpells()
 		for spellID in next, WarlockPetSpells do
-			if CheckSpell(spellID, Classic and true or 1) then
+			if CheckSpell(spellID, 1) then
 				return true
 			end
 		end
@@ -1367,7 +1367,8 @@ do
 	local frame = lib.frame
 	frame:SetScript('OnEvent', UpdateDispels)
 	frame:RegisterEvent('CHARACTER_POINTS_CHANGED')
-	frame:RegisterEvent('LEARNED_SPELL_IN_TAB')
+  --Spells changed is enough, also doesnt work on ptr
+	--frame:RegisterEvent('LEARNED_SPELL_IN_TAB')
 	frame:RegisterEvent('SPELLS_CHANGED')
 
 	if not Classic then

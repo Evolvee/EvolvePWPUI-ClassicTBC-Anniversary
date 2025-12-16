@@ -29,13 +29,13 @@ local GetSpellInfo = GetSpellInfo
 
 ---------------------------
 
-local MAJOR, MINOR = "Gladdy", 22
+local MAJOR, MINOR = "Gladdy", 26
 local Gladdy = LibStub:NewLibrary(MAJOR, MINOR)
 local L
 Gladdy.version_major_num = 2
-Gladdy.version_minor_num = 0.53
+Gladdy.version_minor_num = 63
 Gladdy.version_num = Gladdy.version_major_num + Gladdy.version_minor_num
-Gladdy.version_releaseType = RELEASE_TYPES.release
+Gladdy.version_releaseType = RELEASE_TYPES.beta
 Gladdy.version = PREFIX .. string.format("%.2f", Gladdy.version_num) .. "-" .. Gladdy.version_releaseType
 Gladdy.VERSION_REGEX = VERSION_REGEX
 
@@ -355,7 +355,7 @@ function Gladdy:OnInitialize()
         ["arena1"] = { name = "Swift", raceLoc = L["NightElf"], classLoc = L["Druid"], class = "DRUID", health = 67, healthMax = 100, power = 76, powerMax = 100, powerType = 1, testSpec = L["Restoration"], race = "NightElf" },
         ["arena2"] = { name = "Vilden", raceLoc = L["Undead"], classLoc = L["Mage"], class = "MAGE", health = 99, healthMax = 100, power = 7833, powerMax = 10460, powerType = 0, testSpec = L["Frost"], race = "Scourge" },
         ["arena3"] = { name = "Krymu", raceLoc = L["Human"], classLoc = L["Rogue"], class = "ROGUE", health = 10, healthMax = 100, power = 45, powerMax = 110, powerType = 3, testSpec = L["Subtlety"], race = "Human" },
-        ["arena4"] = { name = "Talmon", raceLoc = L["Human"], classLoc = L["Monk"], class = "MONK", health = 40, healthMax = 100, power = 9855, powerMax = 9855, powerType = 0, testSpec = L["Mistweaver"], race = "Human" },
+        ["arena4"] = { name = "Talmon", raceLoc = L["Human"], classLoc = L["Hunter"], class = "HUNTER", health = 40, healthMax = 100, power = 9855, powerMax = 9855, powerType = 1, testSpec = L["Beast Mastery"], race = "Dwarf" },
         ["arena5"] = { name = "Hydra", raceLoc = L["Undead"], classLoc = L["Priest"], class = "PRIEST", health = 70, healthMax = 100, power = 2515, powerMax = 10240, powerType = 0, testSpec = L["Discipline"], race = "Human" },
     }
 
@@ -441,7 +441,6 @@ function Gladdy:GetIconStyles()
         ["Interface\\AddOns\\Gladdy\\Images\\Border_rounded_blp"] = L["Gladdy Tooltip round"],
         ["Interface\\AddOns\\Gladdy\\Images\\Border_squared_blp"] = L["Gladdy Tooltip squared"],
         ["Interface\\AddOns\\Gladdy\\Images\\Border_Gloss"] = L["Gloss (black border)"],
-        ["Interface\\AddOns\\Gladdy\\Images\\HabBorder1"] = L["Habborder"],
     }
 end
 
@@ -656,41 +655,31 @@ end
 
 ---------------------------
 
+local function FrameSetAlpha(frame, alpha)
+    if frame and frame.SetAlpha then
+        frame:SetAlpha(alpha)
+    end
+end
 function Gladdy:BlizzArenaSetAlpha(alpha)
     if IsAddOnLoaded("Blizzard_ArenaUI") then
-        if (ArenaEnemyFrames) then
-            ArenaEnemyFrames:SetAlpha(alpha)
-        end
-        if ArenaEnemyFrame1 then
-            ArenaEnemyFrame1:SetAlpha(alpha)
-        end
-        if ArenaEnemyFrame1PetFrame then
-            ArenaEnemyFrame1PetFrame:SetAlpha(alpha)
-        end
-        if ArenaEnemyFrame2 then
-            ArenaEnemyFrame2:SetAlpha(alpha)
-        end
-        if ArenaEnemyFrame2PetFrame then
-            ArenaEnemyFrame2PetFrame:SetAlpha(alpha)
-        end
-        if ArenaEnemyFrame3 then
-            ArenaEnemyFrame3:SetAlpha(alpha)
-        end
-        if ArenaEnemyFrame3PetFrame then
-            ArenaEnemyFrame3PetFrame:SetAlpha(alpha)
-        end
-        if ArenaEnemyFrame4 then
-            ArenaEnemyFrame4:SetAlpha(alpha)
-        end
-        if ArenaEnemyFrame4PetFrame then
-            ArenaEnemyFrame4PetFrame:SetAlpha(alpha)
-        end
-        if ArenaEnemyFrame5 then
-            ArenaEnemyFrame5:SetAlpha(alpha)
-        end
-        if ArenaEnemyFrame5PetFrame then
-            ArenaEnemyFrame5PetFrame:SetAlpha(alpha)
-        end
+        FrameSetAlpha(ArenaEnemyFrames, alpha)
+        FrameSetAlpha(ArenaEnemyFrame1, alpha)
+        FrameSetAlpha(ArenaEnemyFrame1PetFrame, alpha)
+        FrameSetAlpha(ArenaEnemyFrame2, alpha)
+        FrameSetAlpha(ArenaEnemyFrame2PetFrame, alpha)
+        FrameSetAlpha(ArenaEnemyFrame3, alpha)
+        FrameSetAlpha(ArenaEnemyFrame3PetFrame, alpha)
+        FrameSetAlpha(ArenaEnemyFrame4, alpha)
+        FrameSetAlpha(ArenaEnemyFrame4PetFrame, alpha)
+        FrameSetAlpha(ArenaEnemyFrame5, alpha)
+        FrameSetAlpha(ArenaEnemyFrame5PetFrame, alpha)
+
+        FrameSetAlpha(ArenaPrepFrames, alpha)
+        FrameSetAlpha(ArenaPrepFrame1, alpha)
+        FrameSetAlpha(ArenaPrepFrame2, alpha)
+        FrameSetAlpha(ArenaPrepFrame3, alpha)
+        FrameSetAlpha(ArenaPrepFrame4, alpha)
+        FrameSetAlpha(ArenaPrepFrame5, alpha)
     end
 end
 

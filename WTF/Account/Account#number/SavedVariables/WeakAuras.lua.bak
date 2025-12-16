@@ -1,0 +1,5099 @@
+
+WeakAurasSaved = {
+["dynamicIconCache"] = {
+},
+["editor_tab_spaces"] = 4,
+["displays"] = {
+["Circle Class Frames (TARGET)"] = {
+["controlledChildren"] = {
+"Circle Class Frame [WARLOCK]",
+"Circle Class Frame [MAGE]",
+"Circle Class Frame [DRUID]",
+"Circle Class Frame [WARRIOR]",
+"Circle Class Frame [ROGUE]",
+"Circle Class Frame [HUNTER]",
+"Circle Class Frame [PRIEST]",
+"Circle Class Frame [PALADIN]",
+"Circle Class Frame [SHAMAN]",
+},
+["borderBackdrop"] = "Blizzard Tooltip",
+["authorOptions"] = {
+},
+["preferToUpdate"] = false,
+["yOffset"] = 0,
+["anchorPoint"] = "CENTER",
+["borderColor"] = {
+0,
+0,
+0,
+1,
+},
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["names"] = {
+},
+["type"] = "aura2",
+["spellIds"] = {
+},
+["subeventSuffix"] = "_CAST_START",
+["unit"] = "player",
+["subeventPrefix"] = "SPELL",
+["event"] = "Health",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+},
+["internalVersion"] = 87,
+["animation"] = {
+["start"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["subRegions"] = {
+},
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["backdropColor"] = {
+1,
+1,
+1,
+0.5,
+},
+["source"] = "import",
+["scale"] = 1,
+["border"] = false,
+["borderEdge"] = "Square Full White",
+["regionType"] = "group",
+["borderSize"] = 2,
+["borderOffset"] = 4,
+["groupIcon"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Mage",
+["tocversion"] = 30300,
+["id"] = "Circle Class Frames (TARGET)",
+["selfPoint"] = "CENTER",
+["alpha"] = 1,
+["anchorFrameType"] = "SCREEN",
+["frameStrata"] = 1,
+["config"] = {
+},
+["uid"] = "qZaXlWpR3as",
+["borderInset"] = 1,
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 0,
+},
+["IMMUNE target visual"] = {
+["color"] = {
+1,
+0,
+0.07058823529411765,
+1,
+},
+["preferToUpdate"] = false,
+["yOffset"] = -16.07,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["debuffType"] = "HELPFUL",
+["useName"] = true,
+["useStacks"] = false,
+["useExactSpellId"] = false,
+["useTotal"] = false,
+["matchesShowOn"] = "showOnActive",
+["event"] = "Health",
+["subeventPrefix"] = "SPELL",
+["unitExists"] = false,
+["auranames"] = {
+"Ice Block",
+},
+["spellIds"] = {
+},
+["subeventSuffix"] = "_CAST_START",
+["type"] = "aura2",
+["unit"] = "target",
+["names"] = {
+},
+["useRem"] = false,
+},
+["untrigger"] = {
+},
+},
+{
+["trigger"] = {
+["debuffType"] = "HELPFUL",
+["useName"] = true,
+["useStacks"] = false,
+["subeventSuffix"] = "_CAST_START",
+["useTotal"] = false,
+["matchesShowOn"] = "showOnActive",
+["event"] = "Health",
+["unit"] = "target",
+["unitExists"] = false,
+["auranames"] = {
+"Divine Shield",
+},
+["spellIds"] = {
+},
+["useExactSpellId"] = false,
+["type"] = "aura2",
+["names"] = {
+},
+["subeventPrefix"] = "SPELL",
+["useRem"] = false,
+},
+["untrigger"] = {
+},
+},
+{
+["trigger"] = {
+["debuffType"] = "HELPFUL",
+["useName"] = true,
+["useStacks"] = false,
+["subeventSuffix"] = "_CAST_START",
+["useTotal"] = false,
+["matchesShowOn"] = "showOnActive",
+["event"] = "Health",
+["subeventPrefix"] = "SPELL",
+["unitExists"] = false,
+["auranames"] = {
+"Cloak of Shadows",
+},
+["spellIds"] = {
+},
+["useExactSpellId"] = false,
+["type"] = "aura2",
+["unit"] = "target",
+["names"] = {
+},
+["useRem"] = false,
+},
+["untrigger"] = {
+},
+},
+["disjunctive"] = "any",
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 123,
+["rotate"] = false,
+["load"] = {
+["use_never"] = false,
+["talent"] = {
+["multi"] = {
+[103] = true,
+},
+},
+["use_ignoreNameRealm"] = false,
+["class"] = {
+["single"] = "PRIEST",
+["multi"] = {
+["PRIEST"] = true,
+["PALADIN"] = true,
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "TargetFrame",
+["regionType"] = "texture",
+["blendMode"] = "BLEND",
+["selfPoint"] = "CENTER",
+["texture"] = "Interface\\AddOns\\WeakAuras\\Media\\Textures\\UI-FOCUSFRAME-LARGE-FLASH",
+["authorOptions"] = {
+},
+["desc"] = "IMMUNE target highlight texture... (Bubble, Block, Cloak)",
+["discrete_rotation"] = 0,
+["tocversion"] = 30300,
+["id"] = "IMMUNE target visual",
+["alpha"] = 1,
+["frameStrata"] = 2,
+["anchorFrameType"] = "SELECTFRAME",
+["uid"] = "25IZogHGlrc",
+["config"] = {
+},
+["inverse"] = false,
+["width"] = 255,
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 6.4,
+},
+["HEAL"] = {
+["iconSource"] = 0,
+["parent"] = "Weapon Switches",
+["adjustedMax"] = "",
+["adjustedMin"] = "",
+["yOffset"] = -403.4005842732191,
+["anchorPoint"] = "CENTER",
+["cooldownSwipe"] = true,
+["cooldownEdge"] = false,
+["icon"] = true,
+["triggers"] = {
+{
+["trigger"] = {
+["itemName"] = 33743,
+["type"] = "item",
+["subeventSuffix"] = "_CAST_START",
+["event"] = "Item Equipped",
+["use_genericShowOn"] = true,
+["use_itemName"] = true,
+["names"] = {
+},
+["genericShowOn"] = "showOnCooldown",
+["use_itemSetName"] = false,
+["spellIds"] = {
+},
+["use_inverse"] = false,
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["itemSetName"] = "",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["keepAspectRatio"] = false,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+{
+["type"] = "subborder",
+["border_size"] = 13,
+["border_color"] = {
+0,
+1,
+0.06666666666666667,
+1,
+},
+["border_visible"] = true,
+["border_edge"] = "Gladdy Tooltip round",
+["border_offset"] = 0,
+},
+},
+["height"] = 39.5,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["useAdjustededMax"] = false,
+["config"] = {
+},
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+},
+["finish"] = {
+},
+},
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+},
+["useAdjustededMin"] = false,
+["regionType"] = "icon",
+["progressSource"] = {
+-1,
+"",
+},
+["cooldown"] = false,
+["displayIcon"] = "Interface\\Icons\\Spell_Holy_GreaterHeal",
+["xOffset"] = -560.355630058134,
+["useCooldownModRate"] = true,
+["anchorFrameType"] = "SCREEN",
+["cooldownTextDisabled"] = false,
+["frameStrata"] = 1,
+["tocversion"] = 30300,
+["id"] = "HEAL",
+["authorOptions"] = {
+},
+["alpha"] = 1,
+["width"] = 39.5,
+["zoom"] = 0,
+["uid"] = "3sMuxA7zFAr",
+["inverse"] = false,
+["preferToUpdate"] = false,
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["color"] = {
+0.01176470588235294,
+1,
+0,
+0,
+},
+},
+["DMG"] = {
+["iconSource"] = 0,
+["parent"] = "Weapon Switches",
+["adjustedMax"] = "",
+["adjustedMin"] = "",
+["yOffset"] = -367.4005842732191,
+["anchorPoint"] = "CENTER",
+["cooldownSwipe"] = true,
+["cooldownEdge"] = false,
+["icon"] = true,
+["triggers"] = {
+{
+["trigger"] = {
+["itemName"] = 33763,
+["type"] = "item",
+["subeventSuffix"] = "_CAST_START",
+["unit"] = "player",
+["use_inverse"] = false,
+["use_itemName"] = true,
+["subeventPrefix"] = "SPELL",
+["use_genericShowOn"] = true,
+["use_itemSetName"] = false,
+["spellIds"] = {
+},
+["genericShowOn"] = "showOnCooldown",
+["names"] = {
+},
+["event"] = "Item Equipped",
+["itemSetName"] = "",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["keepAspectRatio"] = false,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+{
+["border_offset"] = 0,
+["type"] = "subborder",
+["border_color"] = {
+1,
+0,
+0.1098039215686275,
+1,
+},
+["border_visible"] = true,
+["border_edge"] = "Gladdy Tooltip round",
+["border_size"] = 13,
+},
+},
+["height"] = 39.5,
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["useAdjustededMax"] = false,
+["uid"] = "SgRlvCFFHuQ",
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+},
+["authorOptions"] = {
+},
+["useAdjustededMin"] = false,
+["regionType"] = "icon",
+["progressSource"] = {
+-1,
+"",
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["conditions"] = {
+},
+["color"] = {
+0.01176470588235294,
+1,
+0,
+0,
+},
+["useCooldownModRate"] = true,
+["width"] = 39.5,
+["cooldownTextDisabled"] = false,
+["alpha"] = 1,
+["tocversion"] = 30300,
+["id"] = "DMG",
+["xOffset"] = -560.355630058134,
+["frameStrata"] = 1,
+["anchorFrameType"] = "SCREEN",
+["zoom"] = 0,
+["config"] = {
+},
+["inverse"] = false,
+["preferToUpdate"] = false,
+["displayIcon"] = "Interface\\Icons\\Spell_Shadow_Shadowform",
+["cooldown"] = false,
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+},
+},
+},
+["Stealth Effect BOTTOM"] = {
+["wagoID"] = "wdib4Sz3Z",
+["parent"] = "Invis additional visual",
+["preferToUpdate"] = false,
+["yOffset"] = -50,
+["anchorPoint"] = "CENTER",
+["url"] = "",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["useName"] = false,
+["useExactSpellId"] = true,
+["event"] = "Health",
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["names"] = {
+},
+["spellIds"] = {
+},
+["auranames"] = {
+"1787",
+"58984",
+"305628",
+"115191",
+},
+["auraspellids"] = {
+"66",
+},
+["subeventSuffix"] = "_CAST_START",
+["type"] = "aura2",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["version"] = 2,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 1100,
+["rotate"] = true,
+["load"] = {
+["use_petbattle"] = false,
+["use_never"] = true,
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["zoneIds"] = "",
+["race"] = {
+["single"] = "NightElf",
+},
+["use_race"] = true,
+["use_spellknown"] = false,
+["class"] = {
+["single"] = "ROGUE",
+["multi"] = {
+["ROGUE"] = true,
+["DRUID"] = true,
+},
+},
+["use_zone"] = false,
+["spellknown"] = 5215,
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMP",
+["source"] = "import",
+["mirror"] = false,
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["frameStrata"] = 2,
+["texture"] = "Interface\\AddOns\\WeakAuras\\Media\\Textures\\6TJ_Polluted_mist_Stormy",
+["xOffset"] = 0,
+["discrete_rotation"] = 0,
+["semver"] = "1.0.1",
+["tocversion"] = 30300,
+["id"] = "Stealth Effect BOTTOM",
+["authorOptions"] = {
+},
+["alpha"] = 1,
+["width"] = 1960,
+["uid"] = "kBbzhHWQpyL",
+["config"] = {
+},
+["anchorFrameType"] = "SCREEN",
+["color"] = {
+1,
+0,
+0.05490196078431373,
+1,
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+["ignoreOptionsEventErrors"] = true,
+},
+["animation"] = {
+["start"] = {
+["colorR"] = 1,
+["scalex"] = 1,
+["alphaType"] = "custom",
+["colorA"] = 1,
+["colorG"] = 1,
+["alphaFunc"] = "function(progress, start, delta)\n    return start + (progress * delta)\nend\n",
+["use_translate"] = false,
+["use_alpha"] = false,
+["type"] = "preset",
+["easeType"] = "none",
+["translateFunc"] = "function(progress, startX, startY, deltaX, deltaY)\n    return startX + (progress * deltaX), startY + (progress * deltaY)\nend\n",
+["scaley"] = 1,
+["alpha"] = 0,
+["y"] = -200,
+["x"] = 0,
+["duration_type"] = "seconds",
+["translateType"] = "straightTranslate",
+["rotate"] = 0,
+["easeStrength"] = 3,
+["preset"] = "grow",
+["colorB"] = 1,
+},
+["main"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["preset"] = "pulse",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["preset"] = "grow",
+},
+},
+},
+["Circle Class Frame [SHAMAN]"] = {
+["parent"] = "Circle Class Frames (TARGET)",
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["debuffType"] = "HELPFUL",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["names"] = {
+},
+["spellIds"] = {
+},
+["use_unit"] = true,
+["custom_type"] = "event",
+["events"] = "PLAYER_TARGET_CHANGED",
+["custom"] = "function()\n    if UnitExists(\"target\") and UnitClass(\"target\") == \"Shaman\" then\n        return true\n    else\n        return false\n    end\nend",
+["custom_hide"] = "custom",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 100,
+["rotate"] = true,
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "TargetFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Shaman",
+["uid"] = "h)25fvrrLar",
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [SHAMAN]",
+["frameStrata"] = 4,
+["alpha"] = 1,
+["anchorFrameType"] = "SELECTFRAME",
+["width"] = 100,
+["config"] = {
+},
+["authorOptions"] = {
+},
+["xOffset"] = 59,
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["color"] = {
+1,
+0.9882352941176471,
+0.9568627450980391,
+1,
+},
+},
+["Circle Class Frame [WARLOCK]"] = {
+["xOffset"] = 59,
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["custom_hide"] = "custom",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["spellIds"] = {
+},
+["events"] = "PLAYER_TARGET_CHANGED",
+["custom"] = "function()\n    if UnitExists(\"target\") and UnitClass(\"target\") == \"Warlock\" then\n        return true\n    else\n        return false\n    end\nend",
+["custom_type"] = "event",
+["use_unit"] = true,
+["names"] = {
+},
+["unit"] = "player",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["animation"] = {
+["start"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 100,
+["rotate"] = true,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "TargetFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Warlock",
+["frameStrata"] = 4,
+["parent"] = "Circle Class Frames (TARGET)",
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [WARLOCK]",
+["selfPoint"] = "CENTER",
+["alpha"] = 1,
+["anchorFrameType"] = "SELECTFRAME",
+["width"] = 100,
+["config"] = {
+},
+["authorOptions"] = {
+},
+["uid"] = "B95Gb9Dolel",
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["color"] = {
+0.9882352941176471,
+1,
+0.9803921568627451,
+1,
+},
+},
+["Circle Class Frame [DRUID] 2"] = {
+["parent"] = "Circle Class Frames (FOCUS)",
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["custom_hide"] = "custom",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["spellIds"] = {
+},
+["events"] = "PLAYER_FOCUS_CHANGED",
+["custom"] = "function()\n    if UnitExists(\"focus\") and UnitClass(\"focus\") == \"Druid\" then\n        return true\n    else\n        return false\n    end\nend",
+["custom_type"] = "event",
+["use_unit"] = true,
+["names"] = {
+},
+["unit"] = "player",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["animation"] = {
+["start"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 95,
+["rotate"] = true,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "FocusFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Druid",
+["alpha"] = 1,
+["color"] = {
+0.984313725490196,
+0.9725490196078431,
+1,
+1,
+},
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [DRUID] 2",
+["selfPoint"] = "CENTER",
+["frameStrata"] = 4,
+["anchorFrameType"] = "SELECTFRAME",
+["width"] = 95,
+["config"] = {
+},
+["uid"] = "qMfPEvSCtq7",
+["authorOptions"] = {
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 59,
+},
+["Circle Class Frame [DRUID]"] = {
+["parent"] = "Circle Class Frames (TARGET)",
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["debuffType"] = "HELPFUL",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["names"] = {
+},
+["custom"] = "function()\n    if UnitExists(\"target\") and UnitClass(\"target\") == \"Druid\" then\n        return true\n    else\n        return false\n    end\nend",
+["use_unit"] = true,
+["custom_type"] = "event",
+["events"] = "PLAYER_TARGET_CHANGED",
+["spellIds"] = {
+},
+["custom_hide"] = "custom",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 100,
+["rotate"] = true,
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "TargetFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Druid",
+["uid"] = "XZST3pUQSTa",
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [DRUID]",
+["frameStrata"] = 4,
+["alpha"] = 1,
+["anchorFrameType"] = "SELECTFRAME",
+["width"] = 100,
+["config"] = {
+},
+["authorOptions"] = {
+},
+["xOffset"] = 59,
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["color"] = {
+0.984313725490196,
+0.9725490196078431,
+1,
+1,
+},
+},
+["Circle Class Frame [MAGE]"] = {
+["parent"] = "Circle Class Frames (TARGET)",
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["custom_hide"] = "custom",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["custom"] = "function()\n    if UnitExists(\"target\") and UnitClass(\"target\") == \"Mage\" then\n        return true\n    else\n        return false\n    end\nend",
+["events"] = "PLAYER_TARGET_CHANGED",
+["spellIds"] = {
+},
+["custom_type"] = "event",
+["use_unit"] = true,
+["names"] = {
+},
+["unit"] = "player",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 100,
+["rotate"] = true,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "TargetFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Mage",
+["config"] = {
+},
+["animation"] = {
+["start"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [MAGE]",
+["frameStrata"] = 4,
+["alpha"] = 1,
+["width"] = 100,
+["anchorFrameType"] = "SELECTFRAME",
+["uid"] = "OTPG(0)Aye7",
+["xOffset"] = 59,
+["color"] = {
+1,
+0.9568627450980391,
+0.9607843137254902,
+1,
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["authorOptions"] = {
+},
+},
+["Circle Class Frame [MAGE] 2"] = {
+["parent"] = "Circle Class Frames (FOCUS)",
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["debuffType"] = "HELPFUL",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["names"] = {
+},
+["events"] = "PLAYER_FOCUS_CHANGED",
+["use_unit"] = true,
+["custom_type"] = "event",
+["spellIds"] = {
+},
+["custom"] = "function()\n    if UnitExists(\"focus\") and UnitClass(\"focus\") == \"Mage\" then\n        return true\n    else\n        return false\n    end\nend",
+["custom_hide"] = "custom",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 95,
+["rotate"] = true,
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "FocusFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Mage",
+["alpha"] = 1,
+["authorOptions"] = {
+},
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [MAGE] 2",
+["selfPoint"] = "CENTER",
+["frameStrata"] = 4,
+["width"] = 95,
+["anchorFrameType"] = "SELECTFRAME",
+["uid"] = "r71p543s)oE",
+["config"] = {
+},
+["xOffset"] = 59,
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["color"] = {
+1,
+0.9568627450980391,
+0.9607843137254902,
+1,
+},
+},
+["Circle Class Frames (FOCUS)"] = {
+["controlledChildren"] = {
+"Circle Class Frame [WARLOCK] 2",
+"Circle Class Frame [MAGE] 2",
+"Circle Class Frame [DRUID] 2",
+"Circle Class Frame [WARRIOR] 2",
+"Circle Class Frame [ROGUE] 2",
+"Circle Class Frame [HUNTER] 2",
+"Circle Class Frame [PRIEST] 2",
+"Circle Class Frame [PALADIN] 2",
+"Circle Class Frame [SHAMAN] 2",
+},
+["borderBackdrop"] = "Blizzard Tooltip",
+["authorOptions"] = {
+},
+["preferToUpdate"] = false,
+["groupIcon"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Mage",
+["anchorPoint"] = "CENTER",
+["borderColor"] = {
+0,
+0,
+0,
+1,
+},
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["subeventPrefix"] = "SPELL",
+["type"] = "aura2",
+["spellIds"] = {
+},
+["subeventSuffix"] = "_CAST_START",
+["unit"] = "player",
+["names"] = {
+},
+["event"] = "Health",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["subRegions"] = {
+},
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["backdropColor"] = {
+1,
+1,
+1,
+0.5,
+},
+["source"] = "import",
+["scale"] = 1,
+["border"] = false,
+["borderEdge"] = "Square Full White",
+["regionType"] = "group",
+["borderSize"] = 2,
+["borderOffset"] = 4,
+["yOffset"] = 0,
+["tocversion"] = 30300,
+["id"] = "Circle Class Frames (FOCUS)",
+["xOffset"] = 0,
+["alpha"] = 1,
+["anchorFrameType"] = "SCREEN",
+["frameStrata"] = 1,
+["config"] = {
+},
+["borderInset"] = 1,
+["uid"] = "9Lcfb1CqjxZ",
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+},
+["Circle Class Frame [PALADIN] 2"] = {
+["color"] = {
+1,
+0.9254901960784314,
+0.9607843137254902,
+1,
+},
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["debuffType"] = "HELPFUL",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["names"] = {
+},
+["events"] = "PLAYER_FOCUS_CHANGED",
+["use_unit"] = true,
+["custom_type"] = "event",
+["custom"] = "function()\n    if UnitExists(\"focus\") and UnitClass(\"focus\") == \"Paladin\" then\n        return true\n    else\n        return false\n    end\nend",
+["spellIds"] = {
+},
+["custom_hide"] = "custom",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 95,
+["rotate"] = true,
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "FocusFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Paladin",
+["alpha"] = 1,
+["parent"] = "Circle Class Frames (FOCUS)",
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [PALADIN] 2",
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["frameStrata"] = 4,
+["anchorFrameType"] = "SELECTFRAME",
+["authorOptions"] = {
+},
+["uid"] = "hZI1fzlp1If",
+["width"] = 95,
+["config"] = {
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 59,
+},
+["Stealth Effect TOP"] = {
+["wagoID"] = "wdib4Sz3Z",
+["parent"] = "Invis additional visual",
+["preferToUpdate"] = false,
+["yOffset"] = 260,
+["anchorPoint"] = "CENTER",
+["url"] = "",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["useName"] = false,
+["useExactSpellId"] = true,
+["event"] = "Health",
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["names"] = {
+},
+["spellIds"] = {
+},
+["auranames"] = {
+"1787",
+"58984",
+"305628",
+"115191",
+},
+["auraspellids"] = {
+"66",
+},
+["subeventSuffix"] = "_CAST_START",
+["type"] = "aura2",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 180,
+["version"] = 2,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 1100,
+["rotate"] = true,
+["load"] = {
+["zoneIds"] = "",
+["race"] = {
+["single"] = "NightElf",
+},
+["use_never"] = true,
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["single"] = "ROGUE",
+["multi"] = {
+["ROGUE"] = true,
+},
+},
+["use_race"] = true,
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMP",
+["source"] = "import",
+["mirror"] = false,
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["frameStrata"] = 2,
+["texture"] = "Interface\\AddOns\\WeakAuras\\Media\\Textures\\6TJ_Polluted_mist_Stormy",
+["xOffset"] = 0,
+["discrete_rotation"] = 0,
+["semver"] = "1.0.1",
+["tocversion"] = 30300,
+["id"] = "Stealth Effect TOP",
+["authorOptions"] = {
+},
+["alpha"] = 1,
+["width"] = 1960,
+["uid"] = "f8VXnRZI0Jd",
+["config"] = {
+},
+["anchorFrameType"] = "SCREEN",
+["color"] = {
+0,
+0.8196078431372549,
+1,
+1,
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+["ignoreOptionsEventErrors"] = true,
+},
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["preset"] = "grow",
+},
+["main"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["preset"] = "pulse",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["preset"] = "grow",
+},
+},
+},
+["PW: Shield (Self indicator)"] = {
+["xOffset"] = -23.88891101596016,
+["preferToUpdate"] = false,
+["yOffset"] = -404.9558712188952,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "aura2",
+["subeventSuffix"] = "_CAST_START",
+["event"] = "Health",
+["subeventPrefix"] = "SPELL",
+["spellIds"] = {
+},
+["unit"] = "player",
+["useName"] = true,
+["names"] = {
+},
+["auranames"] = {
+"Weakened Soul",
+},
+["debuffType"] = "HARMFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["preset"] = "fade",
+["easeStrength"] = 3,
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "none",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["preset"] = "fade",
+["easeStrength"] = 3,
+},
+},
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 36,
+["rotate"] = false,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["mirror"] = false,
+["regionType"] = "texture",
+["blendMode"] = "BLEND",
+["texture"] = "Interface\\Addons\\TextureScript\\Swipe",
+["alpha"] = 1,
+["selfPoint"] = "CENTER",
+["tocversion"] = 30300,
+["id"] = "PW: Shield (Self indicator)",
+["discrete_rotation"] = 0,
+["frameStrata"] = 6,
+["width"] = 36,
+["anchorFrameType"] = "SCREEN",
+["config"] = {
+},
+["uid"] = "(gJ6REEYYRb",
+["color"] = {
+1,
+0,
+0.09803921568627451,
+0.5200000107288361,
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["authorOptions"] = {
+},
+},
+["Circle Class Frame [ROGUE]"] = {
+["parent"] = "Circle Class Frames (TARGET)",
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["debuffType"] = "HELPFUL",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["names"] = {
+},
+["spellIds"] = {
+},
+["use_unit"] = true,
+["custom_type"] = "event",
+["events"] = "PLAYER_TARGET_CHANGED",
+["custom"] = "function()\n    if UnitExists(\"target\") and UnitClass(\"target\") == \"Rogue\" then\n        return true\n    else\n        return false\n    end\nend",
+["custom_hide"] = "custom",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 100,
+["rotate"] = true,
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "TargetFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Rogue",
+["uid"] = "0CRscaaoT(h",
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [ROGUE]",
+["frameStrata"] = 4,
+["alpha"] = 1,
+["width"] = 100,
+["anchorFrameType"] = "SELECTFRAME",
+["config"] = {
+},
+["authorOptions"] = {
+},
+["color"] = {
+1,
+0.8823529411764706,
+0,
+1,
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 59,
+},
+["Shadowfiend Duration"] = {
+["iconSource"] = 1,
+["xOffset"] = 66.9333333015442,
+["adjustedMax"] = "",
+["adjustedMin"] = "",
+["yOffset"] = 0.06666679382324214,
+["anchorPoint"] = "CENTER",
+["cooldownSwipe"] = true,
+["cooldownEdge"] = false,
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "combatlog",
+["spellId"] = {
+"34433",
+},
+["subeventSuffix"] = "_CAST_SUCCESS",
+["duration"] = "15.5",
+["event"] = "Combat Log",
+["names"] = {
+},
+["use_spellId"] = true,
+["spellIds"] = {
+},
+["use_sourceUnit"] = true,
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["sourceUnit"] = "player",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["useTooltip"] = false,
+["keepAspectRatio"] = false,
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["preset"] = "fade",
+["easeStrength"] = 3,
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["preset"] = "fade",
+["easeStrength"] = 3,
+},
+},
+["desaturate"] = false,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+{
+["text_text_format_p_time_format"] = 0,
+["text_text_format_s_format"] = "none",
+["text_text"] = "%p",
+["text_shadowColor"] = {
+0,
+0,
+0,
+1,
+},
+["text_selfPoint"] = "AUTO",
+["text_automaticWidth"] = "Auto",
+["text_fixedWidth"] = 64,
+["text_text_format_p_format"] = "Number",
+["anchorYOffset"] = 0,
+["text_justify"] = "CENTER",
+["rotateText"] = "NONE",
+["anchorXOffset"] = 0,
+["text_text_format_p_pad"] = false,
+["text_text_format_p_decimal_precision"] = 0,
+["type"] = "subtext",
+["text_text_format_p_time_precision"] = 1,
+["text_color"] = {
+1,
+1,
+1,
+1,
+},
+["text_font"] = "Friz Quadrata TT",
+["text_text_format_p_pad_mode"] = "left",
+["text_shadowYOffset"] = 0,
+["text_visible"] = true,
+["text_wordWrap"] = "WordWrap",
+["text_fontType"] = "OUTLINE",
+["text_shadowXOffset"] = 0,
+["text_text_format_p_pad_max"] = 8,
+["anchor_point"] = "INNER_BOTTOMRIGHT",
+["text_fontSize"] = 20,
+["text_text_format_p_time_dynamic_threshold"] = 12,
+["text_text_format_p_round_type"] = "floor",
+},
+{
+["glowFrequency"] = 0.25,
+["type"] = "subglow",
+["glowDuration"] = 1,
+["glowType"] = "buttonOverlay",
+["glowThickness"] = 1,
+["glowYOffset"] = 0,
+["glowColor"] = {
+1,
+1,
+1,
+1,
+},
+["glowLength"] = 10,
+["useGlowColor"] = false,
+["glowScale"] = 1,
+["glowXOffset"] = 0,
+["glow"] = false,
+["glowLines"] = 8,
+["glowBorder"] = false,
+},
+},
+["height"] = 30,
+["load"] = {
+["use_never"] = false,
+["talent"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["useAdjustededMax"] = false,
+["anchorFrameFrame"] = "PetFrame",
+["config"] = {
+},
+["progressSource"] = {
+-1,
+"",
+},
+["authorOptions"] = {
+},
+["useAdjustededMin"] = false,
+["regionType"] = "icon",
+["information"] = {
+["forceEvents"] = true,
+},
+["conditions"] = {
+},
+["internalVersion"] = 87,
+["preferToUpdate"] = false,
+["width"] = 30,
+["useCooldownModRate"] = true,
+["cooldownTextDisabled"] = false,
+["selfPoint"] = "CENTER",
+["tocversion"] = 30300,
+["id"] = "Shadowfiend Duration",
+["alpha"] = 1,
+["frameStrata"] = 1,
+["anchorFrameType"] = "SELECTFRAME",
+["zoom"] = 0.2099999934434891,
+["uid"] = "lkGdLzT6(7M",
+["inverse"] = false,
+["icon"] = true,
+["displayIcon"] = "Interface\\Icons\\Spell_Shadow_Shadowfiend",
+["cooldown"] = false,
+["color"] = {
+1,
+1,
+1,
+0,
+},
+},
+["Circle Class Frame [WARRIOR] 2"] = {
+["authorOptions"] = {
+},
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["debuffType"] = "HELPFUL",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["names"] = {
+},
+["events"] = "PLAYER_FOCUS_CHANGED",
+["use_unit"] = true,
+["custom_type"] = "event",
+["custom"] = "function()\n    if UnitExists(\"focus\") and UnitClass(\"focus\") == \"Warrior\" then\n        return true\n    else\n        return false\n    end\nend",
+["spellIds"] = {
+},
+["custom_hide"] = "custom",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 95,
+["rotate"] = true,
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "FocusFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Warrior",
+["alpha"] = 1,
+["parent"] = "Circle Class Frames (FOCUS)",
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [WARRIOR] 2",
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["frameStrata"] = 4,
+["anchorFrameType"] = "SELECTFRAME",
+["color"] = {
+1,
+0.9686274509803922,
+0.9725490196078431,
+1,
+},
+["uid"] = "qQyU9Qhpyxa",
+["width"] = 95,
+["config"] = {
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 59,
+},
+["SINGLE PENE"] = {
+["iconSource"] = 0,
+["xOffset"] = -596.355630058134,
+["adjustedMax"] = "",
+["adjustedMin"] = "",
+["yOffset"] = -368.4005842732191,
+["anchorPoint"] = "CENTER",
+["cooldownSwipe"] = true,
+["cooldownEdge"] = false,
+["icon"] = true,
+["triggers"] = {
+{
+["trigger"] = {
+["itemName"] = 34033,
+["type"] = "item",
+["subeventSuffix"] = "_CAST_START",
+["event"] = "Item Equipped",
+["use_genericShowOn"] = true,
+["use_itemName"] = true,
+["names"] = {
+},
+["genericShowOn"] = "showOnCooldown",
+["use_itemSetName"] = false,
+["spellIds"] = {
+},
+["use_inverse"] = false,
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["itemSetName"] = "",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["keepAspectRatio"] = false,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+{
+["type"] = "subborder",
+["border_size"] = 13,
+["border_color"] = {
+0.9411764705882353,
+0,
+1,
+1,
+},
+["border_visible"] = true,
+["border_edge"] = "Gladdy Tooltip round",
+["border_offset"] = 0,
+},
+},
+["height"] = 39.5,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["useAdjustededMax"] = false,
+["config"] = {
+},
+["parent"] = "Weapon Switches",
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["preset"] = "fade",
+["easeStrength"] = 3,
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["preset"] = "fade",
+["easeStrength"] = 3,
+},
+},
+["useAdjustededMin"] = false,
+["regionType"] = "icon",
+["progressSource"] = {
+-1,
+"",
+},
+["cooldown"] = false,
+["displayIcon"] = "Interface\\Icons\\Spell_Holy_SearingLight",
+["color"] = {
+0.01176470588235294,
+1,
+0,
+0,
+},
+["useCooldownModRate"] = true,
+["width"] = 39.5,
+["cooldownTextDisabled"] = false,
+["frameStrata"] = 1,
+["tocversion"] = 30300,
+["id"] = "SINGLE PENE",
+["authorOptions"] = {
+},
+["alpha"] = 1,
+["anchorFrameType"] = "SCREEN",
+["zoom"] = 0,
+["uid"] = "7b7ooklbiLs",
+["inverse"] = false,
+["preferToUpdate"] = false,
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+},
+["finish"] = {
+},
+},
+},
+["Circle Class Frame [PALADIN]"] = {
+["parent"] = "Circle Class Frames (TARGET)",
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["custom_hide"] = "custom",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["spellIds"] = {
+},
+["events"] = "PLAYER_TARGET_CHANGED",
+["custom"] = "function()\n    if UnitExists(\"target\") and UnitClass(\"target\") == \"Paladin\" then\n        return true\n    else\n        return false\n    end\nend",
+["custom_type"] = "event",
+["use_unit"] = true,
+["names"] = {
+},
+["unit"] = "player",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 100,
+["rotate"] = true,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "TargetFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Paladin",
+["alpha"] = 1,
+["color"] = {
+1,
+0.9254901960784314,
+0.9607843137254902,
+1,
+},
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [PALADIN]",
+["animation"] = {
+["start"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["frameStrata"] = 4,
+["width"] = 100,
+["anchorFrameType"] = "SELECTFRAME",
+["config"] = {
+},
+["uid"] = "rIoSAeOj6u0",
+["authorOptions"] = {
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 59,
+},
+["Circle Class Frame [HUNTER] 2"] = {
+["xOffset"] = 59,
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["debuffType"] = "HELPFUL",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["names"] = {
+},
+["events"] = "PLAYER_FOCUS_CHANGED",
+["use_unit"] = true,
+["custom_type"] = "event",
+["spellIds"] = {
+},
+["custom"] = "function()\n    if UnitExists(\"focus\") and UnitClass(\"focus\") == \"Hunter\" then\n        return true\n    else\n        return false\n    end\nend",
+["custom_hide"] = "custom",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 95,
+["rotate"] = true,
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "FocusFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Hunter",
+["alpha"] = 1,
+["parent"] = "Circle Class Frames (FOCUS)",
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [HUNTER] 2",
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["frameStrata"] = 4,
+["anchorFrameType"] = "SELECTFRAME",
+["authorOptions"] = {
+},
+["uid"] = "TI5L9PmeJeh",
+["width"] = 95,
+["config"] = {
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["color"] = {
+0.5882352941176471,
+1,
+0.6352941176470588,
+1,
+},
+},
+["Invis additional visual"] = {
+["controlledChildren"] = {
+"Stealth Effect TOP",
+"Stealth Effect BOTTOM",
+},
+["borderBackdrop"] = "Blizzard Tooltip",
+["wagoID"] = "wdib4Sz3Z",
+["xOffset"] = -95.3323974609375,
+["preferToUpdate"] = false,
+["yOffset"] = -94.66683959960938,
+["anchorPoint"] = "CENTER",
+["borderColor"] = {
+0,
+0,
+0,
+1,
+},
+["url"] = "",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["debuffType"] = "HELPFUL",
+["type"] = "aura2",
+["spellIds"] = {
+},
+["subeventSuffix"] = "_CAST_START",
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["event"] = "Health",
+["names"] = {
+},
+},
+["untrigger"] = {
+},
+},
+},
+["internalVersion"] = 87,
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["desc"] = "",
+["version"] = 2,
+["subRegions"] = {
+},
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["zoneIds"] = "",
+},
+["backdropColor"] = {
+1,
+1,
+1,
+0.5,
+},
+["source"] = "import",
+["scale"] = 1,
+["border"] = false,
+["borderEdge"] = "Square Full White",
+["regionType"] = "group",
+["borderSize"] = 2,
+["config"] = {
+},
+["borderOffset"] = 4,
+["semver"] = "1.0.1",
+["tocversion"] = 30300,
+["id"] = "Invis additional visual",
+["alpha"] = 1,
+["frameStrata"] = 2,
+["anchorFrameType"] = "SCREEN",
+["authorOptions"] = {
+},
+["borderInset"] = 1,
+["uid"] = "vQTq0ZuVxji",
+["selfPoint"] = "CENTER",
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["groupIcon"] = "Interface\\Icons\\Ability_Mage_Invisibility",
+},
+["Circle Class Frame [ROGUE] 2"] = {
+["color"] = {
+1,
+0.8823529411764706,
+0,
+1,
+},
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["custom_hide"] = "custom",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["custom"] = "function()\n    if UnitExists(\"focus\") and UnitClass(\"focus\") == \"Rogue\" then\n        return true\n    else\n        return false\n    end\nend",
+["events"] = "PLAYER_FOCUS_CHANGED",
+["spellIds"] = {
+},
+["custom_type"] = "event",
+["use_unit"] = true,
+["names"] = {
+},
+["unit"] = "player",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["animation"] = {
+["start"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 95,
+["rotate"] = true,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "FocusFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Rogue",
+["config"] = {
+},
+["selfPoint"] = "CENTER",
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [ROGUE] 2",
+["authorOptions"] = {
+},
+["alpha"] = 1,
+["width"] = 95,
+["frameStrata"] = 4,
+["uid"] = "u(LrEvkDJ3l",
+["parent"] = "Circle Class Frames (FOCUS)",
+["anchorFrameType"] = "SELECTFRAME",
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 59,
+},
+["Renew Indicator (P2) 2"] = {
+["user_y"] = 0,
+["user_x"] = 0,
+["authorOptions"] = {
+},
+["adjustedMax"] = "",
+["adjustedMin"] = "",
+["yOffset"] = 220.6666746139519,
+["anchorPoint"] = "CENTER",
+["desaturateBackground"] = false,
+["sameTexture"] = true,
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "aura2",
+["auranames"] = {
+"Renew",
+},
+["event"] = "Health",
+["subeventPrefix"] = "SPELL",
+["subeventSuffix"] = "_CAST_START",
+["spellIds"] = {
+},
+["specificUnit"] = "party2",
+["useName"] = true,
+["names"] = {
+},
+["unit"] = "member",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["endAngle"] = 360,
+["internalVersion"] = 87,
+["progressSource"] = {
+-1,
+"",
+},
+["selfPoint"] = "CENTER",
+["frameStrata"] = 1,
+["preferToUpdate"] = false,
+["rotation"] = 0,
+["font"] = "Friz Quadrata TT",
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["preset"] = "fade",
+["easeStrength"] = 3,
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["preset"] = "fade",
+["easeStrength"] = 3,
+},
+},
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 30,
+["crop_x"] = 0.41,
+["crop_y"] = 0.41,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["useAdjustededMax"] = false,
+["fontSize"] = 12,
+["source"] = "import",
+["startAngle"] = 0,
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["desaturateForeground"] = false,
+["smoothProgress"] = false,
+["useAdjustededMin"] = false,
+["regionType"] = "progresstexture",
+["uid"] = "Cgq2n87sjDi",
+["blendMode"] = "BLEND",
+["foregroundColor"] = {
+0.06666666666666667,
+1,
+0,
+1,
+},
+["anchorFrameType"] = "SCREEN",
+["slantMode"] = "INSIDE",
+["backgroundTexture"] = "Interface\\Addons\\WeakAuras\\PowerAurasMedia\\Auras\\Aura3",
+["foregroundTexture"] = "Interface\\Addons\\WeakAuras\\PowerAurasMedia\\Auras\\Aura72",
+["compress"] = false,
+["mirror"] = false,
+["tocversion"] = 30300,
+["id"] = "Renew Indicator (P2) 2",
+["backgroundColor"] = {
+0,
+0,
+0,
+1,
+},
+["alpha"] = 1,
+["width"] = 30,
+["config"] = {
+},
+["auraRotation"] = 0,
+["inverse"] = false,
+["xOffset"] = -670.577845228872,
+["orientation"] = "ANTICLOCKWISE",
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["backgroundOffset"] = 2,
+},
+["Circle Class Frame [HUNTER]"] = {
+["parent"] = "Circle Class Frames (TARGET)",
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["custom_hide"] = "custom",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["custom"] = "function()\n    if UnitExists(\"target\") and UnitClass(\"target\") == \"Hunter\" then\n        return true\n    else\n        return false\n    end\nend",
+["events"] = "PLAYER_TARGET_CHANGED",
+["spellIds"] = {
+},
+["custom_type"] = "event",
+["use_unit"] = true,
+["names"] = {
+},
+["unit"] = "player",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 100,
+["rotate"] = true,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "TargetFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Hunter",
+["alpha"] = 1,
+["authorOptions"] = {
+},
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [HUNTER]",
+["animation"] = {
+["start"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["frameStrata"] = 4,
+["width"] = 100,
+["anchorFrameType"] = "SELECTFRAME",
+["config"] = {
+},
+["uid"] = "79KS2lhfE1D",
+["color"] = {
+0.5882352941176471,
+1,
+0.6352941176470588,
+1,
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 59,
+},
+["IMMUNE focus visual"] = {
+["xOffset"] = 6.399999952316285,
+["preferToUpdate"] = false,
+["yOffset"] = -16.06666679382324,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["debuffType"] = "HELPFUL",
+["useName"] = true,
+["useStacks"] = false,
+["useExactSpellId"] = false,
+["useTotal"] = false,
+["matchesShowOn"] = "showOnActive",
+["event"] = "Health",
+["unit"] = "focus",
+["unitExists"] = false,
+["auranames"] = {
+"Ice Block",
+},
+["spellIds"] = {
+},
+["subeventSuffix"] = "_CAST_START",
+["type"] = "aura2",
+["names"] = {
+},
+["subeventPrefix"] = "SPELL",
+["useRem"] = false,
+},
+["untrigger"] = {
+},
+},
+{
+["trigger"] = {
+["debuffType"] = "HELPFUL",
+["useName"] = true,
+["useStacks"] = false,
+["useExactSpellId"] = false,
+["useTotal"] = false,
+["matchesShowOn"] = "showOnActive",
+["event"] = "Health",
+["subeventPrefix"] = "SPELL",
+["unitExists"] = false,
+["auranames"] = {
+"Divine Shield",
+},
+["spellIds"] = {
+},
+["subeventSuffix"] = "_CAST_START",
+["type"] = "aura2",
+["unit"] = "focus",
+["names"] = {
+},
+["useRem"] = false,
+},
+["untrigger"] = {
+},
+},
+{
+["trigger"] = {
+["debuffType"] = "HELPFUL",
+["useName"] = true,
+["useStacks"] = false,
+["useExactSpellId"] = false,
+["useTotal"] = false,
+["matchesShowOn"] = "showOnActive",
+["event"] = "Health",
+["names"] = {
+},
+["unitExists"] = false,
+["auranames"] = {
+"Cloak of Shadows",
+},
+["spellIds"] = {
+},
+["subeventSuffix"] = "_CAST_START",
+["type"] = "aura2",
+["subeventPrefix"] = "SPELL",
+["unit"] = "focus",
+["useRem"] = false,
+},
+["untrigger"] = {
+},
+},
+["disjunctive"] = "any",
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 123,
+["rotate"] = false,
+["load"] = {
+["use_never"] = false,
+["talent"] = {
+["multi"] = {
+[103] = true,
+},
+},
+["use_ignoreNameRealm"] = false,
+["class"] = {
+["single"] = "PRIEST",
+["multi"] = {
+["PRIEST"] = true,
+["PALADIN"] = true,
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "FocusFrame",
+["regionType"] = "texture",
+["blendMode"] = "BLEND",
+["desc"] = "IMMUNE focus highlight texture... (Cloak, Bubble, Block)",
+["texture"] = "Interface\\AddOns\\WeakAuras\\Media\\Textures\\UI-FOCUSFRAME-LARGE-FLASH",
+["authorOptions"] = {
+},
+["discrete_rotation"] = 0,
+["animation"] = {
+["start"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["tocversion"] = 30300,
+["id"] = "IMMUNE focus visual",
+["alpha"] = 1,
+["frameStrata"] = 2,
+["width"] = 255,
+["uid"] = "9BBiT8OblIu",
+["config"] = {
+},
+["inverse"] = false,
+["anchorFrameType"] = "SELECTFRAME",
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["color"] = {
+1,
+0.00784313725490196,
+0,
+1,
+},
+},
+["Circle Class Frame [PRIEST]"] = {
+["parent"] = "Circle Class Frames (TARGET)",
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["debuffType"] = "HELPFUL",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["names"] = {
+},
+["custom"] = "function()\n    if UnitExists(\"target\") and UnitClass(\"target\") == \"Priest\" then\n        return true\n    else\n        return false\n    end\nend",
+["use_unit"] = true,
+["custom_type"] = "event",
+["events"] = "PLAYER_TARGET_CHANGED",
+["spellIds"] = {
+},
+["custom_hide"] = "custom",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 100,
+["rotate"] = true,
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "TargetFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Priest",
+["uid"] = "QqN00qtyjy)",
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [PRIEST]",
+["frameStrata"] = 4,
+["alpha"] = 1,
+["width"] = 100,
+["anchorFrameType"] = "SELECTFRAME",
+["config"] = {
+},
+["authorOptions"] = {
+},
+["color"] = {
+1,
+0.9568627450980391,
+0.9607843137254902,
+1,
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 59,
+},
+["Circle Class Frame [SHAMAN] 2"] = {
+["parent"] = "Circle Class Frames (FOCUS)",
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["custom_hide"] = "custom",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["custom"] = "function()\n    if UnitExists(\"focus\") and UnitClass(\"focus\") == \"Shaman\" then\n        return true\n    else\n        return false\n    end\nend",
+["events"] = "PLAYER_FOCUS_CHANGED",
+["spellIds"] = {
+},
+["custom_type"] = "event",
+["use_unit"] = true,
+["names"] = {
+},
+["unit"] = "player",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["animation"] = {
+["start"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 95,
+["rotate"] = true,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "FocusFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Shaman",
+["alpha"] = 1,
+["color"] = {
+1,
+0.9882352941176471,
+0.9568627450980391,
+1,
+},
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [SHAMAN] 2",
+["selfPoint"] = "CENTER",
+["frameStrata"] = 4,
+["anchorFrameType"] = "SELECTFRAME",
+["width"] = 95,
+["config"] = {
+},
+["uid"] = "C3fWdU(hE3k",
+["authorOptions"] = {
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 59,
+},
+["MP5"] = {
+["iconSource"] = 0,
+["parent"] = "Weapon Switches",
+["adjustedMax"] = "",
+["adjustedMin"] = "",
+["yOffset"] = -403.4005842732191,
+["anchorPoint"] = "CENTER",
+["cooldownSwipe"] = true,
+["cooldownEdge"] = false,
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["itemName"] = 28782,
+["type"] = "item",
+["subeventSuffix"] = "_CAST_START",
+["event"] = "Item Equipped",
+["use_genericShowOn"] = true,
+["use_itemName"] = true,
+["names"] = {
+},
+["genericShowOn"] = "showOnCooldown",
+["use_itemSetName"] = false,
+["spellIds"] = {
+},
+["use_inverse"] = false,
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["itemSetName"] = "",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["keepAspectRatio"] = false,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+{
+["border_offset"] = 0,
+["type"] = "subborder",
+["border_color"] = {
+1,
+0.984313725490196,
+0,
+1,
+},
+["border_visible"] = true,
+["border_edge"] = "Gladdy Tooltip round",
+["border_size"] = 13,
+},
+},
+["height"] = 39.5,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["useAdjustededMax"] = false,
+["config"] = {
+},
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+},
+["icon"] = true,
+["useAdjustededMin"] = false,
+["regionType"] = "icon",
+["progressSource"] = {
+-1,
+"",
+},
+["cooldown"] = false,
+["displayIcon"] = "Interface\\Icons\\Spell_Nature_ManaRegenTotem",
+["authorOptions"] = {
+},
+["useCooldownModRate"] = true,
+["width"] = 39.5,
+["cooldownTextDisabled"] = false,
+["alpha"] = 1,
+["tocversion"] = 30300,
+["id"] = "MP5",
+["xOffset"] = -631.355630058134,
+["frameStrata"] = 1,
+["anchorFrameType"] = "SCREEN",
+["zoom"] = 0,
+["uid"] = "7pW6VNO1BKk",
+["inverse"] = false,
+["preferToUpdate"] = false,
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["color"] = {
+0.01176470588235294,
+1,
+0,
+0,
+},
+},
+["Renew Indicator (P1) 2"] = {
+["user_y"] = 0,
+["user_x"] = 0,
+["xOffset"] = -670.577845228872,
+["preferToUpdate"] = false,
+["adjustedMin"] = "",
+["yOffset"] = 298.7221831543645,
+["foregroundColor"] = {
+0.06666666666666667,
+1,
+0,
+1,
+},
+["desaturateBackground"] = false,
+["sameTexture"] = true,
+["backgroundColor"] = {
+0,
+0,
+0,
+1,
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "aura2",
+["subeventSuffix"] = "_CAST_START",
+["event"] = "Health",
+["subeventPrefix"] = "SPELL",
+["auranames"] = {
+"Renew",
+},
+["spellIds"] = {
+},
+["specificUnit"] = "party1",
+["unit"] = "member",
+["names"] = {
+},
+["useName"] = true,
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["endAngle"] = 360,
+["internalVersion"] = 87,
+["progressSource"] = {
+-1,
+"",
+},
+["selfPoint"] = "CENTER",
+["alpha"] = 1,
+["authorOptions"] = {
+},
+["rotation"] = 0,
+["font"] = "Friz Quadrata TT",
+["adjustedMax"] = "",
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 30,
+["conditions"] = {
+},
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+},
+},
+["useAdjustededMax"] = false,
+["backgroundTexture"] = "Interface\\Addons\\WeakAuras\\PowerAurasMedia\\Auras\\Aura3",
+["source"] = "import",
+["startAngle"] = 0,
+["foregroundTexture"] = "Interface\\Addons\\WeakAuras\\PowerAurasMedia\\Auras\\Aura72",
+["uid"] = "j1rhGb4pkGy",
+["mirror"] = false,
+["useAdjustededMin"] = false,
+["regionType"] = "progresstexture",
+["auraRotation"] = 0,
+["blendMode"] = "BLEND",
+["crop_y"] = 0.41,
+["width"] = 30,
+["slantMode"] = "INSIDE",
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["smoothProgress"] = false,
+["tocversion"] = 30300,
+["anchorPoint"] = "CENTER",
+["compress"] = false,
+["id"] = "Renew Indicator (P1) 2",
+["desaturateForeground"] = false,
+["frameStrata"] = 1,
+["anchorFrameType"] = "SCREEN",
+["fontSize"] = 12,
+["config"] = {
+},
+["inverse"] = false,
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+},
+["orientation"] = "ANTICLOCKWISE",
+["crop_x"] = 0.41,
+["information"] = {
+["forceEvents"] = true,
+},
+["backgroundOffset"] = 2,
+},
+["SPIRIT"] = {
+["iconSource"] = 0,
+["color"] = {
+0.01176470588235294,
+1,
+0,
+0,
+},
+["adjustedMax"] = "",
+["adjustedMin"] = "",
+["yOffset"] = -402.4005842732191,
+["anchorPoint"] = "CENTER",
+["cooldownSwipe"] = true,
+["cooldownEdge"] = false,
+["icon"] = true,
+["triggers"] = {
+{
+["trigger"] = {
+["itemName"] = 29981,
+["type"] = "item",
+["subeventSuffix"] = "_CAST_START",
+["genericShowOn"] = "showOnCooldown",
+["use_inverse"] = false,
+["use_itemName"] = true,
+["unit"] = "player",
+["event"] = "Item Equipped",
+["use_itemSetName"] = false,
+["spellIds"] = {
+},
+["use_genericShowOn"] = true,
+["subeventPrefix"] = "SPELL",
+["names"] = {
+},
+["itemSetName"] = "",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["keepAspectRatio"] = false,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+{
+["border_size"] = 13,
+["border_offset"] = 0,
+["border_color"] = {
+0,
+0.9490196078431372,
+1,
+1,
+},
+["border_visible"] = true,
+["border_edge"] = "Gladdy Tooltip round",
+["type"] = "subborder",
+},
+},
+["height"] = 39.5,
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["useAdjustededMax"] = false,
+["uid"] = "YPflZrAo6s0",
+["parent"] = "Weapon Switches",
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+},
+["useAdjustededMin"] = false,
+["regionType"] = "icon",
+["progressSource"] = {
+-1,
+"",
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["conditions"] = {
+},
+["xOffset"] = -596.355630058134,
+["useCooldownModRate"] = true,
+["width"] = 39.5,
+["cooldownTextDisabled"] = false,
+["alpha"] = 1,
+["tocversion"] = 30300,
+["id"] = "SPIRIT",
+["authorOptions"] = {
+},
+["frameStrata"] = 1,
+["anchorFrameType"] = "SCREEN",
+["zoom"] = 0,
+["config"] = {
+},
+["inverse"] = false,
+["preferToUpdate"] = false,
+["displayIcon"] = "Interface\\Icons\\INV_Enchant_ShardBrilliantSmall",
+["cooldown"] = false,
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+},
+},
+},
+["DOUBLE PENE"] = {
+["iconSource"] = 0,
+["parent"] = "Weapon Switches",
+["adjustedMax"] = "",
+["adjustedMin"] = "",
+["yOffset"] = -368.4005842732191,
+["anchorPoint"] = "CENTER",
+["cooldownSwipe"] = true,
+["cooldownEdge"] = false,
+["icon"] = true,
+["triggers"] = {
+{
+["trigger"] = {
+["itemName"] = 34066,
+["type"] = "item",
+["subeventSuffix"] = "_CAST_START",
+["genericShowOn"] = "showOnCooldown",
+["use_inverse"] = false,
+["use_itemName"] = true,
+["unit"] = "player",
+["event"] = "Item Equipped",
+["use_itemSetName"] = false,
+["spellIds"] = {
+},
+["use_genericShowOn"] = true,
+["subeventPrefix"] = "SPELL",
+["names"] = {
+},
+["itemSetName"] = "",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["keepAspectRatio"] = false,
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+},
+["desaturate"] = false,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+{
+["border_size"] = 13,
+["border_offset"] = 0,
+["border_color"] = {
+0.996078431372549,
+0,
+1,
+1,
+},
+["border_visible"] = true,
+["border_edge"] = "Gladdy Tooltip round",
+["type"] = "subborder",
+},
+},
+["height"] = 39.5,
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["useAdjustededMax"] = false,
+["uid"] = "uFZOZ)OYPOV",
+["selfPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+},
+},
+["useAdjustededMin"] = false,
+["regionType"] = "icon",
+["progressSource"] = {
+-1,
+"",
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["conditions"] = {
+},
+["xOffset"] = -631.355630058134,
+["useCooldownModRate"] = true,
+["width"] = 39.5,
+["cooldownTextDisabled"] = false,
+["frameStrata"] = 1,
+["tocversion"] = 30300,
+["id"] = "DOUBLE PENE",
+["authorOptions"] = {
+},
+["alpha"] = 1,
+["anchorFrameType"] = "SCREEN",
+["zoom"] = 0,
+["config"] = {
+},
+["inverse"] = false,
+["preferToUpdate"] = false,
+["displayIcon"] = "Interface\\Icons\\Ability_Rogue_Ambush",
+["cooldown"] = false,
+["color"] = {
+0.01176470588235294,
+1,
+0,
+0,
+},
+},
+["Circle Class Frame [WARRIOR]"] = {
+["parent"] = "Circle Class Frames (TARGET)",
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["custom_hide"] = "custom",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["spellIds"] = {
+},
+["events"] = "PLAYER_TARGET_CHANGED",
+["custom"] = "function()\n    if UnitExists(\"target\") and UnitClass(\"target\") == \"Warrior\" then\n        return true\n    else\n        return false\n    end\nend",
+["custom_type"] = "event",
+["use_unit"] = true,
+["names"] = {
+},
+["unit"] = "player",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["selfPoint"] = "CENTER",
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 100,
+["rotate"] = true,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "TargetFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Warrior",
+["alpha"] = 1,
+["color"] = {
+1,
+0.9686274509803922,
+0.9725490196078431,
+1,
+},
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [WARRIOR]",
+["animation"] = {
+["start"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["frameStrata"] = 4,
+["width"] = 100,
+["anchorFrameType"] = "SELECTFRAME",
+["config"] = {
+},
+["uid"] = "G(TBcTmVwJO",
+["authorOptions"] = {
+},
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 59,
+},
+["Circle Class Frame [WARLOCK] 2"] = {
+["parent"] = "Circle Class Frames (FOCUS)",
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["debuffType"] = "HELPFUL",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["unit"] = "player",
+["names"] = {
+},
+["events"] = "PLAYER_FOCUS_CHANGED",
+["use_unit"] = true,
+["custom_type"] = "event",
+["custom"] = "function()\n    if UnitExists(\"focus\") and UnitClass(\"focus\") == \"Warlock\" then\n        return true\n    else\n        return false\n    end\nend",
+["spellIds"] = {
+},
+["custom_hide"] = "custom",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 95,
+["rotate"] = true,
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "FocusFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Warlock",
+["config"] = {
+},
+["selfPoint"] = "CENTER",
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [WARLOCK] 2",
+["frameStrata"] = 4,
+["alpha"] = 1,
+["anchorFrameType"] = "SELECTFRAME",
+["width"] = 95,
+["uid"] = "g(5LpFJW(uF",
+["color"] = {
+0.9882352941176471,
+1,
+0.9803921568627451,
+1,
+},
+["xOffset"] = 59,
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["authorOptions"] = {
+},
+},
+["Circle Class Frame [PRIEST] 2"] = {
+["authorOptions"] = {
+},
+["preferToUpdate"] = false,
+["yOffset"] = 2.43,
+["anchorPoint"] = "CENTER",
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+["do_custom"] = false,
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "custom",
+["subeventSuffix"] = "_CAST_START",
+["custom_hide"] = "custom",
+["event"] = "Chat Message",
+["subeventPrefix"] = "SPELL",
+["spellIds"] = {
+},
+["events"] = "PLAYER_FOCUS_CHANGED",
+["custom"] = "function()\n    if UnitExists(\"focus\") and UnitClass(\"focus\") == \"Priest\" then\n        return true\n    else\n        return false\n    end\nend",
+["custom_type"] = "event",
+["use_unit"] = true,
+["names"] = {
+},
+["unit"] = "player",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["internalVersion"] = 87,
+["animation"] = {
+["start"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["desaturate"] = false,
+["rotation"] = 0,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 100,
+["rotate"] = true,
+["load"] = {
+["size"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["talent"] = {
+["multi"] = {
+},
+},
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["mirror"] = false,
+["anchorFrameFrame"] = "FocusFrame",
+["regionType"] = "texture",
+["blendMode"] = "ADD",
+["anchorFrameParent"] = true,
+["texture"] = "Interface\\Addons\\TextureScript\\ClassCircleFrame\\Priest",
+["config"] = {
+},
+["selfPoint"] = "CENTER",
+["tocversion"] = 30300,
+["id"] = "Circle Class Frame [PRIEST] 2",
+["color"] = {
+1,
+0.9568627450980391,
+0.9607843137254902,
+1,
+},
+["alpha"] = 1,
+["width"] = 100,
+["frameStrata"] = 4,
+["uid"] = "xIPPOvJrN1V",
+["parent"] = "Circle Class Frames (FOCUS)",
+["anchorFrameType"] = "SELECTFRAME",
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["xOffset"] = 59,
+},
+["PW: Shield (P2)"] = {
+["user_y"] = 0,
+["user_x"] = 0,
+["xOffset"] = -39.5333333492279,
+["adjustedMax"] = "",
+["adjustedMin"] = "",
+["yOffset"] = 0.57,
+["foregroundColor"] = {
+1,
+1,
+1,
+1,
+},
+["desaturateBackground"] = false,
+["backgroundTexture"] = "Interface\\Addons\\WeakAuras\\PowerAurasMedia\\Auras\\Aura3",
+["sameTexture"] = true,
+["backgroundColor"] = {
+0.5019607843137255,
+0.5019607843137255,
+0.5019607843137255,
+0.5,
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "aura2",
+["auranames"] = {
+"6788",
+},
+["event"] = "Health",
+["subeventPrefix"] = "SPELL",
+["subeventSuffix"] = "_CAST_START",
+["spellIds"] = {
+},
+["specificUnit"] = "party2",
+["unit"] = "member",
+["names"] = {
+},
+["useName"] = true,
+["debuffType"] = "HARMFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["endAngle"] = 360,
+["internalVersion"] = 87,
+["progressSource"] = {
+-1,
+"",
+},
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["easeStrength"] = 3,
+["preset"] = "fade",
+},
+},
+["backgroundOffset"] = 2,
+["authorOptions"] = {
+},
+["conditions"] = {
+},
+["desc"] = "Shield CD on Party2 indicator...",
+["rotation"] = 0,
+["font"] = "Friz Quadrata TT",
+["preferToUpdate"] = false,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 43,
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+},
+},
+["crop_y"] = 0.41,
+["selfPoint"] = "CENTER",
+["useAdjustededMax"] = false,
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["source"] = "import",
+["startAngle"] = 0,
+["auraRotation"] = 0,
+["fontSize"] = 12,
+["smoothProgress"] = false,
+["anchorFrameFrame"] = "PartyFrame.MemberFrame2",
+["regionType"] = "progresstexture",
+["width"] = 43,
+["blendMode"] = "BLEND",
+["frameStrata"] = 9,
+["mirror"] = false,
+["slantMode"] = "INSIDE",
+["compress"] = false,
+["load"] = {
+["talent"] = {
+["multi"] = {
+[103] = true,
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["single"] = "PRIEST",
+["multi"] = {
+["PRIEST"] = true,
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["anchorPoint"] = "CENTER",
+["useAdjustededMin"] = false,
+["tocversion"] = 30300,
+["id"] = "PW: Shield (P2)",
+["uid"] = "zDMEhE)lXyO",
+["alpha"] = 1,
+["anchorFrameType"] = "SELECTFRAME",
+["foregroundTexture"] = "Interface\\AddOns\\WeakAuras\\Media\\Textures\\UI-PartyFlash-Highlight_Shield",
+["config"] = {
+},
+["inverse"] = false,
+["desaturateForeground"] = false,
+["orientation"] = "ANTICLOCKWISE",
+["crop_x"] = 0.41,
+["information"] = {
+["forceEvents"] = true,
+},
+["slanted"] = false,
+},
+["PW: Shield (P1)"] = {
+["user_y"] = 0,
+["user_x"] = 0,
+["authorOptions"] = {
+},
+["adjustedMax"] = "",
+["adjustedMin"] = "",
+["yOffset"] = 0.57,
+["foregroundColor"] = {
+1,
+1,
+1,
+1,
+},
+["desaturateBackground"] = false,
+["startAngle"] = 0,
+["sameTexture"] = true,
+["actions"] = {
+["start"] = {
+},
+["init"] = {
+},
+["finish"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["type"] = "aura2",
+["subeventSuffix"] = "_CAST_START",
+["event"] = "Health",
+["subeventPrefix"] = "SPELL",
+["auranames"] = {
+"6788",
+},
+["spellIds"] = {
+},
+["specificUnit"] = "party1",
+["useName"] = true,
+["names"] = {
+},
+["unit"] = "member",
+["debuffType"] = "HARMFUL",
+},
+["untrigger"] = {
+},
+},
+["activeTriggerMode"] = -10,
+},
+["endAngle"] = 360,
+["internalVersion"] = 87,
+["progressSource"] = {
+-1,
+"",
+},
+["selfPoint"] = "CENTER",
+["slanted"] = false,
+["preferToUpdate"] = false,
+["crop_x"] = 0.41,
+["desc"] = "Shield CD on Party1 indicator...",
+["rotation"] = 0,
+["font"] = "Friz Quadrata TT",
+["desaturateForeground"] = false,
+["subRegions"] = {
+{
+["type"] = "subbackground",
+},
+},
+["height"] = 43,
+["backgroundColor"] = {
+0.5019607843137255,
+0.5019607843137255,
+0.5019607843137255,
+0.5,
+},
+["crop_y"] = 0.41,
+["load"] = {
+["talent"] = {
+["multi"] = {
+[103] = true,
+},
+},
+["class"] = {
+["single"] = "PRIEST",
+["multi"] = {
+["PRIEST"] = true,
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["useAdjustededMax"] = false,
+["backgroundTexture"] = "Interface\\Addons\\WeakAuras\\PowerAurasMedia\\Auras\\Aura3",
+["source"] = "import",
+["foregroundTexture"] = "Interface\\AddOns\\WeakAuras\\Media\\Textures\\UI-PartyFlash-Highlight_Shield",
+["config"] = {
+},
+["textureWrapMode"] = "CLAMPTOBLACKADDITIVE",
+["mirror"] = false,
+["anchorFrameFrame"] = "PartyFrame.MemberFrame1",
+["regionType"] = "progresstexture",
+["anchorFrameType"] = "SELECTFRAME",
+["blendMode"] = "BLEND",
+["alpha"] = 1,
+["smoothProgress"] = false,
+["slantMode"] = "INSIDE",
+["compress"] = false,
+["useAdjustededMin"] = false,
+["anchorPoint"] = "CENTER",
+["xOffset"] = -39.5333333492279,
+["tocversion"] = 30300,
+["id"] = "PW: Shield (P1)",
+["fontSize"] = 12,
+["frameStrata"] = 9,
+["width"] = 43,
+["uid"] = "nD2epxy)96V",
+["auraRotation"] = 0,
+["inverse"] = false,
+["animation"] = {
+["start"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["preset"] = "fade",
+["easeStrength"] = 3,
+},
+["main"] = {
+["type"] = "none",
+["easeStrength"] = 3,
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["type"] = "preset",
+["easeType"] = "none",
+["duration_type"] = "seconds",
+["preset"] = "fade",
+["easeStrength"] = 3,
+},
+},
+["orientation"] = "ANTICLOCKWISE",
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["backgroundOffset"] = 2,
+},
+["Weapon Switches"] = {
+["controlledChildren"] = {
+"DMG",
+"HEAL",
+"SPIRIT",
+"MP5",
+"SINGLE PENE",
+"DOUBLE PENE",
+},
+["borderBackdrop"] = "Blizzard Tooltip",
+["authorOptions"] = {
+},
+["preferToUpdate"] = false,
+["yOffset"] = 0,
+["anchorPoint"] = "CENTER",
+["borderColor"] = {
+0,
+0,
+0,
+1,
+},
+["actions"] = {
+["start"] = {
+},
+["finish"] = {
+},
+["init"] = {
+},
+},
+["triggers"] = {
+{
+["trigger"] = {
+["names"] = {
+},
+["type"] = "aura2",
+["spellIds"] = {
+},
+["subeventSuffix"] = "_CAST_START",
+["unit"] = "player",
+["subeventPrefix"] = "SPELL",
+["event"] = "Health",
+["debuffType"] = "HELPFUL",
+},
+["untrigger"] = {
+},
+},
+},
+["internalVersion"] = 87,
+["animation"] = {
+["start"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["main"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+["finish"] = {
+["easeStrength"] = 3,
+["type"] = "none",
+["duration_type"] = "seconds",
+["easeType"] = "none",
+},
+},
+["subRegions"] = {
+},
+["load"] = {
+["talent"] = {
+["multi"] = {
+},
+},
+["spec"] = {
+["multi"] = {
+},
+},
+["class"] = {
+["multi"] = {
+},
+},
+["size"] = {
+["multi"] = {
+},
+},
+},
+["backdropColor"] = {
+1,
+1,
+1,
+0.5,
+},
+["scale"] = 1,
+["border"] = false,
+["borderEdge"] = "Square Full White",
+["regionType"] = "group",
+["borderSize"] = 2,
+["borderOffset"] = 4,
+["tocversion"] = 30300,
+["id"] = "Weapon Switches",
+["config"] = {
+},
+["alpha"] = 1,
+["anchorFrameType"] = "SCREEN",
+["frameStrata"] = 1,
+["borderInset"] = 1,
+["xOffset"] = 0,
+["uid"] = "K5NYFGjIbiX",
+["conditions"] = {
+},
+["information"] = {
+["forceEvents"] = true,
+},
+["selfPoint"] = "CENTER",
+},
+},
+["lastUpgrade"] = 1765742337,
+["lastArchiveClear"] = 1765742337,
+["minimap"] = {
+["minimapPos"] = 227.4941477608886,
+["hide"] = true,
+},
+["historyCutoff"] = 730,
+["dbVersion"] = 87,
+["migrationCutoff"] = 730,
+["registered"] = {
+},
+["login_squelch_time"] = 10,
+["features"] = {
+},
+["editor_font_size"] = 12,
+}

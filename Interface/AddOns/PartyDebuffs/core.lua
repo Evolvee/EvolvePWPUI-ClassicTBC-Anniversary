@@ -4,15 +4,12 @@ local HorizontalSpacing = 2
 local maxDebuffs = 8
 local iconSize = 13
 local xPos, yPos = 45, 6
-local _G = getfenv(0)
 local mod, UnitDebuff, DebuffTypeColor = _G.mod, _G.UnitDebuff, _G.DebuffTypeColor
 
-local blacklist
-if WOW_PROJECT_ID_RCE == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) then
-blacklist = {
+local blacklist = {
     [GetSpellInfo(6788)] = true, -- Weakened Soul
     [GetSpellInfo(99)] = true, -- Demoralizing Roar
-	[GetSpellInfo(1160)] = true, -- Demoralizing Shout
+    [GetSpellInfo(1160)] = true, -- Demoralizing Shout
     [GetSpellInfo(16511)] = true, -- Hemorrhage
     [GetSpellInfo(33878)] = true, -- Mangle (Bear)
     [GetSpellInfo(33876)] = true, -- Mangle (Cat)
@@ -20,30 +17,8 @@ blacklist = {
     [GetSpellInfo(8647)] = true, -- Expose Armor
     [GetSpellInfo(6343)] = true, -- Thunder Clap
     [GetSpellInfo(29836)] = true, -- Blood Frenzy
-	[GetSpellInfo(33191)] = true, -- Misery
+    [GetSpellInfo(33191)] = true, -- Misery
 }
-elseif WOW_PROJECT_ID_RCE == (WOW_PROJECT_WRATH_CLASSIC or 11) then
-blacklist = {
-	[GetSpellInfo(1543)] = true, -- Flare
-    [GetSpellInfo(6788)] = true, -- Weakened Soul
-    [GetSpellInfo(48560)] = true, -- Demoralizing Roar
-    [GetSpellInfo(57723)] = true, -- Exhaustion
-    [GetSpellInfo(48660)] = true, -- Hemorrhage
-    [GetSpellInfo(48564)] = true, -- Mangle (Bear)
-    [GetSpellInfo(48566)] = true, -- Mangle (Cat)
-    [GetSpellInfo(33193)] = true, -- Misery
-    [GetSpellInfo(57724)] = true, -- Sated
-    [GetSpellInfo(57722)] = true, -- Totem of Wrath
-    [GetSpellInfo(46857)] = true, -- Trauma
-    [GetSpellInfo(26013)] = true, -- Deserter
-    [GetSpellInfo(29859)] = true, -- Blood Frenzy
-    [GetSpellInfo(8647)] = true, -- Expose Armor
-    [GetSpellInfo(47502)] = true, -- Thunder Clap
-    [GetSpellInfo(47437)] = true, -- Demoralizing Shout
-    [GetSpellInfo(29859)] = true, -- Blood Frenzy
-    [GetSpellInfo(49231)] = true, -- Earth Shock
-}
-end
 
 local function UpdateDebuffs(frame, unit)
     local numAuraRows = 0
@@ -58,19 +33,17 @@ local function UpdateDebuffs(frame, unit)
     end
 
     -- hide og buffs
-    for i = 1,4 do
-       local frame = _G[frame:GetName() .. "Debuff" .. i]
-        if frame:IsShown() then
-            frame:Hide() -- or SetAlpha(0) if it taints..
-        end
+    if frame.AuraFrameContainer then
+        frame.AuraFrameContainer:Hide()
+        frame.AuraFrameContainer:SetAlpha(0)
     end
 
     -- create our own buffs
     for i = 1, maxDebuffs do
-        local name, rank, tex, _, debuffType, duration, expirationTime = UnitDebuff(unit, i, "HARMFUL")
+        local name, tex, _, debuffType, duration, expirationTime = UnitDebuff(unit, i, "HARMFUL")
 
         if name and not blacklist[name] then
-            frameName = frame:GetName() .. "DeBuff" .. lastIndex
+            frameName = "EvolveDeBuff" .. lastIndex
             buffName = _G[frameName]
 
             if not buffName then
@@ -129,7 +102,7 @@ local function UpdateDebuffs(frame, unit)
     end
 
     for i = lastIndex, maxDebuffs do
-        local dbf = _G[frame:GetName() .. "DeBuff" .. i]
+        local dbf = _G["EvolveDeBuff" .. i]
         if dbf then
             dbf:Hide()
         end
@@ -140,22 +113,31 @@ local gg = CreateFrame("Frame")
 gg:RegisterEvent("UNIT_AURA")
 gg:RegisterEvent("PLAYER_LOGIN")
 gg:SetScript("OnEvent", function(self, event, arg1)
-    if (event == "UNIT_AURA" and arg1 and arg1:match("party%d")) then
-        local nr = arg1:match("%d")
-        local frame = _G["PartyMemberFrame" .. nr]
-        if arg1 ~= frame.unit then return end
-        UpdateDebuffs(frame, arg1)
-    elseif event == "PLAYER_LOGIN" then
-        C_Timer.After(2, function()
-            for i = 1, 4 do
-                local frame = _G["PartyMemberFrame" .. i]
-                if frame then
-                    frame:UnregisterEvent("UNIT_AURA")
+    if (event == "UNIT_AURA") then
+        if PartyFrame and PartyFrame.PartyMemberFramePool then
+            for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
+                if pFrame.unit == arg1 then
+                    UpdateDebuffs(pFrame, arg1)
+                    break
                 end
-                for j = 1, 4 do
-                    local debuffFrame = _G["PartyMemberFrame" .. i .. "Debuff" .. j]
-                    if debuffFrame then
-                        debuffFrame:SetAlpha(0)
+            end
+        end
+
+    elseif event == "PLAYER_LOGIN" or event == "GROUP_ROSTER_UPDATE" then
+        C_Timer.After(1, function()
+            if PartyFrame and PartyFrame.PartyMemberFramePool then
+                for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
+                    if pFrame:IsEventRegistered("UNIT_AURA") then
+                        pFrame:UnregisterEvent("UNIT_AURA")
+                    end
+
+                    if pFrame.AuraFrameContainer then
+                        pFrame.AuraFrameContainer:Hide()
+                        pFrame.AuraFrameContainer:SetAlpha(0)
+                    end
+
+                    if pFrame.unit then
+                        UpdateDebuffs(pFrame, pFrame.unit)
                     end
                 end
             end
