@@ -355,11 +355,31 @@ local function OnInit()
     TargetFrameTextureFrameLevelText:SetAlpha(0)
     TargetFrameTextureFrameLeaderIcon:SetAlpha(0)
 	
+	-- Player castbar (until there is a stanadlone WA/Addon for DF castbar)
+    PlayerCastingBarFrame.Border:SetTexture("Interface\\CastingBar\\UI-CastingBar-Border-Small")
+    PlayerCastingBarFrame.Flash:SetTexture("Interface\\CastingBar\\UI-CastingBar-Border-Small")
+    PlayerCastingBarFrame.Spark:SetHeight(30)
+    PlayerCastingBarFrame.Text:ClearAllPoints()
+    PlayerCastingBarFrame.Text:SetPoint("CENTER", 0, 0)
+    PlayerCastingBarFrame.Border:SetWidth(PlayerCastingBarFrame.Border:GetWidth() + 4)
+    PlayerCastingBarFrame.Flash:SetWidth(PlayerCastingBarFrame.Flash:GetWidth() + 4)
+    PlayerCastingBarFrame.BorderShield:SetWidth(PlayerCastingBarFrame.BorderShield:GetWidth() + 4)
+    PlayerCastingBarFrame.Border:SetPoint("TOP", 0, 26)
+    PlayerCastingBarFrame.Flash:SetPoint("TOP", 0, 26)
+    PlayerCastingBarFrame.BorderShield:SetPoint("TOP", 0, 26)
+	
     -- TargetFrame castbar slight up-scaling
     TargetFrameSpellBar:SetScale(1.1)
 
     -- FocusFrame castbar slight up-scaling
     FocusFrameSpellBar:SetScale(1.1)
+	
+	-- Fixing the default Blizzard bugged/mispotioned casting bar text... shit company
+	TargetFrameSpellBar.Text:ClearAllPoints()
+	TargetFrameSpellBar.Text:SetPoint("CENTER", 0, 0)
+	
+	FocusFrameSpellBar.Text:ClearAllPoints()
+	FocusFrameSpellBar.Text:SetPoint("CENTER", 0, 0)
 
     --removing character "C" button image
     MicroButtonPortrait:Hide()
@@ -791,15 +811,15 @@ local smoothing = {}
 local inArena
 
 local function AnimationTick()
-    local limit = 60 / GetFramerate()
+    local limit = 0.5
 
     for bar, value in pairs(smoothing) do
         local cur = bar:GetValue()
-        local new = cur + mmin((value - cur) / 3, mmax(value - cur, limit))
+        local new = cur + mmin((value - cur) / 12, mmax(value - cur, limit))
         if new ~= new then
             new = value
         end
-        if cur == value or mabs(new - value) < 2 then
+        if cur == value or mabs(new - value) < 0.5 then
             bar:SetValue_(value)
             smoothing[bar] = nil
         else
@@ -1879,6 +1899,10 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
 			-- Hide the Friends button next to chat
 			if FriendsMicroButton then
 				FriendsMicroButton:Hide()
+			end
+			-- Hide the Looking For Group (LFG) Minimap Button container
+			if LFGMinimapFrame then
+				LFGMinimapFrame:Hide()
 			end
         end)
 	-- end of Hiding some 2.5.5 chat shit

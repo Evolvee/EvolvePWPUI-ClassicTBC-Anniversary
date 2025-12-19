@@ -112,25 +112,48 @@ function Clicks:SetupAttributes(unit)
     end
 end
 
+--custom hackfix to implement some auto-focus features, if you dont like it...well..fuck off and get your own Gladdy then :shrug:
 function Clicks:SetupAttribute(button, key, mod, action, spell)
     local attr = ""
     local text = ""
 
-    if (action == "macro") then
-        attr = mod .. "macrotext" .. key
-        text = spell:gsub("%*arena%*", button.unit)
-        button.secure:SetAttribute(mod .. "type" .. key, "macro")
-    elseif (action ~= "disabled") then
-        if (action == "target") then
-            attr = mod .. "type" .. key
-            text = "target"
-        elseif (action == "focus") then
-            attr = mod .. "type" .. key
-            text = "focus"
-        elseif (action == "spell") then
-            attr = mod .. "type" .. key
-            text = "spell"
-            button.secure:SetAttribute(mod .. "spell" .. key, spell)
+    if button:GetName() == "GladdyButtonFrame1" then
+        if key == "1" then
+            attr = "macrotext1"
+            text = "/cleartarget\n/clearfocus\n/target arena1\n/focus arena2\n/clearfocus [dead]"
+            button.secure:SetAttribute("type1", "macro")
+        elseif key == "2" then
+            attr = "macrotext2"
+            text = "/clearfocus\n/focus arena1"
+            button.secure:SetAttribute("type2", "macro")
+        end
+    elseif button:GetName() == "GladdyButtonFrame2" then
+        if key == "1" then
+            attr = "macrotext1"
+            text = "/cleartarget\n/clearfocus\n/target arena2\n/focus arena1\n/clearfocus [dead]"
+            button.secure:SetAttribute("type1", "macro")
+        elseif key == "2" then
+            attr = "macrotext2"
+            text = "/clearfocus\n/focus arena2"
+            button.secure:SetAttribute("type2", "macro")
+        end
+    else
+        if (action == "macro") then
+            attr = mod .. "macrotext" .. key
+            text = spell:gsub("%*arena%*", button.unit)
+            button.secure:SetAttribute(mod .. "type" .. key, "macro")
+        elseif (action ~= "disabled") then
+            if (action == "target") then
+                attr = mod .. "type" .. key
+                text = "target"
+            elseif (action == "focus") then
+                attr = mod .. "type" .. key
+                text = "focus"
+            elseif (action == "spell") then
+                attr = mod .. "type" .. key
+                text = "spell"
+                button.secure:SetAttribute(mod .. "spell" .. key, spell)
+            end
         end
     end
 

@@ -1,4 +1,5 @@
 ## Interface: 30300
 ## Title: CombatIndicator
 ## Author: Xyz
+## Category: Evolve PWP UI
 CombatIndicator.lua

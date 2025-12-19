@@ -3,4 +3,6 @@
 ## Notes: Left-bottom button to hide/show chat.
 ## Version: 3.4.0.45572 (3.3.5a)
 ## Title: HideChatButton
+## Category: Evolve PWP UI
+
 HideChatButton.lua

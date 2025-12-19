@@ -3,4 +3,6 @@
 ## Notes: Button that enables to switch between two OmniBarFrames on demand.
 ## Version: 1
 ## Title: OmnibarAdditionalButton
+## Category: Evolve PWP UI
+
 OmnibarAdditionalButton.lua

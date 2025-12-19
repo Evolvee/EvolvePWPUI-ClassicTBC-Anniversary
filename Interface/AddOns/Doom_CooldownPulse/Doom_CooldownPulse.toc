@@ -5,5 +5,6 @@
 ## SavedVariables: DCP_Saved
 ## SavedVariablesPerCharacter: DCP_SavedPerCharacter
 ## IconTexture: 4630441
+## Category: Evolve PWP UI
 
 Doom_CooldownPulse.lua

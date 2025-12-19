@@ -352,11 +352,11 @@ function Gladdy:OnInitialize()
     L = self.L
 
     self.testData = {
-        ["arena1"] = { name = "Swift", raceLoc = L["NightElf"], classLoc = L["Druid"], class = "DRUID", health = 67, healthMax = 100, power = 76, powerMax = 100, powerType = 1, testSpec = L["Restoration"], race = "NightElf" },
-        ["arena2"] = { name = "Vilden", raceLoc = L["Undead"], classLoc = L["Mage"], class = "MAGE", health = 99, healthMax = 100, power = 7833, powerMax = 10460, powerType = 0, testSpec = L["Frost"], race = "Scourge" },
-        ["arena3"] = { name = "Krymu", raceLoc = L["Human"], classLoc = L["Rogue"], class = "ROGUE", health = 10, healthMax = 100, power = 45, powerMax = 110, powerType = 3, testSpec = L["Subtlety"], race = "Human" },
-        ["arena4"] = { name = "Talmon", raceLoc = L["Human"], classLoc = L["Hunter"], class = "HUNTER", health = 40, healthMax = 100, power = 9855, powerMax = 9855, powerType = 1, testSpec = L["Beast Mastery"], race = "Dwarf" },
-        ["arena5"] = { name = "Hydra", raceLoc = L["Undead"], classLoc = L["Priest"], class = "PRIEST", health = 70, healthMax = 100, power = 2515, powerMax = 10240, powerType = 0, testSpec = L["Discipline"], race = "Human" },
+        ["arena1"] = { name = "Evolve", raceLoc = L["NightElf"], classLoc = L["Druid"], class = "PRIEST", health = 67, healthMax = 100, power = 76, powerMax = 100, powerType = 1, testSpec = L["Restoration"], race = "NightElf" },
+        ["arena2"] = { name = "Teddys", raceLoc = L["Undead"], classLoc = L["Mage"], class = "MAGE", health = 99, healthMax = 100, power = 7833, powerMax = 10460, powerType = 0, testSpec = L["Frost"], race = "Scourge" },
+        ["arena3"] = { name = "Blazw", raceLoc = L["Human"], classLoc = L["Rogue"], class = "ROGUE", health = 10, healthMax = 100, power = 45, powerMax = 110, powerType = 3, testSpec = L["Subtlety"], race = "Human" },
+        ["arena4"] = { name = "Hfs", raceLoc = L["Human"], classLoc = L["Hunter"], class = "HUNTER", health = 40, healthMax = 100, power = 9855, powerMax = 9855, powerType = 1, testSpec = L["Beast Mastery"], race = "Dwarf" },
+        ["arena5"] = { name = "Meivi", raceLoc = L["Undead"], classLoc = L["Priest"], class = "WARLOCK", health = 70, healthMax = 100, power = 2515, powerMax = 10240, powerType = 0, testSpec = L["Discipline"], race = "Human" },
     }
 
     self.cooldownSpellIds = {}

@@ -1,4 +1,6 @@
 ## Interface: 20505
 ## Title: PartyDebuffs
 ## Author: Xyz, Evolve edit
+## Category: Evolve PWP UI
+
 core.lua
