@@ -204,13 +204,13 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
     pFrame.Background:SetHeight(30)
 	pFrame.Background:SetWidth(71)
     pFrame.Background:SetPoint("TOPLEFT", pFrame, "TOPLEFT", 45, -13)
-	pFrame:SetScale(1.25)
+	pFrame:SetScale(1.27)
     pFrame.PartyMemberOverlay.Texture:SetTexture("Interface\\AddOns\\TextureScript\\UI-PartyFrame")
     pFrame.HealthBar:SetWidth(72)
     pFrame.HealthBar:SetHeight(18)
     pFrame.ManaBar:SetWidth(72)
     pFrame.ManaBar:SetHeight(10)
-    pFrame.HealthBar:SetPoint("TOPLEFT", 44.5, -13)
+    pFrame.HealthBar:SetPoint("TOPLEFT", 44.5, -12.5)
     pFrame.ManaBar:SetPoint("TOPLEFT", 44.5, -31)
 
     pFrame.PartyMemberOverlay.LeaderIcon:SetAlpha(0)
@@ -218,11 +218,11 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
 	
     local healthText = pFrame.healthbar:CreateFontString(nil, "OVERLAY", "GameFontWhite")
     healthText:SetFont("Fonts/FRIZQT__.TTF", 15, "THICKOUTLINE")
-    healthText:SetPoint("CENTER", 0, -1)
+    healthText:SetPoint("CENTER", 0, -0.5)
     healthText:Show()
 
     local manaText = pFrame.manabar:CreateFontString(nil, "OVERLAY", "GameFontWhite")
-    manaText:SetFont("Fonts/FRIZQT__.TTF", 9, "OUTLINE")
+    manaText:SetFont("Fonts/FRIZQT__.TTF", 9, "THICKOUTLINE")
     manaText:SetPoint("CENTER", 0, -0.5)
     manaText:Show()
 
@@ -262,9 +262,28 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
             pFrame.portrait:SetVertexColor(1, 1, 1, 1)
         end
     end)
+	
+	local isUpdating = false
+    hooksecurefunc(pFrame, "SetPoint", function(frame)
+        if isUpdating or InCombatLockdown() then return end
+
+        local unit = tonumber(frame.unit:sub(6, 6))
+        if unit > 1 then
+            local yAdjustment = (unit - 1) * 25
+            local point, relativeFrame, relativePoint, ofsx, ofsy = frame:GetPoint()
+
+            isUpdating = true
+            frame:ClearAllPoints() -- not sure if clearing is needed -- only 1 point is ever set on them
+            frame:SetPoint(point, relativeFrame, relativePoint, ofsx, ofsy - yAdjustment, true)
+            isUpdating = false
+        end
+    end)
 
     hooksecurefunc(pFrame.PartyMemberOverlay.Status, "Show", pFrame.PartyMemberOverlay.Status.Hide)
 end
+
+-- Add more spacing between PartyFrames (<3 Pyralis)
+
 
 local function OnInit()
     --minimap buttons, horde/alliance icons on target/focus/player,minimap city location, minimap sun/clock, minimap text frame,minimap zoomable with mousewheel etc
@@ -356,10 +375,10 @@ local function OnInit()
     TargetFrameTextureFrameLeaderIcon:SetAlpha(0)
 	
     -- TargetFrame castbar slight up-scaling
-    TargetFrameSpellBar:SetScale(1.1)
+    TargetFrameSpellBar:SetScale(1.12)
 
     -- FocusFrame castbar slight up-scaling
-    FocusFrameSpellBar:SetScale(1.1)
+    FocusFrameSpellBar:SetScale(1.12)
 	
 	-- Fixing the default Blizzard bugged/mispotioned casting bar text... shit company
 	TargetFrameSpellBar.Text:ClearAllPoints()
@@ -367,6 +386,8 @@ local function OnInit()
 	
 	FocusFrameSpellBar.Text:ClearAllPoints()
 	FocusFrameSpellBar.Text:SetPoint("CENTER", 0, 0)
+	
+	-- Fixing the default Blizzard mispositioned castbar background texture... dogshit company
 
     --removing character "C" button image
     MicroButtonPortrait:Hide()
@@ -1949,20 +1970,7 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 
--- Removing the "The Arena has begun!" boss-emote message in middle of screen
-local frame = CreateFrame("Frame")
-local function UpdateRaidBossEmoteFrame()
-local inInstance, instanceType = IsInInstance()
-if inInstance and instanceType == "arena" then
-RaidBossEmoteFrame:UnregisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
-else
-RaidBossEmoteFrame:RegisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
-end
-end
-frame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-frame:SetScript("OnEvent", UpdateRaidBossEmoteFrame)
--- Initial check in case the player reloads while already in the arena
-UpdateRaidBossEmoteFrame()
+
 
 --for testing fps
 local holder = CreateFrame("Frame", "FPSHolder", UIParent)

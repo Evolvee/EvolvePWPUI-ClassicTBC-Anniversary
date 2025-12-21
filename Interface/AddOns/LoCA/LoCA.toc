@@ -5,6 +5,7 @@
 ## Author: Rdmx
 ## DefaultState: Enabled
 ## SavedVariables: LoCADB
+## Category: Evolve PWP UI
 
 embeds.xml
 

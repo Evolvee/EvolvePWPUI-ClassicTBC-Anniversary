@@ -8,6 +8,7 @@
 ## X-WoWI-ID: 26350
 ## SavedVariables: GladdyXZ
 ## OptionalDeps: SharedMedia, Blizzard_CombatLog, Blizzard_ArenaUI, Blizzard_CombatText, Plater, Kui_Nameplates, NeatPlates, TidyPlates_ThreatPlates, Tukui, ElvUI
+## Category: Evolve PWP UI
 
 embeds.xml
 

@@ -7,3 +7,4 @@
 ## X-WoWI-ID: 26350
 ## Notes: Gladdy only supports Classic TBC and Classic WotLK.
 ## SavedVariables: GladdyXZ
+## Category: Evolve PWP UI

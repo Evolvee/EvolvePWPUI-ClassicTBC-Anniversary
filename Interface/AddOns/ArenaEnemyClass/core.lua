@@ -403,10 +403,22 @@ function EICTest()
     DetectClass("ROGUE", "PRIEST")
 end
 
-BossBanner:RegisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
-BossBanner:SetScript("OnEvent", function(self, event, arg1)
-    if arg1 and (string.find(arg1, "The Arena battle has begun!")) then
+local arenaWatcher = CreateFrame("frame")
+arenaWatcher:Hide()
+local arenaWatcherElapsed = 0
+arenaWatcher:SetScript("OnUpdate", function(self, elapsed)
+    arenaWatcherElapsed = arenaWatcherElapsed + elapsed
+    if UnitExists("arena1") or UnitExists("arena2") or arenaWatcherElapsed > 1.5 then
         PlaySoundFile("Interface\\Addons\\ArenaEnemyClass\\Finish.ogg")
         DetectClass(nil, nil)
+        self:Hide()
+    end
+end)
+
+BossBanner:RegisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL")
+BossBanner:SetScript("OnEvent", function(self, event, arg1)
+    if arg1 == "The Arena battle has begun!" then
+        arenaWatcherElapsed = 0
+        arenaWatcher:Show()
     end
 end)

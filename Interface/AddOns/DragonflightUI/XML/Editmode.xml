@@ -1,0 +1,528 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ http://wowprogramming.com/FrameXML/UI.xsd">
+	<Script file="Mixin/Editmode.mixin.lua" />
+	<Script file="Mixin/EditmodePreview.mixin.lua" />
+	<Frame name="DragonflightUIEditModeGrid" frameStrata="BACKGROUND" mixin="DragonflightUIEditModeGridMixin" hidden="true" virtual="true">
+		<KeyValues>
+			<KeyValue key="ignoreInLayout" value="true" type="boolean" />
+		</KeyValues>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="UIParent" />
+			<Anchor point="BOTTOMRIGHT" relativeTo="UIParent" />
+		</Anchors>
+		<Scripts>
+			<OnLoad method="OnLoad" />
+			<OnShow method="UpdateGrid" />
+			<OnEvent method="UpdateGrid" />
+			<OnHide method="OnHide" />
+		</Scripts>
+	</Frame>
+	<Line name="DFEditModeGridLineTemplate" mixin="DFEditModeGridLineMixin" virtual="true">
+		<KeyValues>
+			<KeyValue key="isGridLine" value="true" type="boolean" />
+		</KeyValues>
+	</Line>
+	<Frame name="DragonflightUIEditModeFrameTemplate" mixin="DragonflightUIEditModeFrameMixin" enableKeyboard="true" enableMouse="true" movable="true" clampedToScreen="true" registerForDrag="LeftButton" dontSavePosition="true" virtual="true">
+		<Size x="450" y="250" />
+		<Anchors>
+			<Anchor point="TOP" y="-100" />
+		</Anchors>
+		<Layers>
+			<Layer level="BORDER">
+				<FontString parentKey="InstructionText" inherits="GameFontWhite" text="QUICK_KEYBIND_DESCRIPTION" wordwrap="true">
+					<Size x="400" y="50" />
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-20" />
+					</Anchors>
+				</FontString>
+				<FontString parentKey="CancelDescriptionText" inherits="GameFontWhite" text="QUICK_KEYBIND_CANCEL_DESCRIPTION" wordwrap="true">
+					<Size x="400" y="50" />
+					<Anchors>
+						<Anchor point="CENTER" relativeKey="$parent.InstructionText" relativePoint="CENTER" x="0" y="-50" />
+					</Anchors>
+				</FontString>
+				<FontString parentKey="OutputText" inherits="GameFontWhite">
+					<Anchors>
+						<Anchor point="CENTER" relativeKey="$parent.CancelDescriptionText" relativePoint="CENTER" x="0" y="-50" />
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame parentKey="BG" inherits="DialogBorderTemplate" />
+			<Frame parentKey="Header" inherits="DragonflightDialogHeaderTemplate">
+				<KeyValues>
+					<KeyValue key="textString" value="QUICK_KEYBIND_MODE" type="global" />
+				</KeyValues>
+			</Frame>
+			<Button parentKey="ClosePanelButton" inherits="UIPanelCloseButtonDefaultAnchors" />
+			<Button parentKey="RevertButton" inherits="UIPanelButtonTemplate">
+				<Size x="155" y="25" />
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" x="25" y="18" />
+				</Anchors>
+			</Button>
+			<Button parentKey="SaveButton" inherits="UIPanelButtonTemplate">
+				<Size x="155" y="25" />
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" x="-25" y="18" />
+				</Anchors>
+			</Button>
+			<Button parentKey="AdvancedButton" inherits="UIPanelButtonTemplate" hidden="true">
+				<Size x="155" y="25" />
+				<Anchors>
+					<Anchor point="TOPRIGHT" x="-32" y="-38" />
+				</Anchors>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad method="OnLoad" />
+			<!-- <OnShow method="OnShow" /> -->
+			<!-- <OnHide method="OnHide" /> -->
+			<!-- <OnKeyDown method="OnKeyDown" /> -->
+			<!-- <OnGamePadButtonDown method="OnKeyDown" /> -->
+			<!-- <OnMouseWheel method="OnMouseWheel" /> -->
+			<OnDragStart method="OnDragStart" />
+			<OnDragStop method="OnDragStop" />
+		</Scripts>
+	</Frame>
+	<Frame name="DragonflightUIEditModeLayoutDropdownTemplate" mixin="DragonflightUIEditModeLayoutDropdownMixin" virtual="true">
+		<Frames>
+			<Frame parentKey="Button" inherits="DropdownWithSteppersTemplate" mixin="DropdownWithSteppersAndLabelMixin" virtual="true">
+				<Frames>
+					<DropdownButton parentKey="Dropdown" inherits="WowStyle2DropdownTemplate">
+						<Anchors>
+							<Anchor point="CENTER" />
+						</Anchors>
+					</DropdownButton>
+				</Frames>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString parentKey="Label" justifyH="LEFT" font="GameFontNormal">
+							<Anchors>
+								<Anchor point="BOTTOMLEFT" relativeKey="$parent.Dropdown" relativePoint="TOPLEFT" x="0" />
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad method="OnLoad" />
+		</Scripts>
+	</Frame>
+	<Frame name="DragonflightUIEditModeSelectionOptionsTemplate" inherits="DragonflightUIEditModeFrameTemplate" mixin="DragonflightUIEditModeSelectionOptionsMixin" enableKeyboard="true" enableMouse="true" movable="true" clampedToScreen="true" registerForDrag="LeftButton" dontSavePosition="true" virtual="true">
+	</Frame>
+	<Frame name="DFEditModeSystemSelectionMouseOverChecker" mixin="DFEditModeSystemSelectionMouseOverCheckerMixin" enableKeyboard="true" virtual="true">
+		<Scripts>
+			<OnLoad method="OnLoad" />
+			<OnUpdate method="OnUpdate" />
+		</Scripts>
+	</Frame>
+	<Frame name="DFEditModeSystemSelectionBaseTemplate" parentKey="Selection" mixin="DFEditModeSystemSelectionBaseMixin" ignoreParentAlpha="true" frameStrata="MEDIUM" frameLevel="1000" toplevel="true" enableMouse="true" registerForDrag="LeftButton" dontSavePosition="true" virtual="true" hidden="true">
+		<Size x="1" y="1" />
+		<!--
+		<KeyValues>
+		<KeyValue key="highlightTextureKit" value="editmode-actionbar-highlight" type="string" />
+		<KeyValue key="selectedTextureKit" value="editmode-actionbar-selected" type="string" />
+		<KeyValue key="ignoreInLayout" value="true" type="boolean" />
+		</KeyValues>
+		-->
+		<Scripts>
+			<OnLoad method="OnLoad" />
+			<OnUpdate method="OnUpdate" />
+			<OnMouseDown method="OnMouseDown" />
+			<OnEnter method="OnEnter" />
+			<OnLeave method="OnLeave" />
+			<OnDragStart method="OnDragStart" />
+			<OnDragStop method="OnDragStop" />
+		</Scripts>
+	</Frame>
+	<Frame name="DFEditModeSystemSelectionTemplate" inherits="DFEditModeSystemSelectionBaseTemplate" virtual="true">
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString parentKey="Label" inherits="GameFontHighlightLarge" mixin="ShrinkUntilTruncateFontStringMixin" setAllPoints="true" ignoreParentScale="true" hidden="true">
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+	<Frame name="DFEditModePreviewTargetTemplate" mixin="DragonflightUIEditModePreviewTargetMixin" virtual="true" hidden="true">
+	</Frame>
+	<Frame name="DFEditModePreviewTargetOfTargetTemplate" mixin="DragonflightUIEditModePreviewTargetOfTargetMixin" virtual="true" hidden="true">
+	</Frame>
+	<Frame name="DFEditModePreviewPartyFrameTemplate" mixin="DragonflightUIEditModePreviewPartyFrameMixin" virtual="true" hidden="true">
+		<Scripts>
+			<OnUpdate method="OnUpdate" />
+		</Scripts>
+	</Frame>
+	<Frame name="DFEditModePreviewPartyTemplate" mixin="DragonflightUIEditModePreviewPartyMixin" virtual="true">
+	</Frame>
+	<Frame name="DFEditModePreviewRaidFrameTemplate" mixin="DragonflightUIEditModePreviewRaidFrameMixin" virtual="true" hidden="true">
+	</Frame>
+	<Frame name="DFEditModePreviewRaidTemplate" mixin="DragonflightUIEditModePreviewRaidMixin" virtual="true">
+	</Frame>
+	<Frame name="DFEditModePreviewGroupLootTemplate" mixin="DragonflightUIEditModeGroupLootContainerPreviewMixin" inherits="BackdropTemplate" hidden="true" virtual="true">
+		<Size x="243" y="84" />
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentSlotTexture" file="Interface\Buttons\UI-EmptySlot">
+					<Size>
+						<AbsDimension x="64" y="64" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="3" y="-3" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentNameFrame" file="Interface\MerchantFrame\UI-Merchant-LabelSlots">
+					<Size>
+						<AbsDimension x="128" y="64" />
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentSlotTexture" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="-9" y="-10" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString parentKey="Name" name="$parentName" inherits="GameFontHighlight" text="Item Name" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="90" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentSlotTexture" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="-5" y="5" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture name="$parentDecoration" file="Interface\DialogFrame\UI-DialogBox-Gold-Dragon" hidden="true">
+					<Size>
+						<AbsDimension x="120" y="120" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="-30" y="15" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentCorner" file="Interface\DialogFrame\UI-DialogBox-Corner">
+					<Size>
+						<AbsDimension x="32" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-6" y="-7" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button parentKey="IconFrame" enableMouse="true">
+				<Size x="34" y="34" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentSlotTexture" x="15" y="-15" />
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture parentKey="Icon">
+							<Size x="34" y="34" />
+							<Anchors>
+								<Anchor point="TOPLEFT" />
+							</Anchors>
+						</Texture>
+					</Layer>
+					<Layer level="OVERLAY">
+						<FontString parentKey="Count" inherits="NumberFontNormal" justifyH="RIGHT" hidden="true">
+							<Anchors>
+								<Anchor point="BOTTOMRIGHT" x="-5" y="2" />
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<!--
+				<Scripts>
+				<OnLoad>
+				self.hasItem = 1;
+				</OnLoad>
+				<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+				GameTooltip:SetLootRollItem(self:GetParent().rollID);
+				CursorUpdate(self);
+				</OnEnter>
+				<OnLeave>
+				GameTooltip:Hide();
+				ResetCursor();
+				</OnLeave>
+				<OnUpdate>
+				if ( GameTooltip:IsOwned(self) ) then
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+				GameTooltip:SetLootRollItem(self:GetParent().rollID);
+				end
+				CursorOnUpdate(self);
+				</OnUpdate>
+				<OnClick>
+				HandleModifiedItemClick(GetLootRollItemLink(self:GetParent().rollID));
+				</OnClick>
+				</Scripts>
+				-->
+			</Button>
+			<Button parentKey="NeedButton" inherits="LootRollButtonTemplate" id="1">
+				<Anchors>
+					<Anchor point="TOPRIGHT" x="-37" y="-14" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+					</OnClick>
+					<OnLoad>
+						self.tooltipText=NEED;
+					</OnLoad>
+				</Scripts>
+				<NormalTexture file="Interface\Buttons\UI-GroupLoot-Dice-Up" />
+				<HighlightTexture file="Interface\Buttons\UI-GroupLoot-Dice-Highlight" alphaMode="ADD" />
+				<PushedTexture file="Interface\Buttons\UI-GroupLoot-Dice-Down" />
+			</Button>
+			<Button parentKey="PassButton" inherits="UIPanelCloseButton" id="0">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="$parentCorner" relativePoint="TOPRIGHT" x="5" y="5" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+					</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+						GameTooltip:SetText(PASS);
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+			<Button parentKey="GreedButton" inherits="LootRollButtonTemplate" id="2">
+				<Anchors>
+					<Anchor point="TOP" relativeKey="$parent.NeedButton" relativePoint="BOTTOM" x="-2" y="2" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+					</OnClick>
+					<OnLoad>
+						self.tooltipText=GREED;
+					</OnLoad>
+				</Scripts>
+				<NormalTexture file="Interface\Buttons\UI-GroupLoot-Coin-Up" />
+				<HighlightTexture file="Interface\Buttons\UI-GroupLoot-Coin-Highlight" alphaMode="ADD" />
+				<PushedTexture file="Interface\Buttons\UI-GroupLoot-Coin-Down" />
+			</Button>
+			<StatusBar parentKey="Timer" drawLayer="ARTWORK" minValue="0" maxValue="60000" defaultValue="0">
+				<Size x="152" y="10" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentSlotTexture" relativePoint="BOTTOMLEFT" x="13" y="10" />
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND" textureSubLevel="-1">
+						<Texture parentKey="Background" setAllPoints="true">
+							<Color r="0" g="0" b="0" />
+						</Texture>
+					</Layer>
+					<Layer level="ARTWORK">
+						<Texture file="Interface\PaperDollInfoFrame\UI-Character-Skills-BarBorder">
+							<Size x="156" y="20" />
+							<Anchors>
+								<Anchor point="TOP" x="0" y="5" />
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						self:GetStatusBarTexture():SetDrawLayer("BACKGROUND");
+					</OnLoad>
+					<!--
+					<OnUpdate>
+					GroupLootFrame_OnUpdate(self, elapsed);
+					</OnUpdate>
+					-->
+				</Scripts>
+				<BarTexture parentKey="Bar" file="Interface\PaperDollInfoFrame\UI-Character-Skills-Bar" />
+				<BarColor r="1.0" g="1.0" b="0" />
+			</StatusBar>
+		</Frames>
+		<Scripts>
+			<OnLoad method="OnLoad" />
+			<OnUpdate method="OnUpdate" />
+			<OnShow method="OnShow" />
+		</Scripts>
+	</Frame>
+	<Frame name="DFEditModePreviewDurability" virtual="true">
+		<Size>
+			<AbsDimension x="60" y="75" />
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="DurabilityHead" file="Interface\Durability\UI-Durability-Icons">
+					<Size>
+						<AbsDimension x="18" y="22" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" />
+					</Anchors>
+					<TexCoords left="0" right="0.140625" top="0" bottom="0.171875" />
+				</Texture>
+				<Texture parentKey="DurabilityShoulders" file="Interface\Durability\UI-Durability-Icons">
+					<Size>
+						<AbsDimension x="48" y="22" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.DurabilityHead" relativePoint="BOTTOM">
+							<Offset>
+								<AbsDimension x="0" y="16" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.140625" right="0.515625" top="0" bottom="0.171875" />
+				</Texture>
+				<Texture parentKey="DurabilityChest" file="Interface\Durability\UI-Durability-Icons">
+					<Size>
+						<AbsDimension x="20" y="22" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.DurabilityShoulders" relativePoint="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-7" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.515625" right="0.6640625" top="0" bottom="0.171875" />
+				</Texture>
+				<Texture parentKey="DurabilityWrists" file="Interface\Durability\UI-Durability-Icons">
+					<Size>
+						<AbsDimension x="44" y="22" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.DurabilityShoulders" relativePoint="BOTTOM">
+							<Offset>
+								<AbsDimension x="0" y="7" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.6640625" right="1.0" top="0" bottom="0.171875" />
+				</Texture>
+				<Texture parentKey="DurabilityHands" file="Interface\Durability\UI-Durability-Icons">
+					<Size>
+						<AbsDimension x="42" y="18" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.DurabilityWrists" relativePoint="BOTTOM">
+							<Offset>
+								<AbsDimension x="0" y="15" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.328125" top="0.171875" bottom="0.3046875" />
+				</Texture>
+				<Texture parentKey="DurabilityWaist" file="Interface\Durability\UI-Durability-Icons">
+					<Size>
+						<AbsDimension x="16" y="5" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.DurabilityChest" relativePoint="BOTTOM">
+							<Offset>
+								<AbsDimension x="0" y="6" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.328125" right="0.46875" top="0.171875" bottom="0.203125" />
+				</Texture>
+				<Texture parentKey="DurabilityLegs" file="Interface\Durability\UI-Durability-Icons">
+					<Size>
+						<AbsDimension x="29" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.DurabilityWaist" relativePoint="BOTTOM">
+							<Offset>
+								<AbsDimension x="0" y="2" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.46875" right="0.6875" top="0.171875" bottom="0.3203125" />
+				</Texture>
+				<Texture parentKey="DurabilityFeet" file="Interface\Durability\UI-Durability-Icons">
+					<Size>
+						<AbsDimension x="41" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.DurabilityLegs" relativePoint="BOTTOM">
+							<Offset>
+								<AbsDimension x="0" y="8" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.6875" right="1.0" top="0.171875" bottom="0.4140625" />
+				</Texture>
+				<Texture parentKey="DurabilityWeapon" file="Interface\Durability\UI-Durability-Icons">
+					<Size>
+						<AbsDimension x="20" y="45" />
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT" relativeKey="$parent.DurabilityWrists" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="0" y="-6" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.140625" top="0.3203125" bottom="0.6640625" />
+				</Texture>
+				<Texture parentKey="DurabilityShield" file="Interface\Durability\UI-Durability-Icons">
+					<Size>
+						<AbsDimension x="25" y="31" />
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.DurabilityWrists" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="0" y="10" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.1875" right="0.375" top="0.3203125" bottom="0.5546875" />
+				</Texture>
+				<Texture parentKey="DurabilityOffWeapon" file="Interface\Durability\UI-Durability-Icons" hidden="true">
+					<Size>
+						<AbsDimension x="20" y="45" />
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.DurabilityWrists" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="0" y="-6" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.140625" top="0.3203125" bottom="0.6640625" />
+				</Texture>
+				<Texture parentKey="DurabilityRanged" file="Interface\Durability\UI-Durability-Icons">
+					<Size>
+						<AbsDimension x="28" y="38" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.DurabilityShield" relativePoint="BOTTOM">
+							<Offset>
+								<AbsDimension x="0" y="5" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.1875" right="0.3984375" top="0.5546875" bottom="0.84375" />
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+</Ui>

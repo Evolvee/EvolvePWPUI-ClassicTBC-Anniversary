@@ -1,0 +1,401 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ http://wowprogramming.com/FrameXML/UI.xsd">
+	<Script file="Mixin/SettingsList.mixin.lua" />
+	<!-- SettingsListTemplate -->
+	<Frame name="SettingsListTemplateDF" mixin="SettingsListMixinDF" virtual="true">
+		<Frames>
+			<Frame parentKey="Header">
+				<Size y="50" />
+				<Anchors>
+					<Anchor point="TOPLEFT" />
+					<Anchor point="TOPRIGHT" />
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString parentKey="Title" inherits="GameFontHighlightHuge" justifyH="LEFT">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="7" y="-22" />
+							</Anchors>
+						</FontString>
+						<Texture atlas="Options_HorizontalDivider" useAtlasSize="true">
+							<Anchors>
+								<Anchor point="TOP" y="-50" />
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button parentKey="DefaultsButton" inherits="UIPanelButtonTemplate" hidden="true">
+						<Size x="96" y="22" />
+						<Anchors>
+							<Anchor point="TOPRIGHT" x="-36" y="-16" />
+						</Anchors>
+					</Button>
+					<Button parentKey="TutorialButton" inherits="MainHelpPlateButton" hidden="true">
+						<Anchors>
+							<Anchor point="TOPRIGHT" x="15" y="5" />
+						</Anchors>
+						<HighlightTexture file="Interface\common\help-i" alphaMode="ADD" hidden="true">
+							<Size x="46" y="46" />
+							<Anchors>
+								<Anchor point="CENTER" />
+							</Anchors>
+							<Color r="1" g="1" b="1" a=".2" />
+						</HighlightTexture>
+					</Button>
+				</Frames>
+			</Frame>
+			<Frame parentKey="ScrollBox" inherits="WowScrollBoxList">
+				<Frames>
+					<Button parentKey="InputBlocker" clipChildren="true" setAllPoints="true" hidden="true" />
+				</Frames>
+			</Frame>
+			<EventFrame parentKey="ScrollBar" inherits="MinimalScrollBar">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.ScrollBox" relativePoint="TOPRIGHT" x="0" y="-4" />
+					<Anchor point="BOTTOMLEFT" relativeKey="$parent.ScrollBox" relativePoint="BOTTOMRIGHT" x="-1" y="7" />
+				</Anchors>
+			</EventFrame>
+		</Frames>
+		<Scripts>
+			<OnLoad method="OnLoad" />
+		</Scripts>
+	</Frame>
+	<!-- Background texture -->
+	<Texture name="HoverBackgroundTemplateDF" virtual="true" hidden="true">
+		<Anchors>
+			<Anchor relativeKey="$parent.$parent" point="TOPLEFT" x="-10" />
+			<Anchor relativeKey="$parent.$parent" point="BOTTOMRIGHT" x="-5" />
+		</Anchors>
+		<Color a="0.1" r="1" g="1" b="1" />
+	</Texture>
+	<!-- formatting for each row of the list -->
+	<Frame name="ScrollableListItemTemplateDF" mixin="ScrollableListItemMixinDF" virtual="true">
+		<Frames>
+			<Frame parentKey="Header" inherits="SettingsListSectionHeaderTemplateDF" hidden="true" setAllPoints="true">
+			</Frame>
+			<Frame parentKey="Divider" inherits="SettingsListSectionDividerTemplateDF" hidden="true" setAllPoints="true">
+			</Frame>
+			<Frame parentKey="Item" inherits="SettingsListElementTemplateDF" hidden="true" setAllPoints="true">
+			</Frame>
+		</Frames>
+	</Frame>
+	<!-- Header -->
+	<Frame name="SettingsListSectionHeaderTemplateDF" virtual="true">
+		<Size y="45" />
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString parentKey="Title" inherits="GameFontHighlightLarge" justifyH="LEFT" justifyV="TOP">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="7" y="-16" />
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+	<!-- Divider -->
+	<Frame name="SettingsListSectionDividerTemplateDF" virtual="true">
+		<Size y="16" />
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture parentKey="Texture" file="Interface\AddOns\DragonflightUI\Textures\Editmode\ui-friendsframe-onlinedivider">
+					<!-- <Size x="330" y="8" /> -->
+					<!-- <Anchor point="TOPLEFT" x="7" y="-16" /> -->
+					<Anchors>
+						<Anchor point="TOPLEFT" x="0" y="0" />
+						<Anchor point="BOTTOMRIGHT" x="0" y="0" />
+					</Anchors>
+					<TexCoords left="0" right="1" top="0" bottom="1" />
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+	<!-- mixin="SettingsListElementMixin" -->
+	<Frame name="SettingsListElementTemplateDF" virtual="true">
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString parentKey="Text" inherits="GameFontNormal" justifyH="LEFT" wordwrap="false" />
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame parentKey="Tooltip" mixin="DefaultTooltipMixin">
+				<Anchors>
+					<Anchor point="TOPLEFT" />
+					<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="-80" />
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture parentKey="HoverBackground" inherits="HoverBackgroundTemplateDF" />
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad method="OnLoad" />
+				</Scripts>
+			</Frame>
+			<Frame parentKey="NewFeature" inherits="DragonflightUINewFeatureLabelNoAnimateTemplate" frameStrata="HIGH" scale=".8" frameLevel="100" hidden="true">
+				<Size x="1" y="1" />
+				<Anchors>
+					<Anchor point="RIGHT" relativeKey="$parent.Text" relativePoint="LEFT" x="-37" y="3" />
+				</Anchors>
+			</Frame>
+			<Frame parentKey="Blizzard" inherits="DragonflightUIBlizzardLabelNoAnimateTemplate" frameStrata="HIGH" scale=".8" frameLevel="100" hidden="true">
+				<Size x="1" y="1" />
+				<Anchors>
+					<Anchor point="RIGHT" relativeKey="$parent.Text" relativePoint="LEFT" x="-37" y="3" />
+				</Anchors>
+			</Frame>
+			<CheckButton parentKey="Checkbox" inherits="SettingsCheckBoxTemplateDF" hidden="true" setAllPoints="false">
+			</CheckButton>
+			<Frame parentKey="Slider" inherits="SettingsSliderTemplateDF" hidden="true" setAllPoints="false">
+			</Frame>
+			<Frame parentKey="Dropdown" inherits="SettingsDropdownTemplateDF" hidden="true" setAllPoints="false">
+			</Frame>
+			<Frame parentKey="Button" inherits="SettingButtonControlTemplateDF" hidden="true" setAllPoints="true">
+			</Frame>
+		</Frames>
+	</Frame>
+	<!-- Button -->
+	<Frame name="SettingButtonControlTemplateDF" mixin="SettingsButtonControlMixinDF" virtual="true">
+		<Size x="280" y="26" />
+		<Frames>
+			<Button parentKey="Button" inherits="UIPanelButtonTemplate" hidden="false">
+				<Size x="200" y="26" />
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="CENTER" x="-40" y="0" />
+				</Anchors>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad method="OnLoad" />
+		</Scripts>
+	</Frame>
+	<!-- Checkbox -->
+	<Frame name="SettingsCheckBoxControlTemplateDF" virtual="true">
+		<Size x="280" y="26" />
+		<Frames>
+			<CheckButton parentKey="$parent.Checkbox" inherits="SettingsCheckBoxTemplateDF" hidden="true" setAllPoints="false">
+			</CheckButton>
+		</Frames>
+	</Frame>
+	<CheckButton name="SettingsCheckBoxTemplateDF" mixin="SettingsCheckBoxMixinDF" motionScriptsWhileDisabled="true" virtual="true">
+		<Size x="30" y="29" />
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="HoverBackground" inherits="HoverBackgroundTemplateDF" />
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad method="OnLoad" />
+			<OnEnter method="OnEnter" />
+			<OnLeave method="OnLeave" />
+		</Scripts>
+		<NormalTexture atlas="checkbox-minimal" useAtlasSize="true" />
+		<PushedTexture atlas="checkbox-minimal" useAtlasSize="true" />
+		<CheckedTexture atlas="checkmark-minimal" useAtlasSize="true" />
+		<DisabledCheckedTexture atlas="checkmark-minimal-disabled" useAtlasSize="true" />
+	</CheckButton>
+	<!-- Slider -->
+	<Frame name="SettingsSliderTemplateDF" inherits="MinimalSliderWithSteppersTemplate" mixin="SettingsSliderMixinDF" virtual="true">
+		<Scripts>
+			<OnLoad method="OnLoad" />
+			<OnEnter method="OnEnter" />
+			<OnLeave method="OnLeave" />
+		</Scripts>
+	</Frame>
+	<EditBox name="SettingsSliderEditboxTemplateDF" multiLine="false" autoFocus="false" virtual="true">
+		<Size>
+			<AbsDimension x="60" y="20">
+			</AbsDimension>
+		</Size>
+		<TextInsets left="1" right="1" />
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="HoverBackground">
+					<Color a="0.42" />
+				</Texture>
+			</Layer>
+		</Layers>
+		<FontString inherits="GameFontNormal">
+		</FontString>
+	</EditBox>
+	<!-- Dropdown -->
+	<Frame name="SettingsDropdownTemplateDF" mixin="SettingsDropdownMixinDF" virtual="true">
+		<Size x="223" y="38" />
+		<KeyValues>
+			<KeyValue key="decrementOffsetX" value="4" type="number" />
+			<KeyValue key="incrementOffsetX" value="-4" type="number" />
+		</KeyValues>
+		<Frames>
+			<Button mixin="SelectionPopoutButtonMixinDF" parentKey="Button">
+				<Size x="250" y="38" />
+				<Anchors>
+					<Anchor point="CENTER" />
+				</Anchors>
+				<KeyValues>
+					<KeyValue key="selectionEntryTemplates" value="SettingsSelectionPopoutEntryTemplate" type="string" />
+				</KeyValues>
+				<NormalTexture parentKey="NormalTexture" atlas="charactercreate-customize-dropdownbox" />
+				<HighlightTexture parentKey="HighlightTexture" atlas="charactercreate-customize-dropdownbox-open" alphaMode="ADD" alpha="0" />
+				<PushedTextOffset x="2" y="-2" />
+				<Frames>
+					<Frame parentKey="Popout" inherits="SelectionPopoutTemplateDF" hidden="true">
+					</Frame>
+					<Frame parentKey="SelectionDetails" setAllPoints="true" mixin="SettingsSelectionPopoutDetailsMixinDF">
+						<Size x="250" y="20" />
+						<Layers>
+							<Layer level="OVERLAY" textureSubLevel="1">
+								<FontString parentKey="SelectionName" font="GameFontNormal" justifyH="CENTER" maxLines="1" hidden="true" />
+							</Layer>
+						</Layers>
+					</Frame>
+				</Frames>
+				<Scripts>
+					<OnLoad method="OnLoad" />
+					<OnHide method="OnHide" />
+					<OnMouseDown method="OnMouseDown" />
+					<OnMouseWheel method="OnMouseWheel" />
+					<OnEnter method="OnEnter" />
+					<OnLeave method="OnLeave" />
+				</Scripts>
+			</Button>
+			<Button parentKey="IncrementButton" inherits="AlphaHighlightButtonTemplate" motionScriptsWhileDisabled="true">
+				<Size x="32" y="32" />
+				<NormalTexture parentKey="NormalTexture" atlas="charactercreate-customize-nextbutton" />
+				<PushedTexture parentKey="PushedTexture" atlas="charactercreate-customize-nextbutton-down" />
+				<DisabledTexture atlas="charactercreate-customize-nextbutton-disabled" />
+			</Button>
+			<Button parentKey="DecrementButton" inherits="AlphaHighlightButtonTemplate" motionScriptsWhileDisabled="true">
+				<Size x="32" y="32" />
+				<NormalTexture parentKey="NormalTexture" atlas="charactercreate-customize-backbutton" />
+				<PushedTexture parentKey="PushedTexture" atlas="charactercreate-customize-backbutton-down" />
+				<DisabledTexture atlas="charactercreate-customize-backbutton-disabled" />
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad method="OnLoad" />
+		</Scripts>
+	</Frame>
+	<Frame name="SelectionPopoutTemplateDF" mixin="SelectionPopoutMixinDF" virtual="true">
+		<Size x="250" y="255" />
+		<Anchors>
+			<Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" x="3" y="11" />
+		</Anchors>
+		<Frames>
+			<Frame parentKey="Border" useParentLevel="true" inherits="NineSlicePanelTemplate">
+				<KeyValues>
+					<KeyValue key="layoutType" value="CharacterCreateDropdown" type="string" />
+				</KeyValues>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad method="OnLoad" />
+			<OnShow method="OnShow" />
+			<OnHide method="OnHide" />
+			<OnMouseWheel function="nop" />
+		</Scripts>
+	</Frame>
+	<!-- inherits="SelectionPopoutEntryTemplate"  mixin="SettingsSelectionPopoutEntryMixin" -->
+	<Button name="SettingsSelectionPopoutEntryTemplateDF" mixin="SettingsSelectionPopoutEntryMixinDF" motionScriptsWhileDisabled="true" virtual="true">
+		<Size x="238" y="20" />
+		<Layers>
+			<Layer level="OVERLAY" textureSubLevel="1">
+				<FontString parentKey="SelectionName" font="GameFontNormal" justifyH="LEFT" maxLines="1" hidden="false">
+					<Size x="250" y="20" />
+					<Anchors>
+						<Anchor point="TOPLEFT" x="14" y="0" />
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame parentKey="HighlightBGTex" alpha="0" setAllPoints="true">
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture parentKey="Left" atlas="charactercreate-customize-dropdown-linemouseover-side" useAtlasSize="true">
+							<Anchors>
+								<Anchor point="TOPLEFT" />
+							</Anchors>
+						</Texture>
+						<Texture parentKey="Right" atlas="charactercreate-customize-dropdown-linemouseover-side" useAtlasSize="true">
+							<TexCoords left="1" right="0" top="0" bottom="1" />
+							<Anchors>
+								<Anchor point="BOTTOMRIGHT" />
+							</Anchors>
+						</Texture>
+						<Texture parentKey="Middle" atlas="charactercreate-customize-dropdown-linemouseover-middle" useAtlasSize="true">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.Left" relativePoint="TOPRIGHT" />
+								<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Right" relativePoint="BOTTOMLEFT" />
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad method="OnLoad" />
+			<OnEnter method="OnEnter" />
+			<OnLeave method="OnLeave" />
+			<OnClick method="OnClick" />
+		</Scripts>
+	</Button>
+	<!-- Used to call out a new feature. Includes a pulsing animation to call player's attention. Use NewFeatureLabelNoAnimateTemplate if you don't want the animation -->
+	<Frame name="DragonflightUINewFeatureLabelTemplate" inherits="ResizeLayoutFrame" mixin="DragonflightUINewFeatureLabelMixin" virtual="true" hidden="true">
+		<KeyValues>
+			<KeyValue key="animateGlow" value="true" type="boolean" />
+			<KeyValue key="label" value="NEW" type="string" />
+			<KeyValue key="justifyH" value="CENTER" type="string" />
+		</KeyValues>
+		<Layers>
+			<Layer level="OVERLAY" textureSubLevel="1">
+				<FontString parentKey="BGLabel" inherits="GameFontNormal_NoShadow" maxLines="1" justifyH="CENTER" text="NEW_CAPS">
+					<KeyValues>
+						<KeyValue key="ignoreInLayout" value="true" type="boolean" />
+					</KeyValues>
+					<Color color="NEW_FEATURE_SHADOW_COLOR" />
+					<Anchors>
+						<Anchor point="CENTER" x="0.5" y="-0.5" />
+					</Anchors>
+				</FontString>
+				<FontString parentKey="Label" inherits="GameFontHighlight" maxLines="1" justifyH="CENTER" text="NEW_CAPS">
+					<Shadow>
+						<Color color="NEW_FEATURE_SHADOW_COLOR" />
+					</Shadow>
+					<Anchors>
+						<Anchor point="CENTER" />
+					</Anchors>
+				</FontString>
+				<Texture parentKey="Glow" file="Interface\AddOns\DragonflightUI\Textures\collections">
+					<Size x="59" y="37" />
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.Label" x="-20" y="10" />
+						<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Label" x="20" y="-10" />
+					</Anchors>
+					<TexCoords left="0.511719" right="0.626953" top="0.0136719" bottom="0.0859375" />
+				</Texture>
+			</Layer>
+		</Layers>
+		<Animations>
+			<AnimationGroup parentKey="Fade" looping="REPEAT">
+				<Alpha childKey="Glow" duration="1.0" order="1" fromAlpha="1" toAlpha=".5" />
+				<Alpha childKey="Glow" duration="1.0" order="2" fromAlpha=".5" toAlpha="1" />
+			</AnimationGroup>
+		</Animations>
+		<Scripts>
+			<OnShow inherit="prepend" method="OnShow" />
+			<OnLoad inherit="prepend" method="OnLoad" />
+			<OnHide method="OnHide" />
+		</Scripts>
+	</Frame>
+	<!-- Inherit this if you don't want the glow texture to pulse -->
+	<Frame name="DragonflightUINewFeatureLabelNoAnimateTemplate" inherits="DragonflightUINewFeatureLabelTemplate" virtual="true">
+		<KeyValues>
+			<KeyValue key="animateGlow" value="false" type="boolean" />
+		</KeyValues>
+	</Frame>
+	<Frame name="DragonflightUIBlizzardLabelNoAnimateTemplate" inherits="DragonflightUINewFeatureLabelTemplate" virtual="true">
+		<KeyValues>
+			<KeyValue key="animateGlow" value="false" type="boolean" />
+			<KeyValue key="label" value="BLIZZ" type="string" />
+		</KeyValues>
+	</Frame>
+</Ui>

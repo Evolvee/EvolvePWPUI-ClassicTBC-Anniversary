@@ -1,0 +1,89 @@
+## Interface: 30405, 30404
+## Title: DragonflightUI |cff8080ffv0.37.2|r
+## Notes: Brings the modern retail UI to classic.|n|cffbbbbbbBy Karl-Heinz Schneider|r|n|n|TInterface/Addons/DragonflightUI/Textures/Art/coffee:12:12|t |cff82c5ffbuymeacoffee.com/karlheinzschneider|r
+## Notes-esES: La interfaz moderna para la versión clásica.|n|cffbbbbbbPor Karl-Heinz Schneider|r|n|n|TInterface/Addons/DragonflightUI/Textures/Art/coffee:12:12|t |cff82c5ffbuymeacoffee.com/karlheinzschneider|r
+## Notes-esMX: La interfaz moderna para la versión clásica.|n|cffbbbbbbPor Karl-Heinz Schneider|r|n|n|TInterface/Addons/DragonflightUI/Textures/Art/coffee:12:12|t |cff82c5ffbuymeacoffee.com/karlheinzschneider|r
+## Author: Karl-Heinz Schneider
+## X-Website: https://github.com/Karl-HeinzSchneider/WoW-DragonflightUI
+## X-Curse-Project-ID: 819757
+## Version: v0.37.2
+## X-Date: 20251208041603
+## SavedVariables: DragonflightUIDB
+## OptionalDeps: Ace3, Blizzard_Minimap, Blizzard_TalentUI, Blizzard_TimeManager, Leatrix_Plus, NovaWorldBuffs
+
+# Libs
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+Libs\AceAddon-3.0\AceAddon-3.0.xml
+Libs\AceComm-3.0\AceComm-3.0.xml
+Libs\AceEvent-3.0\AceEvent-3.0.xml
+Libs\AceDB-3.0\AceDB-3.0.xml
+Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
+Libs\AceConsole-3.0\AceConsole-3.0.xml
+Libs\AceGUI-3.0\AceGUI-3.0.xml
+Libs\AceLocale-3.0\AceLocale-3.0.xml
+Libs\AceSerializer-3.0\AceSerializer-3.0.xml
+Libs\AceHook-3.0\AceHook-3.0.xml
+Libs\AceConfig-3.0\AceConfig-3.0.xml
+
+Libs\LibDeflate\lib.xml
+Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+Libs\LibDBIcon-1.0\lib.xml
+Libs\LibQuestXP\LibQuestXP-Classic.xml
+Libs\LibRangeCheck-3.0\LibRangeCheck-3.0.lua
+Libs\LibSharedMedia-3.0\lib.xml
+Libs\TaintLess\TaintLess.xml
+Libs\LibTradeSkillRecipes\lib.xml
+
+Embed\AuraDurations\AuraDurations_embed.xml
+
+Mixin\DFColor.mixin.lua
+
+Core.lua
+Helper.lua
+SharedMedia.lua
+API.xml
+Config.lua
+Version.lua
+VIP.lua
+
+# Localization
+LocalizationData.lua
+Localization\Bindings.lua
+Localization\BlizzardData\Professions.lua
+Localization\enUS.lua
+Localization\esES.lua
+Localization\ruRU.lua
+Localization\zhCN.lua
+
+XML\Includes.xml
+## Bindings.xml
+
+# XML
+XML\Actionbar.xml
+XML\Bossframe.xml
+XML\Buff.xml
+XML\Castbar.xml
+XML\CharacterStatsPanel.xml
+XML\ConfigCategoryList.xml
+XML\DFSettingsCategory.xml
+XML\DFSettingsList.xml
+XML\DFSettingsList_Compat.xml
+XML\Config.xml
+XML\Editmode.xml
+XML\EquipmentManager.xml
+XML\ProfessionFrame.xml
+XML\ProfessionSpellbook.xml
+XML\QuickKeybind.xml
+XML\SettingsList.xml
+XML\Spellflyout.xml
+XML\Talents.xml
+XML\UI.xml
+
+XML\DFColorPicker.xml
+
+## 
+Modules\__Settings.lua
+Compatibility.xml
+Modules\LoadModules.xml
+
