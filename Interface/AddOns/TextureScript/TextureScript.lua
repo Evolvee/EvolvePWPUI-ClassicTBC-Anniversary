@@ -215,7 +215,7 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
 
     pFrame.PartyMemberOverlay.LeaderIcon:SetAlpha(0)
     pFrame.PartyMemberOverlay.MasterIcon:SetAlpha(0)
-
+	
     local healthText = pFrame.healthbar:CreateFontString(nil, "OVERLAY", "GameFontWhite")
     healthText:SetFont("Fonts/FRIZQT__.TTF", 15, "THICKOUTLINE")
     healthText:SetPoint("CENTER", 0, -1)
@@ -355,19 +355,6 @@ local function OnInit()
     TargetFrameTextureFrameLevelText:SetAlpha(0)
     TargetFrameTextureFrameLeaderIcon:SetAlpha(0)
 	
-	-- Player castbar (until there is a stanadlone WA/Addon for DF castbar)
-    PlayerCastingBarFrame.Border:SetTexture("Interface\\CastingBar\\UI-CastingBar-Border-Small")
-    PlayerCastingBarFrame.Flash:SetTexture("Interface\\CastingBar\\UI-CastingBar-Border-Small")
-    PlayerCastingBarFrame.Spark:SetHeight(30)
-    PlayerCastingBarFrame.Text:ClearAllPoints()
-    PlayerCastingBarFrame.Text:SetPoint("CENTER", 0, 0)
-    PlayerCastingBarFrame.Border:SetWidth(PlayerCastingBarFrame.Border:GetWidth() + 4)
-    PlayerCastingBarFrame.Flash:SetWidth(PlayerCastingBarFrame.Flash:GetWidth() + 4)
-    PlayerCastingBarFrame.BorderShield:SetWidth(PlayerCastingBarFrame.BorderShield:GetWidth() + 4)
-    PlayerCastingBarFrame.Border:SetPoint("TOP", 0, 26)
-    PlayerCastingBarFrame.Flash:SetPoint("TOP", 0, 26)
-    PlayerCastingBarFrame.BorderShield:SetPoint("TOP", 0, 26)
-	
     -- TargetFrame castbar slight up-scaling
     TargetFrameSpellBar:SetScale(1.1)
 
@@ -389,13 +376,13 @@ local function OnInit()
 
     -- move target of target to the right side in order to allow cleaner vision of buffs/debuffs on a target/focus
     TargetFrameToT:ClearAllPoints();
-    TargetFrameToT:SetPoint("RIGHT", "TargetFrame", "BOTTOMRIGHT", -5, 3);
+    TargetFrameToT:SetPoint("RIGHT", "TargetFrame", "BOTTOMRIGHT", 0, 3);
     FocusFrameToT:ClearAllPoints();
-    FocusFrameToT:SetPoint("RIGHT", "FocusFrame", "BOTTOMRIGHT", -5, 3);
+    FocusFrameToT:SetPoint("RIGHT", "FocusFrame", "BOTTOMRIGHT", 0, 3);
 	
 	-- adjust the ToT background texture (because current Blizzard is a piss of shit company that cant even maintain their OWN fucking UI that somebody else made for them)
     TargetFrameToTBackground:SetPoint("BOTTOMLEFT", TargetFrameToT, "BOTTOMLEFT", 46, 15)
-
+	FocusFrameToTBackground:SetPoint("BOTTOMLEFT", FocusFrameToT, "BOTTOMLEFT", 46, 15)
     --disable mouseover flashing on buttons
     for i = 1, 12 do
         local texture = _G["MultiBarBottomLeftButton" .. i]:GetHighlightTexture()
@@ -707,6 +694,10 @@ local PetBG = PetFrame:CreateTexture(nil, "BACKGROUND")
         PetBG:SetSize(72, 28)
         PetBG:SetPoint("BOTTOMLEFT", PetFrame, "BOTTOMLEFT", 44, 12)
         PetBG:SetColorTexture(0, 0, 0, 0.5)
+
+-- Moving PetFrame debuffs down due to Blizzard fucking up once again and placing debuffs inside the petframe texture... the words are not enough to describe such incompetence and gross negligence
+
+
 
 -- Hidden Player glow combat/rested flashes + Hidden Focus Flash on Focused Target + Hiding the red glowing status on target/focus frames when they have low HP
 local playerTextures = { PlayerStatusTexture, PlayerRestGlow, PlayerRestIcon, PlayerAttackIcon, PlayerAttackGlow, PlayerStatusGlow, PlayerAttackBackground }
@@ -1858,9 +1849,6 @@ StyleUnitName(TargetFrame, -173, 30)
 -- Focus frame
 StyleUnitName(FocusFrame, -173, 30)
 
-
-
-
 local evolvedFrame = CreateFrame("Frame")
 evolvedFrame:RegisterEvent("ADDON_LOADED")
 evolvedFrame:RegisterEvent("PLAYER_LOGIN")
@@ -1902,6 +1890,7 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
 			end
 			-- Hide the Looking For Group (LFG) Minimap Button container
 			if LFGMinimapFrame then
+				LFGMinimapFrame:HookScript("OnShow", LFGMinimapFrame.Hide)
 				LFGMinimapFrame:Hide()
 			end
         end)
@@ -1949,10 +1938,6 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
         else
             plateEventFrame:SetScript("OnEvent", PlateScript)
         end
-		-- Hide the Looking For Group (LFG) Minimap Button container
-		if LFGMinimapFrame then
-			LFGMinimapFrame:Hide()
-		end
     elseif event == "GOSSIP_SHOW" then
         skipEventFrame()
     elseif event == "NAME_PLATE_UNIT_ADDED" then
@@ -1964,7 +1949,20 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 
-
+-- Removing the "The Arena has begun!" boss-emote message in middle of screen
+local frame = CreateFrame("Frame")
+local function UpdateRaidBossEmoteFrame()
+local inInstance, instanceType = IsInInstance()
+if inInstance and instanceType == "arena" then
+RaidBossEmoteFrame:UnregisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
+else
+RaidBossEmoteFrame:RegisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
+end
+end
+frame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+frame:SetScript("OnEvent", UpdateRaidBossEmoteFrame)
+-- Initial check in case the player reloads while already in the arena
+UpdateRaidBossEmoteFrame()
 
 --for testing fps
 local holder = CreateFrame("Frame", "FPSHolder", UIParent)

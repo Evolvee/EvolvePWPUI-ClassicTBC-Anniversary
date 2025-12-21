@@ -41,8 +41,11 @@ addon.defaultSettings = {
         { spellId = 39077, category = "Stunned", weight = 3, active = true, type = 3 },  --[[ Hammer of Justice --]]
         { spellId = 19577, category = "Stunned", weight = 3, active = true, type = 3 },  --[[ Intimidation --]]
         { spellId = 15269, category = "Stunned", weight = 3, active = true, type = 3 },  --[[ Blackout --]]
+		{ spellId = 5530, category = "Stunned", weight = 3, active = true, type = 3 },  --[[ Mace Stun Effect --]]
+		{ spellId = 34510, category = "Stunned", weight = 3, active = true, type = 3 },  --[[ Stormherald --]]
 
         { spellId = 22570, category = "Incapacitated", weight = 4, active = true, type = 4 }, --[[ Maim --]]
+		{ spellId = 27068, category = "Incapacitated", weight = 4, active = true, type = 4 }, --[[ Wyvern Sting --]]
         { spellId = 20066, category = "Incapacitated", weight = 4, active = true, type = 4 }, --[[ Repentence --]]
         { spellId = 38764, category = "Sapped", weight = 4, active = true, type = 4 },        --[[ Gouge --]]
         { spellId = 19503, category = "Disoriented", weight = 4, active = true, type = 4 },   --[[ Scatter Shot --]]
