@@ -388,6 +388,10 @@ local function OnInit()
 	FocusFrameSpellBar.Text:ClearAllPoints()
 	FocusFrameSpellBar.Text:SetPoint("CENTER", 0, 0.15)
 	
+	-- Slightly increase the size of Target/Focus spell cast bar icon
+	TargetFrameSpellBar.Icon:SetSize(25,25)
+	FocusFrameSpellBar.Icon:SetSize(25,25)
+	
 	-- Fixing the default Blizzard mispositioned castbar background texture...
 	local function FixCastBarBackground(bar)
     if not bar then return end
@@ -749,12 +753,10 @@ local PetBG = PetFrame:CreateTexture(nil, "BACKGROUND")
 PetFrame.AuraFrameContainer:SetPoint("TOPLEFT", 48, -48)
 
 -- Make the PetFrame debuffs not a subject to OmniCC (cant be done via OmniCC rules ingame)
-PetFrame.AuraFramePool:Acquire()
-for frame in PetFrame.AuraFramePool:EnumerateActive() do
-  if frame and frame.Cooldown then
-frame.Cooldown.noCooldownCount = true
-end
-end
+hooksecurefunc(PetFrame, "UpdateAuras", function(self)
+for frame in self.AuraFramePool:EnumerateActive() do
+  if frame and frame.Cooldown and not frame.Cooldown.noCooldownCount then frame.Cooldown.noCooldownCount = true end
+end end) 
 
 -- Hidden Player glow combat/rested flashes + Hidden Focus Flash on Focused Target + Hiding the red glowing status on target/focus frames when they have low HP
 local playerTextures = { PlayerStatusTexture, PlayerRestGlow, PlayerRestIcon, PlayerAttackIcon, PlayerAttackGlow, PlayerStatusGlow, PlayerAttackBackground }
