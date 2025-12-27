@@ -2,6 +2,6 @@
 ## Title: ArenaEnemyClass
 ## Category: Evolve PWP UI
 ## Notes: KYS BLIZZARD
-## Author: Xyz, Evolve, Pyralis (2.5.5 fix)
+## Author: Xyz, Evolve, Pyralis
 
 core.lua

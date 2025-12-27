@@ -28,7 +28,7 @@ addon.Resets = {
     --[[ Summon Felhunter
         - Spell Lock
       ]]
-    [691] = { 19244 },
+    [691] = { 19244, 19647 },
 }
 
 addon.Cooldowns = {

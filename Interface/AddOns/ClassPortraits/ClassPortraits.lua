@@ -1,12 +1,12 @@
 local function log(msg) DEFAULT_CHAT_FRAME:AddMessage(msg) end -- alias for convenience
 local ClassPortraits=CreateFrame("Frame", nil, UIParent)
 
-local iconPath="Interface\\Addons\\ClassPortraits\\DO NOT STEAL THIS PLS.BLP"
+local iconPath="Interface\\Addons\\TextureScript\\ClassIconsUpscaled\\NEW_PORTRAITS.BLP"
 
 -- TARGET
 local TargetToTPortrait = TargetFrameToT:CreateTexture(nil, "ARTWORK")
 local w, h = TargetFrameToT.portrait:GetSize()
-TargetToTPortrait:SetSize(w * 1.13, h * 1.13)   -- 13% bigger
+TargetToTPortrait:SetSize(w * 1.133, h * 1.133)   -- 13% bigger
 TargetToTPortrait:ClearAllPoints()
 TargetToTPortrait:SetPoint("CENTER", TargetFrameToT, "CENTER", -22.5, -0.5)
 
@@ -22,7 +22,7 @@ basePortrait:SetPoint("CENTER", TargetFrameToT, "CENTER", -22.5, -0.5)
 -- FOCUS
 local FocusToTPortrait = FocusFrameToT:CreateTexture(nil, "ARTWORK")
 local fw, fh = FocusFrameToT.portrait:GetSize()
-FocusToTPortrait:SetSize(fw * 1.13, fh * 1.13)  -- 13% bigger
+FocusToTPortrait:SetSize(fw * 1.133, fh * 1.133)  -- 13% bigger
 FocusToTPortrait:ClearAllPoints()
 FocusToTPortrait:SetPoint("CENTER", FocusFrameToT, "CENTER", -22.5, -0.5)
 
@@ -196,7 +196,7 @@ hooksecurefunc("UnitFramePortrait_Update", function(self)
 		return
 	end
 
-	if self.portrait and not (self.unit == "targettarget" or self.unit == "focus-target") then
+	if self.portrait then
 		if UnitIsPlayer(self.unit) then
 			local t = CLASS_ICON_TCOORDS[select(2,UnitClass(self.unit))]
 			if t then
@@ -206,40 +206,6 @@ hooksecurefunc("UnitFramePortrait_Update", function(self)
 		else
 			self.portrait:SetTexCoord(0,1,0,1)
 		end
-	end
-
-	if UnitExists("targettarget") ~= nil then
-		if UnitGUID("targettarget") ~= lastTargetToTGuid then
-			lastTargetToTGuid = UnitGUID("targettarget")
-			if UnitIsPlayer("targettarget") then
-				TargetToTPortrait:SetTexture(iconPath, true)
-				local tt=classIcons[(select(2, UnitClass("targettarget")))]
-				TargetToTPortrait:SetTexCoord(unpack(tt))
-				TargetToTPortrait:Show()
-			else
-				TargetToTPortrait:Hide()
-			end
-		end
-	else
-		TargetToTPortrait:Hide()
-		lastTargetToTGuid = nil
-	end
-
-	if UnitExists("focus-target") ~= nil then
-		if UnitGUID("focus-target") ~= lastFocusToTGuid then
-			lastFocusToTGuid = UnitGUID("focus-target")
-			if UnitIsPlayer("focus-target") then
-				FocusToTPortrait:SetTexture(iconPath, true)
-				local tt=classIcons[(select(2, UnitClass("focus-target")))]
-				FocusToTPortrait:SetTexCoord(unpack(tt))
-				FocusToTPortrait:Show()
-			else
-				FocusToTPortrait:Hide()
-			end
-		end
-	else
-		FocusToTPortrait:Hide()
-		lastFocusToTGuid = nil
 	end
 end)
 

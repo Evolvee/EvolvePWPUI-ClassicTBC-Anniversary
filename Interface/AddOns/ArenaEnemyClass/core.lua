@@ -10,6 +10,7 @@ local classmarkers = {
     ["WARLOCK"] = "Interface\\AddOns\\TextureScript\\ClassIconsUpscaled\\Warlock",
 	["DEATHKNIGHT"] = "Interface\\AddOns\\TextureScript\\ClassIconsUpscaled\\DeathKnight",
 	["UNKNOWN"] = "Interface\\AddOns\\TextureScript\\ClassIconsUpscaled\\Unknown",
+	["GUESS_ROGUE"] = "Interface\\AddOns\\TextureScript\\ClassIconsUpscaled\\GUESS_ROGUE",
 }
 
 local function determineClass(class1, class2)
@@ -408,8 +409,8 @@ arenaWatcher:Hide()
 local arenaWatcherElapsed = 0
 arenaWatcher:SetScript("OnUpdate", function(self, elapsed)
     arenaWatcherElapsed = arenaWatcherElapsed + elapsed
-    if UnitExists("arena1") or UnitExists("arena2") or arenaWatcherElapsed > 1.5 then
-        PlaySoundFile("Interface\\Addons\\ArenaEnemyClass\\Finish.ogg")
+    if UnitExists("arena1") or UnitExists("arena2") or arenaWatcherElapsed > 1 then
+        PlaySoundFile("Interface\\Addons\\TextureScript\\Gladdy\\Finish.ogg")
         DetectClass(nil, nil)
         self:Hide()
     end

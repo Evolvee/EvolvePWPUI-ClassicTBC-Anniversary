@@ -262,14 +262,15 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
             pFrame.portrait:SetVertexColor(1, 1, 1, 1)
         end
     end)
-	
+	-- Add more spacing between PartyFrames (<3 Pyralis)
 	local isUpdating = false
     hooksecurefunc(pFrame, "SetPoint", function(frame)
         if isUpdating or InCombatLockdown() then return end
 
-        local unit = tonumber(frame.unit:sub(6, 6))
-        if unit > 1 then
-            local yAdjustment = (unit - 1) * 25
+        local unit = frame.unitToken:match("^party(%d)")
+        local place = unit and tonumber(unit)
+        if place and place > 1 then
+            local yAdjustment = (place - 1) * 25
             local point, relativeFrame, relativePoint, ofsx, ofsy = frame:GetPoint()
 
             isUpdating = true
@@ -281,9 +282,6 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
 
     hooksecurefunc(pFrame.PartyMemberOverlay.Status, "Show", pFrame.PartyMemberOverlay.Status.Hide)
 end
-
--- Add more spacing between PartyFrames (<3 Pyralis)
-
 
 local function OnInit()
     --minimap buttons, horde/alliance icons on target/focus/player,minimap city location, minimap sun/clock, minimap text frame,minimap zoomable with mousewheel etc
@@ -338,7 +336,7 @@ local function OnInit()
     TargetFrameTextureFrameName:SetPoint("CENTER", -33, 32)
     TargetFrameHealthBar.TextString:SetPoint("CENTER", -33, 8)
     TargetFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 17, "THICKOUTLINE")
-    TargetFrameManaBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 10, "THICKOUTLINE")
+    TargetFrameManaBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 10, "THICKOUTLINE	")
 
     FocusFrameHealthBar:SetWidth(118)
     FocusFrameHealthBar:SetHeight(30)
@@ -374,20 +372,51 @@ local function OnInit()
     TargetFrameTextureFrameLevelText:SetAlpha(0)
     TargetFrameTextureFrameLeaderIcon:SetAlpha(0)
 	
-    -- TargetFrame castbar slight up-scaling
-    TargetFrameSpellBar:SetScale(1.12)
+    -- TargetFrame castbar slight up-scaling & the status bar height adjustment (bottom alpha gap)
+    TargetFrameSpellBar:SetScale(1.13)
+	TargetFrameSpellBar:SetHeight(10.5)
+	--default WIDTH: TargetFrameSpellBar:SetWidth(150)
 
     -- FocusFrame castbar slight up-scaling
-    FocusFrameSpellBar:SetScale(1.12)
+    FocusFrameSpellBar:SetScale(1.13)
+	FocusFrameSpellBar:SetHeight(10.5)
 	
 	-- Fixing the default Blizzard bugged/mispotioned casting bar text... shit company
 	TargetFrameSpellBar.Text:ClearAllPoints()
-	TargetFrameSpellBar.Text:SetPoint("CENTER", 0, 0)
+	TargetFrameSpellBar.Text:SetPoint("CENTER", 0, 0.15)
 	
 	FocusFrameSpellBar.Text:ClearAllPoints()
-	FocusFrameSpellBar.Text:SetPoint("CENTER", 0, 0)
+	FocusFrameSpellBar.Text:SetPoint("CENTER", 0, 0.15)
 	
-	-- Fixing the default Blizzard mispositioned castbar background texture... dogshit company
+	-- Fixing the default Blizzard mispositioned castbar background texture...
+	local function FixCastBarBackground(bar)
+    if not bar then return end
+	
+    for _, region in ipairs({ bar:GetRegions() }) do
+        if region:IsObjectType("Texture") and region:GetDrawLayer() == "BACKGROUND" then
+            region:ClearAllPoints()
+            region:SetPoint("TOPLEFT", bar, "TOPLEFT", 2, 2.5)
+            region:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", -2, -2)
+            break
+        end
+    end
+	end
+	-- Target
+	FixCastBarBackground(TargetFrameSpellBar)
+	-- Focus
+	FixCastBarBackground(FocusFrameSpellBar)
+	
+	-- Removing the "interrupted" status spell cast bar from Target/Focus
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED")
+
+	f:SetScript("OnEvent", function(_, _, unit)
+		if unit == "target" and TargetFrameSpellBar then
+			TargetFrameSpellBar:Hide()
+		elseif unit == "focus" and FocusFrameSpellBar then
+			FocusFrameSpellBar:Hide()
+		end
+	end)
 
     --removing character "C" button image
     MicroButtonPortrait:Hide()
@@ -402,8 +431,8 @@ local function OnInit()
     FocusFrameToT:SetPoint("RIGHT", "FocusFrame", "BOTTOMRIGHT", 0, 3);
 	
 	-- adjust the ToT background texture (because current Blizzard is a piss of shit company that cant even maintain their OWN fucking UI that somebody else made for them)
-    TargetFrameToTBackground:SetPoint("BOTTOMLEFT", TargetFrameToT, "BOTTOMLEFT", 46, 15)
-	FocusFrameToTBackground:SetPoint("BOTTOMLEFT", FocusFrameToT, "BOTTOMLEFT", 46, 15)
+    TargetFrameToTBackground:SetPoint("BOTTOMLEFT", TargetFrameToT, "BOTTOMLEFT", 45, 15)
+	FocusFrameToTBackground:SetPoint("BOTTOMLEFT", FocusFrameToT, "BOTTOMLEFT", 45, 15)
     --disable mouseover flashing on buttons
     for i = 1, 12 do
         local texture = _G["MultiBarBottomLeftButton" .. i]:GetHighlightTexture()
@@ -704,10 +733,10 @@ hooksecurefunc(PetFrame, "Update", function()
     PetFrameManaBar:SetWidth(72)
     PetFrameManaBar:SetHeight(11)
     PetFrameHealthBar:SetPoint("TOPLEFT", 44, -13)
-    PetFrameHealthBarText:SetPoint("CENTER", 19, 4)
-    PetFrameHealthBarText:SetFont("Fonts/FRIZQT__.TTF", 14, "OUTLINE")
-    PetFrameManaBarText:SetPoint("CENTER", 19, -10)
-    PetFrameManaBarText:SetFont("Fonts/FRIZQT__.TTF", 9, "OUTLINE")
+    PetFrameHealthBarText:SetPoint("CENTER", 17, 4)
+    PetFrameHealthBarText:SetFont("Fonts/FRIZQT__.TTF", 15, "THICKOUTLINE")
+    PetFrameManaBarText:SetPoint("CENTER", 19, -10.5)
+    PetFrameManaBarText:SetFont("Fonts/FRIZQT__.TTF", 9, "THICKOUTLINE")
     PetFrameManaBar:SetPoint("TOPLEFT", 44, -31)
 end)
 -- Creating a brand new pet frame background texture because Blizzard is too dogshit to maintain their own fucking UI and completely missed it
@@ -717,8 +746,15 @@ local PetBG = PetFrame:CreateTexture(nil, "BACKGROUND")
         PetBG:SetColorTexture(0, 0, 0, 0.5)
 
 -- Moving PetFrame debuffs down due to Blizzard fucking up once again and placing debuffs inside the petframe texture... the words are not enough to describe such incompetence and gross negligence
+PetFrame.AuraFrameContainer:SetPoint("TOPLEFT", 48, -48)
 
-
+-- Make the PetFrame debuffs not a subject to OmniCC (cant be done via OmniCC rules ingame)
+PetFrame.AuraFramePool:Acquire()
+for frame in PetFrame.AuraFramePool:EnumerateActive() do
+  if frame and frame.Cooldown then
+frame.Cooldown.noCooldownCount = true
+end
+end
 
 -- Hidden Player glow combat/rested flashes + Hidden Focus Flash on Focused Target + Hiding the red glowing status on target/focus frames when they have low HP
 local playerTextures = { PlayerStatusTexture, PlayerRestGlow, PlayerRestIcon, PlayerAttackIcon, PlayerAttackGlow, PlayerStatusGlow, PlayerAttackBackground }
@@ -1363,7 +1399,7 @@ for _, v in pairs({ TargetFrameSpellBar, FocusFrameSpellBar }) do
         v:HookScript("OnUpdate", function(self, elapsed)
             local r, g, b
             local castText = self.Text and self.Text:GetText()
-
+			-- XYZ? isnt this completely pointless now since I already removed the entire "Interrupted" mechanic above?
             if castText == INTERRUPTED or castText == FAILED then
                 self.holdTime = 0 -- faster fade out
                 return
@@ -1615,15 +1651,17 @@ local function EvolveRange(self)
 end
 
 -- Remove debuffs from Target of Target frame
-for _, totFrame in ipairs({ TargetFrameToT, FocusFrameToT }) do
-    -- totFrame:HookScript("OnShow", function()
+for name, totFrame in pairs({
+    TargetFrameToT = TargetFrameToT,
+    FocusFrameToT  = FocusFrameToT,
+}) do
     for i = 1, 4 do
-        local dbf = _G[totFrame:GetName() .. "Debuff" .. i]
-        if dbf and dbf:GetAlpha() > 0 then
-            dbf:SetAlpha(0)
+        local dbf = _G[name .. "Debuff" .. i]
+        if dbf then
+            dbf:HookScript("OnShow", dbf.Hide)
+            dbf:Hide()
         end
     end
-    --  end)
 end
 
 -- Change position of widget showing below minimap
@@ -1870,6 +1908,11 @@ StyleUnitName(TargetFrame, -173, 30)
 -- Focus frame
 StyleUnitName(FocusFrame, -173, 30)
 
+-- Disable the default Blizzard shit arena timer tracker that is never correct... like wtf are u doing... the most dogshit lazy ignorant and incompetent company i have ever seen, the enshitification of wow with retail dogshit continues
+TimerTracker:UnregisterAllEvents()
+
+
+
 local evolvedFrame = CreateFrame("Frame")
 evolvedFrame:RegisterEvent("ADDON_LOADED")
 evolvedFrame:RegisterEvent("PLAYER_LOGIN")
@@ -1937,10 +1980,18 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
             if GetCVar("nameplateShowFriends") == "0" then
                 SetCVar("nameplateShowFriends", 1)
             end
+			-- needed for Elemental/Shadowfiend icon texture to be displayed?
+			if GetCVar("nameplateShowFriendlyMinions") == "0" then
+                SetCVar("nameplateShowFriendlyMinions", 1)
+            end
             inArena = true
         else
             if GetCVar("nameplateShowFriends") == "1" then
                 SetCVar("nameplateShowFriends", 0)
+            end
+			-- needed for Elemental/Shadowfiend icon texture to be displayed?
+			if GetCVar("nameplateShowFriendlyMinions") == "1" then
+                SetCVar("nameplateShowFriendlyMinions", 0)
             end
             inArena = false
         end
