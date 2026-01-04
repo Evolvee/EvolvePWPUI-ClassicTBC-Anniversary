@@ -1,0 +1,6 @@
+## Interface: 30300
+## Title: TremorPulse
+## Author: Xyz, visual edit by Evolve xd, tied together by Gemini :shrug:
+## Category: Evolve PWP UI
+
+TremorPulse.lua 

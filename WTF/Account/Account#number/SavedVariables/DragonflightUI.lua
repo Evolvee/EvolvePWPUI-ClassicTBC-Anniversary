@@ -1,0 +1,353 @@
+
+DragonflightUIDB = {
+["namespaces"] = {
+["Config"] = {
+["profiles"] = {
+["Default"] = {
+["modules"] = {
+["Tooltip"] = false,
+["Actionbar"] = false,
+["Minimap"] = false,
+["Unitframe"] = false,
+["Compatibility"] = false,
+["UI"] = false,
+["Buffs"] = false,
+["Flyout"] = false,
+},
+},
+},
+},
+["Flyout"] = {
+["char"] = {
+["Pettestclr - Classic Anniversary PTR Realm"] = {
+["initialized"] = true,
+["custom1"] = {
+["buttons"] = 7,
+["tooltip"] = "Summons one of your demons to you.",
+["icon"] = 136082,
+["displayName"] = "Summon Demon",
+},
+["actions"] = {
+["actionTable"] = {
+[64] = {
+["value"] = 713,
+["type"] = "spell",
+},
+[66] = {
+["value"] = 1122,
+["type"] = "spell",
+},
+[67] = {
+["value"] = 18540,
+["type"] = "spell",
+},
+[61] = {
+["value"] = 688,
+["type"] = "spell",
+},
+[62] = {
+["value"] = 697,
+["type"] = "spell",
+},
+[63] = {
+["value"] = 712,
+["type"] = "spell",
+},
+[65] = {
+["value"] = 691,
+["type"] = "spell",
+},
+},
+},
+},
+["Testcolors - Classic Anniversary PTR Realm"] = {
+["initialized"] = true,
+["actions"] = {
+["actionTable"] = {
+[61] = {
+["value"] = 3567,
+["type"] = "spell",
+},
+[63] = {
+["value"] = 3566,
+["type"] = "spell",
+},
+[66] = {
+["value"] = 35715,
+["type"] = "spell",
+},
+[74] = {
+["value"] = 11418,
+["type"] = "spell",
+},
+[78] = {
+["value"] = 35717,
+["type"] = "spell",
+},
+[62] = {
+["value"] = 3563,
+["type"] = "spell",
+},
+[64] = {
+["value"] = 32272,
+["type"] = "spell",
+},
+[77] = {
+["value"] = 49361,
+["type"] = "spell",
+},
+[76] = {
+["value"] = 32267,
+["type"] = "spell",
+},
+[65] = {
+["value"] = 49358,
+["type"] = "spell",
+},
+[75] = {
+["value"] = 11420,
+["type"] = "spell",
+},
+[73] = {
+["value"] = 11417,
+["type"] = "spell",
+},
+},
+},
+["custom1"] = {
+["displayName"] = "Teleport",
+["tooltip"] = "Teleports you to a major city.",
+["icon"] = 237509,
+["buttons"] = 6,
+},
+["custom2"] = {
+["displayName"] = "Portal",
+["tooltip"] = "Creates a portal, teleporting group members who use it to a major city.",
+["icon"] = 135744,
+["buttons"] = 6,
+},
+},
+["Testclrz - Classic Anniversary PTR Realm"] = {
+["initialized"] = true,
+["custom1"] = {
+["displayName"] = "Summon Demon",
+["tooltip"] = "Summons one of your demons to you.",
+["icon"] = 136082,
+["buttons"] = 7,
+},
+["actions"] = {
+["actionTable"] = {
+[64] = {
+["value"] = 713,
+["type"] = "spell",
+},
+[66] = {
+["value"] = 1122,
+["type"] = "spell",
+},
+[65] = {
+["value"] = 691,
+["type"] = "spell",
+},
+[61] = {
+["value"] = 688,
+["type"] = "spell",
+},
+[67] = {
+["value"] = 18540,
+["type"] = "spell",
+},
+[63] = {
+["value"] = 712,
+["type"] = "spell",
+},
+[62] = {
+["value"] = 697,
+["type"] = "spell",
+},
+},
+},
+},
+},
+},
+["Castbar"] = {
+["profiles"] = {
+["Default"] = {
+["target"] = {
+["activate"] = false,
+["EditModeActive"] = false,
+},
+["player"] = {
+["showTicks"] = true,
+["holdTimeInterrupt"] = 0,
+["castTimeEnabled"] = false,
+["castTimeMaxEnabled"] = false,
+["EditModeActive"] = false,
+["holdTime"] = 0,
+["compactLayout"] = false,
+["sizeX"] = 235,
+["y"] = 180,
+},
+["mirrorTimer"] = {
+["activate"] = false,
+["EditModeActive"] = false,
+},
+},
+},
+},
+["Tooltip"] = {
+["profiles"] = {
+["Default"] = {
+["general"] = {
+["EditModeActive"] = false,
+},
+},
+},
+},
+["Minimap"] = {
+["profiles"] = {
+["Default"] = {
+["durability"] = {
+["EditModeActive"] = false,
+},
+["tracker"] = {
+["EditModeActive"] = false,
+},
+["minimap"] = {
+["EditModeActive"] = false,
+},
+},
+},
+},
+["Compatibility"] = {
+["profiles"] = {
+["Default"] = {
+["general"] = {
+["merinspect"] = false,
+["bisTracker"] = false,
+["clique"] = false,
+["whatstraining"] = false,
+["tacotip"] = false,
+["characterstatsclassic"] = false,
+["classicalendar"] = false,
+["auctionator"] = false,
+["pawn"] = false,
+["baganator"] = false,
+["leatrixPlus"] = false,
+["tdinspect"] = false,
+["ranker"] = false,
+},
+},
+},
+},
+["Unitframe"] = {
+["profiles"] = {
+["Default"] = {
+["player"] = {
+["EditModeActive"] = false,
+},
+["tot"] = {
+["EditModeActive"] = false,
+},
+["focus"] = {
+["EditModeActive"] = false,
+},
+["target"] = {
+["EditModeActive"] = false,
+},
+["focusTarget"] = {
+["EditModeActive"] = false,
+},
+["pet"] = {
+["EditModeActive"] = false,
+},
+["playerSecondaryRes"] = {
+["EditModeActive"] = false,
+},
+},
+},
+},
+["Actionbar"] = {
+["profiles"] = {
+["Default"] = {
+["bar3"] = {
+["EditModeActive"] = false,
+},
+["bar6"] = {
+["EditModeActive"] = false,
+},
+["bags"] = {
+["EditModeActive"] = false,
+},
+["micro"] = {
+["EditModeActive"] = false,
+},
+["vehicleLeave"] = {
+["EditModeActive"] = false,
+},
+["bar2"] = {
+["EditModeActive"] = false,
+},
+["bar1"] = {
+["EditModeActive"] = false,
+},
+["pet"] = {
+["EditModeActive"] = false,
+},
+["fps"] = {
+["EditModeActive"] = false,
+},
+["stance"] = {
+["EditModeActive"] = false,
+},
+["xp"] = {
+["EditModeActive"] = false,
+},
+["bar7"] = {
+["EditModeActive"] = false,
+},
+["bar8"] = {
+["EditModeActive"] = false,
+},
+["rep"] = {
+["EditModeActive"] = false,
+},
+["possess"] = {
+["EditModeActive"] = false,
+},
+["bar5"] = {
+["EditModeActive"] = false,
+},
+["bar4"] = {
+["EditModeActive"] = false,
+},
+},
+},
+},
+["Buffs"] = {
+["profiles"] = {
+["Default"] = {
+["debuffs"] = {
+["EditModeActive"] = false,
+},
+["buffs"] = {
+["EditModeActive"] = false,
+},
+},
+},
+},
+},
+["profileKeys"] = {
+["Evolvebugged - Classic Anniversary PTR Realm"] = "Default",
+["Evolverror - Classic Anniversary PTR Realm"] = "Default",
+["Tremortest - Classic Anniversary PTR Realm"] = "Default",
+["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
+["Testcolors - Classic Anniversary PTR Realm"] = "Default",
+["Tremorttest - Classic Anniversary PTR Realm"] = "Default",
+["Testclrz - Classic Anniversary PTR Realm"] = "Default",
+},
+["profiles"] = {
+["Default"] = {
+},
+},
+}

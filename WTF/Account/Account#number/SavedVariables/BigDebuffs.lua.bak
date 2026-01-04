@@ -1,0 +1,534 @@
+
+BigDebuffsDB = {
+["profileKeys"] = {
+["Evolvebugged - Classic Anniversary PTR Realm"] = "Default",
+["Evolverror - Classic Anniversary PTR Realm"] = "Default",
+["Tremorttest - Classic Anniversary PTR Realm"] = "Default",
+["Testcolors - Classic Anniversary PTR Realm"] = "Default",
+["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
+["Tremortest - Classic Anniversary PTR Realm"] = "Default",
+["Testclrz - Classic Anniversary PTR Realm"] = "Default",
+},
+["profiles"] = {
+["Default"] = {
+["raidFrames"] = {
+["enabled"] = false,
+},
+["nameplates"] = {
+["cooldownFontEffect"] = "THICKOUTLINE",
+["cooldownFont"] = "DorisPP",
+["tooltips"] = false,
+["buffs_speed_boost"] = false,
+["enemyAnchor"] = {
+["anchor"] = "RIGHT",
+["x"] = 4,
+["size"] = 30,
+},
+["buffs_other"] = false,
+["friendly"] = false,
+["roots"] = false,
+},
+["priority"] = {
+["immunities"] = 100,
+["buffs_speed_boost"] = 1,
+["interrupts"] = 10,
+["cc"] = 80,
+["immunities_spells"] = 95,
+["roots"] = 30,
+["buffs_other"] = 20,
+},
+["spells"] = {
+[24364] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[710] = {
+["nameplates"] = 0,
+},
+[11359] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[45182] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[1714] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+["unitFrames"] = 0,
+},
+[19675] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[13141] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[2651] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[20572] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[19306] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+["raidFrames"] = 0,
+},
+[7812] = {
+["nameplates"] = 0,
+},
+[13139] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[4511] = {
+["nameplates"] = 0,
+},
+[23505] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[3034] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+["unitFrames"] = 0,
+},
+[5211] = {
+},
+[19574] = {
+["nameplates"] = 0,
+},
+[23132] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[20594] = {
+["nameplates"] = 0,
+},
+[6229] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[5277] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[20600] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[5024] = {
+},
+[453] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[14177] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[1066] = {
+["nameplates"] = 0,
+},
+[1463] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[122] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[14530] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[6615] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[23920] = {
+["nameplates"] = 0,
+},
+[33943] = {
+["nameplates"] = 0,
+},
+[16621] = {
+["nameplates"] = 0,
+},
+[1022] = {
+},
+[16689] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[871] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[16566] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[23694] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[768] = {
+["nameplates"] = 0,
+},
+[18223] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+["raidFrames"] = 0,
+},
+[16857] = {
+["nameplates"] = 0,
+},
+[3409] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+["raidFrames"] = 0,
+},
+[1719] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[12292] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[6940] = {
+["nameplates"] = 0,
+},
+[30300] = {
+["nameplates"] = 0,
+},
+[12294] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[783] = {
+["nameplates"] = 0,
+},
+[12042] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[12043] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[18499] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[19263] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[33395] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[9634] = {
+["nameplates"] = 0,
+},
+[31842] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[33206] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[23451] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[12051] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[339] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[5487] = {
+["nameplates"] = 0,
+},
+[3045] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[2379] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[23605] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[23097] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[2983] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[44041] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[9774] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[11426] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[40120] = {
+["nameplates"] = 0,
+},
+[27046] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[770] = {
+["nameplates"] = 0,
+},
+[17] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[22734] = {
+["nameplates"] = 0,
+},
+[8892] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[1850] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[31884] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[27827] = {
+["nameplates"] = 0,
+},
+[23506] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[14278] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[5384] = {
+["nameplates"] = 0,
+},
+[23131] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[13159] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[13750] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[20216] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[14892] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[25046] = {
+["raidFrames"] = 0,
+},
+[1044] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[20230] = {
+["nameplates"] = 0,
+},
+[14751] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[13099] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[676] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[7744] = {
+["nameplates"] = 0,
+},
+[29443] = {
+},
+[12976] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[14251] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[29506] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[33961] = {
+["nameplates"] = 0,
+},
+[12472] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[10060] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[34471] = {
+["nameplates"] = 0,
+},
+[14253] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[6143] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[9175] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[13494] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[12733] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[13877] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[12548] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[8178] = {
+["nameplates"] = 0,
+},
+[16166] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[13119] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[13120] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[22812] = {
+["nameplates"] = 0,
+},
+[19185] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[29166] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[23493] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[19229] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[30823] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[25999] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[24858] = {
+["nameplates"] = 0,
+},
+[12494] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[13138] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
+},
+[543] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[23723] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[30456] = {
+["nameplates"] = 0,
+},
+[33891] = {
+["nameplates"] = 0,
+},
+[28730] = {
+["raidFrames"] = 0,
+},
+},
+["unitFrames"] = {
+["cooldownFontEffect"] = "THICKOUTLINE",
+["cooldownFont"] = "DorisPP",
+["tooltips"] = false,
+["arena2"] = {
+},
+["arena5"] = {
+},
+["arena1"] = {
+},
+["player"] = {
+["enabled"] = false,
+},
+["arena4"] = {
+},
+["arena"] = {
+["enabled"] = false,
+},
+["arena3"] = {
+},
+},
+},
+},
+}

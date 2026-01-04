@@ -10,9 +10,9 @@ DCP_Saved = {
 ["fadeOutTime"] = 0.699999988079071,
 ["maxAlpha"] = 0.800000011920929,
 ["x"] = 512,
-["ignoredSpells"] = "Power Word: Shield",
-["iconSize"] = 75,
-["animScale"] = 1.5,
-["y"] = 384,
 ["remainingCooldownWhenNotified"] = 0,
+["iconSize"] = 75,
+["y"] = 384,
+["animScale"] = 1.5,
+["ignoredSpells"] = "Power Word: Shield",
 }

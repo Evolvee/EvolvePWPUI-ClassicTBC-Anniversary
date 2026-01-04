@@ -84,7 +84,7 @@ local function EnforcePortraitPosition(portrait, parent)
     
     portrait.cpIsMoving = true
     portrait:ClearAllPoints()
-    portrait:SetPoint("CENTER", parent, "CENTER", -40.5, 1)
+    portrait:SetPoint("CENTER", parent, "CENTER", -39.6, 1)
     portrait.cpIsMoving = false
 end
 

@@ -383,14 +383,16 @@ local function OnInit()
 	
 	-- Fixing the default Blizzard bugged/mispotioned casting bar text... shit company
 	TargetFrameSpellBar.Text:ClearAllPoints()
-	TargetFrameSpellBar.Text:SetPoint("CENTER", 0, 0.15)
+	TargetFrameSpellBar.Text:SetPoint("CENTER", 0, 0.05)
+	TargetFrameSpellBar.Text:SetFont("Fonts/FRIZQT__.TTF", 11, "OUTLINE")
 	
 	FocusFrameSpellBar.Text:ClearAllPoints()
-	FocusFrameSpellBar.Text:SetPoint("CENTER", 0, 0.15)
+	FocusFrameSpellBar.Text:SetPoint("CENTER", 0, 0.05)
+	FocusFrameSpellBar.Text:SetFont("Fonts/FRIZQT__.TTF", 11, "OUTLINE")
 	
 	-- Slightly increase the size of Target/Focus spell cast bar icon
-	TargetFrameSpellBar.Icon:SetSize(25,25)
-	FocusFrameSpellBar.Icon:SetSize(25,25)
+	TargetFrameSpellBar.Icon:SetSize(26,26)
+	FocusFrameSpellBar.Icon:SetSize(26,26)
 	
 	-- Fixing the default Blizzard mispositioned castbar background texture...
 	local function FixCastBarBackground(bar)
@@ -565,6 +567,7 @@ end
     end
 
 -- SpeedyActions level: Garage clicker & Pro Gaymer
+-- Since 2.5.5 Client, this works only for BINDED buttons... For clicks, using modified "MiniClickDown" addon for now --> Blizzard fucked it up, currently otherwise only either AnyDown or AnyUp possible for clicks... rip, Blizzard fucks everything and anything they touch, gotta hackfix everything back up
 local wahkFrames = {}
 local buttonNames = {
     ["ACTIONBUTTON"] = "ActionButton",

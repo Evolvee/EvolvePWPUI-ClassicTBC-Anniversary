@@ -2,6 +2,12 @@
 DeBuffFilterDB = {
 ["profileKeys"] = {
 ["Evolvebugged - Classic Anniversary PTR Realm"] = "Default",
+["Evolverror - Classic Anniversary PTR Realm"] = "Default",
+["Tremortest - Classic Anniversary PTR Realm"] = "Default",
+["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
+["Testcolors - Classic Anniversary PTR Realm"] = "Default",
+["Tremorttest - Classic Anniversary PTR Realm"] = "Default",
+["Testclrz - Classic Anniversary PTR Realm"] = "Default",
 },
 ["profiles"] = {
 ["Default"] = {
@@ -9,40 +15,7 @@ DeBuffFilterDB = {
 ["disableFade"] = true,
 ["smartFilters"] = {
 ["Cloak of Shadows"] = {
-["FocusFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "Cloak of Shadows",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0,
-["g"] = 0.1098039299249649,
-["r"] = 1,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-["TargetFrame"] = {
+[""] = {
 {
 ["action"] = {
 ["glow"] = true,
@@ -76,205 +49,104 @@ DeBuffFilterDB = {
 },
 },
 },
-[16188] = {
-["FocusFrame"] = {
+[14752] = {
+[""] = {
 {
 ["action"] = {
+["glow"] = true,
 ["size"] = {
-["enabled"] = true,
+["enabled"] = false,
 ["otherSize"] = 19,
 ["selfSize"] = 21,
 },
-["otherSize"] = 25,
-["glow"] = false,
 ["hide"] = false,
 },
 ["minStacks"] = 0,
 ["enableStacksFilter"] = false,
 ["minDuration"] = 0,
-["customName"] = "NS!",
+["customName"] = "r1 spirit",
 ["settings"] = {
 ["priorityEnabled"] = false,
 ["alwaysEnableGlow"] = true,
 ["removeDuplicates"] = false,
 ["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["b"] = 0.03921568766236305,
+["g"] = 1,
+["r"] = 0,
+},
+["priority"] = 0,
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+[1459] = {
+[""] = {
+{
+["action"] = {
+["glow"] = true,
+["hide"] = false,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "r1 intel",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = true,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
+["color"] = {
+["a"] = 1,
+["b"] = 0.03529411926865578,
+["g"] = 1,
+["r"] = 0,
+},
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+[1463] = {
+[""] = {
+{
+["action"] = {
+["glow"] = true,
+["hide"] = false,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "r1 mana shield",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = true,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
 ["color"] = {
 ["a"] = 1,
 ["b"] = 0,
-["g"] = 0.06666667014360428,
-["r"] = 1,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-["TargetFrame"] = {
-{
-["action"] = {
-["size"] = {
-["enabled"] = true,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["otherSize"] = 25,
-["glow"] = false,
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "NS!",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0,
-["g"] = 0.09803921568627451,
-["r"] = 1,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-},
-[588] = {
-["FocusFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 inner fire",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0.2039215862751007,
 ["g"] = 1,
-["r"] = 0,
+["r"] = 0.01960784383118153,
 },
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-["TargetFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 inner fire",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0.09019608050584793,
-["g"] = 1,
-["r"] = 0,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-},
-[976] = {
-["FocusFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 shadow prot",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0.1607843190431595,
-["g"] = 1,
-["r"] = 0,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-["TargetFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 shadow prot",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0.05882353335618973,
-["g"] = 1,
-["r"] = 0,
-},
-["priority"] = 0,
 },
 ["enableDurationFilter"] = false,
 ["maxStacks"] = 0,
@@ -350,245 +222,8 @@ DeBuffFilterDB = {
 },
 },
 },
-[1008] = {
-["FocusFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 amplify",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0.0784313753247261,
-["g"] = 1,
-["r"] = 0,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-["TargetFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["hide"] = false,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 amplify",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["priority"] = 0,
-["color"] = {
-["a"] = 1,
-["b"] = 0.05490196496248245,
-["g"] = 1,
-["r"] = 0,
-},
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-},
-[1459] = {
-["FocusFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 intel",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0.08235294371843338,
-["g"] = 1,
-["r"] = 0,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-["TargetFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["hide"] = false,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 intel",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["priority"] = 0,
-["color"] = {
-["a"] = 1,
-["b"] = 0.03529411926865578,
-["g"] = 1,
-["r"] = 0,
-},
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-},
-[1243] = {
-["FocusFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["hide"] = false,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 stamina",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["priority"] = 0,
-["color"] = {
-["a"] = 1,
-["r"] = 0,
-["g"] = 1,
-["b"] = 0.09019608050584793,
-},
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-["TargetFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["hide"] = false,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 stamina",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["priority"] = 0,
-["color"] = {
-["a"] = 1,
-["b"] = 0.01568627543747425,
-["g"] = 1,
-["r"] = 0,
-},
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-},
-["Grace of Air"] = {
-["FocusFrame"] = {
-{
-["action"] = {
-["glow"] = false,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = true,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "Grace of Air",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = false,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0.85,
-["g"] = 1,
-["r"] = 1,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-["TargetFrame"] = {
+["Sated"] = {
+[""] = {
 {
 ["action"] = {
 ["glow"] = false,
@@ -602,7 +237,7 @@ DeBuffFilterDB = {
 ["minStacks"] = 0,
 ["enableStacksFilter"] = false,
 ["minDuration"] = 0,
-["customName"] = "Grace of Air",
+["customName"] = "Sated",
 ["settings"] = {
 ["priorityEnabled"] = false,
 ["alwaysEnableGlow"] = false,
@@ -622,32 +257,32 @@ DeBuffFilterDB = {
 },
 },
 },
-[1463] = {
-["FocusFrame"] = {
+["Mangle (Bear)"] = {
+["DebuffFrame"] = {
 {
 ["action"] = {
-["glow"] = true,
+["glow"] = false,
 ["size"] = {
 ["enabled"] = false,
 ["otherSize"] = 19,
 ["selfSize"] = 21,
 },
-["hide"] = false,
+["hide"] = true,
 },
 ["minStacks"] = 0,
 ["enableStacksFilter"] = false,
 ["minDuration"] = 0,
-["customName"] = "r1 mana shield",
+["customName"] = "Mangle (Bear)",
 ["settings"] = {
 ["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
+["alwaysEnableGlow"] = false,
 ["removeDuplicates"] = false,
 ["ownOnly"] = false,
 ["color"] = {
 ["a"] = 1,
-["b"] = 0.1372549086809158,
+["b"] = 0.85,
 ["g"] = 1,
-["r"] = 0,
+["r"] = 1,
 },
 ["priority"] = 0,
 },
@@ -656,33 +291,35 @@ DeBuffFilterDB = {
 ["maxDuration"] = 0,
 },
 },
-["TargetFrame"] = {
+},
+["Demoralizing Roar"] = {
+["DebuffFrame"] = {
 {
 ["action"] = {
-["glow"] = true,
-["hide"] = false,
+["glow"] = false,
 ["size"] = {
 ["enabled"] = false,
 ["otherSize"] = 19,
 ["selfSize"] = 21,
 },
+["hide"] = true,
 },
 ["minStacks"] = 0,
 ["enableStacksFilter"] = false,
 ["minDuration"] = 0,
-["customName"] = "r1 mana shield",
+["customName"] = "Demoralizing Roar",
 ["settings"] = {
 ["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
+["alwaysEnableGlow"] = false,
 ["removeDuplicates"] = false,
 ["ownOnly"] = false,
-["priority"] = 0,
 ["color"] = {
 ["a"] = 1,
-["b"] = 0,
+["b"] = 0.85,
 ["g"] = 1,
-["r"] = 0.01960784383118153,
+["r"] = 1,
 },
+["priority"] = 0,
 },
 ["enableDurationFilter"] = false,
 ["maxStacks"] = 0,
@@ -691,7 +328,42 @@ DeBuffFilterDB = {
 },
 },
 ["Blood Frenzy"] = {
-["FocusFrame"] = {
+[""] = {
+{
+["action"] = {
+["glow"] = false,
+["hide"] = true,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Blood Frenzy",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
+["color"] = {
+["a"] = 1,
+["b"] = 0.9725490808486938,
+["g"] = 0.9960784912109375,
+["r"] = 1,
+},
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Windwall"] = {
+[""] = {
 {
 ["action"] = {
 ["glow"] = false,
@@ -705,7 +377,7 @@ DeBuffFilterDB = {
 ["minStacks"] = 0,
 ["enableStacksFilter"] = false,
 ["minDuration"] = 0,
-["customName"] = "Blood Frenzy",
+["customName"] = "Windwall",
 ["settings"] = {
 ["priorityEnabled"] = false,
 ["alwaysEnableGlow"] = false,
@@ -724,7 +396,79 @@ DeBuffFilterDB = {
 ["maxDuration"] = 0,
 },
 },
-["TargetFrame"] = {
+},
+["Demoralizing Shout"] = {
+["DebuffFrame"] = {
+{
+["action"] = {
+["glow"] = false,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+["hide"] = true,
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Demoralizing Shout",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["b"] = 0.85,
+["g"] = 1,
+["r"] = 1,
+},
+["priority"] = 0,
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Mangle (Cat)"] = {
+["DebuffFrame"] = {
+{
+["action"] = {
+["glow"] = false,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+["hide"] = true,
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Mangle (Cat)",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["b"] = 0.85,
+["g"] = 1,
+["r"] = 1,
+},
+["priority"] = 0,
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Strength of Earth"] = {
+[""] = {
 {
 ["action"] = {
 ["glow"] = false,
@@ -738,18 +482,18 @@ DeBuffFilterDB = {
 ["minStacks"] = 0,
 ["enableStacksFilter"] = false,
 ["minDuration"] = 0,
-["customName"] = "Blood Frenzy",
+["customName"] = "Strength of Earth",
 ["settings"] = {
 ["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
+["alwaysEnableGlow"] = false,
 ["removeDuplicates"] = false,
 ["ownOnly"] = false,
 ["priority"] = 0,
 ["color"] = {
 ["a"] = 1,
-["b"] = 0.9725490808486938,
-["g"] = 0.9960784912109375,
 ["r"] = 1,
+["g"] = 1,
+["b"] = 0.85,
 },
 },
 ["enableDurationFilter"] = false,
@@ -826,170 +570,34 @@ DeBuffFilterDB = {
 },
 },
 },
-[604] = {
-["FocusFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 dampen",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0.1215686351060867,
-["g"] = 1,
-["r"] = 0,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-["TargetFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 dampen",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0.08627451211214066,
-["g"] = 1,
-["r"] = 0,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-},
-[14752] = {
-["FocusFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 spirit",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0.1019607931375504,
-["g"] = 1,
-["r"] = 0,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-["TargetFrame"] = {
-{
-["action"] = {
-["glow"] = true,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 spirit",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0.03921568766236305,
-["g"] = 1,
-["r"] = 0,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-},
-["Demonic Knowledge"] = {
+["Wrath of Air Totem"] = {
 ["FocusFrame"] = {
 {
 ["action"] = {
 ["glow"] = false,
-["hide"] = true,
 ["size"] = {
 ["enabled"] = false,
 ["otherSize"] = 19,
 ["selfSize"] = 21,
 },
+["hide"] = true,
 },
 ["minStacks"] = 0,
 ["enableStacksFilter"] = false,
 ["minDuration"] = 0,
-["customName"] = "Demonic Knowledge",
+["customName"] = "Wrath of Air Totem",
 ["settings"] = {
 ["priorityEnabled"] = false,
 ["alwaysEnableGlow"] = false,
 ["removeDuplicates"] = false,
 ["ownOnly"] = false,
-["priority"] = 0,
 ["color"] = {
 ["a"] = 1,
-["r"] = 1,
-["g"] = 1,
 ["b"] = 0.85,
+["g"] = 1,
+["r"] = 1,
 },
+["priority"] = 0,
 },
 ["enableDurationFilter"] = false,
 ["maxStacks"] = 0,
@@ -1010,7 +618,7 @@ DeBuffFilterDB = {
 ["minStacks"] = 0,
 ["enableStacksFilter"] = false,
 ["minDuration"] = 0,
-["customName"] = "Demonic Knowledge",
+["customName"] = "Wrath of Air Totem",
 ["settings"] = {
 ["priorityEnabled"] = false,
 ["alwaysEnableGlow"] = false,
@@ -1023,6 +631,79 @@ DeBuffFilterDB = {
 ["g"] = 1,
 ["b"] = 0.85,
 },
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+[17116] = {
+[""] = {
+{
+["action"] = {
+["hide"] = false,
+["otherSize"] = 25,
+["glow"] = false,
+["size"] = {
+["enabled"] = true,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "NS druid",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = true,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
+["color"] = {
+["a"] = 1,
+["r"] = 1,
+["g"] = 0.1019607931375504,
+["b"] = 0,
+},
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Fear Ward"] = {
+[""] = {
+{
+["action"] = {
+["glow"] = true,
+["selfSize"] = 19,
+["otherSize"] = 25,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+["hide"] = false,
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Fear Ward",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = true,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["b"] = 0,
+["g"] = 0.1058823615312576,
+["r"] = 1,
+},
+["priority"] = 0,
 },
 ["enableDurationFilter"] = false,
 ["maxStacks"] = 0,
@@ -1098,7 +779,218 @@ DeBuffFilterDB = {
 },
 },
 },
-["Fear Ward"] = {
+[16188] = {
+[""] = {
+{
+["action"] = {
+["size"] = {
+["enabled"] = true,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+["otherSize"] = 25,
+["glow"] = false,
+["hide"] = false,
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "NS shaman",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = true,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["r"] = 1,
+["g"] = 0.09803921568627451,
+["b"] = 0,
+},
+["priority"] = 0,
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Thunder Clap"] = {
+["DebuffFrame"] = {
+{
+["action"] = {
+["glow"] = false,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+["hide"] = true,
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Thunder Clap",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["b"] = 0.85,
+["g"] = 1,
+["r"] = 1,
+},
+["priority"] = 0,
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Grace of Air"] = {
+[""] = {
+{
+["action"] = {
+["glow"] = false,
+["hide"] = true,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Grace of Air",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
+["color"] = {
+["a"] = 1,
+["r"] = 1,
+["g"] = 1,
+["b"] = 0.85,
+},
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Exhaustion"] = {
+[""] = {
+{
+["action"] = {
+["glow"] = false,
+["hide"] = true,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Exhaustion",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
+["color"] = {
+["a"] = 1,
+["r"] = 1,
+["g"] = 1,
+["b"] = 0.85,
+},
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Misery"] = {
+[""] = {
+{
+["action"] = {
+["glow"] = false,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+["hide"] = true,
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Misery",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["b"] = 0.85,
+["g"] = 1,
+["r"] = 1,
+},
+["priority"] = 0,
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Stoneskin"] = {
+[""] = {
+{
+["action"] = {
+["glow"] = false,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+["hide"] = true,
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Stoneskin",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["b"] = 0.85,
+["g"] = 1,
+["r"] = 1,
+},
+["priority"] = 0,
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+[976] = {
 [""] = {
 {
 ["action"] = {
@@ -1113,7 +1005,7 @@ DeBuffFilterDB = {
 ["minStacks"] = 0,
 ["enableStacksFilter"] = false,
 ["minDuration"] = 0,
-["customName"] = "Fear Ward",
+["customName"] = "r1 shadow prot",
 ["settings"] = {
 ["priorityEnabled"] = false,
 ["alwaysEnableGlow"] = true,
@@ -1121,9 +1013,9 @@ DeBuffFilterDB = {
 ["ownOnly"] = false,
 ["color"] = {
 ["a"] = 1,
-["b"] = 0,
-["g"] = 0.1058823615312576,
-["r"] = 1,
+["b"] = 0.05882353335618973,
+["g"] = 1,
+["r"] = 0,
 },
 ["priority"] = 0,
 },
@@ -1133,8 +1025,8 @@ DeBuffFilterDB = {
 },
 },
 },
-["Wrath of Air Totem"] = {
-["FocusFrame"] = {
+["Hemorrhage"] = {
+["DebuffFrame"] = {
 {
 ["action"] = {
 ["glow"] = false,
@@ -1148,7 +1040,7 @@ DeBuffFilterDB = {
 ["minStacks"] = 0,
 ["enableStacksFilter"] = false,
 ["minDuration"] = 0,
-["customName"] = "Wrath of Air Totem",
+["customName"] = "Hemorrhage",
 ["settings"] = {
 ["priorityEnabled"] = false,
 ["alwaysEnableGlow"] = false,
@@ -1161,6 +1053,216 @@ DeBuffFilterDB = {
 ["r"] = 1,
 },
 ["priority"] = 0,
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+[1243] = {
+[""] = {
+{
+["action"] = {
+["glow"] = true,
+["hide"] = false,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "r1 stamina",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = true,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
+["color"] = {
+["a"] = 1,
+["b"] = 0.01568627543747425,
+["g"] = 1,
+["r"] = 0,
+},
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Healing Stream"] = {
+[""] = {
+{
+["action"] = {
+["glow"] = false,
+["hide"] = true,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Healing Stream",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
+["color"] = {
+["a"] = 1,
+["r"] = 1,
+["g"] = 1,
+["b"] = 0.85,
+},
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+[588] = {
+[""] = {
+{
+["action"] = {
+["glow"] = true,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+["hide"] = false,
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "r1 inner fire",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = true,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["b"] = 0.09019608050584793,
+["g"] = 1,
+["r"] = 0,
+},
+["priority"] = 0,
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+[1008] = {
+[""] = {
+{
+["action"] = {
+["glow"] = true,
+["hide"] = false,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "r1 amplify",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = true,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
+["color"] = {
+["a"] = 1,
+["b"] = 0.05490196496248245,
+["g"] = 1,
+["r"] = 0,
+},
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+[25559] = {
+[""] = {
+{
+["action"] = {
+["glow"] = false,
+["hide"] = true,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Frost Resistance",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
+["color"] = {
+["a"] = 1,
+["r"] = 1,
+["g"] = 1,
+["b"] = 0.85,
+},
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Demonic Knowledge"] = {
+["FocusFrame"] = {
+{
+["action"] = {
+["glow"] = false,
+["hide"] = true,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Demonic Knowledge",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
+["color"] = {
+["a"] = 1,
+["r"] = 1,
+["g"] = 1,
+["b"] = 0.85,
+},
 },
 ["enableDurationFilter"] = false,
 ["maxStacks"] = 0,
@@ -1181,7 +1283,112 @@ DeBuffFilterDB = {
 ["minStacks"] = 0,
 ["enableStacksFilter"] = false,
 ["minDuration"] = 0,
-["customName"] = "Wrath of Air Totem",
+["customName"] = "Demonic Knowledge",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
+["color"] = {
+["a"] = 1,
+["r"] = 1,
+["g"] = 1,
+["b"] = 0.85,
+},
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+[604] = {
+[""] = {
+{
+["action"] = {
+["glow"] = true,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+["hide"] = false,
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "r1 dampen",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = true,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["b"] = 0.08627451211214066,
+["g"] = 1,
+["r"] = 0,
+},
+["priority"] = 0,
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Devotion Aura"] = {
+[""] = {
+{
+["action"] = {
+["glow"] = false,
+["hide"] = true,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Devotion Aura",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["priority"] = 0,
+["color"] = {
+["a"] = 1,
+["r"] = 1,
+["g"] = 1,
+["b"] = 0.85,
+},
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Sanctity Aura"] = {
+[""] = {
+{
+["action"] = {
+["glow"] = false,
+["hide"] = true,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Sanctity Aura",
 ["settings"] = {
 ["priorityEnabled"] = false,
 ["alwaysEnableGlow"] = false,

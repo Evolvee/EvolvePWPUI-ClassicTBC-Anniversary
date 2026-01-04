@@ -1,36 +1,42 @@
 
 OmniCCDB = {
-["profileKeys"] = {
-["Evolve - Classic Anniversary PTR Realm"] = "Default",
-["Testclrz - Classic Anniversary PTR Realm"] = "Default",
-["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
-["Evolvebugged - Classic Anniversary PTR Realm"] = "Default",
-["Evolvepwp - Classic Anniversary PTR Realm"] = "Default",
-["Evolverror - Classic Anniversary PTR Realm"] = "Default",
-["Testcolors - Classic Anniversary PTR Realm"] = "Default",
-["Testcolours - Classic Anniversary PTR Realm"] = "Default",
-},
 ["global"] = {
 ["dbVersion"] = 6,
 ["addonVersion"] = "11.2.8",
+},
+["profileKeys"] = {
+["Evolve - Classic Anniversary PTR Realm"] = "Default",
+["Evolvepwp - Classic Anniversary PTR Realm"] = "Default",
+["Testcolors - Classic Anniversary PTR Realm"] = "Default",
+["Testcolours - Classic Anniversary PTR Realm"] = "Default",
+["Evolverror - Classic Anniversary PTR Realm"] = "Default",
+["Tremortest - Classic Anniversary PTR Realm"] = "Default",
+["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
+["Evolvebugged - Classic Anniversary PTR Realm"] = "Default",
+["Tremorttest - Classic Anniversary PTR Realm"] = "Default",
+["Testclrz - Classic Anniversary PTR Realm"] = "Default",
 },
 ["profiles"] = {
 ["Default"] = {
 ["rules"] = {
 {
 ["patterns"] = {
-"Aura",
-"Buff",
-"Debuff",
+"TargetFrameBuff",
+"FocusFrameBuff",
+"TargetFrameDebuff",
+"FocusFrameDebuff",
 "WeakAurasCooldown",
 "Character",
 "ContainerFrame",
+"EvolveDeBuff",
+"PartyMemberBuffTooltip",
 },
 ["name"] = "Auras",
 ["id"] = "auras",
 ["theme"] = "HIDDEN",
 },
 {
+["enabled"] = false,
 ["patterns"] = {
 "Plate",
 },
@@ -67,8 +73,6 @@ OmniCCDB = {
 ["themes"] = {
 ["HIDDEN"] = {
 ["textStyles"] = {
-["minutes"] = {
-},
 ["seconds"] = {
 ["b"] = 0.9921569228172302,
 ["g"] = 0.9803922176361084,
@@ -76,6 +80,8 @@ OmniCCDB = {
 ["soon"] = {
 ["b"] = 0.9921569228172302,
 ["g"] = 0.9803922176361084,
+},
+["minutes"] = {
 },
 ["hours"] = {
 ["b"] = 1,
@@ -97,8 +103,6 @@ OmniCCDB = {
 },
 ["Action Bars"] = {
 ["textStyles"] = {
-["minutes"] = {
-},
 ["seconds"] = {
 ["b"] = 0.9921569228172302,
 ["g"] = 0.9803922176361084,
@@ -108,34 +112,37 @@ OmniCCDB = {
 ["scale"] = 1,
 ["g"] = 0.9803922176361084,
 },
+["minutes"] = {
+},
 ["hours"] = {
 ["b"] = 1,
 ["g"] = 0.9764706492424011,
 ["r"] = 0.9960784912109375,
 },
 },
+["fontSize"] = 16,
 ["minDuration"] = 5,
+["fontOutline"] = "THICKOUTLINE",
 ["minSize"] = 0.16,
 ["fontShadow"] = {
 ["r"] = 0.9725490808486938,
 ["g"] = 0.988235354423523,
 },
 ["effect"] = "none",
-["fontSize"] = 16,
-["maxDuration"] = 30,
+["fontFace"] = "Interface\\AddOns\\Gladdy\\Fonts\\DorisPP.TTF",
 ["name"] = "Action Bars",
 },
 ["Default"] = {
 ["textStyles"] = {
-["seconds"] = {
-["b"] = 0.9921569228172302,
-["g"] = 0.9803922176361084,
-},
 ["minutes"] = {
 },
 ["soon"] = {
 ["b"] = 0.9921569228172302,
 ["scale"] = 1,
+["g"] = 0.9803922176361084,
+},
+["seconds"] = {
+["b"] = 0.9921569228172302,
 ["g"] = 0.9803922176361084,
 },
 ["hours"] = {
@@ -144,6 +151,7 @@ OmniCCDB = {
 ["r"] = 0.9960784912109375,
 },
 },
+["fontFace"] = "Interface\\AddOns\\Gladdy\\Fonts\\DorisPP.TTF",
 ["tenthsDuration"] = 1,
 ["fontOutline"] = "THICKOUTLINE",
 ["minSize"] = 0.16,
@@ -152,6 +160,7 @@ OmniCCDB = {
 ["g"] = 0.988235354423523,
 },
 ["effect"] = "none",
+["fontSize"] = 16,
 },
 },
 },
