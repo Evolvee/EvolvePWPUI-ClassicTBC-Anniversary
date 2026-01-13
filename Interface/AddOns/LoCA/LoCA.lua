@@ -37,7 +37,6 @@ addon.defaultSettings = {
 		{ spellId = 25046, category = "Silenced", weight = 4, active = true, type = 2 }, --[[ Arcane Torrent 1 (custom) --]]
 		{ spellId = 28730, category = "Silenced", weight = 4, active = true, type = 2 }, --[[ Arcane Torrent 2 (custom) --]]
 		{ spellId = 43523, category = "Silenced", weight = 4, active = true, type = 2 }, --[[ Unstable Affliction --]]
-		{ spellId = 31117, category = "Silenced", weight = 4, active = true, type = 2 }, --[[ Unstable Affliction 2 xd --]]
 		{ spellId = 18425, category = "Silenced", weight = 4, active = true, type = 2 }, --[[ Improved Kick --]]
 		{ spellId = 18498, category = "Silenced", weight = 4, active = true, type = 2 }, --[[ Improved Shield Bash --]]
 
@@ -63,6 +62,7 @@ addon.defaultSettings = {
 		{ spellId = 12355, category = "Stunned", weight = 3, active = true, type = 3 },  --[[ Impact Stun --]]
 		{ spellId = 12798, category = "Stunned", weight = 3, active = true, type = 3 },  --[[ Revenge Stun --]]
 		{ spellId = 12809, category = "Stunned", weight = 3, active = true, type = 3 },  --[[ Concussion Blow --]]
+		{ spellId = 30414, category = "Stunned", weight = 3, active = true, type = 3 },  --[[ Shadowfury --]]
 
         { spellId = 22570, category = "Incapacitated", weight = 2, active = true, type = 4 }, --[[ Maim --]]
 		{ spellId = 33043, category = "Incapacitated", weight = 2, active = true, type = 4 }, --[[ Dragon's Breath --]]

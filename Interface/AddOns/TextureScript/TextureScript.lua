@@ -756,10 +756,22 @@ local PetBG = PetFrame:CreateTexture(nil, "BACKGROUND")
 PetFrame.AuraFrameContainer:SetPoint("TOPLEFT", 48, -48)
 
 -- Make the PetFrame debuffs not a subject to OmniCC (cant be done via OmniCC rules ingame)
-hooksecurefunc(PetFrame, "UpdateAuras", function(self)
-for frame in self.AuraFramePool:EnumerateActive() do
-  if frame and frame.Cooldown and not frame.Cooldown.noCooldownCount then frame.Cooldown.noCooldownCount = true end
-end end) 
+local function hidePetCd()
+    if not PetFrame.AuraFramePool then return end
+    for frame in PetFrame.AuraFramePool:EnumerateActive() do
+        local cd = frame.Cooldown
+        if cd and not cd.noCooldownCount then
+            cd.noCooldownCount = true
+            hooksecurefunc(cd, "SetCooldown", function(self)
+                self.noCooldownCount = true
+            end)
+        end
+    end
+end
+
+PetFrame.AuraFramePool:Acquire()
+hidePetCd()
+hooksecurefunc(PetFrame, "UpdateAuras", hidePetCd)
 
 -- Hidden Player glow combat/rested flashes + Hidden Focus Flash on Focused Target + Hiding the red glowing status on target/focus frames when they have low HP
 local playerTextures = { PlayerStatusTexture, PlayerRestGlow, PlayerRestIcon, PlayerAttackIcon, PlayerAttackGlow, PlayerStatusGlow, PlayerAttackBackground }

@@ -1,0 +1,66 @@
+## Interface: 11508, 20505
+
+## Title: TBC Horde Quest Preparation
+## Notes: TBC Launch Guide by Consita for Horde only
+## Author: Consita
+## Version: 4
+## SavedVariables: CasualTBCPrepSettingGlobal
+## SavedVariablesPerCharacter: CasualTBCPrepSettingChar
+## X-Curse-Project-ID: 1261937
+
+## OptionalDeps: RXPGuides
+# Addon UI
+CasualTBCPrep\Init.lua
+CasualTBCPrep\MessageBroker.lua
+CasualTBCPrep\MailboxInteraction.lua
+CasualTBCPrep\BankInteraction.lua
+CasualTBCPrep\Data\Themes.lua
+CasualTBCPrep\Data\Classes.lua
+CasualTBCPrep\Data\Faction.lua
+CasualTBCPrep\Data\Professions.lua
+CasualTBCPrep\Data\Skills.lua
+CasualTBCPrep\Data\Locale\Professions.lua
+CasualTBCPrep\Data\Locale\Skills.lua
+CasualTBCPrep\Data\Experience.lua
+CasualTBCPrep\Data\Items.lua
+CasualTBCPrep\Data\Sounds.lua
+CasualTBCPrep\Data\Settings.lua
+CasualTBCPrep\CasualTBCPrepShared.lua
+CasualTBCPrep\Data\QuestData.lua
+CasualTBCPrep\Data\Navigation.lua
+CasualTBCPrep\Data\Routing.lua
+CasualTBCPrep\Data\Flights.lua
+CasualTBCPrep\UI\WM_QuestLogPrep.lua
+CasualTBCPrep\UI\WM_QuestPrep.lua
+CasualTBCPrep\UI\WM_ItemPrep.lua
+CasualTBCPrep\UI\WM_Route.lua
+CasualTBCPrep\UI\Extras\Extras_ExtraPrep.lua
+CasualTBCPrep\UI\Extras\Extras_Flights.lua
+CasualTBCPrep\UI\Extras\Extras_Items.lua
+CasualTBCPrep\UI\Extras\Extras_Professions.lua
+CasualTBCPrep\UI\Extras\Extras_Mailbox.lua
+CasualTBCPrep\UI\WM_Extras.lua
+CasualTBCPrep\UI\WM_Settings.lua
+CasualTBCPrep\UI\WM_About.lua
+CasualTBCPrep\UI\W_Main.lua
+## CasualTBCPrep\UI\Skin_ElvUI.lua
+CasualTBCPrep\UI\W_WarningNotice.lua
+CasualTBCPrep\UI\W_ItemManagement.lua
+CasualTBCPrep\UI\W_QuestManagement.lua
+CasualTBCPrep\UI\W_Companion.lua
+CasualTBCPrep\UI\W_FeatureManual.lua
+CasualTBCPrep\CasualTBCPrep.lua
+
+# Guide
+TBC/Introduction.lua
+TBC/Quest-Preparation-Main.lua
+TBC/Quest-Preparation-Solo.lua
+TBC/Quest-Preparation-Strat.lua
+TBC/Dungeon-Quest-Preparation-Main.lua
+TBC/Dungeon-Quest-Preparation-Solo.lua
+TBC/Dungeon-Quest-Preparation-Strat.lua
+TBC/Item-Preparation.lua
+## TBC/TBC-Launch-Turnin-Main.lua
+## TBC/TBC-Launch-Turnin-Solo.lua
+TBC/TBC-Launch-Turnin-Strat.lua
+TBC/TBC-Dungeon-Grind.lua

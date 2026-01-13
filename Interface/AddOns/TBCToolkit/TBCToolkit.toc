@@ -1,0 +1,18 @@
+## Interface: 11508, 20505
+
+## Title: TBC Horde Quest Preparation
+## Notes: TBC Launch Guide by Consita for Horde only
+## Author: Consita
+## Version: 1
+## SavedVariables: CasualTBCPrepSettingGlobal
+## SavedVariablesPerCharacter: CasualTBCPrepSettingChar
+## X-Curse-Project-ID: 1261937
+
+##Dependencies: RXPGuides
+
+# Guide
+TBC-Dungeon-Grind-Horde-Allin.lua
+TBC-Dungeon-Grind-Horde-noKey.lua
+Arcatraz-Key.lua
+Shattered-Halls-Key.lua
+Karazhan-Attunement.lua

@@ -1,0 +1,10 @@
+lightweight tag 27b835c2e156ec4cedbcba2fbaea76254d5ed0e6 1.0.0-beta.2
+Author:	GitHub <noreply@github.com>
+Date:	Tue Dec 16 15:56:01 2025 -0500
+
+commit 27b835c2e156ec4cedbcba2fbaea76254d5ed0e6
+Author: Kamiren Dawkins <kamiren@dawkins.dev>
+Date:   Tue Dec 16 15:56:01 2025 -0500
+
+    fix: Adjust Author Tag Replacement (#6)
+

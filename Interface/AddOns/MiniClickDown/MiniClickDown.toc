@@ -4,5 +4,6 @@
 ## Author: Verz
 ## Version: 1.0.0
 ## IconTexture: Interface\AddOns\MiniClickDown\icon.blp
+## Category: Evolve PWP UI
 
 MiniClickDown.lua

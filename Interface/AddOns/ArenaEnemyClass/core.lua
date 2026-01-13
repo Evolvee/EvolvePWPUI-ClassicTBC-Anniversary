@@ -1,4 +1,4 @@
-local classmarkers = {
+local CLASS_MARKERS = {
     ["ROGUE"] = "Interface\\AddOns\\TextureScript\\ClassIconsUpscaled\\Rogue",
     ["PRIEST"] = "Interface\\AddOns\\TextureScript\\ClassIconsUpscaled\\Priest",
     ["WARRIOR"] = "Interface\\AddOns\\TextureScript\\ClassIconsUpscaled\\Warrior",
@@ -10,99 +10,118 @@ local classmarkers = {
     ["WARLOCK"] = "Interface\\AddOns\\TextureScript\\ClassIconsUpscaled\\Warlock",
 	["DEATHKNIGHT"] = "Interface\\AddOns\\TextureScript\\ClassIconsUpscaled\\DeathKnight",
 	["UNKNOWN"] = "Interface\\AddOns\\TextureScript\\ClassIconsUpscaled\\Unknown",
-	["GUESS_ROGUE"] = "Interface\\AddOns\\TextureScript\\ClassIconsUpscaled\\GUESS_ROGUE",
+	["GUESS_ROGUE"] = "Interface\\AddOns\\TextureScript\\ClassIconsUpscaled\\GuessRogue",
 }
 
-local function determineClass(class1, class2)
-    if (class1 == nil and class2 == nil) or (GladdyButtonFrame3 and GladdyButtonFrame3:IsShown()) then
-        -- Double stealth no icons
-        class1, class2 = nil, nil
-    elseif (class1 == "MAGE" and class2 == nil) or (class2 == "MAGE" and class1 == nil) then
-        -- Rogue/Mage
-        if class1 == nil then
-            class1 = "ROGUE"
+local HIDER_BUFFS = {
+    [(GetSpellInfo(1126))] = "DRUID", -- Mark of the Wild
+    [(GetSpellInfo(21849))] = "DRUID", -- Gift of the Wild
+    [(GetSpellInfo(467))] = "DRUID", -- Thorns
+    [(GetSpellInfo(17007))] = "DRUID", -- Leader of the Pack
+    [(GetSpellInfo(1459))] = "MAGE", -- Arcane Intellect
+    [(GetSpellInfo(23028))] = "MAGE", -- Arcane Brilliance
+    [(GetSpellInfo(1243))] = "PRIEST", -- Power Word: Fortitude
+    [(GetSpellInfo(21562))] = "PRIEST", -- Prayer of Fortitude
+    [(GetSpellInfo(13159))] = "HUNTER", -- Aspect of the Pack
+}
+
+local GUESSING_ROGUE_TABLE = {
+    {{PRIEST=1, DRUID=1}},
+    {{PRIEST=2}},
+    {{NONHIDER=2}},
+}
+
+local function AddClassIfNotSeen(classes, class)
+    for i=1,#classes do
+        if classes[i] == class then
+            return
         end
-        if class2 == nil then
-            class2 = "ROGUE"
+    end
+    classes[#classes+1] = class
+end
+
+local function DetermineClasses(class1, class2, class3)
+    if (class1 == nil and class2 == nil and class3 == nil) or (GladdyButtonFrame3 and GladdyButtonFrame3:IsShown()) then
+        return -- all stealth
+    end
+
+    local teamSize = (select(3, GetBattlefieldStatus(1)))
+
+    -- add each visible class to the classes list
+    local classes = {}
+    for _,class in ipairs({class1, class2, class3}) do
+        if class then
+            classes[#classes+1] = class
         end
-    elseif (class1 == "PRIEST" and class2 == nil) or (class2 == "PRIEST" and class1 == nil) then
-        -- Priest/Rogue or Priest/Mage
-        if class1 == nil then
-            if AuraUtil and (AuraUtil.FindAuraByName("Arcane Intellect", "arena2", "HELPFUL") or AuraUtil.FindAuraByName("Arcane Brilliance", "arena2", "HELPFUL")) then
-                class1 = "MAGE"
-            else
-                class1 = "ROGUE"
-            end
-        end
-        if class2 == nil then
-            if AuraUtil and (AuraUtil.FindAuraByName("Arcane Intellect", "arena1", "HELPFUL") or AuraUtil.FindAuraByName("Arcane Brilliance", "arena1", "HELPFUL")) then
-                class2 = "MAGE"
-            else
-                class2 = "ROGUE"
-            end
-        end
-    elseif (class1 == "WARRIOR" and class2 == nil) or (class2 == "WARRIOR" and class1 == nil) then
-        -- Warrior/Druid
-        if class1 == nil then
-            if AuraUtil and (AuraUtil.FindAuraByName("Mark of the Wild", "arena2", "HELPFUL") or AuraUtil.FindAuraByName("Gift of the Wild", "arena2", "HELPFUL")) then
-                class1 = "DRUID"
-            end
-        end
-        if class2 == nil then
-            if AuraUtil and (AuraUtil.FindAuraByName("Mark of the Wild", "arena1", "HELPFUL") or AuraUtil.FindAuraByName("Gift of the Wild", "arena1", "HELPFUL")) then
-                class2 = "DRUID"
-            end
-        end
-    elseif (class1 == "WARLOCK" and class2 == nil) or (class2 == "WARLOCK" and class1 == nil) then
-        -- Warlock/Rogue or Warlock/Druid
-        if class1 == nil then
-            if AuraUtil and (AuraUtil.FindAuraByName("Mark of the Wild", "arena2", "HELPFUL") or AuraUtil.FindAuraByName("Gift of the Wild", "arena2", "HELPFUL")) then
-                class1 = "DRUID"
-            else
-                class1 = "ROGUE"
-            end
-        end
-        if class2 == nil then
-            if AuraUtil and (AuraUtil.FindAuraByName("Mark of the Wild", "arena1", "HELPFUL") or AuraUtil.FindAuraByName("Gift of the Wild", "arena1", "HELPFUL")) then
-                class2 = "DRUID"
-            else
-                class2 = "ROGUE"
-            end
-        end
-    elseif (class1 == "PALADIN" and class2 == nil) or (class2 == "PALADIN" and class1 == nil) then
-        -- Paladin/Mage or Paladin/Rogue
-        if class1 == nil then
-            if AuraUtil and (AuraUtil.FindAuraByName("Arcane Intellect", "arena2", "HELPFUL") or AuraUtil.FindAuraByName("Arcane Brilliance", "arena2", "HELPFUL")) then
-                class1 = "MAGE"
-            else
-                class1 = "ROGUE"
-            end
-        end
-        if class2 == nil then
-            if AuraUtil and (AuraUtil.FindAuraByName("Arcane Intellect", "arena1", "HELPFUL") or AuraUtil.FindAuraByName("Arcane Brilliance", "arena1", "HELPFUL")) then
-                class2 = "MAGE"
-            else
-                class2 = "ROGUE"
-            end
-        end
-    elseif (class1 == "HUNTER" and class2 == nil) or (class2 == "HUNTER" and class1 == nil) then
-        -- Hunter/Druid or Hunter/Rogue
-        if class1 == nil then
-            if AuraUtil and (AuraUtil.FindAuraByName("Mark of the Wild", "arena2", "HELPFUL") or AuraUtil.FindAuraByName("Gift of the Wild", "arena2", "HELPFUL")) then
-                class1 = "DRUID"
-            else
-                class1 = "ROGUE"
-            end
-        end
-        if class2 == nil then
-            if AuraUtil and (AuraUtil.FindAuraByName("Mark of the Wild", "arena1", "HELPFUL") or AuraUtil.FindAuraByName("Gift of the Wild", "arena1", "HELPFUL")) then
-                class2 = "DRUID"
-            else
-                class2 = "ROGUE"
+    end
+
+    if #classes == teamSize then
+        return unpack(classes)
+    end
+
+    -- check everyone's auras to find out certain classes that must exist on the team
+    local hiderClassesFound = {}
+    for i=1,3 do
+        local unit = "arena"..i
+        if UnitExists(unit) then
+            for spellName,className in pairs(HIDER_BUFFS) do
+                if C_UnitAuras.GetAuraDataBySpellName(unit, spellName) then
+                    hiderClassesFound[className] = true
+                end
             end
         end
     end
-    return class1, class2
+
+    -- add one of any hidden class that must exist if they're not visible
+    for class in pairs(hiderClassesFound) do
+        AddClassIfNotSeen(classes, class)
+    end
+
+    -- if there's any left hidden, go through the guessing table
+    if #classes < teamSize then
+        local known = {
+            ROGUE = 0,
+            PRIEST = 0,
+            WARRIOR = 0,
+            PALADIN = 0,
+            HUNTER = 0,
+            DRUID = 0,
+            MAGE = 0,
+            SHAMAN = 0,
+            WARLOCK = 0,
+            DEATHKNIGHT = 0,
+            NONHIDER = 0,
+            HIDDEN = teamSize - #classes,
+        }
+        for _,class in ipairs(classes) do
+            known[class] = known[class] + 1
+        end
+        known.NONHIDER = known.PRIEST + known.WARRIOR + known.PALADIN + known.HUNTER + known.SHAMAN + known.WARLOCK + known.DEATHKNIGHT
+
+        local badGuess
+        for _,guess in ipairs(GUESSING_ROGUE_TABLE) do
+            badGuess = false
+            for needClass,needAmount in pairs(guess[1]) do
+                if known[needClass] ~= needAmount then
+                    badGuess = true
+                    break
+                end
+            end
+            if not badGuess then
+                classes[#classes+1] = "GUESS_ROGUE"
+                break
+            end
+        end
+    end
+
+    -- finally add "unknown" classes if a guessed rogue didn't fill the last spot
+    local unknownAmount = teamSize - #classes
+    while unknownAmount > 0 do
+        classes[#classes+1] = "UNKNOWN"
+        unknownAmount = unknownAmount - 1
+    end
+
+    return unpack(classes)
 end
 
 
@@ -157,7 +176,7 @@ local function CreateAlphaAnim(group, order, duration, change, delay, smoothing,
     if smoothing then
         anim:SetSmoothing(smoothing)
     end
-    
+
     return anim
 end
 
@@ -186,19 +205,6 @@ BossBanner:SetPoint("TOP", UIParent, 0, -130)
 BossBanner:EnableMouse(false)
 BossBanner:SetAlpha(1)
 BossBanner:SetFrameStrata("HIGH") -- cuz of TextureScript nameplate strata changes
-
--- ICON
-local ACDNumTwo = BossBanner:CreateTexture(nil, "OVERLAY")
-ACDNumTwo = ACDNumTwo
-ACDNumTwo:SetWidth(80)
-ACDNumTwo:SetHeight(80)
-ACDNumTwo:SetPoint("LEFT", BossBanner, "LEFT", -20, -25)
-
-local ACDNumThree = BossBanner:CreateTexture(nil, "OVERLAY")
-ACDNumThree = ACDNumThree
-ACDNumThree:SetWidth(80)
-ACDNumThree:SetHeight(80)
-ACDNumThree:SetPoint("RIGHT", BossBanner, "RIGHT", 20, -25)
 
 -- BORDER
 BossBanner.BannerTop = BossBanner:CreateTexture("BannerTop", "BORDER")
@@ -268,45 +274,6 @@ CreateAlphaAnim(BannerMiddle.animForAnimIn, 2, 0.25, 1, 0.2)
 CreateScaleAnim(BannerMiddle.animForAnimIn, 1, 0, 0.1, 1, 0.15)
 CreateScaleAnim(BannerMiddle.animForAnimIn, 2, 0.3, 10, 1, 0.1)
 
-
--- FIX: Icon animation groups reset to include only the delayed fade-in AND a long hold animation.
-
--- ACDNumTwo
-ACDNumTwo.animForAnimIn = ACDNumTwo:CreateAnimationGroup()
--- Order 1: The actual Fade-In
-local fadeInAnim2 = ACDNumTwo.animForAnimIn:CreateAnimation("Alpha")
-fadeInAnim2:SetOrder(1)
-fadeInAnim2:SetDuration(0.25)
-fadeInAnim2:SetFromAlpha(0)
-fadeInAnim2:SetToAlpha(1)
-fadeInAnim2:SetStartDelay(0.25) -- The original delay
-
--- Order 2 (NEW): A long "hold" animation to keep alpha at 1 until AnimIn.Stop() is called
-local holdAnim2 = ACDNumTwo.animForAnimIn:CreateAnimation("Alpha")
-holdAnim2:SetOrder(2)
-holdAnim2:SetDuration(100) -- Very long duration
-holdAnim2:SetFromAlpha(1)
-holdAnim2:SetToAlpha(1)
-
-
--- ACDNumThree
-ACDNumThree.animForAnimIn = ACDNumThree:CreateAnimationGroup()
--- Order 1: The actual Fade-In
-local fadeInAnim3 = ACDNumThree.animForAnimIn:CreateAnimation("Alpha")
-fadeInAnim3:SetOrder(1)
-fadeInAnim3:SetDuration(0.25)
-fadeInAnim3:SetFromAlpha(0)
-fadeInAnim3:SetToAlpha(1)
-fadeInAnim3:SetStartDelay(0.25) -- The original delay
-
--- Order 2 (NEW): A long "hold" animation to keep alpha at 1 until AnimIn.Stop() is called
-local holdAnim3 = ACDNumThree.animForAnimIn:CreateAnimation("Alpha")
-holdAnim3:SetOrder(2)
-holdAnim3:SetDuration(100) -- Very long duration
-holdAnim3:SetFromAlpha(1)
-holdAnim3:SetToAlpha(1)
-
-
 CreateAlphaAnim(BannerTopGlow.animForAnimIn, 1, 0, -1, nil, nil, 0.15)
 CreateAlphaAnim(BannerTopGlow.animForAnimIn, 2, 0.25, 1, 0.9)
 CreateScaleAnim(BannerTopGlow.animForAnimIn, 1, 0, 0.5, 1, 0.15)
@@ -363,34 +330,70 @@ AnimIn.Stop = function(self)
     end
 end
 
-local function DetectClass(class1, class2)
 
-    -- testing
-    if not class1 and not class2 then
-        class1, class2 = determineClass(select(2, UnitClass("arena1")), select(2, UnitClass("arena2")))
-    end
-    
-    if class1 then
-        ACDNumTwo:SetTexture(classmarkers[class1])
-        -- FIX: Explicitly set alpha to 0 right before playing the animation group
-        ACDNumTwo:SetAlpha(0)
-        ACDNumTwo.animForAnimIn:Stop()
-        ACDNumTwo.animForAnimIn:Play()
-    else
-        ACDNumTwo:SetTexture("")
-    end
-    
-    if class2 then
-        ACDNumThree:SetTexture(classmarkers[class2])
-        -- FIX: Explicitly set alpha to 0 right before playing the animation group
-        ACDNumThree:SetAlpha(0)
-        ACDNumThree.animForAnimIn:Stop()
-        ACDNumThree.animForAnimIn:Play()
-    else
-        ACDNumThree:SetTexture("")
+local function CreateIcon()
+    local icon = BossBanner:CreateTexture(nil, "OVERLAY")
+    icon = icon
+    icon:SetWidth(80)
+    icon:SetHeight(80)
+
+    -- FIX: Icon animation groups reset to include only the delayed fade-in AND a long hold animation.
+    icon.animForAnimIn = icon:CreateAnimationGroup()
+    -- Order 1: The actual Fade-In
+    local fadeInAnim2 = icon.animForAnimIn:CreateAnimation("Alpha")
+    fadeInAnim2:SetOrder(1)
+    fadeInAnim2:SetDuration(0.25)
+    fadeInAnim2:SetFromAlpha(0)
+    fadeInAnim2:SetToAlpha(1)
+    fadeInAnim2:SetStartDelay(0.25) -- The original delay
+
+    -- Order 2 (NEW): A long "hold" animation to keep alpha at 1 until AnimIn.Stop() is called
+    local holdAnim2 = icon.animForAnimIn:CreateAnimation("Alpha")
+    holdAnim2:SetOrder(2)
+    holdAnim2:SetDuration(100) -- Very long duration
+    holdAnim2:SetFromAlpha(1)
+    holdAnim2:SetToAlpha(1)
+
+    return icon
+end
+
+local classIcons = { CreateIcon(), CreateIcon(), CreateIcon() }
+classIcons[2]:SetPoint("LEFT", classIcons[1], "RIGHT", 10, 0)
+classIcons[3]:SetPoint("LEFT", classIcons[2], "RIGHT", 10, 0)
+
+local function ShowIcon(index, class)
+    local icon = classIcons[index]
+    icon:Show()
+
+    icon:SetTexture(CLASS_MARKERS[class])
+    -- FIX: Explicitly set alpha to 0 right before playing the animation group
+    icon:SetAlpha(0)
+    icon.animForAnimIn:Stop()
+    icon.animForAnimIn:Play()
+end
+
+local function HideIcon(index)
+    classIcons[index]:Hide()
+end
+
+local function DetectClass(class1, class2, class3)
+    if not class1 and not class2 and not class3 then
+        class1, class2, class3 = DetermineClasses(select(2, UnitClass("arena1")), select(2, UnitClass("arena2")), select(2, UnitClass("arena3")))
     end
 
-    if class1 or class2 then
+    if class3 then
+        classIcons[1]:SetPoint("LEFT", BossBanner, "LEFT", -65, -25)
+        ShowIcon(1, class1)
+        ShowIcon(2, class2)
+        ShowIcon(3, class3)
+    elseif class2 then
+        classIcons[1]:SetPoint("LEFT", BossBanner, "LEFT", -20, -25)
+        ShowIcon(1, class1)
+        ShowIcon(2, class2)
+        HideIcon(3)
+    end
+
+    if class2 or class3 then
         BossBanner:Show()
         AnimIn.Play(BossBanner.AnimIn)
         C_Timer.After(2, function()
@@ -400,8 +403,12 @@ local function DetectClass(class1, class2)
     end
 end
 
-function EICTest()
-    DetectClass("ROGUE", "PRIEST")
+function EICTest(amount, guess)
+    if amount == 3 then
+        DetectClass("PRIEST", "DRUID", guess and "GUESS_ROGUE" or "WARRIOR")
+    elseif amount == 2 then
+        DetectClass("PRIEST", guess and "GUESS_ROGUE" or "HUNTER")
+    end
 end
 
 local arenaWatcher = CreateFrame("frame")
@@ -409,16 +416,17 @@ arenaWatcher:Hide()
 local arenaWatcherElapsed = 0
 arenaWatcher:SetScript("OnUpdate", function(self, elapsed)
     arenaWatcherElapsed = arenaWatcherElapsed + elapsed
-    if UnitExists("arena1") or UnitExists("arena2") or arenaWatcherElapsed > 1 then
-        PlaySoundFile("Interface\\Addons\\TextureScript\\Gladdy\\Finish.ogg")
-        DetectClass(nil, nil)
+    if UnitExists("arena1") or UnitExists("arena2") or UnitExists("arena3") or arenaWatcherElapsed > 1 then
+        PlaySoundFile("Interface\\Addons\\ArenaEnemyClass\\Finish.ogg")
+        DetectClass()
         self:Hide()
     end
 end)
 
 BossBanner:RegisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL")
 BossBanner:SetScript("OnEvent", function(self, event, arg1)
-    if arg1 == "The Arena battle has begun!" then
+    local teamSize = (select(3, GetBattlefieldStatus(1)))
+	if arg1 == "The Arena battle has begun!" and teamSize <= 3 then
         arenaWatcherElapsed = 0
         arenaWatcher:Show()
     end
