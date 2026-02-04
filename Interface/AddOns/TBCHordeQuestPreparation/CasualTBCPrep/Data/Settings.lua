@@ -10,6 +10,7 @@ CasualTBCPrep.Settings.Warning_COMPLETING = settingsKeyPrefix .. "PreventComplet
 CasualTBCPrep.Settings.EnabledItemTooltips = settingsKeyPrefix .. "ItemTooltips"
 CasualTBCPrep.Settings.EnabledSounds = settingsKeyPrefix .. "SoundState"
 CasualTBCPrep.Settings.SelectedTheme = settingsKeyPrefix .. "SelectedTheme"
+CasualTBCPrep.Settings.QuestAutomationChecks = settingsKeyPrefix .. "QuestAutomationChecks"
 
 CasualTBCPrep.Settings.DebugDetails = settingsKeyPrefix .. "DebugDetails"
 CasualTBCPrep.Settings.SelectedRoute = settingsKeyPrefix .. "SelectedRoute"
@@ -23,21 +24,22 @@ CasualTBCPrep.Settings.ShowRouteQuestPickups = settingsKeyPrefix .. "ShowRouteQu
 CasualTBCPrep.Settings.CompanionSettings = settingsKeyPrefix .. "CompanionSettings"
 
 CasualTBCPrep.Settings.AllSettings = {
-	{ key=CasualTBCPrep.Settings.Warning_QLOG, 			dataType="bit", 	type="cmb", defaultValueGlobal=0,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="On", value=1 }, { text="Off", value=0}},	name="Questlog Warnings", 	description={ "This will |cFFD47400WARN|r you when you pick up a quest that should be in your questlog.", "This can be used while leveling to avoid doing anything by mistake.", " ", "Default: Off" }},
-	{ key=CasualTBCPrep.Settings.Warning_OPTIONAL, 		dataType="bit", 	type="cmb", defaultValueGlobal=0,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="On", value=1 }, { text="Off", value=0}},	name="Optional Warnings", 	description={ "This will |cFFD47400WARN|r you when you pick up a quest that can be used as an optional questlog quest.", "This can be used if you completed questlog quests already and are looking for alternatives on the way.", " ", "Default: Off" }},
-	{ key=CasualTBCPrep.Settings.Warning_TURNIN, 		dataType="bit",		type="cmb", defaultValueGlobal=1,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="On", value=1 }, { text="Off", value=0}},	name="Turnin Warnings",		description={ "This will |cFFD47400WARN|r you when you pick up a quest that is turned in on TBC Release for exp.", " ", "Turn this off if you're only doing the questlog", " ", "Default: On" } },
-	{ key=CasualTBCPrep.Settings.Warning_COMPLETING, 	dataType="bit",		type="cmb",	defaultValueGlobal=1,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="On", value=1 }, { text="Off", value=0}},	name="Completion Warnings",	description={ "This will |cFFFF1111PREVENT|r you from completing any quests used for TBC Exp.", " ", "Default: On" } },
-	{ key=CasualTBCPrep.Settings.EnabledItemTooltips, 	dataType="bit",		type="cmb",	defaultValueGlobal=1,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="On", value=1 }, { text="Off", value=0}},	name="Item Tooltips",		description={ "Item tooltips will show if they are used in any TBCPrep routes\nIt will show if your current route needs it.", " ", "Default: On" } },
+	{ key=CasualTBCPrep.Settings.Warning_QLOG, 			dataType="bit", 	type="cmb", defaultValueGlobal=0,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="On", value=1 }, { text="Off", value=0}},	name="Questlog Warnings", 		description={ "This will |cFFD47400WARN|r you when you pick up a quest that should be in your questlog.", "This can be used while leveling to avoid doing anything by mistake.", " ", "Default: Off" }},
+	{ key=CasualTBCPrep.Settings.Warning_OPTIONAL, 		dataType="bit", 	type="cmb", defaultValueGlobal=0,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="On", value=1 }, { text="Off", value=0}},	name="Optional Warnings", 		description={ "This will |cFFD47400WARN|r you when you pick up a quest that can be used as an optional questlog quest.", "This can be used if you completed questlog quests already and are looking for alternatives on the way.", " ", "Default: Off" }},
+	{ key=CasualTBCPrep.Settings.Warning_TURNIN, 		dataType="bit",		type="cmb", defaultValueGlobal=1,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="On", value=1 }, { text="Off", value=0}},	name="Turnin Warnings",			description={ "This will |cFFD47400WARN|r you when you pick up a quest that is turned in on TBC Release for exp.", " ", "Turn this off if you're only doing the questlog", " ", "Default: On" } },
+	{ key=CasualTBCPrep.Settings.Warning_COMPLETING, 	dataType="bit",		type="cmb",	defaultValueGlobal=1,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="On", value=1 }, { text="Off", value=0}},	name="Completion Warnings",		description={ "This will try to |cFFFF1111PREVENT|r you from completing any quests used for TBC Exp.", " ", "This is not a guarantee, other addons may run before ours.", "To be safe, disable auto turnin from other addons (questie, rxp, leatrix)", " ", "Default: On" } },
+	{ key=CasualTBCPrep.Settings.EnabledItemTooltips, 	dataType="bit",		type="cmb",	defaultValueGlobal=1,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="On", value=1 }, { text="Off", value=0}},	name="Item Tooltips",			description={ "Item tooltips will show if they are used in any TBCPrep routes\nIt will show if your current route needs it.", " ", "Default: On" } },
+	{ key=CasualTBCPrep.Settings.QuestAutomationChecks, dataType="bit",		type="cmb",	defaultValueGlobal=1,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="On", value=1 }, { text="Off", value=0}},	name="Quest Automation Checks", description={ "If enabled, RXP & Questie automation will be turned off on load", " ", "You'll also receive a warning every 10 minutes if RXP/Questie automation is enabled.", " ", "Default: On" } },
 
 	{ key=CasualTBCPrep.Settings.EnabledSounds, 		dataType="text",	type="cmb",	defaultValueGlobal=1,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="All", value=2 }, { text="SFX Only", value=1}, { text="None", value=0}},		name="Enabled Sounds",	description={ "All: SFX & Raid Warning sound when a popup shows", " ", "SFX: Small sound effects, like opening the window.", " ", "Default: All" } },
 	{ key=CasualTBCPrep.Settings.SelectedTheme, 		dataType="text",	type="cmb",	defaultValueGlobal=2,	defaultValueChar=-1,	values={ { text="Use Global", value=-1}, { text="Default", value="DEFAULT" }, { text="Distinct", value="DISTINCT"}, { text="Deuteranopia", value="CB_DEUTE"}, { text="DeuteranopiaGPT", value="CB_DEUTE_GPT"}, { text="Tritanopia", value="CB_TRITAN"}, { text="TritanopiaGPT", value="CB_TRITAN_GPT"}},	name="Selected Theme", description={ "Which theme to use for the UI.", " ", "This changes the colors in the UI, but does not affect the RXP guides" } },
 }
 
-CasualTBCPrep.Settings.CurrentMajorVersionValue = 3.15
+CasualTBCPrep.Settings.CurrentMajorVersionValue = 4.1
 CasualTBCPrep.Settings.VersionCheck_RouteSelection = 3.0
 CasualTBCPrep.Settings.VersionCheck_QuestlogOverhaul1 = 3.15
+CasualTBCPrep.Settings.VersionCheck_ReleaseNotice = 4.0
 
---[Settings Getter/Setter]
 ---@param key string
 local function ParseSettingsValue(key, value)
 	if value == nil then
@@ -177,21 +179,32 @@ function CasualTBCPrep.Settings.LoadDefaults()
 	end
 
 	-- Major Version Checks. Use this when we need to force some settings after big changes that could break stuff.
-	-- For example, after adding Route Selection, we want users who had the addon before, to also get the new selection window, so we reset their SelectedRoute
 	local charMajorVersionVal = CasualTBCPrep.Settings.GetCharSetting(CasualTBCPrep.Settings.CurrentMajorVersion)
 
 	-- RouteSelection Version Check
 	if charMajorVersionVal == nil or charMajorVersionVal < CasualTBCPrep.Settings.VersionCheck_RouteSelection then
 		CasualTBCPrep.Settings.SetCharSetting(CasualTBCPrep.Settings.SelectedRoute, nil)
 	end
-	if charMajorVersionVal == nil or charMajorVersionVal < CasualTBCPrep.Settings.VersionCheck_QuestlogOverhaul1 then
+	-- 3.15 Warning
+	if CasualTBCPrep.Settings.CurrentMajorVersionValue <= 1.17 and (charMajorVersionVal == nil or charMajorVersionVal < CasualTBCPrep.Settings.VersionCheck_QuestlogOverhaul1) then
 		CasualTBCPrep.NotifyUserWarning("WARNING. In this update we realized questlog quests didn't calculate the correct exp based on your level.\rPlease check that your questlog quests are still good! If quests now give low exp, you need to fix it!")
 
-		C_Timer.After(10, function()
-			CasualTBCPrep.W_WarningNotice.Show("3.15 Update (2026-01-12)", nil, "warn_qlog_overhaul", nil)
-		end)
+		local playerLevel = UnitLevel("player")
+		if playerLevel == nil or playerLevel == 60 then
+			C_Timer.After(10, function()
+				CasualTBCPrep.W_WarningNotice.Show("3.15 Update (2026-01-12)", nil, "warn_qlog_overhaul", nil)
+			end)
+		end
 	end
 
+	if charMajorVersionVal < CasualTBCPrep.Settings.VersionCheck_ReleaseNotice then
+		local playerLevel = UnitLevel("player")
+		if playerLevel == nil or playerLevel == 60 then
+			C_Timer.After(10, function()
+				CasualTBCPrep.W_ReleaseNotice:Show();
+			end)
+		end
+	end
 
 	-- Should probably always be last
 	CasualTBCPrep.Settings.SetCharSetting(CasualTBCPrep.Settings.CurrentMajorVersion, CasualTBCPrep.Settings.CurrentMajorVersionValue)
@@ -214,6 +227,9 @@ function CasualTBCPrep.Settings.SetItemMarkedAsStoredOnBankAlt(itemID, value, ba
     CasualTBCPrep.Settings.SetCharSetting(CasualTBCPrep.Settings.ItemStates, eItemStates)
 end
 
+function CasualTBCPrep.Settings.RemoveAllItemsMarkedAsStoredOnBankAlt()
+    CasualTBCPrep.Settings.SetCharSetting(CasualTBCPrep.Settings.ItemStates, {})
+end
 
 ---@param itemID number
 ---@return boolean,string
@@ -295,4 +311,6 @@ function CasualTBCPrep.Settings.OnChange(settingsKey, newValue, isGlobal)
 		local storedVal = CasualTBCPrep.Settings.GetSettingFromCharOrGlobal(settingsKey)
 		CasualTBCPrep.Themes.ChangeTheme(storedVal)
 	end
+
+	CasualTBCPrep.MessageBroker.Send(CasualTBCPrep.MessageBroker.TYPE.SETTING_CHANGED, { key=settingsKey, value=newValue, isGlobal=isGlobal })
 end

@@ -14,30 +14,13 @@ local ttQuestAdvanced = nil;
 --[World of Warcraft]
 CasualTBCPrep.ReputationRanks = {
 	[1] = "Hated",
-	[2] = "Hostile", 
+	[2] = "Hostile",
 	[3] = "Unfriendly",
 	[4] = "Neutral",
 	[5] = "Friendly",
 	[6] = "Honored",
 	[7] = "Revered",
 	[8] = "Exalted"
-}
-CasualTBCPrep.ProfessionNames = {
-	[185] = "Cooking",
-	[129] = "First Aid",
-	[356] = "Fishing",
-
-	[171] = "Alchemy",
-	[164] = "Blacksmithing",
-	[333] = "Enchanting",
-	[202] = "Engineering",
-	[773] = "Inscription", -- wotlk
-	[755] = "Jewelcrafting", -- tbc
-	[165] = "Leatherworking",
-	[197] = "Tailoring",
-	[182] = "Herbalism",
-	[186] = "Mining",
-	[393] = "Skinning"
 }
 
 CasualTBCPrep.CachedRarityColors = { }
@@ -61,7 +44,7 @@ end
 
 function CasualTBCPrep.GhettoHearth()
     LeaveParty()
-    InviteUnit("abcd")
+    C_PartyInfo.InviteUnit("abcd")
     C_Timer.After(1, function()
         LeaveParty()
     end)
@@ -160,10 +143,10 @@ end
 ---@param profID number
 ---@param reqProfLevel number
 function CasualTBCPrep.CreateProfRankText(profID, reqProfLevel)
-	local professionName = CasualTBCPrep.ProfessionNames[profID] or "Unknown Profession"
+	local internalProfID = CasualTBCPrep.Professions.GetInternalProfessionIDFromWowID(profID)
+	local professionName = CasualTBCPrep.Locale.Professions.GetProfessionName(internalProfID) or "Unknown Profession"
 
 	local playerProfessionSkill = 0
-
 	for i = 1, GetNumSkillLines() do
 		local skillName, _, _ , skillRank, _, _, maxSkill = GetSkillLineInfo(i)
 
@@ -386,7 +369,6 @@ function CasualTBCPrep.UI.CreateRouteSelection(wMain, parentFrame)
 		table.insert(routeSelectionElements, btn)
 	end
 
-	-- Create Texts
 	local routeHeader = frameRouteSelection:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
 	routeHeader:SetPoint("TOP", frameRouteSelection, "TOP", 0, -30)
 	routeHeader:SetText(hoverTextStr)
@@ -449,7 +431,6 @@ function CasualTBCPrep.UI.CreateItemImage(parentFrame, iconSize, itemID, anchorP
 		return nil,nil,"",nil
 	end
 
-	-- Icon
 	local icon = parentFrame:CreateTexture(nil, "OVERLAY")
 	icon:SetTexture(itemData.texture)
 	icon:SetSize(iconSize, iconSize)
@@ -457,7 +438,6 @@ function CasualTBCPrep.UI.CreateItemImage(parentFrame, iconSize, itemID, anchorP
 
 	local brd = parentFrame:CreateTexture(nil, "OVERLAY", nil, 1)
 	brd:SetTexture("Interface\\Common\\WhiteIconFrame")
-	--brd:SetBlendMode("ADD")
 	brd:SetPoint("CENTER",icon,"CENTER",0,0)
 	brd:SetSize(iconSize, iconSize)
 	brd:SetDrawLayer("OVERLAY", 1)
@@ -675,13 +655,11 @@ function CasualTBCPrep.UI.UpdateAdvancedQuestTooltip(parent, point, width, heigh
 					progressText = progressText .. "|r " .. bankTextColor .. "(" .. tostring(item.playerBankAmount) .. " in bank)"
 				end
 
-				-- Text, Item Name
 				local textItemName = ttFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 				textItemName:SetPoint("TOPLEFT", icon, "TOPRIGHT", iconPaddingX, - 1)
 				textItemName:SetText(itemNameText)
 				table.insert(ttFrame.content, textItemName)
 
-				-- Text, Player Progress
 				local textProgress = ttFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 				textProgress:SetPoint("TOPLEFT", icon, "TOPRIGHT", iconPaddingX, -textLineHeight - 3)
 				textProgress:SetText(progressText)

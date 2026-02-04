@@ -1,8 +1,119 @@
 Changelog:
+4.1 
+- Added Paladin-only turnin quest "Proving Your Hatred"
+- Rewrote the "Manual Mail Help" guide again.
+- Added Required Item to "A Reliquary of Purity"
+- Added Required Item to "Pusillin and the Elder Azj'Tordin"
+- The "Black Dragonflight Molt" Item tooltip now properly shows if it's in your selected route
+- The "Black Dragonflight Molt" Item tooltip on the Items tab now correctly show being related to the "A Taste of Flame" quest
 
-3.16
+4.0 (2026-02-03)
+- Added Battle for Alterac in Preparation
+- Went through all turnin guides and double checked .accept and .turnin steps
+	- Added trainer support where possible to all guides (solo doesn't have full support)
+	- Added multiple .destroy steps to clean up inventory to all turnin guides
+	- Added Blacksmith, PvP and partly AQ quest turnins to all turnin routes
+	- Added Vendor and Bank steps to all turnin routes
+	- Added note for low exp quest in case of full questlog
+	- Added additional warnings and notes to the beginning of all turnin routes
+	- Added note for RP in Tanaris
+	- Added note to Alexi Barov NPC
+	- Removed multiple .accept steps as only .turnin is needed
+	- Fixed Jabbering Ghoul description
+	- Fixed waypoints and order for Moonglade quests
+	- Fixed waypoint for Rayne in EPL
+	- Fixed felvine shard quest
+	- Fixed travel steps
+	- Fixed dynamic quest requirements in all turnin routes
+	- Fixed Taste of Flame quest
+	- Fixed Cenarion reputation for relevant quests
+	- Fixed Brann Bronzebeard's Lost Letter steps
+- Fixed note for companion in all routes
+- Fixed steps and formatting for Dungeon Grind
+- Minor formatting and text tweaks to current preparation guides
+- "The Battle for Darrowshire" is now properly a prequest for "Hidden Treasures" again
+- Clarified that the "The Truth Comes Crashing Down" prequest comes from an item, not from EPL Town
+- Added the "Frostwolf Insignia" items as required for the AV Reputation quests, so the companion will loot it from the bank.
+- Required item count from ignored quests is no longed added to the needed count on the Items tab, if a nonignored quest also needed that item.
+- Fix Armanents of War quests being multiple for some classes
+- Companion: Now works in Felwood again after prepatch change to the zone
+- Companion: When opened, it will now open the step for the current map/zone/subzone, if there is one.
+- Added a "Release Notice" warning window
+
+3.22 (2026-01-29)
+- Finished RXP Turn-in guide for Solo Route.
+- Added "Tranquillien, Ghostlands" as a required flight path for Solo route, as it links Silvermoon to EPL.
+- Added back "Summoning Shadra" as a prequest to "Venom to the Undercity"
+- SoloRoute Companion: Removed "Winterspring" as a mail pick-up spot, added "Stonard" as a mail pick-up spot. Now it matches the other routes.
+- Companion: "Collect" button for step 1 (bags) can now collect the Tier 0.5 items from the bank (even though they are BoE and is expected in the mailbox)
+- Redid rep requirements for the lords/dukes quests at Cenarion Hold.
+> Abyssal Contacts Rep Requirement: Honored > None
+> Aurel Goldleaf Rep Requirement: None > Friendly
+> Dukes of the Council Rep Requirement: Honored > Friendly 
+> Bor Wildmane Rep Requirement: None > Friendly
+> Signet of the Dukes Rep Requirement: Revered > Friendly
+> Goldleaf's Discovery Rep Requirement: None > Revered
+> Bor Wishes to Speak Rep Requirement: None > Revered
+
+3.21 (2026-01-27)
+- Went through all addon files and cleaned up old/unused code, reducing filesize.
+- Removed the 3.15 warning from the about page.
+- Fixed lua errors happening if RXP or Questie addons aren't installed/enabled, when tbcprep checks if their quest automation is on.
+- Companion: Fixed 'Bank Collect' not working if you didn't have room in the main backpack.
+- Added many outland/tbc flight paths to our flightpath tracker
+- Added a new command "/tbc resetmarkeditems" that resets all items that are marked to be stored elsewhere (alt, mailbox)
+- Updated the "Manual Mail Help" guide on the Extras>Mailbox description, adding steps to mark items.
+
+3.20 (2026-01-26)
+- Profession requirements on quests should now work on non-english (enUS) wow clients. Please let us know if it doesn't work
+- TBCPrep now turns off RXP & Questie quest automation 10 seconds after logging in / reloading. Can be disabled in the '/tbcprep' settings tab
+- TBCprep now warns if RXP/Questie quest automation is enabled every 10 minutes in chat. Can be disabled in the '/tbcprep' settings tab
+- It didn't seem possible to disable LeatrixPlus automation from our addon. Please turn it off yourself.
+- Companion: 'Collect' button for 'Bags' step should now work when using the bank button to open the companion
+- Implemented more of the RXP Guide for the Solo Route (not finished)
+
+3.19 (2026-01-25) 
+- Eitrigg's Wisdom (part of Onyxia attunement) should no longer show a warning when picked up.
+- "Fel Elemental Rod" for the T0.5 questline is now marked correctly as BoE (Can be mailed and bought on AH).
+- Companion: Added 'Collect' button the the 'Bags' steps, so you can quickly loot the items from the bank.
+- Companion: T0.5 Class belt & gloves are now set to always be in bags, so players that have equipped them doesn't get griefed on release since they can't mail them.
+- Companion: No longer only loots 1 stack after the prepatch.
+- Companion: Companion now tries to update the itemlist after collecting, not only after closing the mail/bank. If the mailbox lags it might not work, just close the mail/bank to get a fresh update.
+- Added description of a way to use the companion without relying on our mail-loot logic on release. The servers might be lagging and we can't guarantee how well it works.
+  > Please go to /tbcprep > Extras > Mailbox and scroll down to the "Simple 'Manual Mail Help' Usage" header. This is how Pawaox will handle mails on release.
+
+3.18 (2026-01-24)
+- Added Main Route turnin
+- Fixed Coordinates for dungeons with prepatch
+- Fixed spelling mistake in the "Item Delete Warning" window
+- Fix wrong text in Extras - Mailbox description
+- Clarify that the "Completion Warnings" settings is not guaranteed to work in its tooltips
+- Added quest comment for Anthion's Strange Request
+- Fixed the second "Of Love and Family" having the first "Of Love and Family" as prequest in the strat route.
+- The "Black Dragonflight Molt" Item now has its quests correctly assigned. It should now show the item tooltip.
+- Quests tab now doesn't include completed quests, as well as ignored quests, in the "total quest count" at the top
+- Removed "Assisting Arch Druid Runetotem" as a prequest to Un'goro Soil (and Morrowgrain) since the quest is removed in the prepatch for TBC
+- Made "To Serve Kum'isha" an Expensive Quest in the Quests tab
+- Added some special search filters on the "Quests" tab. You can search for ready:yes, ready:no, completed:yes, completed:no to only show quests matching that criteria. Use "ready:no" to see what you have left to work on
+- Minor Fixes and QoL changes to the guide
+
+3.17c
+- Fixed the "/tbcprep ghetto" command to work with the TBC Prepatch changes
+- Fixed Paladin T0,5 questline in prep guide
+
+3.17b
+- Actually fixed item for 'The Battle of Darrowshire' quest
+
+3.17 (2026-01-14)
 - Fixed comment for 'The Twilight Lexicon'
 - Fixed item for 'The Battle of Darrowshire' quest
+- Fixed the DireMaul Blacksmithing selection crashing the addon
+- Added new flightpaths added to Kalimdor & Eastern Kingdoms
+- Changed all routes to fly to Emerald Sanctuary in felwood now.
+- Companion: Now picks up mail in Felwood at Bloodvenom Post (Was that mailbox always there??)
+- Now only shows the 3.15 questlog warning for level 60 characters, and it should stop showing in the next update (3.18)
+
+3.16 (2016-01-12)
 - Removed the 0xp warning for the quest 'Medallion of Faith'
 - ExtraPrep: Fixed some issues with the Rhok'delar quests that can be added
 - ExtraPrep: Added class books & Quel'Serrar DireMaul quests to the 'Blacksmithing - Dire Maul' selection

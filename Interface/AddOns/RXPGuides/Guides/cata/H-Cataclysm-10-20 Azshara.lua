@@ -1,6 +1,7 @@
 local _,addon = ...
 if addon.gameVersion < 40000 or addon.player.faction == 'Alliance' then return end
 
+if GetLocale() == "zhCN" then return end
 RXPGuides.RegisterGuide([[
 #cata
 #mop
@@ -2660,7 +2661,7 @@ step << Warrior/Paladin
     .use 926
     .itemcount 926,1
     .itemStat 16,QUALITY,<7
-    .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<15.2
+    .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<15.2
 step << Shaman
     #optional
     #completewith AzsharaEnd

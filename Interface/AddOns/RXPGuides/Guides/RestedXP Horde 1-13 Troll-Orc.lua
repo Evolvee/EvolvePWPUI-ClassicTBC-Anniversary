@@ -1,6 +1,7 @@
 local faction = UnitFactionGroup("player")
 if faction == "Alliance" then return end
 
+if GetLocale() == "zhCN" then return end
 RXPGuides.RegisterGuide([[
 #tbc
 #wotlk
@@ -479,7 +480,6 @@ step << Warlock wotlk
     #completewith next
     .cast 688 >>|cRXP_WARN_Cast|r |T136218:0|t[Summon Imp]
 step
-    #sticky
     #label Galgar
     .goto Durotar,42.73,67.23,0,0
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Galgar|r

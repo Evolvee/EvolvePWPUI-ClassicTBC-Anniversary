@@ -4,35 +4,37 @@ CasualTBCPrep.Extras_Mailbox = CasualTBCPrep.Extras_Mailbox or {}
 
 local turninSteps = {
     [CasualTBCPrep.Routing.RouteCodeMain] = {
-        { id=1, text="Items in bags", header="Bags", targetMailID=1, targetBankID=1, section=nil, mapID=nil, zone=nil, subZone=nil, reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=1, text="Items in bags", header="Bags", targetMailID=1, targetBankID=1, section=nil, mapID=nil, zone=nil, subZone=nil, reached=true, interactedWithMail=false, interactedWithBank=false },
         { id=2, text="Cenarion Hold", header="Mail", targetMailID=2, targetBankID=nil, section="SilithusHold", mapID=1451, zone="Silithus", subZone="Cenarion Hold", reached=false, interactedWithMail=false, interactedWithBank=false },
         { id=3, text="Gadgetzan", header="Mail & Bank", targetMailID=3, targetBankID=2, section="TanarisTown", mapID=1446, zone="Tanaris", subZone="Gadgetzan", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=4, text="Orgrimmar 1/2", header="Mail", targetMailID=4, targetBankID=nil, section="OrgrimmarDrag", mapID=1454, zone="Orgrimmar", subZone="The Drag", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=5, text="Orgrimmar 2/2", header="Bank", targetMailID=nil, targetBankID=3, section="OrgrimmarBank", mapID=1454, zone="Orgrimmar", subZone="Valley of Strength", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=6, text="Light's Hope Chapel", header="Mail", targetMailID=5, targetBankID=nil, section="EPLTown", mapID=1423, zone="Eastern Plaguelands", subZone="Light's Hope Chapel", shortZoneText="EPL, Light's Hope Chapel", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=7, text="Tarren Mill", header="Mail", targetMailID=6, targetBankID=nil, section="AV", mapID=1424, zone="Hillsbrad Foothills", subZone="Tarren Mill", shortZoneText="Hillsbrad, Tarren Mill", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=8, text="Stonard", header="Mail", targetMailID=7, targetBankID=nil, section="Stonard", mapID=1435, zone="Swamp of Sorrows", subZone="Stonard", shortZoneText="Swamp of Sorrows, Stonard", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=4, text="Bloodvenom Post", header="Mail", targetMailID=4, targetBankID=nil, section="felwoodTown", mapID=1448, zone="Felwood", subZone="Bloodvenom Post ", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=5, text="Orgrimmar 1/2", header="Mail", targetMailID=5, targetBankID=nil, section="OrgrimmarDrag", mapID=1454, zone="Orgrimmar", subZone="The Drag", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=6, text="Orgrimmar 2/2", header="Bank", targetMailID=nil, targetBankID=3, section="OrgrimmarBank", mapID=1454, zone="Orgrimmar", subZone="Valley of Strength", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=7, text="Light's Hope Chapel", header="Mail", targetMailID=6, targetBankID=nil, section="EPLTown", mapID=1423, zone="Eastern Plaguelands", subZone="Light's Hope Chapel", shortZoneText="EPL, Light's Hope Chapel", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=8, text="Tarren Mill", header="Mail", targetMailID=7, targetBankID=nil, section="AV", mapID=1424, zone="Hillsbrad Foothills", subZone="Tarren Mill", shortZoneText="Hillsbrad, Tarren Mill", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=9, text="Stonard", header="Mail", targetMailID=8, targetBankID=nil, section="Stonard", mapID=1435, zone="Swamp of Sorrows", subZone="Stonard", shortZoneText="Swamp of Sorrows, Stonard", reached=false, interactedWithMail=false, interactedWithBank=false },
     },
     [CasualTBCPrep.Routing.RouteCodeStrat] = {
-        { id=1, text="Items in bags", header="Bags", targetMailID=1, targetBankID=1, section=nil, mapID=nil, zone=nil, subZone=nil, reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=1, text="Items in bags", header="Bags", targetMailID=1, targetBankID=1, section=nil, mapID=nil, zone=nil, subZone=nil, reached=true, interactedWithMail=false, interactedWithBank=false },
         { id=2, text="Cenarion Hold", header="Mail", targetMailID=2, targetBankID=nil, section="SilithusHold", mapID=1451, zone="Silithus", subZone="Cenarion Hold", reached=false, interactedWithMail=false, interactedWithBank=false },
         { id=3, text="Gadgetzan", header="Mail & Bank", targetMailID=3, targetBankID=2, section="TanarisTown", mapID=1446, zone="Tanaris", subZone="Gadgetzan", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=4, text="Orgrimmar 1/2", header="Mail", targetMailID=4, targetBankID=nil, section="OrgrimmarDrag", mapID=1454, zone="Orgrimmar", subZone="The Drag", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=5, text="Orgrimmar 2/2", header="Bank", targetMailID=nil, targetBankID=3, section="OrgrimmarBank", mapID=1454, zone="Orgrimmar", subZone="Valley of Strength", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=6, text="Light's Hope Chapel", header="Mail", targetMailID=5, targetBankID=nil, section="EPLTown", mapID=1423, zone="Eastern Plaguelands", subZone="Light's Hope Chapel", shortZoneText="EPL, Light's Hope Chapel", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=7, text="Tarren Mill", header="Mail", targetMailID=6, targetBankID=nil, section="AV", mapID=1424, zone="Hillsbrad Foothills", subZone="Tarren Mill", shortZoneText="Hillsbrad, Tarren Mill", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=8, text="Stonard", header="Mail", targetMailID=7, targetBankID=nil, section="Stonard", mapID=1435, zone="Swamp of Sorrows", subZone="Stonard", shortZoneText="Swamp of Sorrows, Stonard", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=4, text="Bloodvenom Post", header="Mail", targetMailID=4, targetBankID=nil, section="felwoodTown", mapID=1448, zone="Felwood", subZone="Bloodvenom Post ", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=5, text="Orgrimmar 1/2", header="Mail", targetMailID=5, targetBankID=nil, section="OrgrimmarDrag", mapID=1454, zone="Orgrimmar", subZone="The Drag", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=6, text="Orgrimmar 2/2", header="Bank", targetMailID=nil, targetBankID=3, section="OrgrimmarBank", mapID=1454, zone="Orgrimmar", subZone="Valley of Strength", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=7, text="Light's Hope Chapel", header="Mail", targetMailID=6, targetBankID=nil, section="EPLTown", mapID=1423, zone="Eastern Plaguelands", subZone="Light's Hope Chapel", shortZoneText="EPL, Light's Hope Chapel", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=8, text="Tarren Mill", header="Mail", targetMailID=7, targetBankID=nil, section="AV", mapID=1424, zone="Hillsbrad Foothills", subZone="Tarren Mill", shortZoneText="Hillsbrad, Tarren Mill", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=9, text="Stonard", header="Mail", targetMailID=8, targetBankID=nil, section="Stonard", mapID=1435, zone="Swamp of Sorrows", subZone="Stonard", shortZoneText="Swamp of Sorrows, Stonard", reached=false, interactedWithMail=false, interactedWithBank=false },
     },
     [CasualTBCPrep.Routing.RouteCodeSolo] = {
-        { id=1, text="Items in bags", header="Bags", targetMailID=1, targetBankID=1, section=nil, mapID=nil, zone=nil, subZone=nil, reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=1, text="Items in bags", header="Bags", targetMailID=1, targetBankID=1, section=nil, mapID=nil, zone=nil, subZone=nil, reached=true, interactedWithMail=false, interactedWithBank=false },
         { id=2, text="Cenarion Hold", header="Mail", targetMailID=2, targetBankID=nil, section="SilithusHold", mapID=1451, zone="Silithus", subZone="Cenarion Hold", reached=false, interactedWithMail=false, interactedWithBank=false },
         { id=3, text="Gadgetzan", header="Mail & Bank", targetMailID=3, targetBankID=2, section="TanarisTown", mapID=1446, zone="Tanaris", subZone="Gadgetzan", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=4, text="Everlook", header="Mail & Bank", targetMailID=4, targetBankID=nil, section="wsEverlook", mapID=1452, zone="Winterspring", subZone="Everlook", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=5, text="Splintertree Post", header="Mail", targetMailID=5, targetBankID=nil, section="Ashenvale", mapID=1440, zone="Ashenvale", subZone="Splintertree Post", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=6, text="Orgrimmar 1/2", header="Mail", targetMailID=6, targetBankID=nil, section="OrgrimmarDrag", mapID=1454, zone="Orgrimmar", subZone="The Drag", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=7, text="Orgrimmar 2/2", header="Bank", targetMailID=nil, targetBankID=3, section="OrgrimmarBank", mapID=1454, zone="Orgrimmar", subZone="Valley of Strength", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=8, text="Undercity", header="Bank", targetMailID=7, targetBankID=4, section="Undercity2", mapID=1458, zone="Undercity", subZone="Trade Quarter", reached=false, interactedWithMail=false, interactedWithBank=false },
-        { id=9, text="Light's Hope Chapel", header="Mail", targetMailID=8, targetBankID=nil, section="EPLTown", mapID=1423, zone="Eastern Plaguelands", subZone="Light's Hope Chapel", shortZoneText="EPL, Light's Hope Chapel", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=4, text="Bloodvenom Post", header="Mail", targetMailID=4, targetBankID=nil, section="felwoodTown", mapID=1448, zone="Felwood", subZone="Bloodvenom Post ", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=5, text="Orgrimmar 1/2", header="Mail", targetMailID=5, targetBankID=nil, section="OrgrimmarDrag", mapID=1454, zone="Orgrimmar", subZone="The Drag", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=6, text="Orgrimmar 2/2", header="Bank", targetMailID=nil, targetBankID=3, section="OrgrimmarBank", mapID=1454, zone="Orgrimmar", subZone="Valley of Strength", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=7, text="Undercity", header="Mail & Bank", targetMailID=6, targetBankID=4, section="Undercity2", mapID=1458, zone="Undercity", subZone="Trade Quarter", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=8, text="Light's Hope Chapel", header="Mail", targetMailID=7, targetBankID=nil, section="EPLTown", mapID=1423, zone="Eastern Plaguelands", subZone="Light's Hope Chapel", shortZoneText="EPL, Light's Hope Chapel", reached=false, interactedWithMail=false, interactedWithBank=false },
+        { id=9, text="Stonard", header="Mail", targetMailID=8, targetBankID=nil, section="Stonard", mapID=1435, zone="Swamp of Sorrows", subZone="Stonard", shortZoneText="Swamp of Sorrows, Stonard", reached=false, interactedWithMail=false, interactedWithBank=false },
     }
 }
 
@@ -94,7 +96,7 @@ function CasualTBCPrep.Extras_Mailbox.SetTurninReached(index,value) turninSteps[
 
 ---@return table,table
 function CasualTBCPrep.Extras_Mailbox.GetTurninData()
-    local mailboxItems, bankItems, turnOrder = CasualTBCPrep.Routing.GetTurninItemsForCurrentRoute()
+    local mailboxItems, bankItems = CasualTBCPrep.Routing.GetTurninItemsForCurrentRoute()
     local mailsNeeded = {}
 
     for _,data in ipairs(mailboxItems) do
@@ -151,64 +153,68 @@ end
 function CasualTBCPrep.Extras_Mailbox.GetStepDetails_ItemsNeeded(dataMail, dataBank, currentStep)
     local mailsToOpen, itemsFromBank = {},{}
     local mailItemStackCount, bankItemStackCount = 0,0
-    local targetMailID = currentStep.targetMailID or 0
+    local targetMailID,targetBankID = currentStep.targetMailID or 0, currentStep.targetBankID or 0
 
     if targetMailID > 0 then
         local mails = dataMail[targetMailID]
-
         if mails == nil then
-            CasualTBCPrep.NotifyUserCompanionError("ERR, Extras_Mailbox.GetStepDetails_ItemsNeeded has nil 'mails' from dataMail["..tostring(targetMailID.."]"))
-        end
-        
-        for _,mail in pairs(mails.mails) do
-            local filteredItems = {}
-            local playerInvCountRemaining = {}  -- Track remaining per itemID
+            CasualTBCPrep.NotifyUserCompanionError("GetStepDetails_ItemsNeeded has nil 'mails' from dataMail["..tostring(targetMailID.."]"))
+        else
+            for _,mail in pairs(mails.mails) do
+                local filteredItems = {}
+                local playerInvCountRemaining = {}
 
-            for _,item in ipairs(mail.items) do
-                -- Get remaining inventory (subtract what we've already allocated)
-                local playerInvCount = playerInvCountRemaining[item.itemID]
-                if playerInvCount == nil then
-                    playerInvCount = CasualTBCPrep.Items.GetPlayerItemCount(item.itemID, false)
-                    playerInvCountRemaining[item.itemID] = playerInvCount
+                for _,item in ipairs(mail.items) do
+                    local playerInvCount = playerInvCountRemaining[item.itemID]
+                    if playerInvCount == nil then
+                        playerInvCount = CasualTBCPrep.Items.GetPlayerItemCount(item.itemID, false)
+                        playerInvCountRemaining[item.itemID] = playerInvCount
+                    end
+                    if playerInvCount < item.count then
+                        local needed = item.count - playerInvCount
+                        table.insert(filteredItems, {
+                            itemID = item.itemID,
+                            count = needed
+                        })
+                        mailItemStackCount = mailItemStackCount + 1
+                        playerInvCountRemaining[item.itemID] = 0
+                    else
+                        playerInvCountRemaining[item.itemID] = playerInvCount - item.count
+                    end
                 end
-                
-                if playerInvCount < item.count then
-                    local needed = item.count - playerInvCount
-                    table.insert(filteredItems, {
-                        itemID = item.itemID,
-                        count = needed
-                    })
-                    mailItemStackCount = mailItemStackCount + 1
-                    playerInvCountRemaining[item.itemID] = 0  -- We've allocated all available
-                else
-                    -- We have enough for this stack, subtract it
-                    playerInvCountRemaining[item.itemID] = playerInvCount - item.count
-                end
-            end
 
-            if #filteredItems > 0 then
-                table.insert(mailsToOpen, {id = mail.id, items = filteredItems})
+                if #filteredItems > 0 then
+                    table.insert(mailsToOpen, {id = mail.id, items = filteredItems})
+                end
             end
         end
     end
 
-    if currentStep.targetBankID ~= nil and currentStep.targetBankID > 0 then
-        local bank = dataBank[currentStep.targetBankID]
+    if targetBankID > 0 then
+        local bank = dataBank[targetBankID]
         if bank == nil then
-            CasualTBCPrep.NotifyUserCompanionError("ERR, Extras_Mailbox.GetStepDetails_ItemsNeeded has nil 'bank' from dataBank["..tostring(targetBankID.."]"))
-        end
-        for _,item in ipairs(bank.items) do
-            local playerInvCount = CasualTBCPrep.Items.GetPlayerItemCount(item.itemID, false)
-            if playerInvCount < item.count then
-                table.insert(itemsFromBank, {
-                    itemID = item.itemID,
-                    count = item.count - playerInvCount
-                })
-                bankItemStackCount = bankItemStackCount + 1
+            CasualTBCPrep.NotifyUserCompanionError("GetStepDetails_ItemsNeeded has nil 'bank' from dataBank["..tostring(targetBankID).."]")
+        else
+            for _,item in ipairs(bank.items) do
+                local playerInvCount = CasualTBCPrep.Items.GetPlayerItemCount(item.itemID, false)
+                if playerInvCount < item.count then
+                    table.insert(itemsFromBank, {
+                        itemID = item.itemID,
+                        count = item.count - playerInvCount
+                    })
+                    bankItemStackCount = bankItemStackCount + 1
+                end
             end
         end
     end
 
+    if targetBankID == 1 and targetMailID == 1 then
+        for _,mail in ipairs(mailsToOpen) do
+            for _,item in ipairs(mail.items) do
+                table.insert(itemsFromBank, item)
+            end
+        end
+    end
     return mailsToOpen, itemsFromBank, mailItemStackCount, bankItemStackCount
 end
 
@@ -216,14 +222,10 @@ end
 local function Display(parent)
 	local yPos = -1
 
-	local debugger = CasualTBCPrep.Settings.GetGlobalSetting(CasualTBCPrep.Settings.DebugDetails) or -1
-
-    local clrBad = CasualTBCPrep.Themes.SelectedTheme.colors.bad
     local clrWarn = CasualTBCPrep.Themes.SelectedTheme.colors.warn
-    local clrBanked = CasualTBCPrep.Themes.SelectedTheme.colors.questReadyBanked
-    local clrMissing = CasualTBCPrep.Themes.SelectedTheme.colors.questCompleted
-    local clrAcceptanceText = CasualTBCPrep.Themes.SelectedTheme.colors.standoutText
-
+	local clrHeader = CasualTBCPrep.Themes.SelectedTheme.colors.headerSpecialHover
+	local clrText = CasualTBCPrep.Themes.SelectedTheme.colors.manualText
+	local clrStep = CasualTBCPrep.Themes.SelectedTheme.colors.standoutText
     local companionSettingsGlobal = CasualTBCPrep.Settings.GetGlobalSetting(CasualTBCPrep.Settings.CompanionSettings)
     if companionSettingsGlobal == nil then
         companionSettingsGlobal = { mailCharacterName = "" }
@@ -262,22 +264,13 @@ local function Display(parent)
     txtNoticeA:SetTextColor(clrWarn.r, clrWarn.g, clrWarn.b)
 	table.insert(texts, txtNoticeA)
 
-	local txtNoticeB = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    txtNoticeB:SetPoint("TOP", txtNoticeA, "BOTTOM", 0, -1)
-	txtNoticeB:SetText("Click the scroll on the right for a detailed explanation")
-    txtNoticeB:SetTextColor(clrWarn.r, clrWarn.g, clrWarn.b)
-	table.insert(texts, txtNoticeB)
-
     local yPosStart = -50
     yPos = yPosStart
 
-	local clrWarn = CasualTBCPrep.Themes.SelectedTheme.colors.warn
-	local clrHeader = CasualTBCPrep.Themes.SelectedTheme.colors.headerSpecialHover
-	local clrText = CasualTBCPrep.Themes.SelectedTheme.colors.manualText
-	local clrStep = CasualTBCPrep.Themes.SelectedTheme.colors.standoutText
 	local txt = QuickText(parent, "What does this feature do?", "GameFontNormalLarge", "TOPLEFT", parent, "TOPLEFT", 0, yPos, clrHeader)
 	txt = QuickText(parent, "The Extras - Mailbox feature is to help you manage all your items on release day.\rIf you prepared a lot of quests, you can't have all the items in your bags from the beginning.\r\r"
-		.."The companion helps you withdrawing items when they are needed.\r\rThis feature is OPTIONAL, you can do this yourself as well!\rIf this seems too complicated, or if you don't want to read, please don't use this feature - you might accidentally grief yourself and that's not fun.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+		.."The companion helps you withdrawing items when they are needed.\r\rThis feature is OPTIONAL, you can do this yourself as well!\rIf this seems too complicated, or if you don't want to read, please don't use this feature - you might accidentally grief yourself and that's not fun.\r\r"
+            .."A simpler way of using this tool, is to only use it to help prepare your mails, and you can then manually loot them on release.\rRefer to the 'Manual Mail Help' topic below for more info on this, it's below the test example.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
 
 	txt = QuickText(parent, "How does it work?", "GameFontNormalLarge", "TOPLEFT", txt, "BOTTOMLEFT", 0, -13, clrHeader)
 	txt = QuickText(parent, "Using the whistle button in the topleft, you can open the Companion.\r"
@@ -346,75 +339,56 @@ local function Display(parent)
 	txt = QuickText(parent, "If you leave town, the Companion should update and tell you to go back to town.\r\rIf you leave town, go to any other step than Tanaris and then enter town again, it should automatically select the correct step for you.\r\r"
 	    .."You don't have to test at Gadgetzan, you can test any step with any item needed on release.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
 
+	txt = QuickText(parent, "Manual Mail Help", "GameFontNormalLarge", "TOPLEFT", txt, "BOTTOMLEFT", 0, -22, clrHeader)
+	txt = QuickText(parent, "Instead of relying on this addon to loot every item from every mail on release, when the servers are known to... struggle...\r"
+        .."You can instead use the companion to help organize your mails now, and then manually loot them.\rThis is just for the mailbox, the bank should™ work fine.\r"
+        .."This is how we are using the companion ourselves.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrWarn)
+
+	txt = QuickText(parent, "Step 1", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Do /tbc resetmarkeditems, this will reset all items that you have set as 'On an alt'", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+	txt = QuickText(parent, "Step 2", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Gather all your boe items on your main. You may not have room for all in one go.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+	txt = QuickText(parent, "Step 3", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Go to a mailbox. Attach 12 stacks to the mail but don't send it yet", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+	txt = QuickText(parent, "Step 4", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Open '/tbc' and go to the Items tab. Mark the items you're sending as on an alt.\rYou can write whatever text you want, I use 'Mailbox'", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+
+    txt = QuickText(parent, "Step 5", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Send the mail your alt.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+    txt = QuickText(parent, "Step 6", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Repeat Step2-6 until you have all those items on your alt or the alts mailbox.\rMake sure you end up with all items marked as 'On an alt'.\rThe companion needs it to know what items you prepped, and which you didn't, if you don't have them in your bags.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+    
+    txt = QuickText(parent, "Step 7", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Log onto your alt.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+    txt = QuickText(parent, "Step 8", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Return all the mails you send back to your main, and send any other items your alt has.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+
+	txt = QuickText(parent, "Step 9", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Log back onto your main.\rIf you sent any 'new' items from your alt, remember to mark them as collected 'On an alt'.\rMake sure all items you prepared are marked.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+
+    txt = QuickText(parent, "Step 10", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Type '/tbc companion' to open the companion. Go to step 2.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+    txt = QuickText(parent, "Step 11", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Interact with a mailbox and click collect and wait for it to collect.\rSometimes it doesn't collect everything, either click collect again, or close and re-open the mailbox, then collect.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+    txt = QuickText(parent, "Step 12", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Now you have some items in your bags.\rPrepare to send a mail to your alt again with up to 12 items attached.\r"
+        .."Give it a subject you can remember. For strat route it's Silithus, I have 20 items, so i need 2 mails.\rLet's name the first mail 'Silithus1', attach 12 items, then send it.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+    txt = QuickText(parent, "Step 13", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Create more mails with nice subjects untill you sent all the items.\rFor this example, I'd send a 'Silithus2' with 8 items attached", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+    txt = QuickText(parent, "Step 14", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Now that you sent all items, go to the next step (step 3+) and close the mailbox.\rRepeat step 11-14 until you are through all items.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+    txt = QuickText(parent, "Step 15", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "If you have leftover items in the mailbox, maybe you sent too much, or you forgot to mark some items.\rYou should be able to manage on your own from here.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+    txt = QuickText(parent, "Step 16", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Open '/tbc' and verify that the quests tab is happy.\rIt should see all your quests since you marked them as 'On an alt'.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+    txt = QuickText(parent, "Step 17", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -9, clrStep)
+	txt = QuickText(parent, "Log onto your alt, and return the mails. If you return the 'last' one first (Stonard), it will be at the back of your mailbox for release.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
+
 	txt = QuickText(parent, "Feedback", "GameFontNormalLarge", "TOPLEFT", txt, "BOTTOMLEFT", 0, -28, clrHeader)
 	txt = QuickText(parent, "If you find something here confusing, or find any errors, please let us know on Discord.", "GameFontNormal", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrText)
-	txt = QuickText(parent, "Discord Invite: Click the discord link in the /tbcprep 'About' tab, you can copy it :)", "GameFontNormalSmall", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrWarn)
-	txt = QuickText(parent, " ", "GameFontNormalSmall", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrWarn)
-    -- Items
-    -- yPos = yPosStart
-    -- local mailsNeeded, bankItems = CasualTBCPrep.Extras_Mailbox.GetTurninData()
+	txt = QuickText(parent, "Discord Invite: Click the discord link in the /tbcprep 'About' tab, you can copy it :)\r", "GameFontNormalSmall", "TOPLEFT", txt, "BOTTOMLEFT", 0, -1, clrWarn)
 
-    -- local allCombinedItems = {}
-    -- for _,mailGroup in ipairs(mailsNeeded) do
-    --     for _,mail in ipairs(mailGroup.mails) do
-    --         for _,item in ipairs(mail.items) do
-    --             if allCombinedItems[item.itemID] then
-    --                 allCombinedItems[item.itemID] = allCombinedItems[item.itemID] + item.count
-    --             else
-    --                 allCombinedItems[item.itemID] = item.count
-    --             end
-    --         end
-    --     end
-    -- end
-
-    -- local clrHeader1 = CasualTBCPrep.Themes.SelectedTheme.colors.headerSpecialHover
-    -- local txtHeader = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-    -- txtHeader:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, yPos)
-    -- txtHeader:SetText("Missing Items for Mails")
-    -- txtHeader:SetTextColor(clrHeader1.r, clrHeader1.g, clrHeader1.b)
-    -- table.insert(texts, txtHeader)
-    -- yPos = yPos - 20
-
-    -- local itemIconSize = 28
-
-    -- for itemID, totalNeeded in pairs(allCombinedItems) do
-    --     local inventoryCount = CasualTBCPrep.Items.GetPlayerItemCount(itemID, false)
-    --     local missing = math.max(0, totalNeeded - inventoryCount)
-
-    --     if missing > 0 then
-    --         local icon, border, textRarityColor, imgItem = CasualTBCPrep.UI.CreateItemImage(parent, itemIconSize, itemID, "TOPLEFT", "TOPLEFT", 4, yPos)
-    --         table.insert(content, icon)
-    --         table.insert(content, border)
-
-    --         local itemName = imgItem and imgItem.name or ("Item " .. itemID)
-    --         local r,g,b,cHex = CasualTBCPrep.GetRarityColor(imgItem and imgItem.rarity or 0)
-
-    --         local txtItemName = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    --         txtItemName:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, -1)
-    --         txtItemName:SetText(cHex .. itemName .. "|r")
-    --         table.insert(texts, txtItemName)
-
-    --         local txtMissing = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    --         txtMissing:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 2, 1)
-    --         txtMissing:SetText(clrMissing.hex .. "Missing: " .. missing .. "|r")
-    --         table.insert(texts, txtMissing)
-
-    --         if icon then
-    --             icon:SetScript("OnEnter", function(self)
-    --                 local link = CasualTBCPrep.Items.TryGetItemLink(itemID)
-    --                 if link then
-    --                     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-    --                     GameTooltip:SetHyperlink(link)
-    --                     GameTooltip:Show()
-    --                 end
-    --             end)
-    --             icon:SetScript("OnLeave", function()
-    --                 GameTooltip:Hide()
-    --             end)
-    --         end
-    --         yPos = yPos - (itemIconSize + 5)
-    --     end
-    -- end
+	parent:SetSize(parent:GetWidth(), 1)
 end
 ---@param frame Frame
 function CasualTBCPrep.Extras_Mailbox.Load(frame)

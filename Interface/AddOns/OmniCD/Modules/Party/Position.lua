@@ -73,6 +73,9 @@ local function GetAddOnFrame(guid, data)
 	end
 end
 
+local hasEditMode = EditModeManagerFrame and EditModeManagerFrame.UseRaidStylePartyFrames
+E.hasEditMode = hasEditMode
+
 function P:FindRelativeFrame(guid, uf)
 	if E.customUF.enabledList then
 		if uf == "auto" then
@@ -89,7 +92,7 @@ function P:FindRelativeFrame(guid, uf)
 	end
 
 	local isInRaid = IsInRaid()
-	if E.postDF then
+	if hasEditMode then
 
 		local compactFrame = nil
 		if isInRaid and not self.isInArena then
@@ -169,7 +172,7 @@ function P:UpdatePosition()
 end
 
 function P:UpdateCompactFrameSystemSettings()
-	if E.postDF then
+	if hasEditMode then
 		self.useRaidStylePartyFrames = EditModeManagerFrame:UseRaidStylePartyFrames()
 		self.keepGroupsTogether = EditModeManagerFrame:ShouldRaidFrameShowSeparateGroups()
 	else
@@ -210,7 +213,7 @@ function P:SetHooks()
 
 	self:UpdateCompactFrameSystemSettings()
 
-	if E.postDF then
+	if hasEditMode then
 
 		self:SecureHook("CompactRaidFrameManager_SetSetting", function(arg)
 			if arg == "IsShown" then
@@ -315,7 +318,7 @@ local function OnRefreshMemebers()
 end
 
 function P:HookRefreshMembers()
-	if not E.postDF or not E:IsBlizzardCUFLoaded() then
+	if not hasEditMode or not E:IsBlizzardCUFLoaded() then
 		return
 	end
 	if self.isInArena and not self:IsHooked(CompactPartyFrame, "RefreshMembers") then
@@ -328,7 +331,7 @@ function P:HookRefreshMembers()
 end
 
 function P:UnhookRefreshMembers()
-	if not E.postDF or not E:IsBlizzardCUFLoaded() then
+	if not hasEditMode or not E:IsBlizzardCUFLoaded() then
 		return
 	end
 	if self:IsHooked(CompactPartyFrame, "RefreshMembers") then

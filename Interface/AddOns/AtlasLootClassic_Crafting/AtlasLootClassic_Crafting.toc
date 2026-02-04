@@ -1,0 +1,37 @@
+## Interface: 11508
+
+## Title: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Crafting]|r
+## Title-deDE: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Berufe]|r
+## Title-esES: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Fabricados]|r
+## Title-esMX: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Fabricados]|r
+## Title-frFR: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Artisanat]|r
+## Title-itIT: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Crafting]|r
+## Title-koKR: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLoot 클래식 |cFF0099FF[전문 기술]|r
+## Title-ptBR: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Fazer]|r
+## Title-ruRU: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Профессии]|r
+## Title-zhCN: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLoot经典版 |cFF0099FF[制造品]|r
+## Title-zhTW: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t 副本戰利品查詢經典版 |cFF0099FF[專業製作]|r
+
+## Notes: AtlasLoot loot tables of Crafting Items
+## Notes-deDE: AtlasLoot Beuteverzeichnis der Berufe
+## Notes-esES: AtlasLoot tablas de botín de Fabricados
+## Notes-esMX: AtlasLoot tablas de botín de Fabricados
+## Notes-frFR: Tables de butin des objets d'artisanat
+## Notes-itIT: AtlasLoot loot tables of Crafting Items
+## Notes-koKR: L["Notes-Crafting"] = "전문 기술 아이템의 AtlasLoot 전리품 테이블"
+## Notes-ptBR: Tabelas de saque de manufaturados de AtlasLoot
+## Notes-ruRU: Таблицы добычи AtlasLoot для профессий.
+## Notes-zhCN: AtlasLoot专业制作物品列表
+## Notes-zhTW: 專業技能物品資料庫。
+
+## Author: Lag123, nanderson11, sliccer
+## Version: BCC 2.5.4
+## Dependencies: AtlasLootClassic
+## LoadOnDemand: 1
+## X-AtlasLootClassic-LootModule: 1
+
+Locales\Locales.xml
+
+private.lua
+data.lua
+data-sod.lua

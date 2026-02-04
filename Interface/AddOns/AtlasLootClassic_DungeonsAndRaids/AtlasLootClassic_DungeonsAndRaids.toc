@@ -1,0 +1,37 @@
+## Interface: 11508
+
+## Title: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Dungeons and Raids]|r
+## Title-deDE: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Instanzen und Raids]|r
+## Title-esES: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Mazmorras y Bandas]|r
+## Title-esMX: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Mazmorras y Bandas]|r
+## Title-frFR: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Donjons et Raids]|r
+## Title-itIT: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Dungeons and Raids]|r
+## Title-koKR: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLoot 클래식 |cFF0099FF[던전과 공격대]|r
+## Title-ptBR: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Masmorras e Raides]|r
+## Title-ruRU: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[Подземелья и Рейды]|r
+## Title-zhCN: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLoot经典版 |cFF0099FF[地下城和团队]|r
+## Title-zhTW: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t 副本戰利品查詢經典版 |cFF0099FF[地城和團隊]|r
+
+## Notes: AtlasLoot loot tables from Dungeons and Raids
+## Notes-deDE: AtlasLoot Beuteverzeichnis der Instanzen und Raids
+## Notes-esES: AtlasLoot tablas de botín de Mazmorras y Bandas
+## Notes-esMX: AtlasLoot tablas de botín de Calabozos y Bandas
+## Notes-frFR: Tables de butin des donjons et raids
+## Notes-itIT: AtlasLoot loot tables from Dungeons and Raids
+## Notes-koKR: L["Notes-DaR"] = "던전과 공격대의 AtlasLoot 전리품 테이블"
+## Notes-ptBR: Tabelas de saque AtlasLoot de Masmorras e Raides
+## Notes-ruRU: Таблицы добычи AtlasLoot для подземелий и рейдов.
+## Notes-zhCN: AtlasLoot 地下城&团队副本掉落列表
+## Notes-zhTW: 地城和團隊物品資料庫。
+
+## Author: Lag123, nanderson11, sliccer
+## Version: BCC 2.5.4
+## Dependencies: AtlasLootClassic
+## LoadOnDemand: 1
+## X-AtlasLootClassic-LootModule: 1
+
+Locales\Locales.xml
+
+data.lua
+data-sod.lua
+droprate.lua

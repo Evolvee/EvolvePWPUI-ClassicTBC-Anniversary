@@ -6,7 +6,7 @@ CasualTBCPrep.WM_About = CasualTBCPrep.WM_About or {}
 local frameAbout = nil;
 
 local clrHeader = "|cff8585AA"
-local clrNormal = "|cff95A8FC" -- "|cffFFFFFF"
+local clrNormal = "|cff95A8FC"
 local clrSpecial = "|cffC9BE7B"
 local clrHyperlink = "|cffBBAACC"
 local clrHorde = "|cffD32D1F"
@@ -145,20 +145,11 @@ function CasualTBCPrep.WM_About.Load(wMain)
 	local msg = clrNormal.."Version: "..clrSpecial..tostring(CasualTBCPrep.Settings.CurrentMajorVersionValue).."|r\n"
 	msg = msg .. clrNormal .. "Created by: " .. clrSpecial .. "<Casual> " .. clrConsita .. "Consita|r & " .. clrPawa .. "Pawaox|r on Spineshatter-EU\n\n"
 	msg = msg .. clrNormal .. "Currently only supports " .. clrHorde .. "HORDE|r characters\n"
-
 	msg = msg .. clrNormal .. "Join our guild's discord to ask questions or suggest changes... or say hi\n"
 
 	local specialThanks = clrSpecial .. "Thanks to everyone who helped test the addon\n"
 	specialThanks = specialThanks .. clrSpecial .. "And special thanks to you, " .. playerName .. ", for using our guide!\n\n"
 	specialThanks = specialThanks .. clrSpecial .. "We hope you enjoy TBC as much as we will!"
-
-	--[If you are reading this... Know that the Citizens of Dalaran will always be safe!]
-	local citizens = clrNormal .. "CITIZENS OF DALARAN!\n"
-	citizens = citizens .. clrSpecial .. "Raise your eyes to the skies and observe! Today our world's destruction has been averted in defiance of our very makers!\n\n"
-	citizens = citizens .. clrSpecial .. "Algalon the Observer, herald of the titans, has been defeated by our brave comrades in the depths of the titan city of Ulduar.\n\n"
-	citizens = citizens .. clrSpecial .. "Algalon was sent here to judge the fate of our world. He found a planet whose races had deviated from the titans' blueprints. A planet where not everything had gone according to plan.\n\n"
-	citizens = citizens .. clrSpecial .. "Cold logic deemed our world not worth saving. Cold logic, however, does not account for the power of free will. It's up to each of us to prove this is a world worth saving. That our lives… our lives are worth living."
-	--[Praise the defeat of Algalon!]
 
 	local yPos = 10
 	local txtIntro = frameAbout:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -196,30 +187,6 @@ function CasualTBCPrep.WM_About.Load(wMain)
 	txtThanks:SetTextColor(1, 1, 0.9)
 	table.insert(frameAbout.texts, txtThanks)
 	yPos = yPos + txtThanks:GetStringHeight() + 15
-
-	local txtStupidDev = frameAbout:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-	txtStupidDev:SetPoint("TOPLEFT", frameAbout.scrollChild, "TOPLEFT", xOffset, -yPos)
-	txtStupidDev:SetWidth(frameAbout.scrollFrame:GetWidth() - 2)
-	txtStupidDev:SetJustifyH("LEFT")
-	txtStupidDev:SetJustifyV("TOP")
-	txtStupidDev:SetSpacing(3)
-	txtStupidDev:SetText(CasualTBCPrep.W_WarningNotice.GetQuestlogWarningOverhaulText())
-	txtStupidDev:SetTextColor(1, 1, 0.9)
-	table.insert(frameAbout.texts, txtStupidDev)
-	yPos = yPos + txtStupidDev:GetStringHeight() + 4
-
-	-- for _, kIssue in ipairs(knownIssueList) do
-	-- 	local txtKnownIssues = frameAbout:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	-- 	txtKnownIssues:SetPoint("TOPLEFT", frameAbout.scrollChild, "TOPLEFT", xOffset + 2, -yPos)
-	-- 	txtKnownIssues:SetWidth(frameAbout.scrollFrame:GetWidth() - 2)
-	-- 	txtKnownIssues:SetJustifyH("LEFT")
-	-- 	txtKnownIssues:SetJustifyV("TOP")
-	-- 	txtKnownIssues:SetSpacing(3)
-	-- 	txtKnownIssues:SetText(clrSpecial .. " > " .. kIssue .. "|r")
-	-- 	txtKnownIssues:SetTextColor(1,1,1)
-	-- 	table.insert(frameAbout.texts, txtKnownIssues)
-	-- 	yPos = yPos + txtKnownIssues:GetStringHeight() + 3
-	-- end
 end
 
 ---@param wMain Frame|nil

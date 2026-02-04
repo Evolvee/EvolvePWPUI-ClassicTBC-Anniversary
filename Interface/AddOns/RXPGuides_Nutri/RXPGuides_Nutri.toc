@@ -1,9 +1,0 @@
-## Interface: 20505
-## Title:|c0066ccffRestedXP - Nutri TBC Guides|r
-## Notes: Nutri TBC Guides
-## Author: Nutri
-## Version: 2.5.5
-
-## Dependencies: RXPGuides
-
-MyGuide.lua

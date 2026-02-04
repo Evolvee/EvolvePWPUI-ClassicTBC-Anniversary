@@ -2,9 +2,9 @@
 ## Title: RestedXP Guides
 ## Notes: In-game leveling guides
 ## Author: RestedXP
-## Version: v4.9.8
+## Version: v4.9.19
 ## OptionalDeps: Questie, RXPGuides_Themes
-## SavedVariables: RXPData, RXPDB, RXPSettings
+## SavedVariables: RXPData, RXPDB, RXPSettings, RXPString
 ## SavedVariablesPerCharacter: RXPCData, RXPCTrackingData, RXPCComms, RXPCSettings
 ## X-Curse-Project-ID: 486246
 ## X-Wago-ID: ZKbebq61
@@ -39,6 +39,7 @@ GuideLoader.lua
 CptStadicsVendorTreasures.lua
 
 Guides/GuideList-tbc.xml
+lang/Guides-zhCN/GuideList-tbc.xml
 
 Talents.lua
 Guides/Talents/tbc.xml

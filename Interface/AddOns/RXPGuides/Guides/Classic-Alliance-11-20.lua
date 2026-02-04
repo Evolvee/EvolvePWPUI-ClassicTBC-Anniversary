@@ -4,9 +4,11 @@ if faction == "Horde" then return end
 ----Start of <1.5x Westfall----
 ----Night Elves and Hunters stay in Darkshore and Grind----
 
+if GetLocale() == "zhCN" then return end
 RXPGuides.RegisterGuide([[
 #xprate <1.5
 #classic
+#tbc
 #season 0,1
 #version 1
 << Alliance
@@ -727,6 +729,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #season 0,1
 #version 1
 << Alliance
@@ -3075,6 +3078,7 @@ step << Druid
 
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #season 0,1
 #version 1
 << Alliance
@@ -8314,6 +8318,7 @@ step << !Hunter
 RXPGuides.RegisterGuide([[
 #xprate <1.59
 #classic
+#tbc
 #season 0,1
 #version 1
 << Alliance !Hunter
@@ -9963,6 +9968,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #season 0,1
 #version 1
 #season 0
@@ -10743,6 +10749,7 @@ step << Dwarf Hunter
 
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #season 0
 #version 1
 << Alliance !Hunter

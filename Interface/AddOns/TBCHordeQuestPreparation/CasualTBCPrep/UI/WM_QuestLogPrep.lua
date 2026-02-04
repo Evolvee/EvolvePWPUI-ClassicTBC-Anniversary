@@ -148,12 +148,7 @@ function CasualTBCPrep.WM_QuestLogPrep.Load(wMain)
 			ttFrame:SetParent(nil)
 		end
 	end
-	fQuestLogPrep.questTexts = {}
-	fQuestLogPrep.tooltips = {}
-	fQuestLogPrep.content = {}
-
-
-	-- Main Header Text
+	fQuestLogPrep.questTexts,fQuestLogPrep.tooltips,fQuestLogPrep.content = {},{},{}
 	if not fQuestLogPrep.headerText then
 		fQuestLogPrep.headerText = fQuestLogPrep:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 		fQuestLogPrep.headerText:SetPoint("TOP", fQuestLogPrep, "TOP", 0, yOffset)
@@ -301,7 +296,6 @@ function CasualTBCPrep.WM_QuestLogPrep.Load(wMain)
 		yOffset = yOffset - 15
 	end
 
-	-- Use the bigger values from left or right side
 	yOffset = math.abs(yOffset) + 20
 	if yOffset> yOffsetFinalMax then
 		yOffsetFinalMax = yOffset

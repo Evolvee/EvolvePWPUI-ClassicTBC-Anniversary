@@ -436,12 +436,9 @@ function CasualTBCPrep.Extras_Professions.Load(frame)
         yDiffProf = -16
     end
 
-
-
     if profData.comments ~= nil and #profData.comments > 0 then
         CasualTBCPrep.UI.HookTooltip(txtHeaderMain, classTextColored, profData.comments, nil,nil,nil)
     end
-
 
     local txtNotice = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     txtNotice:SetPoint("BOTTOM", frame, "BOTTOM", 0, 10)
@@ -449,5 +446,4 @@ function CasualTBCPrep.Extras_Professions.Load(frame)
     txtNotice:SetTextColor(0.7,0.7,0.7,0.8)
     txtNotice:SetText("Info is based on wowhead guides from last TBC and may be wrong!\rIf you think something is wrong or missing, please let us know.")
     table.insert(texts, txtNotice)
-
 end

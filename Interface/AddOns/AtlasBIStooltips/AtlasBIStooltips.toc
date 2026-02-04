@@ -1,0 +1,28 @@
+## Interface: 20505
+## X-Min-Interface-Classic: 11508
+## X-Min-Interface-BCC: 20503
+## Title: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[BiS ToolTip]|r
+## OptionalDeps: LibExtraTip
+## Version: 1.5
+## SavedVariables: ExoLinkDB
+
+## Category-enUS: Loot
+## Category-deDE: Beute
+## Category-esES: Botín
+## Category-esMX: Botín
+## Category-frFR: Butin
+## Category-itIT: Bottino
+## Category-koKR: 전리품
+## Category-ptBR: Saque
+## Category-ruRU: Добыча
+## Category-zhCN: 战利品
+## Category-zhTW: 戰利品
+## Group: AtlasLootClassic
+## Dependencies: AtlasLootClassic
+
+Libraries\Libraries.xml
+FEL.lua
+
+libs\LibExtraTip\Load.xml
+AtlasBIStooltips.lua
+Data\BIS.xml

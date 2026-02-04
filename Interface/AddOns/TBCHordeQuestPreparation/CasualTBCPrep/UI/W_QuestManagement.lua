@@ -17,7 +17,6 @@ local function CreateIgnoreQuestButton(selectedRoute, questID, qType, isQuestCom
     btn:SetPoint("TOP", wQuestManagement, "TOP", 0, yPosition)
     btn:SetNormalFontObject("GameFontNormal")
 
-    ---@param isQuestIgnoredInner boolean
     local function funcUpdateButton(isQuestIgnoredInner)
         if isQuestIgnoredInner == true then
             btn:SetText("Unignore Quest")
@@ -40,9 +39,7 @@ local function CreateIgnoreQuestButton(selectedRoute, questID, qType, isQuestCom
     else
         btnTooltip = "Click to ignore the current quest from the current route ("..selectedRoute..")"
     end
-    -- Tooltip
     CasualTBCPrep.UI.HookTooltip(btn, "Quest State", { btnTooltip }, nil,nil,nil)
-
     funcUpdateButton(isQuestIgnored)
     table.insert(wQuestManagement.content, btn)
     return btn
@@ -74,7 +71,7 @@ local function DisplayQuestLog(selectedRoute, questID, qType, isQuestCompleted, 
                 else
                     btn:SetText("Remove from Questlog")
                 end
-            else --optional
+            else
                 if currentPriorityChanged == true then
                     btn:SetText("Set Optional Again")
                 else
@@ -95,7 +92,6 @@ local function DisplayQuestLog(selectedRoute, questID, qType, isQuestCompleted, 
             CasualTBCPrep.W_Main.ReloadActiveTab()
         end)
 
-        -- Tooltip
         local btnTooltip = ""
         if "qlog" == qType then
             btnTooltip =  "Click to toggle questlog priority for this character"
@@ -160,10 +156,8 @@ local function Display()
 	local _, _, _, questTextColorRGB = CasualTBCPrep.QuestData.GetQuestProgressionDetails(quest)
 
     local qType = string.lower(quest.type)
-    -- UI elements
     local yPosition = -34
 
-    -- Text, Item Name
     local txtQuestName = wQuestManagement:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     txtQuestName:SetPoint("TOP", wQuestManagement, "TOP", 0, yPosition)
     txtQuestName:SetText(quest.name)
@@ -178,7 +172,6 @@ local function Display()
     end
 end
 
---@param type string|nil
 local function Create()
 	wQuestManagement = CreateFrame("Frame", w_window_name, UIParent, "BasicFrameTemplateWithInset")
 	wQuestManagement:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
@@ -188,17 +181,14 @@ local function Create()
 	wQuestManagement:SetScript("OnDragStart", function(self) self:StartMoving() end)
 	wQuestManagement:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
 
-	-- Place in the front above other UI/addons
 	wQuestManagement:SetFrameStrata("FULLSCREEN_DIALOG")
 	wQuestManagement:SetFrameLevel(1001)
 	table.insert(UISpecialFrames, w_window_name)
 
-	--[Title]
 	wQuestManagement.TitleBg:SetHeight(30);
 	wQuestManagement.title = wQuestManagement:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	wQuestManagement.title:SetPoint("LEFT", wQuestManagement.TitleBg, "LEFT", 8, 6)
 
-	--[QoL]
 	wQuestManagement:SetScript("OnShow", function() CasualTBCPrep.Sounds.PlaySound_Click() end)
 	wQuestManagement:SetScript("OnHide", function() CasualTBCPrep.Sounds.PlaySound_Click() end)
 	wQuestManagement:Hide();
@@ -214,14 +204,10 @@ function CasualTBCPrep.W_QuestManagement.Show(type, questID)
 		end
 	end
 
-    --If not these 2, exit
-    if type ~= "q" and type ~= "qlog" then
-        return
-    end
+    if type ~= "q" and type ~= "qlog" then return end
 
     wQuestManagement.currentQuestID = questID
     wQuestManagement.currentQuestType = type
-
 	wQuestManagement:SetSize(355, 160)
 	wQuestManagement.title:SetText("TBCPrep - Quest Settings")
 

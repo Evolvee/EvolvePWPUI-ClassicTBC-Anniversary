@@ -1,9 +1,11 @@
 local faction = UnitFactionGroup("player")
 if faction == "Alliance" then return end
 
+if GetLocale() == "zhCN" then return end
 RXPGuides.RegisterGuide([[
 #hardcore
 #classic
+#tbc
 << Horde
 #name 1-6 Orc/Troll
 #version 1
@@ -336,7 +338,6 @@ step << Warlock
     .train 172 >> Train |T136118:0|t[Corruption]
     .target Nartok
 step
-    #sticky
     #label Galgar
     .goto Durotar,42.73,67.23,0,0
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Galgar|r
@@ -1070,6 +1071,7 @@ step
 RXPGuides.RegisterGuide([[
 #hardcore
 #classic
+#tbc
 << Horde
 #name 6-13 Orc/Troll
 #version 1
@@ -3492,6 +3494,7 @@ step << Shaman/Hunter
     .turnin 813 >>Turn in Finding the Antidote
     .target Kor'ghan
     .isQuestComplete 813
+    .isQuestAvailable 812
 step << Shaman
     #label Shaman12training
     .goto Orgrimmar,38.82,36.41

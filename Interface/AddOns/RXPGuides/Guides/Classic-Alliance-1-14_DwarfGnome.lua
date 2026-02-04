@@ -1,8 +1,10 @@
 local faction = UnitFactionGroup("player")
 if faction == "Horde" then return end
 
+if GetLocale() == "zhCN" then return end
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #season 0,1
 #version 1
 << Alliance
@@ -1323,6 +1325,7 @@ RXPGuides.RegisterGuide([[
 #xprate >1.49 << Hunter
 #era/som--h
 #classic
+#tbc
 #season 0,1
 #version 1
 << Alliance --!Hunter
@@ -4829,6 +4832,7 @@ step << Dwarf Paladin
 RXPGuides.RegisterGuide([[
 #xprate >1.49
 #classic
+#tbc
 #season 0,1
 #version 1
 << Gnome Warlock
@@ -5097,6 +5101,7 @@ step
 RXPGuides.RegisterGuide([[
 #xprate <1.5
 #classic
+#tbc
 #season 0,1
 << Alliance !Hunter
 #group RestedXP Alliance 1-20
@@ -5805,6 +5810,7 @@ step << Dwarf Paladin
 RXPGuides.RegisterGuide([[
 #era/som--h
 #classic
+#tbc
 #season 0,1
 #version 1
 << Alliance !Hunter
@@ -7557,6 +7563,7 @@ step
 RXPGuides.RegisterGuide([[
 #xprate <1.5
 #classic
+#tbc
 #season 0,1
 #era/som--h
 #version 1
@@ -8255,6 +8262,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #season 0,1
 #era/som--h
 #version 1
@@ -8382,7 +8390,7 @@ step
     .mob +Mountain Boar
     .collect 3173,3,418,1 --Collect Bear Meat (x3)
     .mob +Elder Black Bear
-    .collect 3174,3,418,1 --Collect Spider Ichor (x3)  
+    .collect 3174,3,418,1 --Collect Spider Ichor (x3)
     .mob +Forest Lurker
 step
     #completewith next
@@ -8431,7 +8439,7 @@ step
     .mob +Mountain Boar
     .collect 3173,3,418,1 --Collect Bear Meat (x3)
     .mob +Elder Black Bear
-    .collect 3174,3,418,1 --Collect Spider Ichor (x3) 
+    .collect 3174,3,418,1 --Collect Spider Ichor (x3)
     .mob +Forest Lurker
 step
     .goto Loch Modan,24.77,18.40

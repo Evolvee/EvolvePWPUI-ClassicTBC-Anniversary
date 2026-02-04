@@ -253,7 +253,6 @@ local themeData = {
 
 CasualTBCPrep.Themes.SelectedTheme = themeData[CasualTBCPrep.Themes.DefaultThemeCode]
 
-
 ---@param themeCode string
 function CasualTBCPrep.Themes.ChangeTheme(themeCode)
     if themeCode == nil or themeCode == "" then return end

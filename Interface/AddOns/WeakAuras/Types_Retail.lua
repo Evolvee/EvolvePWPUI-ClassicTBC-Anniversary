@@ -1,4 +1,3 @@
---Added retail toggle
 if not WeakAuras.IsLibsOK() then return end
 ---@type string
 local AddonName = ...
@@ -14,10 +13,6 @@ local zoneId_list = ""
 function Private.InitializeEncounterAndZoneLists()
 	local currTier = EJ_GetCurrentTier()
   if encounter_list ~= "" then
-    return
-  end
-  --These funcs return nothing on PTR
-  if EJ_GetNumTiers() == 0 then
     return
   end
 	for tier = EJ_GetNumTiers(), EJ_GetNumTiers() do

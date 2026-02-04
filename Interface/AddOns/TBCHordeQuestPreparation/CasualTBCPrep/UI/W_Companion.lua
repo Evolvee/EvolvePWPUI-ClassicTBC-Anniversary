@@ -20,13 +20,6 @@ local SetStep
 ---@class Frame|nil
 local wCompanion = nil;
 
----@param text string|nil
-local function Notify(text)
-    if text == nil or text == "" then return end
-    if not wCompanion:IsShown() then return end
-    CasualTBCPrep.NotifyUserCompanion(text)
-end
-
 local function CleanupElements()
 	if wCompanion.texts then
 		for _, fontString in ipairs(wCompanion.texts) do
@@ -62,7 +55,7 @@ local function LoadStepDetailsItems(startY)
     local mailsToOpen, itemsFromBank, mailItemStackCount, bankItemStackCount = GetStepDetails_ItemsNeeded(currentStep)
 
     local itemsNeededInBags = {}
-    local mailItemGrouping = {} -- Since multiple mailslots may have the same itemstack, gotta  group them first to get one final count (fx Runecloth 20/300)
+    local mailItemGrouping = {} -- Since multiple mailslots may have the same itemstack, group them first to get one final count (fx Runecloth 20/300)
     for _,mail in ipairs(mailsToOpen) do
         if mail ~= nil and mail.id ~= nil and mail.id > 0 then
            for _,item in ipairs(mail.items) do
@@ -88,7 +81,7 @@ local function LoadStepDetailsItems(startY)
         end
     end
 
-    local missing = {},{}
+    local missing = {}
     local playerItemCountTracker = {}
     for _, item in ipairs(itemsNeededInBags) do
         local inventoryCount,bankCount = 0,0
@@ -103,7 +96,6 @@ local function LoadStepDetailsItems(startY)
         end
 
         if item.totalNeeded <= inventoryCount then
-            -- Yay we have enough
             inventoryCount = inventoryCount - item.totalNeeded
         else
             if item.totalNeeded <= (inventoryCount+bankCount) then
@@ -125,8 +117,6 @@ local function LoadStepDetailsItems(startY)
     end
 
     if #missing == 0 then
-        --CasualTBCPrep.NotifyUserCompanion("Step "..tostring(currentStep.id).." completed, switching to step2.")
-        --IncrementStep()
         return
     end
 
@@ -140,8 +130,12 @@ local function LoadStepDetailsItems(startY)
     if currentStep.targetMailID and currentStep.targetMailID > 0 then stackSlotsNeeded = stackSlotsNeeded+(mailItemStackCount or 0) end
     if currentStep.targetBankID and currentStep.targetBankID > 0 then stackSlotsNeeded = stackSlotsNeeded+(bankItemStackCount or 0) end
 
-    local missingStr = tostring(#missing).." ITEMS"
-    if stackSlotsNeeded > 0 then missingStr=missingStr.." ("..tostring(stackSlotsNeeded).." bagslots)" end
+    local missingStr = ""
+    if stackSlotsNeeded > 0 then
+        missingStr = tostring(stackSlotsNeeded).." Items Missing"
+    else
+        missingStr = tostring(#missing).." Items Missing"
+    end
 
     local yPos = startY
     local txtBagHeader = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -154,44 +148,46 @@ local function LoadStepDetailsItems(startY)
     local iconSize = 24
     local spacing = iconSize + 4
     if #missing > 0 then
+        local alreadyShownItems = {}
         for _, item in ipairs(missing) do
-            local playerTrackedCount = playerItemCountTracker[item.itemID]
+            if alreadyShownItems[item.itemID] == nil then
+                local playerTrackedCount = playerItemCountTracker[item.itemID]
 
-            local icon, border, textRarityColor, imgItem = CasualTBCPrep.UI.CreateItemImage(parent, iconSize, item.itemID, "TOPLEFT", "TOPLEFT", 0, yPos)
-            local itemName = ""
-            if imgItem then
-                local r,g,b,cHex = CasualTBCPrep.GetRarityColor(imgItem.rarity)
-                local displayName = imgItem.name
-                itemName = cHex..displayName.."|r"
+                local icon, border, textRarityColor, imgItem = CasualTBCPrep.UI.CreateItemImage(parent, iconSize, item.itemID, "TOPLEFT", "TOPLEFT", 0, yPos)
+                local itemName = ""
+                if imgItem then
+                    local r,g,b,cHex = CasualTBCPrep.GetRarityColor(imgItem.rarity)
+                    local displayName = imgItem.name
+                    itemName = cHex..displayName.."|r"
+                end
+
+                table.insert(wCompanion.content, icon)
+                table.insert(wCompanion.content, border)
+
+                local itemNameText = textRarityColor .. (itemName or ("Item " .. imgItem.id))
+                local txtItemName = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+                txtItemName:SetPoint("TOPLEFT", icon, "TOPRIGHT", 1, -1)
+                txtItemName:SetText(itemNameText)
+                table.insert(wCompanion.texts, txtItemName)
+
+                local progressText = tostring(playerTrackedCount.invOrig).."/"..(item.totalNeeded or item.count)
+                if playerTrackedCount.bankOrig > 0 then
+                    progressText = clrBanked.hex..progressText.." ("..tostring(playerTrackedCount.bankOrig).." in bank)|r"
+                else
+                    progressText = clrMissing.hex..progressText.."|r"
+                end
+                local txtItemProg = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+                txtItemProg:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 1, 1)
+                txtItemProg:SetText(progressText)
+                table.insert(wCompanion.texts, txtItemProg)
+
+                yPos = yPos - spacing
+                alreadyShownItems[item.itemID] = {}
             end
-
-            table.insert(wCompanion.content, icon)
-            table.insert(wCompanion.content, border)
-
-            local itemNameText = textRarityColor .. (itemName or ("Item " .. imgItem.id))
-
-            local txtItemName = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-            txtItemName:SetPoint("TOPLEFT", icon, "TOPRIGHT", 1, -1)
-            txtItemName:SetText(itemNameText)
-            table.insert(wCompanion.texts, txtItemName)
-
-            --local progressText = tostring(playerTrackedCount.invOrig).."/"..item.count
-            local progressText = tostring(playerTrackedCount.invOrig).."/"..(item.totalNeeded or item.count)
-            if playerTrackedCount.bankOrig > 0 then
-                progressText = clrBanked.hex..progressText.." ("..tostring(playerTrackedCount.bankOrig).." in bank)|r"
-            else
-                progressText = clrMissing.hex..progressText.."|r"
-            end
-            local txtItemProg = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-            txtItemProg:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 1, 1)
-            txtItemProg:SetText(progressText)
-            table.insert(wCompanion.texts, txtItemProg)
-
-            yPos = yPos - spacing
         end
     end
 
-    -- Hack some fake space at the bottom of the list
+    -- Fake space at bottom of the list
     local txtBottomSpace = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     txtBottomSpace:SetPoint("TOP", parent, "TOP", 0, yPos+(spacing/3))
     txtBottomSpace:SetText(" ")
@@ -202,18 +198,10 @@ local function LoadStepDetails()
     local currentStep = CasualTBCPrep.Extras_Mailbox.GetTurninStep(stepCurrent)
     if currentStep == nil then return end
 
-    if stepCurrent == 1 then
-        LoadStepDetailsItems(-5)
-        return
-    end
-
-    local globalCompanionSettings = CasualTBCPrep.Settings.GetGlobalSetting(CasualTBCPrep.Settings.CompanionSettings)
-    local debugger = CasualTBCPrep.Settings.GetGlobalSetting(CasualTBCPrep.Settings.DebugDetails) or -1
     local clrBad = CasualTBCPrep.Themes.SelectedTheme.colors.bad
     local clrWarn = CasualTBCPrep.Themes.SelectedTheme.colors.warn
     local clrGood = CasualTBCPrep.Themes.SelectedTheme.colors.good
-    local clrBanked = CasualTBCPrep.Themes.SelectedTheme.colors.questReadyBanked
-    local clrMissing = CasualTBCPrep.Themes.SelectedTheme.colors.questCompleted
+
     local clrDebugMsg = CasualTBCPrep.Themes.SelectedTheme.colors.standoutText.hex
     local clrWaitingForZone = { r=0.7, g=0.7, b=0.7 }
 
@@ -221,9 +209,7 @@ local function LoadStepDetails()
     local yPos = -5
 
     local showButton = true
-    if currentStep.reached == false then
-        -- Not reached, show text to go there
-
+    if currentStep.reached == false and currentStep.id ~= 1 then
         local txtReachStatic = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
         txtReachStatic:SetPoint("TOP", parent, "BOTTOM", 0, yPos)
         txtReachStatic:SetText("Waiting For")
@@ -245,42 +231,45 @@ local function LoadStepDetails()
 
     local mailID,bankID = currentStep.targetMailID or 0, currentStep.targetBankID or 0
 
+    local isFirstStep = (currentStep.id == 1) or false
     if (mailID+bankID) > 0 and showButton == true then
-        local txtInteractHeader = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-        txtInteractHeader:SetPoint("TOP", parent, "BOTTOM", 0, yPos)
-        txtInteractHeader:SetText("Interact With")
-        txtInteractHeader:SetTextColor(clrWarn.r, clrWarn.g, clrWarn.b)
-        table.insert(wCompanion.texts, txtInteractHeader)
-        yPos = yPos - 16
+        if not isFirstStep then -- Don't show interact texts on Bagstep
+            local txtInteractHeader = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+            txtInteractHeader:SetPoint("TOP", parent, "BOTTOM", 0, yPos)
+            txtInteractHeader:SetText("Interact With")
+            txtInteractHeader:SetTextColor(clrWarn.r, clrWarn.g, clrWarn.b)
+            table.insert(wCompanion.texts, txtInteractHeader)
+            yPos = yPos - 16
 
-        if mailID > 0 then
-            local txtInteractMail = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-            txtInteractMail:SetPoint("TOP", parent, "BOTTOM", 0, yPos)
-            txtInteractMail:SetText("Mailbox")
+            if mailID > 0 then
+                local txtInteractMail = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+                txtInteractMail:SetPoint("TOP", parent, "BOTTOM", 0, yPos)
+                txtInteractMail:SetText("Mailbox")
 
-            if currentStep.interactedWithMail == true then
-                txtInteractMail:SetTextColor(clrGood.r, clrGood.g, clrGood.b)
-            else
-                txtInteractMail:SetTextColor(clrBad.r, clrBad.g, clrBad.b)
+                if currentStep.interactedWithMail == true then
+                    txtInteractMail:SetTextColor(clrGood.r, clrGood.g, clrGood.b)
+                else
+                    txtInteractMail:SetTextColor(clrBad.r, clrBad.g, clrBad.b)
+                end
+                table.insert(wCompanion.texts, txtInteractMail)
+                yPos = yPos - 15
             end
-            table.insert(wCompanion.texts, txtInteractMail)
-            yPos = yPos - 15
-        end
 
-        if bankID > 0 then
-            local txtInteractBank = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-            txtInteractBank:SetPoint("TOP", parent, "BOTTOM", 0, yPos)
-            txtInteractBank:SetText("Bank")
+            if bankID > 0 then
+                local txtInteractBank = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+                txtInteractBank:SetPoint("TOP", parent, "BOTTOM", 0, yPos)
+                txtInteractBank:SetText("Bank")
 
-            if currentStep.interactedWithBank == true then
-                txtInteractBank:SetTextColor(clrGood.r, clrGood.g, clrGood.b)
-            else
-                txtInteractBank:SetTextColor(clrBad.r, clrBad.g, clrBad.b)
+                if currentStep.interactedWithBank == true then
+                    txtInteractBank:SetTextColor(clrGood.r, clrGood.g, clrGood.b)
+                else
+                    txtInteractBank:SetTextColor(clrBad.r, clrBad.g, clrBad.b)
+                end
+                table.insert(wCompanion.texts, txtInteractBank)
+                yPos = yPos - 13
             end
-            table.insert(wCompanion.texts, txtInteractBank)
-            yPos = yPos - 13
+            yPos = yPos - 2
         end
-        yPos = yPos - 2
 
         if (mailID > 0 or bankID > 0) then
             local funcNotify = function(text) CasualTBCPrep.NotifyUserCompanion(text) end
@@ -296,11 +285,6 @@ local function LoadStepDetails()
             btnCollect.isCollecting = false
             btnCollect:SetScript("OnClick", function(self)
                 if self.isCollecting == true then return end
-
-                if not isInteractingWithMail or not isInteractingWithBank then
-                    CasualTBCPrep.NotifyUserCompanionError("Cannot Collect - Must be interacting with the Mailbox or Bank")
-                end
-                -- Gotta call it everytime sadly, to see if user got some items from a previous click.
                 GetTurninData()
                 btnCollect.mailsToOpen, btnCollect.itemsFromBank, btnCollect.mailItemStackCount, btnCollect.bankItemStackCount = GetStepDetails_ItemsNeeded(currentStep)
 
@@ -320,9 +304,6 @@ local function LoadStepDetails()
 
                     local playerFreeBagSlots = CasualTBCPrep.GetPlayerFreeBagSlots()
                     local toGrab = btnCollect.mailItemStackCount
-                    if debugger == 1 then
-                        funcNotify(clrDebugMsg.."[DEBUG] Player has room for "..tostring(playerFreeBagSlots).." stacks, "..tostring(toGrab).." required...")
-                    end
 
                     if playerFreeBagSlots < toGrab then
                         funcNotifyWarn("You may not have enough bagspace if you prepped everything ("..tostring(playerFreeBagSlots).."/"..toGrab.."), opening as many as possible")
@@ -331,11 +312,7 @@ local function LoadStepDetails()
                     self.isCollecting = true
                     self:Disable()
 
-                    if debugger == 1 then
-                        funcNotify(clrDebugMsg.."[DEBUG] Grabbing up to "..tostring(toGrab).." stacks.")
-                    else
-                        funcNotify("Trying to collect "..tostring(toGrab).." stacks from the mailbox...")
-                    end
+                    funcNotify("Trying to collect "..tostring(toGrab).." stacks from the mailbox...")
                     local funcComplete = function(collectedItems, remainingNeeds)
                         local totalCollected = 0
                         for itemID, count in pairs(collectedItems) do
@@ -353,22 +330,17 @@ local function LoadStepDetails()
 
                         self.isCollecting = false
                         self:Enable()
+                        C_Timer.After(0.5, function()
+                            CleanupElements()
+                            LoadStepDetails()
+                        end)
                     end
 
-                    if debugger == 1 then
-                        funcNotify(clrDebugMsg.."[DEBUG] Mail 'Collect' - Trying to find the following in mailbox:")
-                        for itemID, item in pairs(itemsToCollect) do
-                            funcNotify(clrDebugMsg.."[DEBUG] x"..tostring(item.count).." "..CasualTBCPrep.Items.GetCachedItemName(itemID))
-                        end
-                    end
                     CasualTBCPrep.MailboxInteraction.TryGetItemsFromMailbox(itemsToCollect, funcComplete)
                 elseif bankID > 0 and isInteractingWithBank == true and self.itemsFromBank ~= nil then
                     local playerFreeBagSlots = CasualTBCPrep.GetPlayerFreeBagSlots()
 
                     local toGrab = btnCollect.bankItemStackCount
-                    if debugger == 1 then
-                        funcNotify(clrDebugMsg.."[DEBUG] Player has room for "..tostring(playerFreeBagSlots).." stacks, "..tostring(toGrab).." required...")
-                    end
 
                     if playerFreeBagSlots < toGrab then
                         funcNotifyWarn("You may not have enough bagspace if you prepped everything ("..tostring(playerFreeBagSlots).."/"..toGrab.."), opening as many as possible")
@@ -377,11 +349,7 @@ local function LoadStepDetails()
                     self.isCollecting = true
                     self:Disable()
 
-                    if debugger == 1 then
-                        funcNotify(clrDebugMsg.."[DEBUG] Grabbing up to "..tostring(toGrab).." stacks.")
-                    else
-                        funcNotify("Trying to collect "..tostring(toGrab).." stacks from the bank...")
-                    end
+                    funcNotify("Trying to collect "..tostring(toGrab).." stacks from the bank...")
 
                     local funcComplete = function(collectedCount, missingCount)
                         if collectedCount == 0 then
@@ -395,6 +363,10 @@ local function LoadStepDetails()
                         end
                         self.isCollecting = false
                         self:Enable()
+                        C_Timer.After(1, function()
+                            CleanupElements()
+                            LoadStepDetails()
+                        end)
                     end
                     CasualTBCPrep.BankInteraction.TryGetItemsFromBank(self.itemsFromBank, funcNotify, funcComplete)
                 end
@@ -485,38 +457,46 @@ local function OnMessageZoneChanged(data, skipCheckingAllSteps)
     end
 end
 
----@param data table
-local function OnBankInteraction(data)
-    isInteractingWithBank = data.open or false
+---@param isOpen boolean
+local function HandleBankOpen(isOpen)
+    isInteractingWithBank = isOpen or false
     local currentStep = CasualTBCPrep.Extras_Mailbox.GetTurninStep(stepCurrent)
     if currentStep == nil or currentStep.targetBankID == nil then return end
 
-    if data.open == false then
+    if isOpen == false then
         CasualTBCPrep.Extras_Mailbox.SetTurninInteractedWithBank(stepCurrent, false)
         CleanupElements()
         LoadStepDetails()
-    elseif data.open == true and currentStep.reached == true then
+    elseif isOpen == true and currentStep.reached == true then
         CasualTBCPrep.Extras_Mailbox.SetTurninInteractedWithBank(stepCurrent, true)
         CleanupElements()
         LoadStepDetails()
     end
 end
-
----@param data table
-local function OnMailInteraction(data)
-    isInteractingWithMail = data.open or false
+---@param isOpen boolean
+local function HandleMailOpen(isOpen)
+    isInteractingWithMail = isOpen or false
     local currentStep = CasualTBCPrep.Extras_Mailbox.GetTurninStep(stepCurrent)
     if currentStep == nil or currentStep.targetMailID == nil then return end
 
-    if data.open == false then
+    if isOpen == false then
         CasualTBCPrep.Extras_Mailbox.SetTurninInteractedWithMail(stepCurrent, false)
         CleanupElements()
         LoadStepDetails()
-    elseif data.open == true and currentStep.reached == true then
+    elseif isOpen == true and currentStep.reached == true then
         CasualTBCPrep.Extras_Mailbox.SetTurninInteractedWithMail(stepCurrent, true)
         CleanupElements()
         LoadStepDetails()
     end
+end
+---@param data table
+local function OnBankInteraction(data)
+    HandleBankOpen(data.open or false)
+end
+
+---@param data table
+local function OnMailInteraction(data)
+    HandleMailOpen(data.open or false)
 end
 
 local function ResetCurrentStep()
@@ -539,14 +519,6 @@ IncrementStep = function()
     local newValue = stepCurrent + 1
     if newValue > stepMax then newValue = 1 end
     SetStep(newValue, true)
-
-    local currentStep = CasualTBCPrep.Extras_Mailbox.GetTurninStep(stepCurrent)
-    local debugger = CasualTBCPrep.Settings.GetGlobalSetting(CasualTBCPrep.Settings.DebugDetails) or -1
-    if debugger == 1 and currentStep then
-        local debugMailsToOpen, debugItemsFromBank, debugMailItemStackCount, debugBankItemStackCount = GetStepDetails_ItemsNeeded(currentStep)
-        CasualTBCPrep.NotifyUserCompanion("[DEBUG] Mail slots needed: " .. debugMailItemStackCount)
-        CasualTBCPrep.NotifyUserCompanion("[DEBUG] Bank slots needed: " .. debugBankItemStackCount)
-    end
 end
 DecrementStep = function()
     local newValue = stepCurrent - 1
@@ -562,13 +534,19 @@ end
 local function Display()
     CleanupElements()
 
+    local mapID, zoneName, subzoneName = CasualTBCPrep.GetLastZoneUpdate()
     UpdateStepCounts()
     GetTurninData()
 
+    OnMessageZoneChanged({ mapID = mapID, zoneName = zoneName, subzoneName = subzoneName }, false)
     LoadStepHeader()
     LoadStepDetails()
 
 	wCompanion.scrollChild:SetSize(wCompanion.scrollFrame:GetWidth(), 1)
+    C_Timer.After(0.5, function()
+        HandleBankOpen(BankFrame and BankFrame:IsShown())
+        HandleMailOpen(MailFrame and MailFrame:IsShown())
+    end)
 end
 
 local function OnRouteChanged(data)
@@ -682,8 +660,7 @@ local function Create()
         Display()
     end)
 
-	wCompanion.scrollFrame, wCompanion.scrollChild = CasualTBCPrep.UI.CreateTBCPrepScrollFrame(wCompanion, 11, -30, -26, 10) --2nd value is distance from top
-	-- Place in the front above other UI/addons
+	wCompanion.scrollFrame, wCompanion.scrollChild = CasualTBCPrep.UI.CreateTBCPrepScrollFrame(wCompanion, 11, -30, -26, 10)
 	wCompanion:SetFrameStrata("FULLSCREEN_DIALOG")
 	wCompanion:SetFrameLevel(1001)
 
@@ -745,7 +722,6 @@ local function Create()
 end
 
 function CasualTBCPrep.W_Companion.Show()
-	local debugger = CasualTBCPrep.Settings.GetGlobalSetting(CasualTBCPrep.Settings.DebugDetails) or -1
 	if wCompanion == nil then
 
 		Create()
@@ -767,19 +743,15 @@ function CasualTBCPrep.W_Companion.Show()
 	Display()
 	if not wCompanion:IsShown() then
         if msgZoneChangedID <= 0 then
-            if debugger == 1 then CasualTBCPrep.NotifyUserCompanion(CasualTBCPrep.Themes.SelectedTheme.colors.standoutText.hex.."[DEBUG] Companion registering ZONE_CHANGED event") end
 	        msgZoneChangedID = CasualTBCPrep.MessageBroker.Register(CasualTBCPrep.MessageBroker.TYPE.ZONE_CHANGED, OnMessageZoneChanged)
         end
         if msgBankID <= 0 then
-            if debugger == 1 then CasualTBCPrep.NotifyUserCompanion(CasualTBCPrep.Themes.SelectedTheme.colors.standoutText.hex.."[DEBUG] Companion registering BANK_INTERACT event") end
 	        msgBankID = CasualTBCPrep.MessageBroker.Register(CasualTBCPrep.MessageBroker.TYPE.BANK_INTERACT, OnBankInteraction)
         end
         if msgMailID <= 0 then
-            if debugger == 1 then CasualTBCPrep.NotifyUserCompanion(CasualTBCPrep.Themes.SelectedTheme.colors.standoutText.hex.."[DEBUG] Companion registering MAILBOX_INTERACT event") end
 	        msgMailID = CasualTBCPrep.MessageBroker.Register(CasualTBCPrep.MessageBroker.TYPE.MAILBOX_INTERACT, OnMailInteraction)
         end
         if msgRouteChanged <= 0 then
-            if debugger == 1 then CasualTBCPrep.NotifyUserCompanion(CasualTBCPrep.Themes.SelectedTheme.colors.standoutText.hex.."[DEBUG] Companion registering ROUTE_CHANGED event") end
 	        msgRouteChanged = CasualTBCPrep.MessageBroker.Register(CasualTBCPrep.MessageBroker.TYPE.ROUTE_CHANGED, OnRouteChanged)
         end
 		wCompanion:Show()
@@ -788,27 +760,22 @@ function CasualTBCPrep.W_Companion.Show()
     CasualTBCPrep.Settings.SetCharSetting(CasualTBCPrep.Settings.CompanionSettings, companionSettings)
 end
 function CasualTBCPrep.W_Companion.Hide()
-	local debugger = CasualTBCPrep.Settings.GetGlobalSetting(CasualTBCPrep.Settings.DebugDetails) or -1
 	if wCompanion ~= nil and wCompanion:IsShown() then
 		wCompanion:Hide()
 
         if msgZoneChangedID > 0 then
-            if debugger == 1 then CasualTBCPrep.NotifyUserCompanion(CasualTBCPrep.Themes.SelectedTheme.colors.standoutText.hex.."[DEBUG] Companion Unregistering ZONE_CHANGED event") end
             CasualTBCPrep.MessageBroker.Unregister(CasualTBCPrep.MessageBroker.TYPE.ZONE_CHANGED, msgZoneChangedID)
             msgZoneChangedID = 0
         end
         if msgBankID > 0 then
-            if debugger == 1 then CasualTBCPrep.NotifyUserCompanion(CasualTBCPrep.Themes.SelectedTheme.colors.standoutText.hex.."[DEBUG] Companion Unregistering BANK_INTERACT event") end
             CasualTBCPrep.MessageBroker.Unregister(CasualTBCPrep.MessageBroker.TYPE.BANK_INTERACT, msgBankID)
             msgBankID = 0
         end
         if msgMailID > 0 then
-            if debugger == 1 then CasualTBCPrep.NotifyUserCompanion(CasualTBCPrep.Themes.SelectedTheme.colors.standoutText.hex.."[DEBUG] Companion Unregistering MAILBOX_INTERACT event") end
             CasualTBCPrep.MessageBroker.Unregister(CasualTBCPrep.MessageBroker.TYPE.MAILBOX_INTERACT, msgMailID)
             msgMailID = 0
         end
         if msgRouteChanged > 0 then
-            if debugger == 1 then CasualTBCPrep.NotifyUserCompanion(CasualTBCPrep.Themes.SelectedTheme.colors.standoutText.hex.."[DEBUG] Companion Unregistering ROUTE_CHANGED event") end
             CasualTBCPrep.MessageBroker.Unregister(CasualTBCPrep.MessageBroker.TYPE.ROUTE_CHANGED, msgRouteChanged)
             msgRouteChanged = 0
         end

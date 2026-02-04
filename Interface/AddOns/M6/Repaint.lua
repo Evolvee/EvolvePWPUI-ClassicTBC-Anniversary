@@ -1,6 +1,6 @@
 local COMPAT, _, T = select(4, GetBuildInfo()), ...
 local EV, MC = T.Evie, T.M6Core
-local MODERN = ActionBarActionButtonMixin ~= nil
+local MODERN, ANNIVERSARY = COMPAT >= 10e4, COMPAT > 20504 and COMPAT < 3e4
 if not (EV and MC) then return end
 
 local watcherOnUpdate, watcherMarkAllUpdated
@@ -115,8 +115,7 @@ local ShowOverlayGlow, HideOverlayGlow do
 			clear[k] = nil
 		end
 	end
-	if type(ActionButton_HideOverlayGlow) == "function" then
-	hooksecurefunc("ActionButton_HideOverlayGlow", function(self)
+	local function onClearOverlayGlow(self)
 		if assigned[self] then
 			clear[self] = 1
 			if emptyClear then
@@ -124,8 +123,14 @@ local ShowOverlayGlow, HideOverlayGlow do
 				T.After0(checkClear)
 			end
 		end
-	end)
-end
+	end
+	if ActionButtonSpellAlertManager and not ActionButton_HideOverlayGlow then
+		securecall(hooksecurefunc, ActionButtonSpellAlertManager, "HideAlert", function(_, widget)
+			return onClearOverlayGlow(widget)
+		end)
+	else
+		securecall(hooksecurefunc, "ActionButton_HideOverlayGlow", onClearOverlayGlow)
+	end
 end
 
 local cv_noCountdownForCooldowns do
@@ -429,7 +434,7 @@ end
 hooksecurefunc(GameTooltip, "SetOwner", function(_, o)
 	return cueButtonRepaint(o)
 end)
-if MODERN then
+if MODERN or ANNIVERSARY then
 	local type, rg = type, rawget
 	local qap, odd, s, p = {}, 1, nil, EnumerateFrames()
 	while p and p ~= s do
@@ -462,18 +467,11 @@ if MODERN then
 	hooksecurefunc(ActionBarActionButtonMixin, "OnUpdate", queueFromOnUpdate)
 	hooksecurefunc(ActionBarActionButtonMixin, "UpdateState", cueButtonRepaint)
 	hooksecurefunc(ActionBarActionButtonMixin, "UpdateUsable", cueButtonRepaint)
-else -- legacy clients only
-	if type(ActionButton_OnUpdate) == "function" then
-		hooksecurefunc("ActionButton_OnUpdate", queueFromOnUpdate)
-	end
-	if type(ActionButton_UpdateState) == "function" then
-		hooksecurefunc("ActionButton_UpdateState", cueButtonRepaint)
-	end
-	if type(ActionButton_UpdateUsable) == "function" then
-		hooksecurefunc("ActionButton_UpdateUsable", cueButtonRepaint)
-	end
+else -- not MODERN
+	hooksecurefunc("ActionButton_OnUpdate", queueFromOnUpdate)
+	hooksecurefunc("ActionButton_UpdateState", cueButtonRepaint)
+	hooksecurefunc("ActionButton_UpdateUsable", cueButtonRepaint)
 end
-
 
 do -- Cursor Icons
 	local oldMacro, oldIcon, ignoreUpdates

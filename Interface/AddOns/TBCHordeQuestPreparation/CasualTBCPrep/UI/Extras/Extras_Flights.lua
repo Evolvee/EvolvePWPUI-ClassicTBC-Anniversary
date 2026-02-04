@@ -47,8 +47,6 @@ local function SelectRoute(routeCode, hasUnlockedAll, taxiList, missingCount, pa
     selectedRouteID = routeCode
 end
 
-
-
 ---@param frame Frame
 function CasualTBCPrep.Extras_Flights.Clean(frame)
     if not frame then return end
@@ -97,7 +95,6 @@ function CasualTBCPrep.Extras_Flights.Load(frame)
 	txtFlightHeader:SetText("Flight Paths")
 	table.insert(texts, txtFlightHeader)
 
-	-- Layout shit, try new design
 	local parentW = parent:GetWidth()
 	local availableWidth = parentW
 	local columnWidth = availableWidth / 3 + 1
@@ -108,9 +105,9 @@ function CasualTBCPrep.Extras_Flights.Load(frame)
 	local x2 = (columnWidth * 1) - 1
 	local x3 = (columnWidth * 2) - 1
 
-	local dR,dG,dB,dA = 1,1,1,0.05 --Default uneven background
-	local dR2,dG2,dB2,dA2 = 1,1,1,0.08 --Default even background
-	local dRh,dGh,dBh,dAh = 0.5,1,1,0.1 -- Default hover background
+	local dR,dG,dB,dA = 1,1,1,0.05 -- Uneven background
+	local dR2,dG2,dB2,dA2 = 1,1,1,0.08 -- Even background
+	local dRh,dGh,dBh,dAh = 0.5,1,1,0.1 -- Hover background
 
 	local bgBox1 = parent:CreateTexture(nil, "BACKGROUND")
 	bgBox1:SetColorTexture(dR,dG,dB,dA)
@@ -246,11 +243,4 @@ function CasualTBCPrep.Extras_Flights.Load(frame)
             SelectRoute(CasualTBCPrep.Routing.RouteCodeStrat, stratHasUnlockedAll, stratTaxiList, stratMissingCount, frame, txtFlightHeader)
         end
     end)
-
-	local txtCommand = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-	txtCommand:SetPoint("BOTTOM", frame, "BOTTOM", 0, 10)
-	txtCommand:SetJustifyH("CENTER")
-    txtCommand:SetTextColor(0.7,0.7,0.7,0.8)
-	txtCommand:SetText("Temporary UI. You can also check with '/tbcprep flights'")
-    table.insert(texts, txtCommand)
 end

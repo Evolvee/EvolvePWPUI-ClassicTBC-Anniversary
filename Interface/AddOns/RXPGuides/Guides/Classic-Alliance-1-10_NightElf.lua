@@ -1,8 +1,10 @@
 local faction = UnitFactionGroup("player")
 if faction == "Horde" then return end
 
+if GetLocale() == "zhCN" then return end
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #season 0,1
 << Alliance
 #name 1-6 Shadowglen
@@ -411,6 +413,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #season 0,1
 << Alliance
 #name 6-11 Teldrassil

@@ -318,7 +318,7 @@ local position = {
 							P:Refresh()
 						end
 
-						if E.postDF and P.isInTestMode then
+						if E.hasEditMode and P.isInTestMode then
 							local testZone = P.testZone
 							P:Test()
 							P:Test(testZone)

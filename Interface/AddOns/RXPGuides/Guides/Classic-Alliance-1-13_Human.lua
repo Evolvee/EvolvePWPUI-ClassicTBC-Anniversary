@@ -1,8 +1,10 @@
 local faction = UnitFactionGroup("player")
 if faction == "Horde" then return end
 
+if GetLocale() == "zhCN" then return end
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #season 0,1
 << Alliance
 #name 1-6 Northshire
@@ -175,7 +177,7 @@ step << Warrior
     .train 6673 >>Train |T132333:0|t[Battle Shout]
     .target +Llane Beshere
     .goto Elwynn Forest,50.242,42.287
-    .mob Young Wolf   
+    .mob Young Wolf
 step
     #label Within
     .goto Elwynn Forest,48.923,41.606
@@ -1168,6 +1170,7 @@ step << Rogue
 
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #season 0,1
 #version 1
 << Alliance
@@ -4931,6 +4934,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #season 0,1
 #version 1
 << Alliance

@@ -14,6 +14,7 @@ assert(EV and AB and RW and KR and IM and 1, "Incompatible library bundle")
 local L = T.ActionBook.L
 local FORCED_MOUNT_SPELLS = {}
 local spellFeedback, itemHint, toyHint, mountHint
+local RAND_MOUNT_SID = 150544
 
 local NormalizeInRange = {[0]=0, 1, [true]=1, [false]=0}
 local _, CLASS = UnitClass("player")
@@ -127,13 +128,13 @@ securecall(function() -- mount: mount ID
 	end
 	AB:RegisterActionType("mount", createMount, describeMount, 1)
 	if MODERN then -- random
-		local mjID, rname, _, ricon = C_MountJournal.GetMountFromSpell(150544), GetSpellInfo(150544)
+		local mjID, rname, _, ricon = C_MountJournal.GetMountFromSpell(RAND_MOUNT_SID), GetSpellInfo(RAND_MOUNT_SID)
 		actionMap[0] = AB:CreateActionSlot(function()
-			return HasFullControl() and not IsIndoors(), IsMounted() and 1 or 0, ricon, rname, 0, 0, 0, callMethod.SetMountBySpellID, 150544
+			return HasFullControl() and not IsIndoors(), IsMounted() and 1 or 0, ricon, rname, 0, 0, 0, callMethod.SetMountBySpellID, RAND_MOUNT_SID
 		end, nil, summonAction(0))
-		FORCED_MOUNT_SPELLS[150544], actionMap[mjID or 0] = 0, 0
+		FORCED_MOUNT_SPELLS[RAND_MOUNT_SID], actionMap[mjID or 0] = 0, 0
 		RW:SetCastEscapeAction(rname, actionMap[0])
-		RW:SetCastEscapeAction("spell:150544", actionMap[0])
+		RW:SetCastEscapeAction("spell:" .. RAND_MOUNT_SID, actionMap[0])
 	end
 	local function mountSync()
 		AB:NotifyObservers("mount")
@@ -307,7 +308,7 @@ securecall(function() -- spell: spell ID + mount spell ID
 		local gab = GetSpellInfo(161691)
 		actionMap[gab] = AB:CreateActionSlot(spellHint, gab, "conditional", "[outpost]", "attribute", "type","spell", "spell",gab)
 		spellMap[lowered[gab]] = 161691
-		actionMap[150544] = AB:GetActionSlot("mount", 0)
+		actionMap[RAND_MOUNT_SID] = AB:GetActionSlot("mount", 0)
 	end
 	
 	function EV.SPELLS_CHANGED()
@@ -864,6 +865,7 @@ securecall(function() -- equipmentset: equipment sets by name
 end)
 securecall(function() -- raidmark
 	local map, waitingToClearSelf = {}
+	local SABT_RAIDMARK = TWELVE
 	local function CanChangeRaidTargets(unit)
 		return not not ((not IsInRaid() or UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")) and not (unit and UnitIsPlayer(unit) and UnitIsEnemy("player", unit)))
 	end
@@ -886,7 +888,8 @@ securecall(function() -- raidmark
 			return "remove"
 		end
 	end
-	map[0] = not TWELVE and AB:CreateActionSlot(removeHint, nil, "func", function()
+	map[0] = SABT_RAIDMARK and AB:CreateActionSlot(removeHint, nil, "attribute", "type","raidtarget", "action","clear-all")
+	                        or AB:CreateActionSlot(removeHint, nil, "func", function()
 		if not CanChangeRaidTargets() then return end
 		local pt = GetRaidTargetIndex("player")
 		for i=8, 0, -1 do
@@ -896,10 +899,9 @@ securecall(function() -- raidmark
 			waitingToClearSelf, EV.RAID_TARGET_UPDATE = 1, FinishClearRaidTargets
 		end
 	end) or nil
-	local tf = TWELVE and (SLASH_TARGET_MARKER1 .. " %d\n" .. SLASH_TARGET_MARKER1 .. " [group] 0")
 	for i=1,8 do
-		map[i] = TWELVE and AB:CreateActionSlot(raidmarkHint, i, "retext", tf:format(i))
-		                 or AB:CreateActionSlot(raidmarkHint, i, "func", setRaidTarget, i)
+		map[i] = SABT_RAIDMARK and AB:CreateActionSlot(raidmarkHint, i, "attribute", "type","raidtarget", "marker",i)
+		                        or AB:CreateActionSlot(raidmarkHint, i, "func", setRaidTarget, i)
 	end
 	local function createRaidMark(id)
 		return map[id]
@@ -1280,7 +1282,7 @@ securecall(function() -- toy: item ID, flags[FORCE_SHOW]
 end)
 securecall(function() -- disenchant: iid
 	local map, DISENCHANT_SID = {}, 13262
-	local DISENCHANT_SN = GetSpellInfo(DISENCHANT_SID)
+	local DISENCHANT_SN = C_Spell.GetSpellName(DISENCHANT_SID)
 	local ICON_PREFIX = "|TInterface/Buttons/UI-GroupLoot-DE-Up:0:0|t "
 	local SLASH_SPELL_TARGET_ITEM1 = '/spelltargetitem' do
 		local wn = newWidgetName("AB:I!")
@@ -1319,7 +1321,7 @@ securecall(function() -- disenchant: iid
 			cdLeft or 0, cdLength or 0, disenchantTip, ident
 	end
 	local function createDisenchant(iid)
-		if not (IsPlayerSpell(13262) and type(iid) == "number" and C_Item.GetItemCount(iid) > 0) then
+		if not (IsPlayerSpell(DISENCHANT_SID) and type(iid) == "number" and C_Item.GetItemCount(iid) > 0) then
 			return
 		end
 		local mid = map[iid]
@@ -1473,13 +1475,13 @@ securecall(function() -- uipanel: token
 		adventureguide=MODERN and {ADVENTURE_JOURNAL, icon="Interface/EncounterJournal/UI-EJ-PortraitIcon", gn="EncounterJournal", tw=EJMicroButton},
 		guild=MODERN and {GUILD_AND_COMMUNITIES, icon="Interface/Icons/INV_Shirt_GuildTabard_01", gn="CommunitiesFrame", tw=GuildMicroButton}
 		              or {title=GUILD, icon="Interface/Icons/INV_Shirt_GuildTabard_01", gw=GuildFrame, ow=FriendsFrameTab3, cw=FriendsFrameCloseButton, req=IsInGuild},
-		map={WORLD_MAP, icon=CI_ERA and "Interface/Worldmap/WorldMap-Icon" or "Interface/Icons/Inv_Misc_Map08", gw=WorldMapFrame, tw=MODERN and MinimapCluster.ZoneTextButton or MiniMapWorldMapButton},
+		map={WORLD_MAP, icon=CF_WRATH and "Interface/Icons/Inv_Misc_Map08" or "Interface/Worldmap/WorldMap-Icon", gw=WorldMapFrame, tw=MODERN and MinimapCluster.ZoneTextButton or MiniMapWorldMapButton or WorldMapMicroButton},
 		social={SOCIAL_BUTTON, icon=MODERN and "Interface/Icons/UI_Chat" or "Interface/Icons/INV_Scroll_03", gw=FriendsFrame, tw=MODERN and QuickJoinToastButton or FriendsMicroButton},
 		calendar={L"Calendar", icon="Interface/Icons/Spell_Holy_BorrowedTime", gn="CalendarFrame", tw=GameTimeFrame},
 		options={OPTIONS, icon=MODERN and "Interface/Icons/Misc_RnRWrenchButtonRight" or "Interface/Icons/INV_Misc_Wrench_01", gw=SettingsPanel, noduck=1, open=function() Settings.OpenToCategory(nil) end},
 		macro={MACROS, icon="Interface/Icons/INV_Misc_Note_06", gn="MacroFrame", tmt=SLASH_MACRO1, cw=closeButton(MacroFrame), postmt=pyCLICK .. "csp 1\n" .. pyCLICK .. "cgm 1"},
 		profs=MODERN and {TRADE_SKILLS, icon="interface/icons/inv_pick_02", tw=ProfessionMicroButton},
-		gamemenu={MAINMENU_BUTTON, icon=CF_CLASSIC and "Interface/Icons/INV_Misc_PunchCards_Red", atlas="UI-HUD-MicroMenu-GameMenu-Up", gw=GameMenuFrame, tmt="/click GameMenuButtonContinue", noduck=1, pre=function() return not GameMenuFrame:IsShown() or nil end, post=function() RatingMenuFrame:Show() RatingMenuFrame:Hide() PlaySound(SOUNDKIT.IG_MAINMENU_OPEN) end},
+		gamemenu={L"Game Menu", icon=CF_CLASSIC and "Interface/Icons/INV_Misc_PunchCards_Red", atlas="UI-HUD-MicroMenu-GameMenu-Up", gw=GameMenuFrame, noduck=1, pre=function() return not GameMenuFrame:IsShown() or nil end, post=function() RatingMenuFrame:Show() RatingMenuFrame:Hide() PlaySound(SOUNDKIT.IG_MAINMENU_OPEN) end},
 		vault=MODERN and {DELVES_GREAT_VAULT_LABEL, icon="Interface/Icons/INV_Cape_Special_Treasure_C_01", gn="WeeklyRewardsFrame", skipCloseSound=169062, req=function() return UnitLevel("player") == 80 end, tip=ShowVaultTip, open=openPanelFallback},
 		csp={gw=SettingsPanel, cpreamble=true, cw=closeButton(SettingsPanel, "csp")},
 		cgm={gw=GameMenuFrame, cpreamble=true, cw=closeButton(GameMenuFrame, "cgm")},
@@ -1599,8 +1601,8 @@ securecall(function() -- uipanel: token
 	do -- further panels init
 		panels.options.cw, panels.options.cw2 = panels.csp.cw, panels.cgm.cw
 		panels.macro.postmt = widgetClickCommand("cmf", panels.macro.cw)
+		panels.gamemenu.cw = panels.cgm.cw
 		if MODERN then
-			panels.gamemenu.cw, panels.gamemenu.tmt = panels.cgm.cw, nil
 			panels.spellbook.tmt, panels.spellbook.cwrap, panels.spellbook.cw, panels.spellbook.ow = "/click PlayerSpellsFrameCloseButton\n/click PlayerSpellsMicroButton\n" .. pyCLICK .. " spelltab 1", 1, nil
 			panels.talents.tmt, panels.talents.cwrap, panels.talents.tw = "/click PlayerSpellsFrameCloseButton\n/click PlayerSpellsMicroButton\n" .. pyCLICK .. " talenttab 1", 1, nil
 			function EV.PLAYER_LOGIN()

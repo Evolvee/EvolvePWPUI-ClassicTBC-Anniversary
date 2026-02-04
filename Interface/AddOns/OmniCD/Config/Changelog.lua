@@ -1,6 +1,9 @@
 local _, NS = ...
 
 local changelog = [=[
+### v2.8.30
+-   TBC Anniversary support
+
 ### v2.8.29
 -   Bump TOC
 -   Grant a charge of Empower Rune Weapon on Breath of Sindragosa cast

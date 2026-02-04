@@ -141,8 +141,7 @@ local function CreateTabs()
 end
 
 local function Create()
-	local w = 500
-	local h = 505
+	local w,h = 500,505
 
 	wMain = CreateFrame("Frame", w_main_name, UIParent, "PortraitFrameTemplate")
 	wMain:SetSize(w, h);
@@ -156,21 +155,14 @@ local function Create()
 	wMain:SetFrameStrata("FULLSCREEN_DIALOG")
 	wMain:SetFrameLevel(500)
 
-	wMain.GetSizeWidth = function()
-		return w
-	end
-	wMain.GetSizeHeight = function()
-		return h
-	end
-
+	wMain.GetSizeWidth = function() return w end
+	wMain.GetSizeHeight = function() return h end
 	table.insert(UISpecialFrames, w_main_name)
 
-	--Inset
 	wMain.Inset = CreateFrame("Frame", nil, wMain, "InsetFrameTemplate")
 	wMain.Inset:SetPoint("TOPLEFT", wMain, "TOPLEFT", 4, -55)
 	wMain.Inset:SetPoint("BOTTOMRIGHT", wMain, "BOTTOMRIGHT", -4, 4)
 
-	--Title
 	wMain.title = wMain:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	wMain.title:SetPoint("TOP", wMain, "TOP", 0, -1)
 	wMain.title:SetText("TBC Preparation")
@@ -178,22 +170,12 @@ local function Create()
 	wMain.title:SetJustifyH("CENTER")
 	wMain.title:SetJustifyV("MIDDLE")
 
-	--Portrait
-	SetPortraitToTexture(wMain.portrait, CasualTBCPrep.AddonLogoTexture) -- The Dark Portal
-
-	--Tabs
+	SetPortraitToTexture(wMain.portrait, CasualTBCPrep.AddonLogoTexture)
 	CreateTabs()
 	CasualTBCPrep.W_Main.ShowTab(1);
 
-	--QoL
 	wMain:SetScript("OnShow", function() CasualTBCPrep.Sounds:PlaySound_Click() end)
 	wMain:SetScript("OnHide", function() CasualTBCPrep.Sounds:PlaySound_Click() end)
-
-
-	-- callback for skin addons
-	if _G.CasualTBCPrep_SkinCallback then
-		pcall(_G.CasualTBCPrep_SkinCallback, wMain)
-	end
 
 	wMain:Hide();
 	wMain:Show();

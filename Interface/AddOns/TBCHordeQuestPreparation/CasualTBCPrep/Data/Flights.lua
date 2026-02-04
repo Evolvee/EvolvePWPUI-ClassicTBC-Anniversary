@@ -1,16 +1,10 @@
 CasualTBCPrep.Flights = CasualTBCPrep.Flights or {}
 
-local continentNames = {
-    [0] = "Kalimdor",
-    [1] = "Eastern Kingdoms",
-    [2] = "Outland",
-    [3] = "Northrend"
-}
-
 local taxiMetadata = {
     ["Nighthaven, Moonglade"] = { continent=0, isHorde=true, isAlly=true },
     ["Moonglade"] = { continent=0, isHorde=true, isAlly=true },
     ["Everlook, Winterspring"] = { continent=0, isHorde=true, isAlly=true },
+
     ["Bloodvenom Post, Felwood"] = { continent=0, isHorde=true, isAlly=false },
     ["Valormok, Azshara"] = { continent=0, isHorde=true, isAlly=false },
     ["Orgrimmar, Durotar"] = { continent=0, isHorde=true, isAlly=false },
@@ -66,63 +60,110 @@ local taxiMetadata = {
     ["Darkshire, Duskwood"] = { continent=1, isHorde=false, isAlly=true },
     ["Nethergarde Keep, Blasted Lands"] = { continent=1, isHorde=false, isAlly=true },
 
+    -- TBC Neutral
+    ["Emerald Sanctuary, Felwood"] = { continent=0, isHorde=true, isAlly=true },
+    ["Mudsprocket, Dustwallow Marsh"] = { continent=0, isHorde=true, isAlly=true },
+    ["Zul'Aman, Ghostlands"] = { continent=1, isHorde=true, isAlly=true },
+    ["Shattered Sun Staging Area"] = { continent=1, isHorde=true, isAlly=true },
+
+    -- TBC Neutral Outland
+    ["Hellfire Peninsula, The Dark Portal"] = { continent=2, isHorde=true, isAlly=false },
+    ["The Stair of Destiny, Hellfire Peninsula"] = { continent=2, isHorde=true, isAlly=true },
+    ["Evergrove, Blade's Edge Mountains"] = { continent=2, isHorde=true, isAlly=true },
+    ["Area 52, Netherstorm"] = { continent=2, isHorde=true, isAlly=true },
+    ["The Stormspire, Netherstorm"] = { continent=2, isHorde=true, isAlly=true },
+    ["Cosmowrench, Netherstorm"] = { continent=2, isHorde=true, isAlly=true },
+    ["Altar of Sha'tar, Shadowmoon Valley"] = { continent=2, isHorde=true, isAlly=true },
+    ["Sanctum of the Stars, Shadowmoon Valley"] = { continent=2, isHorde=true, isAlly=true },
+    ["Shattrath City, Terokkar Forest"] = { continent=2, isHorde=true, isAlly=true },
+
     -- TBC Horde
-    ["Hellfire Peninsula, The Dark Portal, Horde"] = { continent=1, isHorde=true, isAlly=false },
+    ["Silvermoon City"] = { continent=1, isHorde=true, isAlly=false },
+    ["Tranquillien, Ghostlands"] = { continent=1, isHorde=true, isAlly=false },
+
+    -- TBC Horde Outland
+    ["Hellfire Peninsula, The Dark Portal, Horde"] = { continent=2, isHorde=true, isAlly=false },
     ["Thrallmar, Hellfire Peninsula"] = { continent=2, isHorde=true, isAlly=false },
+    ["Spinebreaker Ridge, Hellfire Peninsula"] = { continent=2, isHorde=true, isAlly=false },
+    ["Falcon Watch, Hellfire Peninsula"] = { continent=2, isHorde=true, isAlly=false },
+    ["Swamprat Post, Zangarmarsh"] = { continent=2, isHorde=true, isAlly=false },
+    ["Zabra'jin, Zangarmarsh"] = { continent=2, isHorde=true, isAlly=false },
+    ["Stonebreaker Hold, Terokkar Forest"] = { continent=2, isHorde=true, isAlly=false },
+    ["Garadar, Nagrand"] = { continent=2, isHorde=true, isAlly=false },
+    ["Thunderlord Stronghold, Blade's Edge Mountains"] = { continent=2, isHorde=true, isAlly=false },
+    ["Mok'Nathal Village, Blade's Edge Mountains"] = { continent=2, isHorde=true, isAlly=false },
+    ["Shadowmoon Village, Shadowmoon Valley"] = { continent=2, isHorde=true, isAlly=false },
 
     -- TBC Ally
-    ["Hellfire Peninsula, The Dark Portal, Alliance"] = { continent=1, isHorde=false, isAlly=true },
+    ["Forest Song, Ashenvale"] = { continent=0, isHorde=false, isAlly=true },
+    ["Rebel Camp, Stranglethorn Vale"] = { continent=1, isHorde=false, isAlly=true },
+
+    -- TBC Ally Outland
+    ["Hellfire Peninsula, The Dark Portal, Alliance"] = { continent=2, isHorde=false, isAlly=true },
     ["Honor Hold, Hellfire Peninsula"] = { continent=2, isHorde=false, isAlly=true },
+    ["Temple of Telhamat, Hellfire Peninsula"] = { continent=2, isHorde=false, isAlly=true },
+    ["Shatter Point, Hellfire Peninsula"] = { continent=2, isHorde=false, isAlly=true },
+    ["Telredor, Zangarmarsh"] = { continent=2, isHorde=false, isAlly=true },
+    ["Orebor Harborage, Zangarmarsh"] = { continent=2, isHorde=false, isAlly=true },
+    ["Allerian Stronghold, Terokkar Forest"] = { continent=2, isHorde=false, isAlly=true },
+    ["Telaar, Nagrand"] = { continent=2, isHorde=false, isAlly=true },
+    ["Sylvanaar, Blade's Edge Mountains"] = { continent=2, isHorde=false, isAlly=true },
+    ["Toshley's Station, Blade's Edge Mountains"] = { continent=2, isHorde=false, isAlly=true },
+    ["Wildhammer Stronghold, Shadowmoon Valley"] = { continent=2, isHorde=false, isAlly=true },
 }
 
 local neededTaxiNodes = {
 	[CasualTBCPrep.Routing.RouteCodeMain] = {
 		[0] = { -- Neutral
-			["Marshal's Refuge, Un'Goro Crater"] = { }, -- Marshal's Refuge, Un'Goro, NodeID=79
+			["Marshal's Refuge, Un'Goro Crater"] = { },
+            ["Emerald Sanctuary, Felwood"] = { }
 		},
 		[1] = { -- Horde
-			["Kargath, Badlands"] = { }, -- Kargath, Badlands, NodeID=21
-			["Gadgetzan, Tanaris"] = { }, -- Gadgetzan, Tanaris, NodeID=39
-			["Bloodvenom Post, Felwood"] = { }, -- Bloodvenom Post, Felwood, NodeID=48
+			["Kargath, Badlands"] = { },
+			["Gadgetzan, Tanaris"] = { },
+			["Bloodvenom Post, Felwood"] = { }, 
 		},
 		[2] = { -- Alliance
-			["Gadgetzan, Tanaris"] = { }, -- Gadgetzan, Tanaris, NodeID=40
+			["Gadgetzan, Tanaris"] = { },
 		}
 	},
 	[CasualTBCPrep.Routing.RouteCodeStrat] = {
 		[0] = { -- Neutral
-			["Marshal's Refuge, Un'Goro Crater"] = { }, -- Marshal's Refuge, Un'Goro, NodeID=79
+			["Marshal's Refuge, Un'Goro Crater"] = { },
+            ["Emerald Sanctuary, Felwood"] = { }
 		},
 		[1] = { -- Horde
-			["Kargath, Badlands"] = { }, -- Kargath, Badlands, NodeID=21
-			["Gadgetzan, Tanaris"] = { }, -- Gadgetzan, Tanaris, NodeID=39
-			["Bloodvenom Post, Felwood"] = { }, -- Bloodvenom Post, Felwood, NodeID=48
+			["Kargath, Badlands"] = { },
+			["Gadgetzan, Tanaris"] = { },
+			["Bloodvenom Post, Felwood"] = { },
 		},
 		[2] = { -- Alliance
-			["Gadgetzan, Tanaris"] = { }, -- Gadgetzan, Tanaris, NodeID=40
+			["Gadgetzan, Tanaris"] = { },
 		}
 	},
 	[CasualTBCPrep.Routing.RouteCodeSolo] = {
 		[0] = { -- Neutral
-			["Marshal's Refuge, Un'Goro Crater"] = { }, -- Marshal's Refuge, Un'Goro, NodeID=79
+			["Marshal's Refuge, Un'Goro Crater"] = { },
+            ["Emerald Sanctuary, Felwood"] = { }
 		},
 		[1] = { -- Horde
-			["Tarren Mill, Hillsbrad"] = { }, -- Tarren Mill, Hillsbrad, NodeID=13
-			["Kargath, Badlands"] = { }, -- Kargath, Badlands, NodeID=21
-			["Thunder Bluff, Mulgore"] = { }, -- Thunder Bluff, Mulgore, NodeID=22
-			["Orgrimmar, Durotar"] = { }, -- Orgrimmar, Durotar, NodeID=23
-			["Gadgetzan, Tanaris"] = { }, -- Gadgetzan, Tanaris, NodeID=39
-			["Camp Mojache, Feralas"] = { }, -- Camp Mojache, Feralas, NodeID=42
-			["Valormok, Azshara"] = { }, -- Valormok, Azshara, NodeID=44
-			["Bloodvenom Post, Felwood"] = { }, -- Bloodvenom Post, Felwood, NodeID=48
-			["Everlook, Winterspring"] = { }, -- Everlook, Winterspring,, NodeID=53
-			["Stonard, Swamp of Sorrows"] = { }, -- Stonard, Swamp of Sorrows, NodeID=56
-			["Light's Hope Chapel, Eastern Plaguelands"] = { }, -- Light's Hope Chapel, EPL, NodeID=68
+			["Tarren Mill, Hillsbrad"] = { },
+			["Kargath, Badlands"] = { },
+			["Thunder Bluff, Mulgore"] = { },
+			["Orgrimmar, Durotar"] = { },
+			["Gadgetzan, Tanaris"] = { },
+			["Camp Mojache, Feralas"] = { },
+			["Valormok, Azshara"] = { },
+			["Bloodvenom Post, Felwood"] = { },
+			["Everlook, Winterspring"] = { },
+			["Stonard, Swamp of Sorrows"] = { },
+			["Light's Hope Chapel, Eastern Plaguelands"] = { },
+			["Tranquillien, Ghostlands"] = { },
 		},
 		[2] = { -- Alliance
-			["Gadgetzan, Tanaris"] = { }, -- Gadgetzan, Tanaris, NodeID=40
-			["Everlook, Winterspring"] = { }, -- Everlook, Winterspring,, NodeID=52
-			["Light's Hope Chapel, Eastern Plaguelands"] = { }, -- Light's Hope Chapel, EPL, NodeID=67
+			["Gadgetzan, Tanaris"] = { },
+			["Everlook, Winterspring"] = { },
+			["Light's Hope Chapel, Eastern Plaguelands"] = { },
 		}
 	},
 }
@@ -144,7 +185,7 @@ function CasualTBCPrep.Flights.OnTaxiMapOpened()
         if taxiMetadata == nil then
             local debugger = CasualTBCPrep.Settings.GetGlobalSetting(CasualTBCPrep.Settings.DebugDetails) or -1
             if debugger == 1 then
-                CasualTBCPrep.NotifyUserError("Couldn't find metadata for taxi: "..taxiName)
+                CasualTBCPrep.NotifyUserError("[DEBUG] Couldn't find metadata for taxi: "..taxiName)
             end
             return
         end
@@ -217,7 +258,6 @@ function CasualTBCPrep.Flights.GetPlayerFlightPathState(routeCode)
 	local playerFactionID = CasualTBCPrep.Faction.GetPlayerFactionID()
 
 	local finalTaxiList = { }
-
     local toCheck = {}
     for taxi, _ in pairs(neededTaxiNodes[routeCode][neutralFactionID]) do
         table.insert(toCheck, taxi)

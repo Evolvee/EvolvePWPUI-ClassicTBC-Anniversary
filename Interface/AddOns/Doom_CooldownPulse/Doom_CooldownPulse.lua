@@ -455,36 +455,36 @@ function DCP:CreateOptionsFrame()
     headertext:SetText("Doom_CooldownPulse")
 
     for i,v in pairs(sliders) do
-        local slider = CreateFrame("slider", "DCP_OptionsFrameSlider"..i, optionsframe, "OptionsSliderTemplate")
+        local options = Settings.CreateSliderOptions(v.min, v.max, v.step)
+        options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Top, function() return v.text end)
+        options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Max, function() return v.max end);
+        options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Min, function() return v.min end);
+        options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, function(value) return format("%.1f", value) end);
+
+        local slider = CreateFrame("Frame", "DCP_OptionsFrameSlider"..i, optionsframe, "MinimalSliderWithSteppersTemplate")
+        slider:SetScale(0.9)
+        slider:SetSize(220, 40)
+        slider:Init(DCP_Saved[v.value], options.minValue, options.maxValue, options.steps, options.formatters)
         if (i == 1) then
-            slider:SetPoint("TOP",optionsframe,"TOP",0,-50)
+            slider:SetPoint("TOP",optionsframe,"TOP",0,-40)
         else
-            slider:SetPoint("TOP",getglobal("DCP_OptionsFrameSlider"..(i-1)),"BOTTOM",0,-35)
+            slider:SetPoint("TOP",getglobal("DCP_OptionsFrameSlider"..(i-1)),"BOTTOM",0,-20)
         end
-        local valuetext = slider:CreateFontString(nil,"ARTWORK","GameFontNormalSmall")
-        valuetext:SetPoint("TOP",slider,"BOTTOM",0,-1)
-        valuetext:SetText(format("%.1f",DCP_Saved[v.value]))
-        getglobal("DCP_OptionsFrameSlider"..i.."Text"):SetText(v.text)
-        getglobal("DCP_OptionsFrameSlider"..i.."Low"):SetText(v.min)
-        getglobal("DCP_OptionsFrameSlider"..i.."High"):SetText(v.max)
-        slider:SetMinMaxValues(v.min,v.max)
-        slider:SetValueStep(v.step)
-        slider:SetObeyStepOnDrag(true)
-        slider:SetValue(DCP_Saved[v.value])
-        slider:SetScript("OnValueChanged",function()
-            local value = slider:GetValue()
+        slider:RegisterCallback("OnValueChanged", function(self, value)
             DCP_Saved[v.value] = value
             RefreshLocals()
-            valuetext:SetText(format("%.1f", value))
             if (DCP:IsMouseEnabled()) then
                 DCP:SetWidth(DCP_Saved.iconSize)
                 DCP:SetHeight(DCP_Saved.iconSize)
             end
         end)
+        
+        slider.RightText:ClearAllPoints()
+        slider.RightText:SetPoint("TOP",slider.Slider,"CENTER",0,-15)
     end
 
     local pettext = optionsframe:CreateFontString(nil,"ARTWORK","GameFontNormalSmall")
-    pettext:SetPoint("TOPLEFT","DCP_OptionsFrameSlider"..#sliders,"BOTTOMLEFT",-15,-30)
+    pettext:SetPoint("TOPLEFT","DCP_OptionsFrameSlider"..#sliders,"BOTTOMLEFT",13,-20)
     pettext:SetText("Pet color overlay:")
 
     local petcolorselect = CreateFrame('Button',"DCP_OptionsFramePetColorBox",optionsframe)

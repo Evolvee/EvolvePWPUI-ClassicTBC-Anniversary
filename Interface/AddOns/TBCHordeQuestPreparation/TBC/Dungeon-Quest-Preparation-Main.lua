@@ -138,7 +138,7 @@ RXPGuides.RegisterGuide([[
 	step
 		#label CoreAttunement
 		>>|cRXP_WARN_OPTIONAL|r This step will grab the Molten Core attunement quest
-		.goto 1415,48.409,63.815
+		.goto 1415,47.16,68.83
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lothos Riftwaker|r
 		.accept 7848 >> Accept Attunement to the Core
 		.target Lothos Riftwaker
@@ -152,9 +152,9 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		.goto Eastern Kingdoms,48.4,63.8,0
-		.goto Eastern Kingdoms,48.4,63.8,15,0
-		.goto Eastern Kingdoms,48.1,62.4,15,0
+		.goto Eastern Kingdoms,47.18,68.85,0
+		.goto Eastern Kingdoms,46.91,68.36,15,0
+		.goto Eastern Kingdoms,46.87,67.61,15,0
 		.subzone 1584 >>Enter the |cFFfa9602Blackrock Depths|r
 		
 	step
@@ -196,6 +196,7 @@ RXPGuides.RegisterGuide([[
 	step
 		.goto Badlands,5.81,47.52
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Warlord Goretooth|r
+		>>He sometimes patrols down the tower towards |cRXP_FRIENDLY_Shadowmage Vivian Lagrave|r
 		.turnin 4081 >> Turn in KILL ON SIGHT: Dark Iron Dwarves
 		.target Warlord Goretooth
 		.isQuestComplete 4081
@@ -208,9 +209,9 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		.goto Eastern Kingdoms,48.4,63.8,0
-		.goto Eastern Kingdoms,48.4,63.8,15,0
-		.goto Eastern Kingdoms,48.1,62.4,15,0
+		.goto Eastern Kingdoms,47.18,68.85,0
+		.goto Eastern Kingdoms,46.91,68.36,15,0
+		.goto Eastern Kingdoms,46.87,67.61,15,0
 		.subzone 1584 >>Return to Blackrock Mountain and enter the |cFFfa9602Blackrock Depths|r
 		
 	step
@@ -332,6 +333,7 @@ RXPGuides.RegisterGuide([[
 	step
 		.goto Badlands,5.81,47.52
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Warlord Goretooth|r
+		>>He sometimes patrols down the tower towards |cRXP_FRIENDLY_Shadowmage Vivian Lagrave|r
 		.turnin 4082 >> Turn in KILL ON SIGHT: High Ranking Dark Iron Officials
 		.target Warlord Goretooth
 		.isQuestComplete 4082
@@ -385,14 +387,15 @@ RXPGuides.RegisterGuide([[
 	step
 		.goto Badlands,5.81,47.52
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Warlord Goretooth|r
+		>>He sometimes patrols down the tower towards |cRXP_FRIENDLY_Shadowmage Vivian Lagrave|r
 		.accept 4132
 		.target Warlord Goretooth
 
 	step
 		#completewith next
-		.goto Eastern Kingdoms,48.4,63.8,0
-		.goto Eastern Kingdoms,48.4,63.8,15,0
-		.goto Eastern Kingdoms,48.1,62.4,15,0
+		.goto Eastern Kingdoms,47.18,68.85,0
+		.goto Eastern Kingdoms,46.91,68.36,15,0
+		.goto Eastern Kingdoms,46.87,67.61,15,0
 		.subzone 1584 >>Enter the |cFFfa9602Blackrock Depths|r
 		
 	step
@@ -534,7 +537,7 @@ RXPGuides.RegisterGuide([[
 		.target Kibler
 
 	step
-		.goto 1415,48.409,63.815
+		.goto 1415,47.16,68.83
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lothos Riftwaker|r
 		>>|cRXP_WARN_You can either turn this in now or the next time you are in Blackrock Mountain|r
 		.turnin 7848 >> Turn in Attunement to the Core
@@ -543,9 +546,8 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		.goto Eastern Kingdoms,48.9,63.9
-		.zone 1583 >>Enter the |cFFfa9602Blackrock Spire|r
-		.zoneskip 1583
+		.goto Eastern Kingdoms,47.61,68.9
+		.subzone 1583 >>Enter the |cFFfa9602Blackrock Spire|r
 
 	step
 		>>Kill |cRXP_ENEMY_Pyroguard Emberseer|r. Loot him for the |cRXP_LOOT_Eye of the Emberseer|r
@@ -576,9 +578,8 @@ RXPGuides.RegisterGuide([[
 	
 	step
 		#completewith next
-		.goto Eastern Kingdoms,48.9,63.9
-		.zone 1583 >>Enter the |cFFfa9602Blackrock Spire|r
-		.zoneskip 1583
+		.goto Eastern Kingdoms,47.61,68.9
+		.subzone 1583 >>Enter the |cFFfa9602Blackrock Spire|r
 
 	step
 		#completewith next
@@ -633,9 +634,8 @@ RXPGuides.RegisterGuide([[
 	
 	step
 		#completewith next
-		.goto Eastern Kingdoms,48.9,63.9
-		.zone 1583 >>Enter the |cFFfa9602Blackrock Spire|r
-		.zoneskip 1583
+		.goto Eastern Kingdoms,47.61,68.9
+		.subzone 1583 >>Enter the |cFFfa9602Blackrock Spire|r
 
 	step
 		>>Loot the |cRXP_LOOT_Spire Spider Eggs|r on the ground
@@ -710,7 +710,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		.goto 1415,52.8,26.4
+		.goto 1415,50.95,36.53
 		.subzone 2057 >>Enter |cFFfa9602Scholomance|r
 
 	step
@@ -745,7 +745,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		.goto 1415,52.8,26.4
+		.goto 1415,50.95,36.53
 		.subzone 2057 >>Enter |cFFfa9602Scholomance|r
 
 	step
@@ -762,7 +762,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		.goto 1415,52.8,26.4
+		.goto 1415,50.95,36.53
 		.subzone 2057 >>Enter |cFFfa9602Scholomance|r
 
 	step
@@ -782,7 +782,8 @@ RXPGuides.RegisterGuide([[
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Magistrate Marduke|r
 		.equip 13,13544 >> |cRXP_WARN_Equip the|r |T134337:0|t|cRXP_LOOT_[Spectral Essence]|r
 		.accept 5461
-		.target Magistrate Marduke	
+		.target Magistrate Marduke
+		.skipgossip	
 
 	step
 		#completewith next
@@ -961,7 +962,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		.goto 1415,48.92,64.47,10 >>Enter |cFFfa9602Blackwing Lair|r
+		.goto 1415,47.6,69.4,10 >>Enter |cFFfa9602Blackwing Lair|r
 
 	step	
 		>>Kill |cRXP_ENEMY_Broodlord Lashlayer|r inside |cFFfa9602Blackwing Lair|r and loot him for |cRXP_LOOT_Head of the Broodlord Lashlayer|r
@@ -1060,9 +1061,8 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		.goto Eastern Kingdoms,48.9,63.9
-		.zone 1583 >>Enter the |cFFfa9602Blackrock Spire|r
-		.zoneskip 1583
+		.goto Eastern Kingdoms,47.61,68.9
+		.subzone 1583 >>Enter the |cFFfa9602Blackrock Spire|r
 
 	step
 		>>Kill |cRXP_ENEMY_Pyroguard Emberseer|r. Loot him for the |cRXP_LOOT_Eye of the Emberseer|r
@@ -1084,7 +1084,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		.goto 1415,48.4,63.8,10 >>Enter |cFFfa9602The Molten Core|r
+		.goto 1415,47.16,68.83,10 >>Enter |cFFfa9602The Molten Core|r
 
 	step
 		>>Kill 1 |cRXP_ENEMY_Fire Lord|r, 1 |cRXP_ENEMY_Molten Giant|r, 1 |cRXP_ENEMY_Ancient Core Hound|r and 1 |cRXP_ENEMY_Lava Surger|r inside |cFFfa9602The Molten Core|r
@@ -1122,7 +1122,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		.goto 1415,48.4,63.8,10 >>Enter |cFFfa9602The Molten Core|r
+		.goto 1415,47.16,68.83,10 >>Enter |cFFfa9602The Molten Core|r
 
 	step
 		>>Kill |cRXP_ENEMY_Shazzrah|r, |cRXP_ENEMY_Lucifron|r, |cRXP_ENEMY_Gehennas|r and |cRXP_ENEMY_Sulfuron|r inside |cFFfa9602The Molten Core|r
@@ -1166,6 +1166,13 @@ RXPGuides.RegisterGuide([[
 		.accept 7161
 		.target Warmaster Laggrond
 
+	step
+		.goto Alterac Mountains,63.84,60.47
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Voggah Deathgrip|r
+		.accept 7142
+		.isQuestTurnedIn 7142
+		.target Voggah Deathgrip		
+
 	step	
 		>>Collect |cRXP_LOOT_Frostwolf Banner|r from the battleground |cFFfa9602Alterac Valley|r
 		>>The Banner is located in the cave in the south of the valley
@@ -1176,7 +1183,11 @@ RXPGuides.RegisterGuide([[
 		>>|cRXP_ENEMY_Warning:|r |cRXP_WARN_Do not pick up or complete the followup|r |cRXP_LOOT_Rise and Be Recognized|r|cRXP_WARN_, as this is used for TBC|r
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Warmaster Laggrond|r
 		.turnin 7161
-		.target Warmaster Laggrond	
+		.target Warmaster Laggrond
+		
+	step
+		>>Queue for |cFFfa9602Alterac Valley|r until you win the battleground
+		.complete 7142,1
 
 	step
 		>>Queue for |cFFfa9602Alterac Valley|r until you reach exalted reputation with the |cRXP_FRIENDLY_Frostwolf Clan|r

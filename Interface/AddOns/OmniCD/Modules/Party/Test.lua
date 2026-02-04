@@ -67,7 +67,7 @@ function TM:ShouldShowBlizzardFrames()
 end
 
 function TM:ShowBlizzardFrames()
-	if E.postDF then
+	if E.hasEditMode then
 		if (GetNumGroupMembers() == 0 or not P:CompactFrameIsActive()) and not P.isInEditMode then
 			ShowUIPanel(EditModeManagerFrame)
 		end
@@ -87,7 +87,7 @@ function TM:ShowBlizzardFrames()
 end
 
 function TM:HideBlizzardFrames()
-	if E.postDF then
+	if E.hasEditMode then
 
 		if P.isInEditMode then
 			if P.inLockdown then
@@ -160,14 +160,14 @@ function TM:UselessBling()
 end
 
 function TM:EndTestOOC()
-	if not E.postDF then
+	if not E.hasEditMode then
 		E.write(L["Test frames will be hidden once player is out of combat"])
 	end
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 end
 
 function TM:PLAYER_REGEN_ENABLED()
-	if E.postDF then
+	if E.hasEditMode then
 		if P.isInEditMode then
 			HideUIPanel(EditModeManagerFrame)
 		end

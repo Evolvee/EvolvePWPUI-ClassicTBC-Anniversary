@@ -1,9 +1,11 @@
 local faction = UnitFactionGroup("player")
 if faction == "Horde" then return end
 
+if GetLocale() == "zhCN" then return end
 RXPGuides.RegisterGuide([[
 #hardcore
 #classic
+#tbc
 #era/som--h
 << Alliance
 #name 1-6 Coldridge Valley
@@ -410,6 +412,7 @@ RXPGuides.RegisterGuide([[
 #hardcore
 #era/som--h
 #classic
+#tbc
 << Alliance
 #name 6-10 Dun Morogh
 #version 1
@@ -1696,6 +1699,7 @@ RXPGuides.RegisterGuide([[
 #hardcore
 #era/som--h
 #classic
+#tbc
 << Alliance
 #name 10-11 Elwynn (Dwarf/Gnome)
 #version 1
@@ -2358,6 +2362,7 @@ RXPGuides.RegisterGuide([[
 #hardcore
 #era/som--h
 #classic
+#tbc
 << Alliance
 #name 11-13 Loch Modan (Dwarf/Gnome)
 #version 1

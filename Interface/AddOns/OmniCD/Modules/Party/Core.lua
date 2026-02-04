@@ -1,7 +1,7 @@
 local E = select(2, ...):unpack()
 local P, CM, CD = E.Party, E.Comm, E.Cooldowns
 
-local AuraUtil_ForEachAura = E.postDF and AuraUtil and AuraUtil.ForEachAura
+local AuraUtil_ForEachAura = AuraUtil and AuraUtil.ForEachAura
 
 local spell_enabled = {}
 
@@ -21,7 +21,7 @@ function P:Enable()
 
 	self.enabled = true
 
-	if not E.postDF then
+	if not E.hasEditMode then
 		self:RegisterEvent("CVAR_UPDATE")
 	end
 	self:RegisterEvent("UI_SCALE_CHANGED")

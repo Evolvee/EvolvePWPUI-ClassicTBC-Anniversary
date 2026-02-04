@@ -1,73 +1,79 @@
 local _, fctf = ...
-local L = fctf.L
 
 -- Turns FCT on or off depending on "state"
 local function changeFctState(state, message)
     SetCVar("enableFloatingCombatText", state)
-    print(message)
+    if message ~= nil then
+        print(message)
+    end
 end
 
 local function isFctEnabled()
-    return GetCVar("enableFloatingCombatText") == "1"
+    return fctf.getCurrentFctState() == "1"
 end
 
--- If the FCT is disabled on login, enables it
-function fctf.enableCombatText()
-    if not isFctEnabled() then
-        changeFctState("1", L.fctNowEnabled[fctf.locale])
-    else
-        print(L.fctEnabled[fctf.locale])
-    end
-end
-
--- Checks if the value is not already enabled / disabled for options that are not "floatingCombatTextFloatMode"
-local function shouldChangeOption(option, value)
-    return option ~= fctf.fctOptions.floatMode and GetCVar(option) == value
-end
-
-local function toggleFct()
+function fctf.toggleFct()
     if isFctEnabled() then
-        changeFctState("0", L.fctDisabled[fctf.locale])
+        changeFctState("0", fctf.getLocalizedText("fctDisabled"))
     else
-        changeFctState("1", L.fctEnabled[fctf.locale])
+        changeFctState("1", fctf.getLocalizedText("fctEnabled"))
     end
 end
+
+-- local function updateFctOptionIfNeeded(option, targetValue)
+--     if GetCVar(option) ~= targetValue then
+--         SetCVar(option, targetValue)
+--     end
+-- end
 
 -- Enables all options related to FCT
-local function enableAll()
-    for key, option in pairs(fctf.fctOptions) do
-        if shouldChangeOption(option, "0") then
-            SetCVar(option, "1")
-        end
+-- function fctf.enableAllFctOptions()
+--     for key, option in pairs(fctf.fctOptions) do
+--         if option ~= fctf.fctOptions.floatMode then
+--             updateFctOptionIfNeeded(option, "1")
+--         end
+--     end
+--     print(fctf.getLocalizedText("optionsEnabled"))
+-- end
+
+-- function fctf.disableAllFctOptions()
+--     for key, option in pairs(fctf.fctOptions) do
+--         if option ~= fctf.fctOptions.floatMode then
+--             updateFctOptionIfNeeded(option, "0")
+--         end
+--     end
+--     print(fctf.getLocalizedText("optionsDisabled"))
+-- end
+
+local function getFctStatusMessage(lastFctState)
+    if lastFctState == "0" then
+        return fctf.getLocalizedText("fctDisabled")
+    else
+        return fctf.getLocalizedText("fctEnabled")
     end
-    print(L.optionsEnabled[fctf.locale])
 end
 
-local function disableAll()
-    for key, option in pairs(fctf.fctOptions) do
-        if shouldChangeOption(option, "1") then
-            SetCVar(option, "0")
-        end
+local function updateFctStatus()
+    local restoreLastFctState = fctfPreferences["rememberLastFctState"]
+    local lastFctState = fctfPreferences["lastFctState"]
+    local message = getFctStatusMessage(lastFctState)
+    if restoreLastFctState == true then -- Restores the FCT state from last log off
+        changeFctState(lastFctState)
+    elseif restoreLastFctState ~= true and not isFctEnabled() then
+        changeFctState("1")
+        message = fctf.getLocalizedText("fctNowEnabled")
     end
-    print(L.optionsDisabled[fctf.locale])
+    return message
 end
 
--- Updates the FCT options based on the user's preferences
-function fctf.updateInterfaceOptions()
+-- Updates the FCT options based on the user's preferences on log in / reload
+function fctf.applyUserPreferences()
     for key, option in pairs(fctf.fctOptions) do
-        SetCVar(option, fctPreferences[key])
+        SetCVar(option, fctfPreferences[key])
     end
-end
-
--- Creates the base chat command /fct with optional arguments
-SLASH_FCTFIX1 = "/fct"
-SlashCmdList["FCTFIX"] = function(cmd)
-    local command = strlower(cmd)
-    if command == "" or command == nil then
-        toggleFct()
-    elseif command == "enable" or command == "e" then
-        enableAll()
-    elseif command == "disable" or command == "d" then
-        disableAll()
+    local shouldDisplayFctStatusMessage = fctfPreferences["displayFctStatusMessageOnLogin"] ~= false
+    local fctStatusMessage = updateFctStatus()
+    if shouldDisplayFctStatusMessage then
+        print(fctStatusMessage)
     end
 end

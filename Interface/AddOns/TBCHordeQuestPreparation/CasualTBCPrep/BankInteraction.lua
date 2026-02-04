@@ -1,7 +1,25 @@
 CasualTBCPrep = CasualTBCPrep or {}
 CasualTBCPrep.BankInteraction = CasualTBCPrep.BankInteraction or {}
 
----@param itemsNeeded table {itemID=number, count=number}
+function PutItemInBags(bagContents)
+    if not CursorHasItem() then return end
+    for bag = 0, NUM_BAG_SLOTS do
+        if not bagContents[bag] then bagContents[bag] = {} end
+        local freeSlots, bType = C_Container.GetContainerNumFreeSlots(bag)
+        if bType == 0 and freeSlots > 0 then
+            for slot = 1, C_Container.GetContainerNumSlots(bag) do
+                if not (C_Container.GetContainerItemInfo(bag, slot) or bagContents[bag][slot]) then
+                    C_Container.PickupContainerItem(bag, slot)
+                    bagContents[bag][slot] = true
+                    return
+                end
+            end
+        end
+    end
+    ClearCursor()
+end
+
+---@param itemsNeeded table
 ---@param funcOnNotify function|nil
 ---@param funcOnComplete function|nil
 function CasualTBCPrep.BankInteraction.TryGetItemsFromBank(itemsNeeded, funcOnNotify, funcOnComplete)
@@ -29,6 +47,7 @@ function CasualTBCPrep.BankInteraction.TryGetItemsFromBank(itemsNeeded, funcOnNo
         table.insert(bank, i)
     end
 
+    local bagContents = {}
     for _, bag in pairs(bank) do
         local slotCount = C_Container.GetContainerNumSlots(bag) or 0
         for slot = 1, slotCount do
@@ -43,7 +62,7 @@ function CasualTBCPrep.BankInteraction.TryGetItemsFromBank(itemsNeeded, funcOnNo
                         local toTake = math.min(needed.count, stackCount)
 
                         C_Container.PickupContainerItem(bag, slot)
-                        PutItemInBackpack()
+                        PutItemInBags(bagContents)
 
                         needed.count = needed.count - toTake
                         itemsCollected = itemsCollected + toTake

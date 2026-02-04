@@ -98,7 +98,6 @@ local function CreateListQuestTooltip(wMain, point, quest, questText, width, hei
 		if createClickable == true then
 			CreateClickableFunctionality(tooltipObj, quest.id)
 		end
-		--tooltipObj = CasualTBCPrep.UI.UpdateAdvancedQuestTooltip(f, point, questText:GetFontString():GetStringWidth(), questText:GetFontString():GetStringHeight(), 0, 0, dataName, ttLines, nextPreQuest, itemDisplayList, reqAnyItem)
 		table.insert(frameQuestPrep.content, tooltipObj)
 	end
 end
@@ -114,12 +113,9 @@ function CasualTBCPrep.WM_QuestPrep.Create(wMain)
 	frameQuestPrep:SetAllPoints(wMain)
 
 	frameQuestPrep.scrollFrame, frameQuestPrep.scrollChild = CasualTBCPrep.UI.CreateTBCPrepScrollFrame(frameQuestPrep, nil, -70, nil, nil)
-
 	frameQuestPrep.content = { }
-
 	frameQuestPrep:Hide()
 
-	-- Search
 	local searchX,searchY = 60,_headerY
 	local baseImagePath = "Interface\\AddOns\\" .. CasualTBCPrep.AddonNameInternal .. "\\Resources\\Images\\"
 	local imgW,imgH = 12,12
@@ -225,16 +221,39 @@ local function SortQuestList(questList)
 end
 ---@param q any
 ---@param src string|nil
+---@return boolean
 local function DoesSearchMatchQuest(q, src)
 	if not q then return false end
 	if src == nil or src == "" then return true end
 
-	return (q.id and q.id > 0 and tostring(q.id):lower():find(src,1,true))
-		or (q.name and q.name:lower():find(src,1,true))
-		or (q.routeSection and q.routeSection:lower():find(src,1,true))
-		or (q.areaType and q.areaType:lower():find(src,1,true))
-		or (q.area and q.area:lower():find(src,1,true))
-		or (q.exp and q.exp > 0 and tostring(q.exp):lower():find(src,1,true))
+	local commandResult = nil
+	local command, cmdValue = src:match("^(%w+):(.*)$")
+	if command then
+		command, cmdValue = command:lower(), cmdValue:lower()
+
+		if command == "ready" then
+			if cmdValue == "yes" then
+				local hasFullyPreparedQuest = CasualTBCPrep.QuestData.HasPlayerFullyPreparedQuestExceptPrequests(q.id, false, false, false)
+				return hasFullyPreparedQuest
+			elseif cmdValue == "no" then
+				local hasFullyPreparedQuest = CasualTBCPrep.QuestData.HasPlayerFullyPreparedQuestExceptPrequests(q.id, false, false, false)
+				return not hasFullyPreparedQuest
+			end
+		elseif command == "completed" then
+			if cmdValue == "yes" then
+				return CasualTBCPrep.QuestData.HasCharacterCompletedQuest(q.id);
+			elseif cmdValue == "no" then
+				return not CasualTBCPrep.QuestData.HasCharacterCompletedQuest(q.id);
+			end
+		end
+	end
+	if commandResult ~= nil then return commandResult end
+	return (q.id and q.id > 0 and tostring(q.id):lower():find(src,1,true) ~= nil)
+		or (q.name and q.name:lower():find(src,1,true) ~= nil)
+		or (q.routeSection and q.routeSection:lower():find(src,1,true) ~= nil)
+		or (q.areaType and q.areaType:lower():find(src,1,true) ~= nil)
+		or (q.area and q.area:lower():find(src,1,true) ~= nil)
+		or (q.exp and q.exp > 0 and tostring(q.exp):lower():find(src,1,true) ~= nil)
 end
 
 ---@param wMain Frame|nil
@@ -306,7 +325,6 @@ local function LoadSpecificQuestList(wMain, xOffset, yOffset, headerText, header
 		local xOffsetQuestText = xOffset >= 0 and xOffset + 4 or xOffset - 4
 		local newList = {}
 
-		-- Process available quests
 		for i, quest in ipairs(availableQuests) do
 			local isIgnored = CasualTBCPrep.Settings.GetQuestIgnoredState(CasualTBCPrep.Routing.CurrentRouteCode, quest.quest.id) == true
 			if not isIgnored then
@@ -317,13 +335,7 @@ local function LoadSpecificQuestList(wMain, xOffset, yOffset, headerText, header
 			table.insert(newList, { wrap=quest, completed=false })
 		end
 
-		-- Process completed quests
 		for i, quest in ipairs(completedQuests) do
-			local isIgnored = CasualTBCPrep.Settings.GetQuestIgnoredState(CasualTBCPrep.Routing.CurrentRouteCode, quest.quest.id) == true
-			if not isIgnored then
-				totalCountNonIgnored = totalCountNonIgnored + 1
-			end
-
 			table.insert(newList, { wrap=quest, completed=true })
 		end
 
@@ -429,7 +441,7 @@ end
 ---@param yOffset number
 ---@param point string
 ---@param relativePoint string
----@return number, number, number, number
+---@return number, number, number, number, number
 local function LoadQuestlogQuests(wMain, xOffset, yOffset, point, relativePoint)
 	if not frameQuestPrep.qloglist_header then
 		frameQuestPrep.qloglist_header = frameQuestPrep.scrollChild:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
@@ -443,7 +455,7 @@ end
 ---@param yOffset number
 ---@param point string
 ---@param relativePoint string
----@return number, number, number, number
+---@return number, number, number, number, number
 local function LoadQuestlogOptionalQuests(wMain, xOffset, yOffset, point, relativePoint)
 	if not frameQuestPrep.qlogoptlist_header then
 		frameQuestPrep.qlogoptlist_header = frameQuestPrep.scrollChild:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
@@ -458,7 +470,7 @@ end
 ---@param yOffset number
 ---@param point string
 ---@param relativePoint string
----@return number, number, number, number
+---@return number, number, number, number, number
 local function LoadTurninQuests(wMain, xOffset, yOffset, point, relativePoint)
 	if not frameQuestPrep.turninlist_header then
 		frameQuestPrep.turninlist_header = frameQuestPrep.scrollChild:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
@@ -472,7 +484,7 @@ end
 ---@param yOffset number
 ---@param point string
 ---@param relativePoint string
----@return number, number, number, number
+---@return number, number, number, number, number
 local function LoadReputationQuests(wMain, xOffset, yOffset, point, relativePoint)
 	if not frameQuestPrep.replist_header then
 		frameQuestPrep.replist_header = frameQuestPrep.scrollChild:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
@@ -487,7 +499,7 @@ end
 ---@param yOffset number
 ---@param point string
 ---@param relativePoint string
----@return number, number, number, number
+---@return number, number, number, number, number
 local function LoadExpensiveQuests(wMain, xOffset, yOffset, point, relativePoint)
 	if not frameQuestPrep.explist_header then
 		frameQuestPrep.explist_header = frameQuestPrep.scrollChild:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
@@ -502,7 +514,7 @@ end
 ---@param yOffset number
 ---@param point string
 ---@param relativePoint string
----@return number, number, number, number
+---@return number, number, number, number, number
 local function LoadItemQuests(wMain, xOffset, yOffset, point, relativePoint)
 	if not frameQuestPrep.itemlist_header then
 		frameQuestPrep.itemlist_header = frameQuestPrep.scrollChild:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
@@ -572,7 +584,6 @@ function CasualTBCPrep.WM_QuestPrep.Load(wMain)
 		frameQuestPrep.expectedExperienceTotal = routeObj.extraExperience or 0
 	end
 
-	-- Compact Checkbox
 	if frameQuestPrep.chbCompact == nil then
 		local checkbox = CreateFrame("CheckButton", nil, frameQuestPrep, "UICheckButtonTemplate")
 		checkbox:SetPoint("TOPRIGHT", frameQuestPrep, "TOPRIGHT", -5, -30)
@@ -636,10 +647,8 @@ function CasualTBCPrep.WM_QuestPrep.Load(wMain)
 	runningReadyCount = runningReadyCount + readyCount
 	runningTotalNonIgnored = runningTotalNonIgnored + totalNonIgnored
 
-	-- Experience Bar
 	CreateExperienceBar(wMain, frameQuestPrep)
 
-	-- Main Header Text
 	if not frameQuestPrep.headerText then
 		frameQuestPrep.headerText = frameQuestPrep:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 		frameQuestPrep.headerText:SetPoint("TOP", frameQuestPrep, "TOP", 0, _headerY)
@@ -702,7 +711,6 @@ CreateExperienceBar = function(wMain, parent)
 	end
 
 	-- Make it look like the expbar blends in well...
-	-- Zoomed in for edge colors, make it seem like it blends in naturally... ish
 	local tBrdClrR,tBrdClrG,tBrdClrB = 0.161,0.149,0.137
 	local lBrdClrR,lBrdClrG,lBrdClrB = 0.247,0.220,0.188
 	local rBrdClrR,rBrdClrG,rBrdClrB = 0.086,0.094,0.086

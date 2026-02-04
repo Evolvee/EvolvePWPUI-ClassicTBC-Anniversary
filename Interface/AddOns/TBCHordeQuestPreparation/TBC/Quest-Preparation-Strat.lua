@@ -126,7 +126,7 @@ RXPGuides.RegisterGuide([[
 		step
 			.goto Feralas,59.1,45.3,0
 			.goto Feralas,59.1,45.3,15,0
-			.goto Kalimdor,42.8,70.2,20 >>You have to enter |cFFfa9602Dire Maul|r zone once to be able to accept |cRXP_WARN_A Reliquary of Purity|r in Moonglade.
+			.goto Kalimdor,42.76,70.17,20 >>You have to enter |cFFfa9602Dire Maul|r zone once to be able to accept |cRXP_WARN_A Reliquary of Purity|r in Moonglade.
 			>>If you have been to |cFFfa9602Dire Maul|r before, manually complete this step.
 			.isQuestAvailable 5527	
 
@@ -333,7 +333,7 @@ RXPGuides.RegisterGuide([[
 			#completewith next
 			.goto Moonglade,32.2,66.6
 			>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Faustron|r
-			.fly Felwood >>Fly to |cFFfa9602Felwood|r
+			.fly Bloodvenom Post >>Fly to |cFFfa9602Felwood|r
 			.target Faustron
 			.zoneskip Felwood
 
@@ -486,6 +486,7 @@ RXPGuides.RegisterGuide([[
 			.accept 8918 >>Accept An Earnest Proposition << Shaman
 			.accept 8919 >>Accept An Earnest Proposition << Warlock
 			.accept 8920 >>Accept An Earnest Proposition << Warrior
+			.accept 10493 << Paladin
 			.target Mokvar
 
 		step
@@ -694,6 +695,7 @@ RXPGuides.RegisterGuide([[
 			.complete 8918,1 << Shaman --Silithus Venom Sample (x15)
 			.complete 8919,1 << Warlock --Silithus Venom Sample (x15)
 			.complete 8920,1 << Warrior --Silithus Venom Sample (x15)
+			.complete 10493,1 << Paladin --Silithus Venom Sample (x15)
 			.mob Sand Skitterer
 			.mob Stonelash Pincer
 			.mob Stonelash Scorpid
@@ -766,6 +768,7 @@ RXPGuides.RegisterGuide([[
 			>>|cRXP_WARN_You will need 20 gold and|r |T132601:0|t[|cRXP_LOOT_Bindings of Elements|r] |cRXP_WARN_to turn in this quest|r << Shaman
 			>>|cRXP_WARN_You will need 20 gold and|r |T132612:0|t[|cRXP_LOOT_Dreadmist Bracers|r] |cRXP_WARN_to turn in this quest|r << Warlock
 			>>|cRXP_WARN_You will need 20 gold and|r |T132617:0|t[|cRXP_LOOT_Bracers of Valor|r] |cRXP_WARN_to turn in this quest|r << Warrior
+			>>|cRXP_WARN_You will need 20 gold and|r |T132617:0|t[|cRXP_LOOT_	Lightforge Bracers|r] |cRXP_WARN_to turn in this quest|r << Paladin
 			.collect 16714,1,8913,1 << Druid --Wildheart Bracers (x1)
 			.collect 16681,1,8914,1 << Hunter --Beaststalker's Bindings (x1)
 			.collect 16683,1,8915,1 << Mage --Magister's Bindings (x1)
@@ -774,6 +777,7 @@ RXPGuides.RegisterGuide([[
 			.collect 16671,1,8918,1 << Shaman --Bindings of Elements (x1)
 			.collect 16703,1,8919,1 << Warlock --Dreadmist Bracers (x1)
 			.collect 16735,1,8920,1 << Warrior --Bracers of Valor (x1)
+			.collect 16722,1,10493,1 << Paladin
 			.turnin 8913 >>Turn in An Earnest Proposition << Druid
 			.turnin 8914 >>Turn in An Earnest Proposition << Hunter
 			.turnin 8915 >>Turn in An Earnest Proposition << Mage
@@ -782,6 +786,7 @@ RXPGuides.RegisterGuide([[
 			.turnin 8918 >>Turn in An Earnest Proposition << Shaman
 			.turnin 8919 >>Turn in An Earnest Proposition << Warlock
 			.turnin 8920 >>Turn in An Earnest Proposition << Warrior
+			.turnin 10493 << Paladin
 			.accept 8923 >>Accept A Supernatural Device
 			.target Mokvar
 
@@ -867,12 +872,14 @@ RXPGuides.RegisterGuide([[
 		step
 			#completewith next
 			.use 12284 >>Use |T133001:0|t[Draco-Incarcinatrix] 900 and Kill |cRXP_ENEMY_Broodlings|r in Burning Steppes
+			.mob Scalding Broodling
+			.mob Black Broodling
 			.complete 4726,1
 
 		step
 			.goto Burning Steppes,95.061,31.563
 			>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Cyrus Therepentous|r and select the option: "I do not possess any proof, Cyrus."
-			>>This will spawn a level 54 Elite Dragon at the entrance of the small cave. Kill and loot it for the |T134430:0|t[Black Dragonflight Molt]
+			>>This will spawn a Dragon at the entrance of the small cave. Kill and loot it for the |T134430:0|t[Black Dragonflight Molt]
 			>>|cRXP_ENEMY_Do not turn in|r |cRXP_LOOT_A Taste of Flame|r |cRXP_ENEMY_as it is used for the TBC turnin!|r
 			.collect 10575,1
 			.accept 4023
@@ -910,6 +917,8 @@ RXPGuides.RegisterGuide([[
 			.goto Burning Steppes,64.33,60.36,60,0
 			.goto Burning Steppes,54.69,62.45,60,0
 			.use 12284 >>Use |T133001:0|t[Draco-Incarcinatrix] 900 and Kill |cRXP_ENEMY_Broodlings|r in Burning Steppes
+			.mob Scalding Broodling
+			.mob Black Broodling
 			.complete 4726,1
 
 		step
@@ -1202,8 +1211,9 @@ RXPGuides.RegisterGuide([[
 
 		step
 			#completewith silithus2
-			>> Keep an eye out for |T133463:0|t[|cRXP_LOOT_Brann Bronzebeard's Lost Letter|r] dropped by |cRXP_ENEMY_Hive'Ashi Drones|r. It is part of the TBC turn in.
+			>> Keep an eye out for |T133463:0|t[|cRXP_LOOT_Brann Bronzebeard's Lost Letter|r] dropped by |cRXP_ENEMY_Silithus Silithid|r. It is part of the TBC turn in.
 			.collect 20461
+			.isQuestAvailable 8308
 		
 		step
 			#completewith next
@@ -1420,7 +1430,7 @@ RXPGuides.RegisterGuide([[
 		step
 			.goto Winterspring,61.4,37.0
 			>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Izzy Coppergrab|r
-			.bankdeposit 11315,20394,20395,20396,20460,20461,20404 >> Deposit all quest items that are either for TBC or later used
+			.bankdeposit 11315,20394,20395,20396,20461,20461,20404 >> Deposit all quest items that are either for TBC or later used
 			.target Izzy Coppergrab
 
 		step
@@ -2265,6 +2275,12 @@ RXPGuides.RegisterGuide([[
 			>>Kill |cRXP_ENEMY_Skeletons|r while doing the next quests for 15x |T133724:0|t[|cRXP_LOOT_Skeletal Fragments|r]
 			.collect 14619,15
 			.isQuestAvailable 964
+			.mob Skeletal Executioner
+			.mob Skeletal Acolyte
+			.mob Skeletal Warlord
+			.mob Skeletal Sorcerer
+			.mob Skeletal Flayer
+			.mob Skeletal Terror			
 
 		step
 			.goto Western Plaguelands,49.2,78.6
@@ -2304,6 +2320,12 @@ RXPGuides.RegisterGuide([[
 			>>Kill |cRXP_ENEMY_Skeletons|r for 15x |T133724:0|t[|cRXP_LOOT_Skeletal Fragments|r]
 			.collect 14619,15
 			.isQuestAvailable 964
+			.mob Skeletal Executioner
+			.mob Skeletal Acolyte
+			.mob Skeletal Warlord
+			.mob Skeletal Sorcerer
+			.mob Skeletal Flayer
+			.mob Skeletal Terror			
 
 		step
 			.goto Western Plaguelands,26.67,56.33
@@ -2624,7 +2646,7 @@ RXPGuides.RegisterGuide([[
 			#completewith next
 			.goto Un'Goro Crater,45.23,5.82
 			>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gryfe|r
-			.fly Felwood >>Fly to |cFFfa9602Felwood|r
+			.fly Bloodvenom Post >>Fly to |cFFfa9602Felwood|r
 			.target Gryfe
 			.zoneskip Felwood
 
@@ -2638,7 +2660,7 @@ RXPGuides.RegisterGuide([[
 			#completewith next
 			.goto Felwood,34.4,53.8
 			>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brakkar|r
-			.fly Winterspring>>Fly to Winterspring
+			.fly Winterspring>>Fly to |cFFfa9602Winterspring|r
 			.target Brakkar
 			.zoneskip Winterspring
 
@@ -2727,7 +2749,7 @@ RXPGuides.RegisterGuide([[
 			#completewith next
 			.goto Winterspring,60.47,36.30
 			>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yugrek|r
-			.fly Felwood>>Fly to Felwood
+			.fly Bloodvenom Post>>Fly to |cFFfa9602Felwood|r
 			.target Yugrek
 			.zoneskip Felwood
 
@@ -2742,7 +2764,7 @@ RXPGuides.RegisterGuide([[
 			#completewith next
 			.goto Felwood,34.4,53.8
 			>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brakkar|r
-			.fly Winterspring>>Fly to Winterspring
+			.fly Winterspring>>Fly to |cFFfa9602Winterspring|r
 			.target Brakkar
 			.zoneskip Winterspring
 
@@ -2762,7 +2784,7 @@ RXPGuides.RegisterGuide([[
 			#completewith next
 			.goto Winterspring,60.47,36.30
 			>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yugrek|r
-			.fly Felwood>>Fly to Felwood
+			.fly Bloodvenom Post>>Fly to |cFFfa9602Felwood|r
 			.target Yugrek
 			.zoneskip Felwood
 
@@ -2777,7 +2799,7 @@ RXPGuides.RegisterGuide([[
 			#completewith next
 			.goto Felwood,34.4,53.8
 			>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brakkar|r
-			.fly Winterspring>>Fly to Winterspring
+			.fly Winterspring>>Fly to |cFFfa9602Winterspring|r
 			.target Brakkar
 			.zoneskip Winterspring
 
@@ -2844,7 +2866,7 @@ RXPGuides.RegisterGuide([[
 			#completewith next
 			.goto Winterspring,60.47,36.30
 			>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yugrek|r
-			.fly Felwood>>Fly to Felwood
+			.fly Bloodvenom Post>>Fly to |cFFfa9602Felwood|r
 			.target Yugrek
 			.zoneskip Felwood
 

@@ -1,6 +1,6 @@
-## Interface: 11508, 50502, 110205, 110207
+## Interface: 11508, 20505, 50503, 110207
 ## Title: M6
-## Version: 1.73
+## Version: 1.75
 ## Author: foxlit
 ## Notes: Better macros for standard action bars (or key bindings)
 ## X-Website: https://www.townlong-yak.com/addons/m6/

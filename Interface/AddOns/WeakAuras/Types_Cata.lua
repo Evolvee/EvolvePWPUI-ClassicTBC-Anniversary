@@ -11,7 +11,6 @@ local L = WeakAuras.L;
 local encounter_list = ""
 local zoneId_list = ""
 function Private.InitializeEncounterAndZoneLists()
-  
 	local currTier = EJ_GetCurrentTier()
   if encounter_list ~= "" then
     return

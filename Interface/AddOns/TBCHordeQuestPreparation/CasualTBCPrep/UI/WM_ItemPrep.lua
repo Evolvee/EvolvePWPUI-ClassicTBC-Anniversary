@@ -5,16 +5,12 @@ CasualTBCPrep.WM_ItemPrep = CasualTBCPrep.WM_ItemPrep or {}
 ---@class Frame|nil
 local frameItemPrep = nil;
 local _headerY = -31
-
 local _preparedQuestsOnly = true
-
---[Forward Declarations]
-local RefreshItemList
-
---Colors
 local clrHeaderText = { r=0.40, g=0.35, b=0.72 }
 local clrHeaderQuestAnyText = { r=0.75, g=0.31, b=0.41 }
 
+--[Forward Declarations]
+local RefreshItemList
 
 ---@param wMain Frame|nil
 local function CreateItemTooltip(wMain, parent, item, ttLines)
@@ -234,14 +230,14 @@ local function LoadItemList(wMain)
 			searchedListReqAny = {}
 			for _, itemWrap in ipairs(lstQuestsReqAnyAmount) do
 				for _, item in ipairs(itemWrap.items) do
-					local searchableObject = { -- ReqAny items have a different structure. Need object (copy) to fit what the 'SearchMatch' function expects
+					local searchableObject = { -- ReqAny items have a different structure.
 						id = item.id,
 						name = item.name,
 						quests = itemWrap.quests
 					}
 					if DoesSearchMatchItem(searchableObject, src) then
 						table.insert(searchedListReqAny, itemWrap)
-						break --Found, exit out of itemlist for this quest
+						break --Found, exit
 					end
 				end
 			end
@@ -286,7 +282,6 @@ local function LoadItemList(wMain)
 
 	-- Normal Header Creation
 	local frame = frameItemPrep.scrollChild
-
 	if not frame.headerTextLeft then
 		frame.headerTextLeft = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 	end
@@ -306,7 +301,6 @@ local function LoadItemList(wMain)
 	CreateClickableHeader(wMain, frame.headerTextRight, "Collected")
 	frame.headerTextRight:Show()
 
-	-- Create lines
 	yPosition = yPosition - 22
 	yPosLeft = yPosition
 	yPosRight = yPosition
@@ -398,20 +392,17 @@ local function LoadItemList(wMain)
 					progressText = progressText .. "|r " .. bankTextColor .. "(" .. tostring(itemDetails.playerBankAmount) .. " in bank)"
 				end
 
-				-- Text, Item Name
 				local textItemName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 				textItemName:SetPoint(anchorPointTextToImg_ItemName_Text, icon, anchorPointTextToImg_ItemName_Img, xTextOffset, -1)
 				textItemName:SetText(itemNameText)
 				table.insert(frameItemPrep.itemTexts, textItemName)
 
-				-- Text, Player Progress
 				local textProgress = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 				textProgress:SetPoint(anchorPointTextToImg_ItemProg_Text, icon, anchorPointTextToImg_ItemProg_Img, xTextOffset + xProgOffset, 1)
 				textProgress:SetText(progressText)
 				table.insert(frameItemPrep.itemTexts, textProgress)
 
 				yPosition = yPosition - iconSize - iconPaddingY
-
 				if totalPlayerCount >= itemDetails.requiredAmount then
 					yPosRight = yPosition
 				else
@@ -500,11 +491,11 @@ local function LoadItemList(wMain)
 
 					if isAnyItemBankAlted == true and reqAnyBankAltedItem ~= nil then
 						local icon,border,textRarityColor,item = CasualTBCPrep.UI.CreateItemImage(frame, anyqImgSize, reqAnyBankAltedItem.id, "TOPLEFT", "BOTTOMLEFT", anyqImgOffsetX, yPosition)
-					
+
 						if icon and border then
 							table.insert(frameItemPrep.content, icon)
 							table.insert(frameItemPrep.content, border)
-							
+
 							local progressText = reqAnyBankAltedItem.requiredAmount.."/"..reqAnyBankAltedItem.requiredAmount..clrBad.." ("
 							if reqAnyBankAltName == nil or reqAnyBankAltName == "" then
 								progressText = progressText.."on alt)|r"
@@ -545,11 +536,11 @@ local function LoadItemList(wMain)
 					else
 						for _, itemData in ipairs(questWrap.items) do
 							local icon,border,_,item = CasualTBCPrep.UI.CreateItemImage(frame, anyqImgSize, itemData.id, "TOPLEFT", "BOTTOMLEFT", anyqImgOffsetX, yPosition)
-							
+
 							if icon and border then
 								table.insert(frameItemPrep.content, icon)
 								table.insert(frameItemPrep.content, border)
-								
+
 								local anyqItemProgText
 								if itemData.playerTotalAmount >= itemData.requiredAmount then
 									anyqItemProgText = clrGood..math.min(itemData.playerTotalAmount, itemData.requiredAmount).."/"..itemData.requiredAmount
@@ -566,7 +557,6 @@ local function LoadItemList(wMain)
 									CreateItemTooltip(wMain, anyqItemProg, item, nil)
 								end
 
-								--icon:EnableMouse(true)
 								icon:SetScript("OnEnter", function(self)
 									local link = CasualTBCPrep.Items.TryGetItemLink(itemData.id)
 									if link then
@@ -590,6 +580,9 @@ local function LoadItemList(wMain)
 							anyqImgOffsetX = anyqImgOffsetX + anyqImgSize + anyqImgSpacing
 						end
 					end
+
+					anyqImgOffsetX = anyqImgSpacing
+					yPosition = yPosition-45
 				end
 			end
 		end
@@ -631,11 +624,7 @@ function CasualTBCPrep.WM_ItemPrep.Load(wMain)
 			ttFrame:Hide()
 		end
 	end
-	frameItemPrep.itemTexts = {}
-	frameItemPrep.content = {}
-	frameItemPrep.tooltips = {}
-
-
+	frameItemPrep.itemTexts,frameItemPrep.content,frameItemPrep.tooltips = {},{},{}
 	if frameItemPrep.chbRelevant == nil then
 		local checkBoxX = -5
 		local checkBoxY = -30

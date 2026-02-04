@@ -2,9 +2,11 @@ local faction = UnitFactionGroup("player")
 if faction == "Alliance" then return end
 
 
+if GetLocale() == "zhCN" then return end
 RXPGuides.RegisterGuide([[
 #hardcore
 #classic
+#tbc
 #era/som--h
 << Horde
 #name 1-6 Tauren
@@ -426,6 +428,7 @@ step
 RXPGuides.RegisterGuide([[
 #hardcore
 #classic
+#tbc
 #era/som--h
 << Horde
 #name 6-13 Tauren
@@ -1164,7 +1167,7 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-    .xp 9+4400 >> Grind to 3020+/6500xp
+    .xp 9+3020 >> Grind to 3020+/6500xp
     .isQuestComplete 761
     .isQuestComplete 766
 step
@@ -1187,7 +1190,7 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-    .xp 9+4400 >> Grind to 3720+/6500xp
+    .xp 9+3720 >> Grind to 3720+/6500xp
     .isQuestComplete 761
 step
     #optional
@@ -1209,7 +1212,7 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-    .xp 9+4400 >> Grind to 3700+/6500xp
+    .xp 9+3700 >> Grind to 3700+/6500xp
     .isQuestComplete 766
 step
     #optional
@@ -1443,7 +1446,7 @@ step
     #label Fizsprocket
     .goto Mulgore,64.95,43.33
     >>Kill |cRXP_ENEMY_Supervisor Fizsprocket|r. Loot him for his |cRXP_LOOT_Clipboard|r
-    >>|cRXP_WARN_Run into the mine and hug the right/east side to each him|r
+    >>|cRXP_WARN_Run into the mine and hug the right/east side to reach him|r
     .complete 765,1 --Fizsprocket's Clipboard (1)
     .mob Supervisor Fizsprocket
     .group 2
@@ -3000,6 +3003,7 @@ step
     .turnin 813 >>Turn in Finding the Antidote
     .target Kor'ghan
     .isQuestComplete 813
+    .isQuestAvailable 812
 step << Hunter
     .goto Orgrimmar,81.17,18.69
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Zendo'jian|r|cRXP_BUY_. Buy a|r |T135499:0|t[Laminated Recurve Bow] |cRXP_BUY_from him|r

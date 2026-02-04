@@ -76,6 +76,7 @@ addon.defaultSettings = {
         { spellId = 8122, category = "Feared", weight = 2, active = true, type = 4 },         --[[ Psychic Scream --]]
         { spellId = 5246, category = "Feared", weight = 2, active = true, type = 4 },         --[[ Intimidating Shout --]]
         { spellId = 5484, category = "Feared", weight = 2, active = true, type = 4 },         --[[ Howl of Terror --]]
+		{ spellId = 6358, category = "Feared", weight = 2, active = true, type = 4 },         --[[ Seduction --]]
         { spellId = 27223, category = "Feared", weight = 2, active = true, type = 4 },        --[[ Death Coil --]]
         { spellId = 33786, category = "Cycloned", weight = 2, active = true, type = 4 },      --[[ Cyclone --]]
         { spellId = 11297, category = "Sapped", weight = 2, active = true, type = 4 },        --[[ Sap --]]

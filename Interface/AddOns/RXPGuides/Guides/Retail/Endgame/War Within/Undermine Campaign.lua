@@ -7,12 +7,9 @@ RXPGuides.RegisterGuide([[
 #name ah) Chapter 1 - Trust Issues
 #displayname |cFF00CCFF1|r - Trust Issues
 #next ai) Chapter 2 - Undermine Awaits
-
-
 -----------------------------------------------------
 --- START CHAPTER 1
 -----------------------------------------------------
-
 step
     .zone 2339 >>Enter Dornogal
 step
@@ -597,12 +594,10 @@ step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Monte Gazlowe|r.
     .turnin 83151 >>Turn in Down Undermine
     .target Monte Gazlowe
-
 -----------------------------------------------------
 --- END CHAPTER 1
 -----------------------------------------------------
 ]])
-
 RXPGuides.RegisterGuide([[
 #retail
 #version 3
@@ -611,8 +606,6 @@ RXPGuides.RegisterGuide([[
 #name ai) Chapter 2 - Undermine Awaits
 #displayname |cFF00CCFF2|r - Undermine Awaits
 #next aj) Chapter 3 - Uncovering the Truth
-
-
 -----------------------------------------------------
 --- START CHAPTER 2
 -----------------------------------------------------
@@ -871,7 +864,6 @@ step
     .turnin 83168 >>Turn in A Trail of Black Blood
     .accept 83169 >>Accept Long Way from Booty Bay
     .target Monte Gazlowe
-
 -----------------------
 --- INSERT G-99 Questline
 -----------------------
@@ -1047,12 +1039,10 @@ step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Monte Gazlowe|r
     .turnin 83176 >>Turn in Just a Hunch
     .target Monte Gazlowe
-
 -----------------------------------------------------
 --- END CHAPTER 2
 -----------------------------------------------------
 ]])
-
 RXPGuides.RegisterGuide([[
 #retail
 #version 3
@@ -1061,12 +1051,9 @@ RXPGuides.RegisterGuide([[
 #name aj) Chapter 3 - Uncovering the Truth
 #displayname |cFF00CCFF3|r - Uncovering the Truth
 #next ak) Chapter 4 - Breaking the Shackles
-
-
 -----------------------------------------------------
 --- START CHAPTER 3
 -----------------------------------------------------
-
 step
     .goto 2346,42.33,51.41
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Monte Gazlowe|r
@@ -1524,7 +1511,6 @@ step
 --- END CHAPTER 3
 -----------------------------------------------------
 ]])
-
 RXPGuides.RegisterGuide([[
 #retail
 #version 3
@@ -1533,8 +1519,6 @@ RXPGuides.RegisterGuide([[
 #name ak) Chapter 4 - Breaking the Shackles
 #displayname |cFF00CCFF4|r - Breaking the Shackles
 #next al) Chapter 5 - Ignite the Fuel of Change
-
-
 --------------------------------------------------
 --- START CHAPTER 4
 -----------------------------------------------------
@@ -1753,7 +1737,6 @@ step
 --- END CHAPTER 4
 -----------------------------------------------------
 ]])
-
 RXPGuides.RegisterGuide([[
 #retail
 #version 3
@@ -1762,8 +1745,6 @@ RXPGuides.RegisterGuide([[
 #name al) Chapter 5 - Ignite the Fuel of Change
 #displayname |cFF00CCFF5|r - Ignite the Fuel of Change
 #next am) Chapter 6 - Homecoming
-
-
 -----------------------------------------------------
 --- START CHAPTER 5
 -----------------------------------------------------
@@ -2304,12 +2285,10 @@ step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Monte Gazlowe|r
     .turnin 85780 >>Turn in Right Where We Want Him
     .target Monte Gazlowe
-
 -----------------------------------------------------
 --- END CHAPTER 5
 -----------------------------------------------------
 ]])
-
 RXPGuides.RegisterGuide([[
 #retail
 #version 3
@@ -2317,8 +2296,6 @@ RXPGuides.RegisterGuide([[
 #subgroup |cFFFCDC00(80)|r 11.1 Campaign 
 #name am) Chapter 6 - Homecoming
 #displayname |cFF00CCFF6|r - Homecoming
-
-
 step
     .goto 2346,43.61,51.09
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Monte Gazlowe|r.
@@ -2465,7 +2442,6 @@ step
     .turnin 87297 >>Turn in Cashing the Check
     .target Monte Gazlowe
 ]])
-
 RXPGuides.RegisterGuide([[
 #retail
 #version 3
@@ -2473,7 +2449,6 @@ RXPGuides.RegisterGuide([[
 #name Unlock G-99 Breakneck
 #displayname G-99 Breakneck Unlock
 #internal
-
 step
     #label UnlockG99BreakneckA
     .goto 2346,42.68,51.18
@@ -2665,7 +2640,6 @@ step
     .goto 2346,67.68,87.01,35,0
     >>Kill the |cRXP_ENEMY_enemies|r in The Heap
     .complete 86311,2 --Heaps enemies defeated (100%)
-
 step
     .isOnQuest 86319
     #title |cFFFCDC00Follow the arrow|r

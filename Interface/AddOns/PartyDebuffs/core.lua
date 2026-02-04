@@ -6,44 +6,53 @@ local iconSize = 13
 local xPos, yPos = 45, 6
 local mod, UnitDebuff, DebuffTypeColor = _G.mod, _G.UnitDebuff, _G.DebuffTypeColor
 
+local count = 0
+
 local blacklist = {
-    [GetSpellInfo(6788)] = true, -- Weakened Soul
-    [GetSpellInfo(99)] = true, -- Demoralizing Roar
-    [GetSpellInfo(1160)] = true, -- Demoralizing Shout
-    [GetSpellInfo(16511)] = true, -- Hemorrhage
-    [GetSpellInfo(33878)] = true, -- Mangle (Bear)
-    [GetSpellInfo(33876)] = true, -- Mangle (Cat)
-    [GetSpellInfo(26013)] = true, -- Deserter
-    [GetSpellInfo(8647)] = true, -- Expose Armor
-    [GetSpellInfo(6343)] = true, -- Thunder Clap
-    [GetSpellInfo(29836)] = true, -- Blood Frenzy
-    [GetSpellInfo(33191)] = true, -- Misery
+    [GetSpellInfo(6788)] = true,
+    [GetSpellInfo(99)] = true,
+    [GetSpellInfo(1160)] = true,
+    [GetSpellInfo(16511)] = true,
+    [GetSpellInfo(33878)] = true,
+    [GetSpellInfo(33876)] = true,
+    [GetSpellInfo(26013)] = true,
+    [GetSpellInfo(8647)] = true,
+    [GetSpellInfo(6343)] = true,
+    [GetSpellInfo(29836)] = true,
+    [GetSpellInfo(33191)] = true,
 }
 
 local function UpdateDebuffs(frame, unit)
+    if not frame.eId then
+        count = count + 1
+        frame.eId = count
+    end
+    
+    local framePrefix = "EvolveParty" .. frame.eId .. "_"
     local numAuraRows = 0
     local previousDebuff, aboveDebuff = nil, nil
     local lastIndex = 1
     local frameName, buffName, buffNameIcon
     local buffNameBorder, buffNameCooldown
 
-    -- unregister og event
     if frame:IsEventRegistered("UNIT_AURA") then
         frame:UnregisterEvent("UNIT_AURA")
     end
 
-    -- hide og buffs
-    if frame.AuraFrameContainer then
+    if frame.AuraFrameContainer and frame.AuraFrameContainer:IsShown() then
+        if not frame.AuraFrameContainer.isHooked then
+            hooksecurefunc(frame.AuraFrameContainer, "Show", function(self) self:Hide() end)
+            frame.AuraFrameContainer.isHooked = true
+        end
         frame.AuraFrameContainer:Hide()
         frame.AuraFrameContainer:SetAlpha(0)
     end
 
-    -- create our own buffs
     for i = 1, maxDebuffs do
         local name, tex, _, debuffType, duration, expirationTime = UnitDebuff(unit, i, "HARMFUL")
 
         if name and not blacklist[name] then
-            frameName = "EvolveDeBuff" .. lastIndex
+            frameName = framePrefix .. lastIndex
             buffName = _G[frameName]
 
             if not buffName then
@@ -57,12 +66,10 @@ local function UpdateDebuffs(frame, unit)
             if tex and (not maxDebuffs or lastIndex <= maxDebuffs) then
                 buffName:SetID(i)
 
-                -- Icon
                 buffNameIcon = _G[frameName .. "Icon"]
                 buffNameIcon:SetSize(iconSize, iconSize)
                 buffNameIcon:SetTexture(tex)
 
-                -- Positioning
                 buffName:ClearAllPoints()
                 if ((lastIndex > 1) and (mod(lastIndex, BuffsPerRow) == 1)) then
                     numAuraRows = numAuraRows + 1
@@ -76,12 +83,10 @@ local function UpdateDebuffs(frame, unit)
                     buffName:SetPoint("LEFT", previousDebuff, "RIGHT", HorizontalSpacing, 0)
                 end
 
-                -- Border
                 buffNameBorder = _G[frameName .. "Border"]
                 local color = debuffType and DebuffTypeColor[debuffType] or DebuffTypeColor["none"]
                 buffNameBorder:SetVertexColor(color.r, color.g, color.b)
 
-                -- Cooldown
                 buffNameCooldown = _G[frameName .. "Cooldown"]
                 if duration and expirationTime then
                     CooldownFrame_Set(buffNameCooldown, expirationTime - duration, duration, duration > 0, true)
@@ -91,7 +96,6 @@ local function UpdateDebuffs(frame, unit)
                     CooldownFrame_Clear(buffNameCooldown)
                 end
 
-                -- show buff, set last visible index, remember prev buff for anchoring
                 buffName:Show()
                 lastIndex = lastIndex + 1
                 previousDebuff = buffName
@@ -102,7 +106,7 @@ local function UpdateDebuffs(frame, unit)
     end
 
     for i = lastIndex, maxDebuffs do
-        local dbf = _G["EvolveDeBuff" .. i]
+        local dbf = _G[framePrefix .. i]
         if dbf then
             dbf:Hide()
         end
@@ -112,6 +116,7 @@ end
 local gg = CreateFrame("Frame")
 gg:RegisterEvent("UNIT_AURA")
 gg:RegisterEvent("PLAYER_LOGIN")
+gg:RegisterEvent("GROUP_ROSTER_UPDATE")
 gg:SetScript("OnEvent", function(self, event, arg1)
     if (event == "UNIT_AURA") then
         if PartyFrame and PartyFrame.PartyMemberFramePool then
@@ -132,6 +137,10 @@ gg:SetScript("OnEvent", function(self, event, arg1)
                     end
 
                     if pFrame.AuraFrameContainer then
+                        if not pFrame.AuraFrameContainer.isHooked then
+                            hooksecurefunc(pFrame.AuraFrameContainer, "Show", function(self) self:Hide() end)
+                            pFrame.AuraFrameContainer.isHooked = true
+                        end
                         pFrame.AuraFrameContainer:Hide()
                         pFrame.AuraFrameContainer:SetAlpha(0)
                     end

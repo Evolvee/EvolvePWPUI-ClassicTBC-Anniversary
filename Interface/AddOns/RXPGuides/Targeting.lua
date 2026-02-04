@@ -49,6 +49,8 @@ local rareTargets = {}
 
 local pendingLeaderUpdate
 
+UnitName = addon.GetUnitName
+
 function addon.targeting:Setup()
     if not addon.settings.profile.enableTargetMacro then DeleteMacro(self.macroName) end
 
@@ -82,11 +84,13 @@ function addon.targeting:Setup()
     -- Only works when nameplates are enabled
     self:RegisterEvent("NAME_PLATE_UNIT_ADDED")
 
-    -- Increase nameplate scanning distance to max allowed
-    if addon.gameVersion > 40000 then
-        SetCVar("nameplateMaxDistance", "100")
-    else
-        SetCVar("nameplateMaxDistance", "41")
+    -- If enabled, increase nameplate scanning distance to max allowed
+    if addon.settings.profile.enableMaxNameplateDistance then
+        if addon.gameVersion > 40000 then
+            SetCVar("nameplateMaxDistance", "100")
+        else
+            SetCVar("nameplateMaxDistance", "41")
+        end
     end
 
     if addon.settings.profile.showTargetingOnProximity then
@@ -267,7 +271,9 @@ end
 function addon.targeting:CheckNameplate(nameplateID)
     if not nameplateID then return end
 
-    local unitName = UnitName(nameplateID)
+    local unitName
+
+    unitName = UnitName(nameplateID)
 
     if not unitName then return end
 
@@ -480,7 +486,7 @@ function addon.targeting:GOSSIP_SHOW()
             self:UpdateTargetFrame("target")
             self:UpdateMacro()
 
-            if GetRaidTargetIndex("target") ~= nil then SetRaidTarget("target", 0) end
+            if addon.gameVersion < 120000 and GetRaidTargetIndex("target") ~= nil then SetRaidTarget("target", 0) end
             return
         end
     end
@@ -841,7 +847,7 @@ function addon.targeting:CreateTargetFrame()
     f.title.text:SetJustifyV("MIDDLE")
     f.title.text:SetTextColor(unpack(addon.activeTheme.textColor))
     f.title.text:SetFont(addon.font, 9, "")
-    f.title.text:SetText(L "Active Targets")
+    f.title.text:SetText(L"Active Targets")
 
     f.title:SetSize(f.title.text:GetStringWidth() + 14, 19)
 
@@ -928,7 +934,9 @@ function addon.targeting:UpdateMarker(kind, unitId, index)
     if IsInGroup() and not UnitIsGroupLeader('player') then
         if not addon.settings.profile.enableNonLeadMarking then return end
     end
-
+    if addon.gameVersion >= 120000 then
+        return
+    end
     local markerId = self:GetMarkerIndex(kind, index)
 
     if GetRaidTargetIndex(unitId) == nil and GetRaidTargetIndex(unitId) ~= markerId then
@@ -980,6 +988,7 @@ local function GetUnitTexture(self, name, unit)
     if f and f.anchor then f.anchor:Show() end
 
     -- unit = unit or 'target'
+
     if unit and name and UnitName(unit) == name then
         f = GetIcon(name)
 

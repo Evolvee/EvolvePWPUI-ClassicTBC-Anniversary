@@ -171,7 +171,6 @@ function CasualTBCPrep.Extras_Items.Load(frame)
                 itemNameText = CasualTBCPrep.Themes.SelectedTheme.colors.questAvailable.hex..itemNameText.."|r"
             end
 
-            -- Finally create ui elements
             local icon, border, textRarityColor, itemData = CasualTBCPrep.UI.CreateItemImage(parent, iconSize, item.id, "TOPLEFT", "TOPLEFT", xPos, yPos)
             local txtItemName = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
             txtItemName:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, -3)

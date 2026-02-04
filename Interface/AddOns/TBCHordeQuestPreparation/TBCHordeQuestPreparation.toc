@@ -18,18 +18,18 @@ CasualTBCPrep\Data\Themes.lua
 CasualTBCPrep\Data\Classes.lua
 CasualTBCPrep\Data\Faction.lua
 CasualTBCPrep\Data\Professions.lua
-CasualTBCPrep\Data\Skills.lua
 CasualTBCPrep\Data\Locale\Professions.lua
-CasualTBCPrep\Data\Locale\Skills.lua
 CasualTBCPrep\Data\Experience.lua
 CasualTBCPrep\Data\Items.lua
 CasualTBCPrep\Data\Sounds.lua
 CasualTBCPrep\Data\Settings.lua
 CasualTBCPrep\CasualTBCPrepShared.lua
 CasualTBCPrep\Data\QuestData.lua
-CasualTBCPrep\Data\Navigation.lua
 CasualTBCPrep\Data\Routing.lua
 CasualTBCPrep\Data\Flights.lua
+CasualTBCPrep\Integration\ElvUI.lua
+CasualTBCPrep\Integration\RXP.lua
+CasualTBCPrep\Integration\Questie.lua
 CasualTBCPrep\UI\WM_QuestLogPrep.lua
 CasualTBCPrep\UI\WM_QuestPrep.lua
 CasualTBCPrep\UI\WM_ItemPrep.lua
@@ -43,12 +43,11 @@ CasualTBCPrep\UI\WM_Extras.lua
 CasualTBCPrep\UI\WM_Settings.lua
 CasualTBCPrep\UI\WM_About.lua
 CasualTBCPrep\UI\W_Main.lua
-## CasualTBCPrep\UI\Skin_ElvUI.lua
 CasualTBCPrep\UI\W_WarningNotice.lua
+CasualTBCPrep\UI\W_ReleaseNotice.lua
 CasualTBCPrep\UI\W_ItemManagement.lua
 CasualTBCPrep\UI\W_QuestManagement.lua
 CasualTBCPrep\UI\W_Companion.lua
-CasualTBCPrep\UI\W_FeatureManual.lua
 CasualTBCPrep\CasualTBCPrep.lua
 
 # Guide
@@ -60,7 +59,7 @@ TBC/Dungeon-Quest-Preparation-Main.lua
 TBC/Dungeon-Quest-Preparation-Solo.lua
 TBC/Dungeon-Quest-Preparation-Strat.lua
 TBC/Item-Preparation.lua
-## TBC/TBC-Launch-Turnin-Main.lua
-## TBC/TBC-Launch-Turnin-Solo.lua
+TBC/TBC-Launch-Turnin-Main.lua
+TBC/TBC-Launch-Turnin-Solo.lua
 TBC/TBC-Launch-Turnin-Strat.lua
 TBC/TBC-Dungeon-Grind.lua

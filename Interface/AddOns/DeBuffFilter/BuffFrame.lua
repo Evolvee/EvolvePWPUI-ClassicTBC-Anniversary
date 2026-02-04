@@ -11,6 +11,92 @@ local function durationPos(duration)
     duration:SetPoint("BOTTOM", duration:GetParent(), "BOTTOM", xPos, yPos)
 end
 
+local function GetPrimarySize(frame, isColumnBased)
+    return isColumnBased and frame:GetHeight() or frame:GetWidth()
+end
+
+local function GetSecondarySize(frame, isColumnBased)
+    return isColumnBased and frame:GetWidth() or frame:GetHeight()
+end
+
+local function GetAnchorData(anchor)
+    if anchor.Get then 
+        return anchor:Get()
+    end
+    if anchor.point then
+        return anchor.point, anchor.relativeTo, anchor.relativePoint, anchor.x, anchor.y
+    end
+    if anchor.GetPoint then
+        return anchor:GetPoint()
+    end
+    return "CENTER", UIParent, "CENTER", 0, 0
+end
+
+local function SafeApplyGridLayout(regions, initialAnchor, layout)
+    if #regions == 0 then return end
+
+    local isColumnBased = layout.isColumnBased
+    local stride = layout.stride or 1
+
+    local primaryPadding = layout.primarySizePadding or 0
+    local secondaryPadding = layout.secondarySizePadding or 0
+    
+    local primaryMultiplier = layout.primaryMultiplier or 1
+    local secondaryMultiplier = layout.secondaryMultiplier or -1
+
+    local sections = {}
+    local currentSection = {}
+    for i, region in ipairs(regions) do
+        table.insert(currentSection, region)
+        if #currentSection >= stride then
+            table.insert(sections, currentSection)
+            currentSection = {}
+        end
+    end
+    if #currentSection > 0 then
+        table.insert(sections, currentSection)
+    end
+
+    local pointA, relativeTo, pointB, startX, startY = GetAnchorData(initialAnchor)
+    startX = startX or 0
+    startY = startY or 0
+    
+    local secondaryOffset = 0
+
+    for _, section in ipairs(sections) do
+        local primaryOffset = 0
+        local maxSecondarySize = 0
+
+        for i, region in ipairs(section) do
+            if i > 1 then
+                primaryOffset = primaryOffset + (primaryPadding * primaryMultiplier)
+            end
+
+            local finalX, finalY
+            if isColumnBased then
+                finalX = startX + (secondaryOffset * secondaryMultiplier)
+                finalY = startY + primaryOffset 
+            else
+                finalX = startX + primaryOffset
+                finalY = startY + (secondaryOffset * secondaryMultiplier)
+            end
+
+            region:ClearAllPoints()
+            region:SetPoint(pointA, relativeTo, pointB, finalX, finalY)
+
+            local pSize = GetPrimarySize(region)
+            primaryOffset = primaryOffset + (pSize * primaryMultiplier)
+            
+            local sSize = GetSecondarySize(region)
+            if sSize > maxSecondarySize then
+                maxSecondarySize = sSize
+            end
+        end
+
+        secondaryOffset = secondaryOffset + maxSecondarySize + secondaryPadding
+    end
+end
+
 local function DBFrame(self)
     local framesToLayout = {}
     local seenSpells = {}
@@ -169,14 +255,14 @@ local function DBFrame(self)
             end
         end
     end
-
+    
     if self.AuraContainer.currentGridLayoutInfo then
-        GridLayoutUtil.ApplyGridLayout(
-                framesToLayout,
-                self.AuraContainer.currentGridLayoutInfo.anchor,
-                self.AuraContainer.currentGridLayoutInfo.layout
-        )
+        SafeApplyGridLayout(framesToLayout,
+        self.AuraContainer.currentGridLayoutInfo.anchor,
+        self.AuraContainer.currentGridLayoutInfo.layout
+       )
     end
+
 end
 
 hooksecurefunc(BuffFrame, "UpdateAuraButtons", DBFrame)

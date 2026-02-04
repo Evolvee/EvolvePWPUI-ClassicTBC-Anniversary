@@ -7,7 +7,6 @@ RXPGuides.RegisterGuide([[
 #name an) Chapter 1 - A Shadowy Invitation
 #displayname |cFF00CCFF1|r - A Shadowy Invitation
 #next ao) Chapter 2 - Void Alliance
-
 step
     #completewith next
     #label Shadowy Invitation
@@ -381,7 +380,6 @@ step
     .turnin 84967 >>Turn in The Shadowguard Shattered
     .target Locus-Walker
 ]])
-
 RXPGuides.RegisterGuide([[
 #retail
 #version 1
@@ -390,7 +388,6 @@ RXPGuides.RegisterGuide([[
 #name ao) Chapter 2 - Void Alliance
 #displayname |cFF00CCFF2|r - Void Alliance
 #next ap) Chapter 3 - Desert Power
-
 step
     .goto 2472,37.68,74.79
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Locus-Walker|r.
@@ -610,7 +607,6 @@ step
     .goto 2371,47.18,58.59
     >>|TInterface/cursor/crosshair/interact.blp:20|tClick on the |cRXP_PICK_Rod of Analysis|r
     .complete 84858,5 --1/1 Rod of Analysis acquired
-
 --skyriding glyph eco dome primus
 step
     .goto 2371,46.26,57.29
@@ -874,7 +870,6 @@ step
     .turnin 90517 >>Turn in My Part of the Deal
     .target Ve'nari
 ]])
-
 RXPGuides.RegisterGuide([[
 #retail
 #version 1
@@ -883,7 +878,6 @@ RXPGuides.RegisterGuide([[
 #name ap) Chapter 3 - Desert Power
 #displayname |cFF00CCFF3|r - Desert Power
 #next aq) Chapter 4 - Shadows En Garde
-
 step
     .goto 2371,47.08,54.52
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Locus-Walker|r
@@ -1273,7 +1267,6 @@ step
 step
     #include RestedXP War Within Loremaster\a) Phase Diving Unlock Free
 ]])
-
 RXPGuides.RegisterGuide([[
 #retail
 #version 1
@@ -1282,8 +1275,6 @@ RXPGuides.RegisterGuide([[
 #name aq) Chapter 4 - Shadows En Garde
 #displayname |cFF00CCFF4|r - Shadows En Garde
 #next ar) Chapter 5 - The Light of K'aresh
-
-
 step
     #label KareshCampaignSkipB
     #completewith next
@@ -1594,7 +1585,6 @@ step
     .turnin 85037 >>Turn in That's a Wrap
     .target Alleria Windrunner
 ]])
-
 RXPGuides.RegisterGuide([[
 #retail
 #version 1
@@ -1603,7 +1593,6 @@ RXPGuides.RegisterGuide([[
 #name ar) Chapter 5 - The Light of K'aresh
 #displayname |cFF00CCFF5|r - The Light of K'aresh
 #next as) Chapter 1 - Radiant Visions
-
 step
     .goto 2371,42.89,21.51
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Alleria Windrunner|r

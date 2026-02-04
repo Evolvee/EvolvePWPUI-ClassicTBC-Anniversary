@@ -4,7 +4,6 @@ CasualTBCPrep.Sounds.SoundClickID = 808
 CasualTBCPrep.Sounds.SoundRaidWarningID = 8959
 CasualTBCPrep.Sounds.WhisperPing = 3081
 
---[Sounds]
 ---@param soundID number
 function CasualTBCPrep.Sounds.PlaySoundSFX(soundID)
 	local dbValue = CasualTBCPrep.Settings.GetSettingFromCharOrGlobal(CasualTBCPrep.Settings.EnabledSounds)

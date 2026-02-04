@@ -13,6 +13,7 @@ addon.Units = {
     "player",
     "pet",
     "target",
+    "targettarget",
     "focus",
     "party1",
     "party2",
@@ -62,8 +63,6 @@ addon.Spells = {
     [20549] = { type = CROWD_CONTROL }, -- War Stomp
     [20594] = { type = BUFF_OFFENSIVE }, -- Stoneform
     [20572] = { type = BUFF_OFFENSIVE }, -- Blood Fury
-	[25046]= { type = CROWD_CONTROL },  -- Arcane Torrent 1 (custom)
-	[28730]= { type = CROWD_CONTROL },  -- Arcane Torrent 2 (custom)
 
     -- Other
 
@@ -112,15 +111,6 @@ addon.Spells = {
         [46755] = { parent = 22734 }, -- Drink
         [27089] = { parent = 22734 }, -- Drink
     [23605] = { type = BUFF_OTHER }, -- Nightfall, Spell Vulnerability
-	[768] = { type = BUFF_OTHER }, -- Cat Form
-	[5487] = { type = BUFF_OTHER }, -- Bear Form
-    [9634] = { type = BUFF_OTHER }, -- Dire Bear Form
-    [24858] = { type = BUFF_OTHER }, -- Moonkin Form
-	[33891] = { type = BUFF_OTHER }, -- Tree Form
-	[783] = { type = BUFF_OTHER }, -- Travel Form
-	[1066] = { type = BUFF_OTHER }, -- Aquatic Form
-	[33943] = { type = BUFF_OTHER }, -- Flight Form
-	[40120] = { type = BUFF_OTHER }, -- Swift Flight Form
     [13494] = { type = BUFF_OFFENSIVE }, -- Manual Crowd Pummeler Haste buff
 
     -- Interrupts
@@ -361,11 +351,6 @@ addon.Spells = {
         [778] = { parent = 770 },
         [9749] = { parent = 770 },
         [9907] = { parent = 770 },
-	[16857] = { type = BUFF_OTHER }, -- FERAL Fearie Fire (priest dispel prio for PartyFrames)
-		[17390] = {parent = 16857},
-		[17391] = {parent = 16857},
-		[17392] = {parent = 16857},
-		[27011] = {parent = 16857},
     [33786] = { type = CROWD_CONTROL }, -- Cyclone
     [19675] = { type = ROOT }, -- Feral Charge Effect
         [45334] = { parent = 19675 },

@@ -8302,6 +8302,28 @@ WeakAuras.ModelPaths = {
    {
     children = {
      {
+      fileId = "7111718",
+      text = "lunarhorsemount.m2",
+      value = "lunarhorsemount.m2",
+     },
+    },
+    text = "lunarhorsemount",
+    value = "lunarhorsemount",
+   },
+   {
+    children = {
+     {
+      fileId = "7111715",
+      text = "lunarhorsepet.m2",
+      value = "lunarhorsepet.m2",
+     },
+    },
+    text = "lunarhorsepet",
+    value = "lunarhorsepet",
+   },
+   {
+    children = {
+     {
       fileId = "4680342",
       text = "lunarrabbitpet.m2",
       value = "lunarrabbitpet.m2",
@@ -98416,13 +98438,13 @@ WeakAuras.ModelPaths = {
      {
       children = {
        {
-        fileId = "7111715",
-        text = "7111715.m2",
-        value = "7111715.m2",
+        fileId = "7106882",
+        text = "7106882.m2",
+        value = "7106882.m2",
        },
       },
-      text = "unk_exp11_7111715",
-      value = "unk_exp11_7111715",
+      text = "unk_exp11_7106882",
+      value = "unk_exp11_7106882",
      },
      {
       children = {
@@ -98467,6 +98489,39 @@ WeakAuras.ModelPaths = {
       },
       text = "unk_exp11_7298514",
       value = "unk_exp11_7298514",
+     },
+     {
+      children = {
+       {
+        fileId = "7303271",
+        text = "7303271.m2",
+        value = "7303271.m2",
+       },
+      },
+      text = "unk_exp11_7303271",
+      value = "unk_exp11_7303271",
+     },
+     {
+      children = {
+       {
+        fileId = "7303272",
+        text = "7303272.m2",
+        value = "7303272.m2",
+       },
+      },
+      text = "unk_exp11_7303272",
+      value = "unk_exp11_7303272",
+     },
+     {
+      children = {
+       {
+        fileId = "7320488",
+        text = "7320488.m2",
+        value = "7320488.m2",
+       },
+      },
+      text = "unk_exp11_7320488",
+      value = "unk_exp11_7320488",
      },
     },
     text = "creature",
@@ -99150,6 +99205,16 @@ WeakAuras.ModelPaths = {
  },
  {
   children = {
+   {
+    fileId = "4507696",
+    text = "10fx_bronzedungeon_morchie_sandblast_cast.m2",
+    value = "10fx_bronzedungeon_morchie_sandblast_cast.m2",
+   },
+   {
+    fileId = "4390034",
+    text = "10fx_voti_theprimalcouncil_slashingblaze_precast.m2",
+    value = "10fx_voti_theprimalcouncil_slashingblaze_precast.m2",
+   },
    {
     fileId = "165529",
     text = "abolishmagic_base.m2",
@@ -100699,6 +100764,16 @@ WeakAuras.ModelPaths = {
     fileId = "343984",
     text = "catmark_yellow.m2",
     value = "catmark_yellow.m2",
+   },
+   {
+    fileId = "4507691",
+    text = "cfx_evoker_dreamprojection_precast.m2",
+    value = "cfx_evoker_dreamprojection_precast.m2",
+   },
+   {
+    fileId = "1623387",
+    text = "cfx_mage_fireprecast_precasthandleft.m2",
+    value = "cfx_mage_fireprecast_precasthandleft.m2",
    },
    {
     fileId = "1375559",
@@ -104447,6 +104522,31 @@ WeakAuras.ModelPaths = {
     value = "frostzone.m2",
    },
    {
+    fileId = "5323461",
+    text = "fx_algarianstormrider_precast.m2",
+    value = "fx_algarianstormrider_precast.m2",
+   },
+   {
+    fileId = "5370000",
+    text = "fx_dreamtether_aura.m2",
+    value = "fx_dreamtether_aura.m2",
+   },
+   {
+    fileId = "4215764",
+    text = "fx_fireshield_precast.m2",
+    value = "fx_fireshield_precast.m2",
+   },
+   {
+    fileId = "5928236",
+    text = "fx_payline_aura.m2",
+    value = "fx_payline_aura.m2",
+   },
+   {
+    fileId = "5372693",
+    text = "fx_pollenburn_impact.m2",
+    value = "fx_pollenburn_impact.m2",
+   },
+   {
     fileId = "575418",
     text = "g_fireworks_alliance.m2",
     value = "g_fireworks_alliance.m2",
@@ -105245,6 +105345,57 @@ WeakAuras.ModelPaths = {
     fileId = "166308",
     text = "heroism_state.m2",
     value = "heroism_state.m2",
+   },
+   {
+    children = {
+     {
+      fileId = "1270443",
+      text = "ifx_element_fire.m2",
+      value = "ifx_element_fire.m2",
+     },
+     {
+      fileId = "1270444",
+      text = "ifx_element_fire_crit.m2",
+      value = "ifx_element_fire_crit.m2",
+     },
+     {
+      fileId = "1270445",
+      text = "ifx_element_fire_hit.m2",
+      value = "ifx_element_fire_hit.m2",
+     },
+     {
+      fileId = "1270462",
+      text = "ifx_element_stone.m2",
+      value = "ifx_element_stone.m2",
+     },
+     {
+      fileId = "1270463",
+      text = "ifx_element_stone_crit.m2",
+      value = "ifx_element_stone_crit.m2",
+     },
+     {
+      fileId = "1302911",
+      text = "ifx_element_stone_crit_omni.m2",
+      value = "ifx_element_stone_crit_omni.m2",
+     },
+     {
+      fileId = "1270464",
+      text = "ifx_element_stone_hit.m2",
+      value = "ifx_element_stone_hit.m2",
+     },
+     {
+      fileId = "1302912",
+      text = "ifx_element_stone_hit_omni.m2",
+      value = "ifx_element_stone_hit_omni.m2",
+     },
+     {
+      fileId = "1302913",
+      text = "ifx_element_stone_omni.m2",
+      value = "ifx_element_stone_omni.m2",
+     },
+    },
+    text = "hitimpacts",
+    value = "hitimpacts",
    },
    {
     fileId = "166309",
@@ -186401,9 +186552,42 @@ WeakAuras.ModelPaths = {
      {
       children = {
        {
+        children = {
+         {
+          fileId = "3088467",
+          text = "8fx_wrathion_fireimpact_vertical.m2",
+          value = "8fx_wrathion_fireimpact_vertical.m2",
+         },
+         {
+          fileId = "3087411",
+          text = "8fx_wrathion_molteneruption_groundstate.m2",
+          value = "8fx_wrathion_molteneruption_groundstate.m2",
+         },
+        },
+        text = "fx",
+        value = "fx",
+       },
+      },
+      text = "doodads",
+      value = "doodads",
+     },
+    },
+    text = "expansion07",
+    value = "expansion07",
+   },
+   {
+    children = {
+     {
+      children = {
+       {
         fileId = "6246204",
         text = "11xp_generic_shateaset01.m2",
         value = "11xp_generic_shateaset01.m2",
+       },
+       {
+        fileId = "5512707",
+        text = "11xp_sparkles01.m2",
+        value = "11xp_sparkles01.m2",
        },
       },
       text = "doodads",

@@ -4,6 +4,9 @@ CasualTBCPrep.BlockSlashCommandsUntillReloaded = false
 CasualTBCPrep.AddonLogoTexture = "255348"
 CasualTBCPrep.MaxLevel = 70
 
+local tickerQuestAutomationCheck = nil
+local prevMapID = 0
+local prevZoneName, prevSubZoneName = "",""
 --[Slash Commands]
 SLASH_CASUAL_TBC_PREP1 = "/tbc"
 SLASH_CASUAL_TBC_PREP2 = "/tbcprep"
@@ -24,20 +27,14 @@ SlashCmdList["CASUAL_TBC_PREP"] = function(msg)
 		CasualTBCPrep.W_Main.Show();
 	elseif args[1] == "ghetto" then
 		CasualTBCPrep.GhettoHearth()
+	elseif args[1] == "release" then
+		CasualTBCPrep.W_ReleaseNotice.Show()
+	elseif args[1] == "resetmarkeditems" then
+		CasualTBCPrep.Settings.RemoveAllItemsMarkedAsStoredOnBankAlt()
+		CasualTBCPrep.W_Main.ReloadActiveTab()
+		CasualTBCPrep.NotifyUser("All items marked as stored have been reset.")
 	elseif args[1] == "debug" then
-		if args[2] == "warn1" then
-			CasualTBCPrep.W_WarningNotice.Show("A Collection of Heads", nil, "qlog")
-		elseif args[2] == "warn2" then
-			CasualTBCPrep.W_WarningNotice.Show("Lords of the Council", nil, "turnin")
-		elseif args[2] == "warn3" then
-			CasualTBCPrep.W_WarningNotice.Show("Ramstein", nil, "completing")
-		elseif args[2] == "witem" then
-			CasualTBCPrep.W_ItemManagement.Show(20644)
-		elseif args[2] == "err" or args[3] == "error" then
-			CasualTBCPrep.NotifyUserError("This is an example ERROR message... Oh no!")
-		elseif args[2] == "not" or args[3] == "notify" then
-			CasualTBCPrep.NotifyUser("This is an example message from " .. CasualTBCPrep.AddonName .. "... Hello!")
-		elseif args[2] == "on" then
+		if args[2] == "on" then
 			CasualTBCPrep.Settings.SetGlobalSetting(CasualTBCPrep.Settings.DebugDetails, 1)
 			notifyText = "Debugging Details is now ON"
 		elseif args[2] == "off" then
@@ -49,7 +46,7 @@ SlashCmdList["CASUAL_TBC_PREP"] = function(msg)
 			CasualTBCPrep.W_Main.Hide()
 			CasualTBCPrep.BlockSlashCommandsUntillReloaded = true
 		else
-			notifyText = "Invalid syntax, use: /tbcprep debug <warn1/warn2/warn3/witem/err/not/on/off/wiperoute>"
+			notifyText = "Invalid syntax, use: /tbcprep debug </on/off/wiperoute>"
 		end
 	elseif args[1] == "flights" then
 		for _, routeCode in ipairs({ CasualTBCPrep.Routing.RouteCodeStrat,CasualTBCPrep.Routing.RouteCodeMain,CasualTBCPrep.Routing.RouteCodeSolo}) do
@@ -76,13 +73,17 @@ SlashCmdList["CASUAL_TBC_PREP"] = function(msg)
 	end
 end
 
+function CasualTBCPrep.GetLastZoneUpdate()
+	return prevMapID, prevZoneName, prevSubZoneName
+end 
 --[Event Wrappers]
 local function OnQuestAcceptedEvent(self, event, questLogIndex)
 	if event == "QUEST_ACCEPTED" then
 		local questName, _, _, _, _, _, _, questID = GetQuestLogTitle(questLogIndex)
 
 		if questID ~= nil and questID > 0 then
-			if CasualTBCPrep.Routing.IsQuestInCurrentRoute(questID) then
+
+			if CasualTBCPrep.QuestData.ShouldQuestShowAcceptedWarning(questID) then
 				if CasualTBCPrep.QuestData.ShouldBeInQuestLog(questID) then
 					if CasualTBCPrep.Settings.GetIsFeatureDisabledGlobalOrChar(CasualTBCPrep.Settings.Warning_QLOG) == false then
 						CasualTBCPrep.W_WarningNotice.Show(questName, questLogIndex, "qlog", questID)
@@ -98,8 +99,6 @@ local function OnQuestAcceptedEvent(self, event, questLogIndex)
 				end
 			end
 		end
-	
-
 		CasualTBCPrep.W_Main.ReloadActiveTab()
 	elseif event == "QUEST_COMPLETE" then
 		if CasualTBCPrep.Settings.GetIsFeatureDisabledGlobalOrChar(CasualTBCPrep.Settings.Warning_COMPLETING) == true then
@@ -114,17 +113,8 @@ local function OnQuestAcceptedEvent(self, event, questLogIndex)
 			CloseQuest()
 		end
 
-		-- if not CasualTBCPrep.Routing.IsQuestInCurrentRoute(questID) then
-		-- 	return
-		-- end
-
-		-- if CasualTBCPrep.QuestData.ShouldBeInQuestLog(questID) or CasualTBCPrep.QuestData.IsTurnInQuest(questID) then
-		-- 	CasualTBCPrep.W_WarningNotice.Show(questName, nil, "completing");
-		-- 	CloseQuest()
-		-- end
-
 		CasualTBCPrep.W_Main.ReloadActiveTab()
-	elseif event == "QUEST_LOG_UPDATE" then -- Will this spam updates? This happens a lot... But if you have the window open, is it fine?
+	elseif event == "QUEST_LOG_UPDATE" then
 		CasualTBCPrep.W_Main.ReloadActiveTab()
 	end
 end
@@ -136,7 +126,6 @@ local function OnInventoryChangedEvent(self, event)
 end
 local function OnAddonLoadedEvent(self, event, addonName)
 	if event == "ADDON_LOADED" and addonName == CasualTBCPrep.AddonNameInternal then
-		--CasualTBCPrep.Settings.SetCharSetting(CasualTBCPrep.Settings.SelectedRoute, nil)
 		CasualTBCPrep.Settings.LoadDefaults()
 
 		CasualTBCPrep.QuestData.UpdateRoutesFromQuestData(nil)
@@ -174,13 +163,72 @@ local function OnAddonLoadedEvent(self, event, addonName)
 			-- Button Bank
 			local btnBank = CreateFrame("Button", nil, BankFrameMoneyFrame)
 			btnBank:SetPoint("BOTTOMRIGHT", BankFrameMoneyFrame, "TOPRIGHT", -7,6)
-			btnBank:SetSize(32, 32)
+			btnBank:SetSize(42, 42)
 			local btnBankTexture = btnBank:CreateTexture(nil, "BORDER")
 			btnBankTexture:SetAllPoints(btnBank)
 			btnBankTexture:SetTexture(CasualTBCPrep.AddonLogoTexture)
 			btnBank.textureObj = btnBankTexture
 			CasualTBCPrep.UI.HookTooltip(btnBank, tooltipHeader, ttCompanion, nil, funcCallHoverEnter, funcCallHoverLeave)
 			btnBank:SetScript("OnClick", funcToggleCompanion)
+
+			CasualTBCPrep.Integration.ElvUI.RegisterBankOpen(tooltipHeader, ttCompanion, funcCallHoverEnter, funcCallHoverLeave, funcToggleCompanion)
+
+			local funcCreateTicker = function()
+				if tickerQuestAutomationCheck ~= nil then return end
+				tickerQuestAutomationCheck = C_Timer.NewTicker(600, function() --10min
+					local keepChecking = CasualTBCPrep.Settings.GetSettingFromCharOrGlobal(CasualTBCPrep.Settings.QuestAutomationChecks)
+
+					if keepChecking ~= 1 and tickerQuestAutomationCheck ~= nil then
+						tickerQuestAutomationCheck:Cancel()
+						tickerQuestAutomationCheck = nil
+						return
+					end
+
+					local didAnnounce = false
+					if CasualTBCPrep.Integration.Questie.IsQuestAutoCompleteOn() then
+						CasualTBCPrep.NotifyUserWarning("Questie QuestAutomation is on! Consider turning it off.")
+						didAnnounce = true
+					end
+					if CasualTBCPrep.Integration.RXP.IsQuestAutomationOn() then
+						CasualTBCPrep.NotifyUserWarning("RXPGuides QuestAutomation is on! Consider turning it off.")
+						didAnnounce = true
+					end
+
+					if didAnnounce == true then
+						CasualTBCPrep.NotifyUserWarning("You can disable the 'QuestAutomation' checks in the '/tbcprep' settings tab")
+					end
+				end)
+			end
+			if playerLevel <= 60 and CasualTBCPrep.GameState ~= "TBC" then -- Only check if <=60 and TBC isn't out
+				CasualTBCPrep.MessageBroker.Register(CasualTBCPrep.MessageBroker.TYPE.SETTING_CHANGED, function(data)
+					if data.key == CasualTBCPrep.Settings.QuestAutomationChecks then
+						funcCreateTicker()
+					end
+				end)
+
+				-- Initial check on load
+				local questAutomationChecks = CasualTBCPrep.Settings.GetSettingFromCharOrGlobal(CasualTBCPrep.Settings.QuestAutomationChecks)
+				if questAutomationChecks == 1 then
+					C_Timer.After(10, function()
+						local didAnnounce = false
+						if CasualTBCPrep.Integration.Questie.IsQuestAutoCompleteOn() then
+							CasualTBCPrep.Integration.Questie.DisableAutoQuestCompletion()
+							CasualTBCPrep.NotifyUserError("Questie 'QuestAutomation' was on, it has been turned off!")
+							didAnnounce = true
+						end
+						if CasualTBCPrep.Integration.RXP.IsQuestAutomationOn() then
+							CasualTBCPrep.Integration.RXP.DisableAutoQuestCompletion()
+							CasualTBCPrep.NotifyUserError("RXP 'QuestAutomation' was on, it has been turned off!")
+							didAnnounce = true
+						end
+						if didAnnounce == true then
+							CasualTBCPrep.NotifyUserWarning("You can disable the 'QuestAutomation' checks in the '/tbcprep' settings tab")
+						end
+					end)
+
+					funcCreateTicker()
+				end
+			end
 		end
 	end
 end
@@ -190,13 +238,10 @@ local function OnTalkToFlightMaster(self, event)
 end
 local function OnZoneChangedEvent(self, event)
 	local mapID, zoneName, subZoneName = CasualTBCPrep.GetMapAndZoneInfo()
-
-	local debugger = CasualTBCPrep.Settings.GetGlobalSetting(CasualTBCPrep.Settings.DebugDetails) or -1
-	if debugger == 1 then
-		CasualTBCPrep.NotifyUser("DebugNavigation : mapID="..tostring(mapID)..", zone="..tostring(zoneName)..", subZone="..tostring(subZoneName))
-	end
-
 	CasualTBCPrep.MessageBroker.Send(CasualTBCPrep.MessageBroker.TYPE.ZONE_CHANGED, { mapID=mapID, zoneName=zoneName, subzoneName=subZoneName })
+	prevMapID = mapID
+	prevZoneName = zoneName
+	prevSubZoneName = subZoneName
 end
 local function OnMailboxAndBankEvent(self, event,...)
 	if event == "MAIL_SHOW" then
@@ -231,7 +276,6 @@ local function OnItemTooltip(itemLink, tooltipObject)
 
 		if questID > 0 then
 			local loopIsInCurrentRoute = CasualTBCPrep.Routing.IsQuestInCurrentRoute(questID) or false
-			--CasualTBCPrep.NotifyUser("["..tostring(itemID).."]: "..tostring(questID).."="..tostring(loopIsInCurrentRoute))
 			if loopIsInCurrentRoute == true then
 				isInCurrentRoute = true
 				break

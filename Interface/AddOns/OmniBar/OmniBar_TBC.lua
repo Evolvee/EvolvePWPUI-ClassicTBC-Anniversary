@@ -25,6 +25,25 @@ addon.Resets = {
       ]]
     [14185] = { 5277, 2983, 1856, 14177, 36554, 14183 },
 
+    --[[ Readiness
+        - Bestial Wrath
+        - Intimidation
+        - Scare Beast
+        - Flare
+        - Rapid Fire
+        - Scatter Shot
+        - Silencing Shot
+        - Tranquilizing Shot
+        - Deterrence
+        - Explosive Trap
+        - Freezing Trap
+        - Frost Trap
+        - Immolation Trap
+        - Snake Trap
+        - Wyvern Sting
+      ]]
+    [23989] = {19574, 19577, 14327, 1543, 3045, 19503, 34490, 19801, 19263, 13813, 1499, 13809, 13795, 34600, 19386},
+
     --[[ Summon Felhunter
         - Spell Lock
       ]]
@@ -51,6 +70,29 @@ addon.Cooldowns = {
         [10901] = { parent = 17 }, -- Power Word: Shield (Rank 10)
         [25217] = { parent = 17 }, -- Power Word: Shield (Rank 11)
         [25218] = { parent = 17 }, -- Power Word: Shield (Rank 12)
+        
+    -- Warlock Healthstone
+    [23469] = {class = "WARLOCK", duration = 120}, 
+        [23471] = { parent = 23469 },
+        [23473] = { parent = 23469 },
+        [23475] = { parent = 23469 },
+        [23477] = { parent = 23469 },
+        [27237] = { parent = 23469 },
+
+    -- Mage Mana Gem
+    [5405] = {class = "MAGE", duration = 120},
+        [10052] = { parent = 5405 },
+        [10057] = { parent = 5405 },
+        [10058] = { parent = 5405 },
+        [27103] = { parent = 5405 },
+
+    -- Rogue Cheat Death (ICD)
+    [45182] = { class = "ROGUE", duration = 60 },
+
+    -- Druid Maim
+    [22570] = { class = "DRUID", duration = 10 },
+        [49802] = { parent = 22570 },
+
 
     --[[ Fade Modifiers
 

@@ -169,8 +169,8 @@ function CasualTBCPrep.WM_Settings.Load(wMain)
 		frameSettings.headerText:SetText("Settings")
 	end
 
-	local yChange = 48
-	local yOffset = -70
+	local yChange = 45
+	local yOffset = -62
 
 	local wWidth = wMain.GetSizeWidth()
 	local wHalf = wWidth / 2
@@ -188,7 +188,7 @@ function CasualTBCPrep.WM_Settings.Load(wMain)
 	charHeader:SetPoint("TOPLEFT", wQtr - (charHeader:GetStringWidth() / 2), yOffset)
 	table.insert(frameSettings.texts, charHeader)
 
-	yOffset = yOffset + 10 -- First setting should be a bit higher
+	yOffset = yOffset+14 -- First setting should be a bit higher
 
 	local settingWidth = 100
 	for _, setting in ipairs(CasualTBCPrep.Settings.AllSettings) do

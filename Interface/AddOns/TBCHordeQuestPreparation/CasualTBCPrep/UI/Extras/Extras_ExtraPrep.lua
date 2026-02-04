@@ -98,7 +98,6 @@ local function CalculatePreviewExpForQuest(quest)
     end
 end
 
-local countTemp = 1
 ---@param optionData table
 ---@param enable boolean
 ---@param printQuestChanges boolean
@@ -248,10 +247,8 @@ end
 DrawList = function(frame)
 	local yPos = -2
     local parent = frame.scrollChild
-    local parentW = parent:GetWidth()
 
 	local headerColor = CasualTBCPrep.Themes.SelectedTheme.colors.headerSpecial
-	local headerColorBright = CasualTBCPrep.Themes.SelectedTheme.colors.headerSpecialHover
 
     local storedSelections = CasualTBCPrep.Settings.GetCharSetting(CasualTBCPrep.Settings.ExtraTBCPrepSelections)
     local routeCode = CasualTBCPrep.Routing.CurrentRouteCode
@@ -358,7 +355,6 @@ DrawList = function(frame)
     end
 end
 
-
 ---@param frame Frame
 function CasualTBCPrep.Extras_ExtraPrep.Clean(frame)
     if not frame then return end
@@ -397,7 +393,5 @@ local OnMessageRouteChanged = function(data)
 end
 
 if eventRouteChangedRegistryID <= 0 then
-	local debugger = CasualTBCPrep.Settings.GetGlobalSetting(CasualTBCPrep.Settings.DebugDetails) or -1
-    if debugger == 1 then CasualTBCPrep.NotifyUserCompanion(CasualTBCPrep.Themes.SelectedTheme.colors.standoutText.hex.."[DEBUG] Companion registering ROUTE_CHANGED event") end
     eventRouteChangedRegistryID = CasualTBCPrep.MessageBroker.Register(CasualTBCPrep.MessageBroker.TYPE.ROUTE_CHANGED, OnMessageRouteChanged)
 end

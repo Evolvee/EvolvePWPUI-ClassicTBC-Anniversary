@@ -187,7 +187,7 @@ local translations = {
 local reverseLookup = {}
 for profID,localePair in pairs(translations) do
     for _,name in pairs(localePair) do
-        reverseLookup[name:lower()] = profID -- Ignore locale. If multiple languages have same name, that's fine.
+        reverseLookup[name:lower()] = profID
     end
 end
 

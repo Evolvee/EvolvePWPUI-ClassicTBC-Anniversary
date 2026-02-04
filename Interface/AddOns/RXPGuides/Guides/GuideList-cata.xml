@@ -1,23 +1,23 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..FrameXMLUI.xsd">
 
-    <Script file="Guides/cata/A-01-10_azuremyst.lua"/>
-    <Script file="Guides/cata/A-01-10_dunmorogh.lua"/>
-    <Script file="Guides/cata/A-01-10_ElwynnForest.lua"/>
-    <Script file="Guides/cata/A-01-10_Gilneas.lua"/>
-    <Script file="Guides/cata/A-01-10_teldrassil.lua"/>
-    <Script file="Guides/cata/A-01-18_darkshore.lua"/>
-    <Script file="Guides/cata/A-10-18_lochmodan.lua"/>
-    <Script file="Guides/cata/A-18-21_redridge.lua"/>
-    <Script file="Guides/cata/A-20-25_duskwood.lua"/>
-    <Script file="Guides/cata/A-10-15_westfall.lua"/>
+<Script file="Guides/cata/A-01-10_azuremyst.lua"/>
+<Script file="Guides/cata/A-01-10_dunmorogh.lua"/>
+<Script file="Guides/cata/A-01-10_ElwynnForest.lua"/>
+<Script file="Guides/cata/A-01-10_Gilneas.lua"/>
+<Script file="Guides/cata/A-01-10_teldrassil.lua"/>
+<Script file="Guides/cata/A-01-18_darkshore.lua"/>
+<Script file="Guides/cata/A-10-18_lochmodan.lua"/>
+<Script file="Guides/cata/A-18-21_redridge.lua"/>
+<Script file="Guides/cata/A-20-25_duskwood.lua"/>
+<Script file="Guides/cata/A-10-15_westfall.lua"/>
 
-    <Script file="Guides/cata/H-Cataclysm-01-10 Durotar.lua"/>
-    <Script file="Guides/cata/H-Cataclysm-01-10 Eversong.lua"/>
-    <Script file="Guides/cata/H-Cataclysm-01-10 Kezan.lua"/>
-    <Script file="Guides/cata/H-Cataclysm-01-10 Mulgore.lua"/>
-    <Script file="Guides/cata/H-Cataclysm-01-10 Tirisfal.lua"/>
-    <Script file="Guides/cata/H-Cataclysm-10-20 Azshara.lua"/>
-    <Script file="Guides/cata/H-Cataclysm-20-25 Ashenvale.lua"/>
+<Script file="Guides/cata/H-Cataclysm-01-10 Durotar.lua"/>
+<Script file="Guides/cata/H-Cataclysm-01-10 Eversong.lua"/>
+<Script file="Guides/cata/H-Cataclysm-01-10 Kezan.lua"/>
+<Script file="Guides/cata/H-Cataclysm-01-10 Mulgore.lua"/>
+<Script file="Guides/cata/H-Cataclysm-01-10 Tirisfal.lua"/>
+<Script file="Guides/cata/H-Cataclysm-10-20 Azshara.lua"/>
+<Script file="Guides/cata/H-Cataclysm-20-25 Ashenvale.lua"/>
 
     <Script file="Guides/Deathknight.lua"/>
 

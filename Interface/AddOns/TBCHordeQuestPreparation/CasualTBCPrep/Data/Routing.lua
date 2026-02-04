@@ -105,7 +105,7 @@ CasualTBCPrep.Routing.Routes = {
             info1="This route was made for a 5man group that wants a headstart before entering TBC",
             info2="3 Summons can be skipped for less or slower exp",
             info3="",
-            possibleLevelText="Possible Level: 62 + 80%",
+            possibleLevelText="Possible Level: 62 + 79%",
             estimatedTimeText="Estimated Time:   73 minutes"
         },
         preparation=
@@ -149,7 +149,7 @@ CasualTBCPrep.Routing.Routes = {
 
             ["Moonglade"] = { key="Moonglade", estTime=205, travelType=1, quests={ }, pickups={} },
             ["felwoodTown"] = { key="felwoodTown", estTime=165, travelType=3, quests={ }, pickups={} },
-            ["felwoodEmerald"] = { key="felwoodEmerald", estTime=135, travelType=2, quests={ }, pickups={} },
+            ["felwoodEmerald"] = { key="felwoodEmerald", estTime=75, travelType=3, quests={ }, pickups={} },
 
             ["Orgrimmar"] = { key="Orgrimmar", estTime=167, travelType=6, quests={ }, pickups={} },
             ["OrgrimmarDrag"] = { key="OrgrimmarDrag", estTime=0, travelType=2, quests={ }, pickups={} },
@@ -180,7 +180,7 @@ CasualTBCPrep.Routing.Routes = {
             ["TheDarkPortal"] = { key="TheDarkPortal", estTime=45, travelType=12, quests={ }, pickups={}, canHaveZeroQuests=true },
             ["ExtraFeature"] = { key="ExtraFeature", estTime=0, travelType=4, quests={}, pickups={}, canHaveZeroQuests=true }
         },
-        mailboxCount = 7,
+        mailboxCount = 8,
         mailboxData = {
             [1] = { -- Bags
                 from = "Badlands",
@@ -192,21 +192,25 @@ CasualTBCPrep.Routing.Routes = {
             },
             [3] = {
                 from = "TanarisTown",
-                to = "Orgrimmar"
+                to = "Moonglade"
             },
             [4] = {
+                from = "felwoodTown",
+                to = "Orgrimmar"
+            },
+            [5] = {
                 from = "OrgrimmarDrag",
                 to = "BayOfStorms"
             },
-            [5] = {
+            [6] = {
                 from = "EPLTown",
                 to = "zgSTV"
             },
-            [6] = {
+            [7] = {
                 from = "AV",
                 to = "ThunderBluff"
             },
-            [7] = {
+            [8] = {
                 from = "Stonard",
                 to = "TheDarkPortal"
             },
@@ -269,7 +273,7 @@ CasualTBCPrep.Routing.Routes = {
             ["Timbermaw"] = { key="Timbermaw", estTime=112, travelType=2, quests={ }, pickups={} },
             ["Moonglade"] = { key="Moonglade", estTime=205, travelType=1, quests={ }, pickups={} },
             ["felwoodTown"] = { key="felwoodTown", estTime=165, travelType=3, quests={ }, pickups={} },
-            ["felwoodEmerald"] = { key="felwoodEmerald", estTime=135, travelType=2, quests={ }, pickups={} },
+            ["felwoodEmerald"] = { key="felwoodEmerald", estTime=75, travelType=3, quests={ }, pickups={} },
             ["Orgrimmar"] = { key="Orgrimmar", estTime=167, travelType=6, quests={ }, pickups={} },
             ["OrgrimmarDrag"] = { key="OrgrimmarDrag", estTime=0, travelType=2, quests={ }, pickups={} },
             ["OrgrimmarBank"] = { key="OrgrimmarBank", estTime=0, travelType=2, quests={ }, pickups={}, canHaveZeroQuests=true },
@@ -314,7 +318,7 @@ CasualTBCPrep.Routing.Routes = {
             ["TheDarkPortal"] = { key="TheDarkPortal", estTime=45, travelType=12, quests={ }, pickups={}, canHaveZeroQuests=true },
             ["ExtraFeature"] = { key="ExtraFeature", estTime=0, travelType=4, quests={}, pickups={}, canHaveZeroQuests=true }
         },
-        mailboxCount = 7,
+        mailboxCount = 8,
         mailboxData = {
             [1] = { -- Bags
                 from = "Badlands",
@@ -326,21 +330,25 @@ CasualTBCPrep.Routing.Routes = {
             },
             [3] = {
                 from = "TanarisTown",
-                to = "Orgrimmar"
+                to = "Moonglade"
             },
             [4] = {
+                from = "felwoodTown",
+                to = "Orgrimmar"
+            },
+            [5] = {
                 from = "OrgrimmarDrag",
                 to = "BayOfStorms"
             },
-            [5] = {
+            [6] = {
                 from = "EPLTown",
                 to = "zgSTV"
             },
-            [6] = {
+            [7] = {
                 from = "AV",
                 to = "ThunderBluff"
             },
-            [7] = {
+            [8] = {
                 from = "Stonard",
                 to = "TheDarkPortal"
             },
@@ -405,7 +413,7 @@ CasualTBCPrep.Routing.Routes = {
             ["Timbermaw"] = { key="Timbermaw", estTime=112, travelType=2, quests={ }, pickups={} },
             ["Moonglade"] = { key="Moonglade", estTime=205, travelType=1, quests={ }, pickups={} },
             ["felwoodTown"] = { key="felwoodTown", estTime=165, travelType=3, quests={ }, pickups={} },
-            ["felwoodEmerald"] = { key="felwoodEmerald", estTime=135, travelType=2, quests={ }, pickups={} },
+            ["felwoodEmerald"] = { key="felwoodEmerald", estTime=75, travelType=3, quests={ }, pickups={} },
             ["Ashenvale"] = { key="Ashenvale", estTime=184, travelType=2, travelText="south. Hug the mountains east, jump down after the satyr camp", target="Splintertree Post, Ashenvale", quests={ }, pickups={}, canHaveZeroQuests=true },
             ["AzsharaFP"] = { key="AzsharaFP", estTime=110, travelType=3, quests={ }, pickups={} },
             ["Orgrimmar"] = { key="Orgrimmar", estTime=244, travelType=3, quests={ }, pickups={} },
@@ -448,28 +456,28 @@ CasualTBCPrep.Routing.Routes = {
             },
             [3] = {
                 from = "TanarisTown",
-                to = "ThunderBluff"
+                to = "Moonglade"
             },
             [4] = {
-                from = "wsEverlook",
-                to = "Ashenvale"
-            },
-            [5] = {
-                from = "Ashenvale",
+                from = "felwoodTown",
                 to = "Orgrimmar"
             },
-            [6] = {
+            [5] = {
                 from = "OrgrimmarDrag",
                 to = "AV"
             },
-            [7] = {
+            [6] = {
                 from = "Undercity2",
                 to = "SilvermoonCity"
             },
-            [8] = {
+            [7] = {
                 from = "EPLTown",
+                to = "gromgolSTV"
+            },
+            [8] = {
+                from = "Stonard",
                 to = "TheDarkPortal"
-            }
+            },
         },
         bankSections = { "TanarisTown", "OrgrimmarBank" , "Undercity2" }
     },
@@ -512,7 +520,7 @@ end
 
 ---@return table,table, table
 function CasualTBCPrep.Routing.GetTurninItemsForCurrentRoute()
-    local resultMail, resultBank, resultOrder = {}, {}, {}
+    local resultMail, resultBank = {}, {}
     local routeCode = CasualTBCPrep.Routing.CurrentRouteCode
     local route = CasualTBCPrep.Routing.Routes[routeCode]
 
@@ -526,7 +534,7 @@ function CasualTBCPrep.Routing.GetTurninItemsForCurrentRoute()
     end
 
     local allItemsNeeded, itemsNeededAnyItems = CasualTBCPrep.QuestData.GetAllRequiredItemsForAvailableQuests(true)
-
+    local companionBagItemsMail, companionBagItemsBank = {}, {}
 
     local questItemLookup = {}
     for _, itemData in ipairs(allItemsNeeded) do
@@ -542,7 +550,6 @@ function CasualTBCPrep.Routing.GetTurninItemsForCurrentRoute()
     local currentBankGroup, currentMailGroup = 1, 1
     local currentMailboxData = route.mailboxData[1]
     local nextBankSection = route.bankSections[1]
-    local lastBankSection = "BAGS"
 
     local tempBankData, tempMailData = {}, {}
     local mbStarted, mbExit = false, false
@@ -552,11 +559,6 @@ function CasualTBCPrep.Routing.GetTurninItemsForCurrentRoute()
         if mbStarted == false then
             if sectionName == currentMailboxData.from then
                 mbStarted = true
-                if #resultOrder == 0 then
-                    table.insert(resultOrder, { type="MAIL", section="BAGS", targetID=currentMailGroup})
-                else
-                    table.insert(resultOrder, { type="MAIL", section=sectionName, targetID=currentMailGroup})
-                end
             end
         elseif sectionName == currentMailboxData.to then
             mbExit = true
@@ -564,14 +566,8 @@ function CasualTBCPrep.Routing.GetTurninItemsForCurrentRoute()
 
         if sectionName == nextBankSection then
             table.insert(resultBank, { id=currentBankGroup, section=sectionName, items=tempBankData})
-            if #resultBank == 1 then
-                table.insert(resultOrder, 1, { type="BANK", section=lastBankSection, targetID=currentBankGroup})
-            else
-                table.insert(resultOrder, { type="BANK", section=lastBankSection, targetID=currentBankGroup})
-            end
             tempBankData = {}
             currentBankGroup = currentBankGroup + 1
-            lastBankSection = nextBankSection
             nextBankSection = route.bankSections[currentBankGroup]
         end
 
@@ -611,10 +607,20 @@ function CasualTBCPrep.Routing.GetTurninItemsForCurrentRoute()
 
                             if hadAny == false then
                                 for _, itemData in ipairs(tempItemReqAnyDataMail) do
-                                    GetTurninItemsForCurrentRoute_AddOrCombineItem(tempMailData, itemData.itemID, itemData.count)
+                                    local item = CasualTBCPrep.Items.GetItemDetails(itemData.itemID)
+                                    if item and item.inCompanionBag == true then
+                                        GetTurninItemsForCurrentRoute_AddOrCombineItem(companionBagItemsMail, itemData.itemID, itemData.count)
+                                    else
+                                        GetTurninItemsForCurrentRoute_AddOrCombineItem(tempMailData, itemData.itemID, itemData.count)
+                                    end
                                 end
                                 for _, itemData in ipairs(tempItemReqAnyDataBank) do
-                                    GetTurninItemsForCurrentRoute_AddOrCombineItem(tempBankData, itemData.itemID, itemData.count)
+                                    local item = CasualTBCPrep.Items.GetItemDetails(itemData.itemID)
+                                    if item and item.inCompanionBag == true then
+                                        GetTurninItemsForCurrentRoute_AddOrCombineItem(companionBagItemsBank, itemData.itemID, itemData.count)
+                                    else
+                                        GetTurninItemsForCurrentRoute_AddOrCombineItem(tempBankData, itemData.itemID, itemData.count)
+                                    end
                                 end
                             end
                         else
@@ -625,10 +631,18 @@ function CasualTBCPrep.Routing.GetTurninItemsForCurrentRoute()
                                     local itemID,neededItemCount = tonumber(itemIDStr), tonumber(countStr)
                                     local itemObj = CasualTBCPrep.Items.GetItemDetails(itemID)
                                     if itemObj then
-                                        if itemObj.auctionHouse == true then
-                                            GetTurninItemsForCurrentRoute_AddOrCombineItem(tempMailData, itemID, neededItemCount)
+                                        if itemObj.inCompanionBag == true then
+                                            if itemObj.auctionHouse == true then
+                                                GetTurninItemsForCurrentRoute_AddOrCombineItem(companionBagItemsMail, itemID, neededItemCount)
+                                            else
+                                                GetTurninItemsForCurrentRoute_AddOrCombineItem(companionBagItemsBank, itemID, neededItemCount)
+                                            end
                                         else
-                                            GetTurninItemsForCurrentRoute_AddOrCombineItem(tempBankData, itemID, neededItemCount)
+                                            if itemObj.auctionHouse == true then
+                                                GetTurninItemsForCurrentRoute_AddOrCombineItem(tempMailData, itemID, neededItemCount)
+                                            else
+                                                GetTurninItemsForCurrentRoute_AddOrCombineItem(tempBankData, itemID, neededItemCount)
+                                            end
                                         end
                                     end
                                 end
@@ -651,7 +665,6 @@ function CasualTBCPrep.Routing.GetTurninItemsForCurrentRoute()
 
     if #tempBankData > 0 then
         table.insert(resultBank, { id=currentBankGroup, items=tempBankData})
-        table.insert(resultOrder, { type="BANK", section=lastBankSection, targetID=currentBankGroup})
         tempBankData = {}
     end
 
@@ -664,8 +677,36 @@ function CasualTBCPrep.Routing.GetTurninItemsForCurrentRoute()
             end
         end
     end
+    --[Items that should be forced to bags should be sent into first entry now]
+     if #companionBagItemsMail > 0 then
+        if #resultMail > 0 then
+            for _, item in ipairs(companionBagItemsMail) do
+                GetTurninItemsForCurrentRoute_AddOrCombineItem(resultMail[1].items, item.itemID, item.count)
+            end
+        else
+            table.insert(resultMail, 1, { id=1, section="BAGS", items=companionBagItemsMail })
+        end
+    end
+    if #companionBagItemsBank > 0 then
+        if #resultBank > 0 then
+            for _, item in ipairs(companionBagItemsBank) do
+                GetTurninItemsForCurrentRoute_AddOrCombineItem(resultBank[1].items, item.itemID, item.count)
+            end
+        else
+            table.insert(resultBank, 1, { id=1, section="BAGS", items=companionBagItemsBank })
+        end
+    end
 
-    return resultMail, resultBank, resultOrder
+    if sectionsUsed ~= expectedSectionsUsed then
+        CasualTBCPrep.NotifyUserError("(Routing.GetMailboxItemsForCurrentRoute_"..routeCode.."): Expected to see "..tostring(expectedSectionsUsed).." but only checked "..tostring(sectionsUsed))
+        CasualTBCPrep.NotifyUserError("Missing Sections:")
+        for _, sectionName in ipairs(route.sectionOrder) do
+            if not processedSections[sectionName] then
+                CasualTBCPrep.NotifyUserError("- "..sectionName)
+            end
+        end
+    end
+    return resultMail, resultBank
 end
 
 function CasualTBCPrep.Routing.GetCurrentRoute()
@@ -699,7 +740,7 @@ function CasualTBCPrep.Routing.GetActiveSectionsInCurrentRoute()
         local section = route.sections[sectKey]
 
         if section == nil then
-            CasualTBCPrep.NotifyUserError("CasualTBCPrep.Routing.GetActiveSectionsInCurrentRoute > " .. sectKey .. " found in .sectionOrder, but not in .sections for route " .. route.name)
+            CasualTBCPrep.NotifyUserError("Routing.GetActiveSectionsInCurrentRoute > " .. sectKey .. " found in .sectionOrder, but not in .sections for route " .. route.name)
         else
             local ignoredSectionKey = route.key .. "_" .. sectKey
             local isIgnored = ignoredRouteSections[ignoredSectionKey] or false

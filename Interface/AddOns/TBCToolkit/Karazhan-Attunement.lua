@@ -6,6 +6,10 @@ RXPGuides.RegisterGuide([[
 #name T4 - Karazhan
 
 	step
+		>>|cRXP_WARN_You must be at least level 68 to begin the Karazhan attunement questline|r
+		.xp 68
+
+	step
 		#completewith next
 		.goto Shattrath City,52.2,52.8
 		.zone Orgrimmar >> Take the Portal to |cFFfa9602Orgrimmar|r

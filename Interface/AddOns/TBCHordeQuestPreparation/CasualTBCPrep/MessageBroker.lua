@@ -10,7 +10,8 @@ CasualTBCPrep.MessageBroker.TYPE = {
     ZONE_CHANGED = 6,
     MAILBOX_INTERACT = 7,
     BANK_INTERACT = 8,
-    ROUTE_CHANGED = 9
+    ROUTE_CHANGED = 9,
+    SETTING_CHANGED = 10
 }
 setmetatable(CasualTBCPrep.MessageBroker.TYPE, {
     __newindex = function(table, key, value)

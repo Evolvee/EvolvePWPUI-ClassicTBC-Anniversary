@@ -16,7 +16,7 @@ local GetSpecializationInfo = C_SpecializationInfo and C_SpecializationInfo.GetS
 
 local InspectQueueFrame = CreateFrame("Frame")
 local InspectTooltip, tooltipData
-if not E.postDF then
+if not C_TooltipInfo or not C_TooltipInfo.GetInventoryItem then
 	InspectTooltip = CreateFrame("GameTooltip", "OmniCDInspectToolTip", nil, "GameTooltipTemplate")
 	InspectTooltip:SetOwner(UIParent, "ANCHOR_NONE")
 end

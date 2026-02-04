@@ -42,7 +42,6 @@ local function Display()
     local yPosition = -52
 
 	local iconSize = 38
-	local iconPaddingY = 2
     local icon, border, textRarityColor, imgItem = CasualTBCPrep.UI.CreateItemImage(wItemManagement, iconSize, itemID, "TOP", "TOP", 0, yPosition)
     local itemName = ""
     if imgItem then
@@ -54,17 +53,13 @@ local function Display()
     table.insert(wItemManagement.content, border)
 
     local itemNameText = textRarityColor .. (itemName or ("Item " .. imgItem.id))
-
-    -- Text, Item Name
     local textItemName = wItemManagement:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     textItemName:SetPoint("BOTTOM", icon, "TOP", 0, 7)
     textItemName:SetText(itemNameText)
     table.insert(wItemManagement.texts, textItemName)
 
-    -- BankAlt Checkbox
     yPosition = yPosition - iconSize - 2 - 3
     local checkBoxTooltipWidth = 24
-
     local checkbox = CreateFrame("CheckButton", nil, wItemManagement, "UICheckButtonTemplate")
     local chbLabel = CreateFrame("Button", nil, wItemManagement)
     local bankAltHeader = wItemManagement:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -75,7 +70,6 @@ local function Display()
     checkbox:SetPoint("TOPLEFT", wItemManagement, "TOPLEFT", 8, yPosition)
     checkbox:SetSize(checkBoxTooltipWidth, checkBoxTooltipWidth)
 
-   -- local chbLabel = checkbox:CreateFontString(nil, "OVERLAY", "GameTooltipTextSmall")
     chbLabel:SetNormalFontObject(GameTooltipTextSmall)
     chbLabel:SetHighlightFontObject(GameFontHighlightSmall)
     chbLabel:SetPoint("LEFT", checkbox, "RIGHT", 0, 1)
@@ -160,18 +154,14 @@ local function Create()
 	wItemManagement:RegisterForDrag("LeftButton")
 	wItemManagement:SetScript("OnDragStart", function(self) self:StartMoving() end)
 	wItemManagement:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
-
-	-- Place in the front above other UI/addons
 	wItemManagement:SetFrameStrata("FULLSCREEN_DIALOG")
 	wItemManagement:SetFrameLevel(1001)
 	table.insert(UISpecialFrames, w_window_name)
 
-	--[Title]
 	wItemManagement.TitleBg:SetHeight(30);
 	wItemManagement.title = wItemManagement:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	wItemManagement.title:SetPoint("LEFT", wItemManagement.TitleBg, "LEFT", 8, 6)
 
-	--[QoL]
 	wItemManagement:SetScript("OnShow", function() CasualTBCPrep.Sounds.PlaySound_Click() end)
 	wItemManagement:SetScript("OnHide", function() CasualTBCPrep.Sounds.PlaySound_Click() end)
 	wItemManagement:Hide();

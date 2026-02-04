@@ -1,4 +1,4 @@
-local MAJOR, MINOR = "LibDispel-1.0", 21
+local MAJOR, MINOR = "LibDispel-1.0", 23
 assert(LibStub, MAJOR.." requires LibStub")
 
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
@@ -16,9 +16,15 @@ local CreateFrame = CreateFrame
 local IsSpellInSpellBook = C_SpellBook.IsSpellInSpellBook or IsSpellKnownOrOverridesKnown
 local IsSpellKnown = C_SpellBook.IsSpellKnown or IsPlayerSpell
 
+local _, _, _, wowtoc = GetBuildInfo()
+
+local TBC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+local Cata = WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC
+local Wrath = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
+local Mists = WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC
 local Retail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 local Classic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
-local Mists = WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC
+local Midnight = wowtoc >= 120000
 
 local function GetList(name, data)
 	local list = lib[name]
@@ -1267,7 +1273,8 @@ do
 		[89808] = "Singe"
 	}
 
-	if Classic then
+	local vanilla = Classic or TBC or Wrath
+	if vanilla then
 		WarlockPetSpells[19505] = "Devour Magic Rank 1"
 		WarlockPetSpells[19731] = "Devour Magic Rank 2"
 		WarlockPetSpells[19734] = "Devour Magic Rank 3"
@@ -1297,15 +1304,15 @@ do
 		end
 
 		-- this will fix a problem where spells dont show as existing because they are 'hidden'
-		local undoRanks = (Classic and GetCVar('ShowAllSpellRanks') ~= '1') and SetCVar('ShowAllSpellRanks', '1')
+		local undoRanks = (vanilla and GetCVar('ShowAllSpellRanks') ~= '1') and SetCVar('ShowAllSpellRanks', '1')
 
 		if event == 'UNIT_PET' then
 			DispelList.Magic = CheckPetSpells()
 		elseif myClass == 'DRUID' then
 			local cure = CheckSpell(88423) -- Nature's Cure Spell
-			local corruption = CheckSpell(2782) -- Remove Corruption (retail), Remove Curse (classic)
+			local corruption = CheckSpell(2782) -- Remove Corruption (retail), Remove Curse (classic / TBC)
 			DispelList.Magic = cure
-			DispelList.Poison = cure or (not Classic and corruption) or CheckSpell(2893) or CheckSpell(8946) -- Abolish Poison / Cure Poison
+			DispelList.Poison = cure or (not vanilla and corruption) or CheckSpell(2893) or CheckSpell(8946) -- Abolish Poison / Cure Poison
 			DispelList.Curse = cure or corruption
 		elseif myClass == 'MAGE' then
 			local greater = CheckSpell(412113)
@@ -1331,9 +1338,9 @@ do
 		elseif myClass == 'SHAMAN' then
 			local purify = CheckSpell(77130) -- Purify Spirit
 			local cleanse = purify or CheckSpell(51886) -- Cleanse Spirit (Retail/Mists)
-			local toxins = (Retail and CheckSpell(383013)) or (Classic and CheckSpell(526)) -- Poison Cleansing Totem (Retail), Cure Poison (Classic)
-			local cureDisease = Classic and CheckSpell(2870) -- Cure Disease
-			local diseaseTotem = Classic and CheckSpell(8170) -- Disease Cleansing Totem
+			local toxins = (Retail and CheckSpell(383013)) or (vanilla and CheckSpell(526)) -- Poison Cleansing Totem (Retail), Cure Poison (Classic / TBC)
+			local cureDisease = vanilla and CheckSpell(2870) -- Cure Disease
+			local diseaseTotem = vanilla and CheckSpell(8170) -- Disease Cleansing Totem
 
 			DispelList.Magic = purify
 			DispelList.Curse = cleanse
@@ -1367,9 +1374,13 @@ do
 	local frame = lib.frame
 	frame:SetScript('OnEvent', UpdateDispels)
 	frame:RegisterEvent('CHARACTER_POINTS_CHANGED')
-  --Spells changed is enough, also doesnt work on ptr
-	--frame:RegisterEvent('LEARNED_SPELL_IN_TAB')
 	frame:RegisterEvent('SPELLS_CHANGED')
+
+	if Midnight or TBC then
+		frame:RegisterEvent('LEARNED_SPELL_IN_SKILL_LINE')
+	else
+		frame:RegisterEvent('LEARNED_SPELL_IN_TAB')
+	end
 
 	if not Classic then
 		frame:RegisterEvent('PLAYER_TALENT_UPDATE')

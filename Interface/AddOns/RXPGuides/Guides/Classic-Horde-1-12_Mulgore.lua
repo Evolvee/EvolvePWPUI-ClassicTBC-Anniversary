@@ -2,8 +2,10 @@ local faction = UnitFactionGroup("player")
 if faction == "Alliance" then return end
 
 
+if GetLocale() == "zhCN" then return end
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #xprate <1.99
 #era/som--h
 << Horde
@@ -577,6 +579,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 #xprate <1.99
 << Horde
 #name 6-12 Mulgore
@@ -2349,7 +2352,7 @@ step << Shaman
     #label Fizsprocket1
     .goto Mulgore,64.95,43.33
     >>Kill |cRXP_ENEMY_Supervisor Fizsprocket|r. Loot him for his |cRXP_LOOT_Clipboard|r
-    >>|cRXP_WARN_Run into the mine and hug the right/east side to each him|r
+    >>|cRXP_WARN_Run into the mine and hug the right/east side to reach him|r
     .complete 765,1 --Fizsprocket's Clipboard (1)
     .mob Supervisor Fizsprocket
 step << Shaman
@@ -2738,7 +2741,7 @@ step
     #label Fizsprocket
     .goto Mulgore,64.95,43.33
     >>Kill |cRXP_ENEMY_Supervisor Fizsprocket|r. Loot him for his |cRXP_LOOT_Clipboard|r
-    >>|cRXP_WARN_Run into the mine and hug the right/east side to each him|r
+    >>|cRXP_WARN_Run into the mine and hug the right/east side to reach him|r
     .complete 765,1 --Fizsprocket's Clipboard (1)
     .mob Supervisor Fizsprocket
 step
@@ -2937,6 +2940,7 @@ if faction == "Alliance" then return end
 
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 << Horde
 #xprate >1.99
 #version 1
@@ -3633,6 +3637,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 << Horde
 #xprate >1.99
 #version 1
@@ -5173,7 +5178,7 @@ step
     #label Fizsprocket1
     .goto Mulgore,64.95,43.33
     >>Kill |cRXP_ENEMY_Supervisor Fizsprocket|r. Loot him for his |cRXP_LOOT_Clipboard|r
-    >>|cRXP_WARN_Run into the mine and hug the right/east side to each him|r
+    >>|cRXP_WARN_Run into the mine and hug the right/east side to reach him|r
     .complete 765,1 --Fizsprocket's Clipboard (1)
     .mob Supervisor Fizsprocket
 step

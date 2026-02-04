@@ -19,6 +19,30 @@ CasualTBCPrep.Professions.PROF = {
     LOCKPICKING = 15,
 }
 
+---@param profID integer
+---@return integer
+function CasualTBCPrep.Professions.GetInternalProfessionIDFromWowID(profID)
+    local internalID = -1
+
+    if profID == 171 then internalID = CasualTBCPrep.Professions.PROF.ALCHEMY
+    elseif profID == 164 then internalID = CasualTBCPrep.Professions.PROF.BLACKSMITHING
+    elseif profID == 185 then internalID = CasualTBCPrep.Professions.PROF.COOKING
+    elseif profID == 333 then internalID = CasualTBCPrep.Professions.PROF.ENCHANTING
+    elseif profID == 202 then internalID = CasualTBCPrep.Professions.PROF.ENGINEERING
+    elseif profID == 129 then internalID = CasualTBCPrep.Professions.PROF.FIRSTAID
+    elseif profID == 356 then internalID = CasualTBCPrep.Professions.PROF.FISHING
+    elseif profID == 182 then internalID = CasualTBCPrep.Professions.PROF.HERBALISM
+    elseif profID == 755 then internalID = CasualTBCPrep.Professions.PROF.JEWELCRAFTING
+    elseif profID == 165 then internalID = CasualTBCPrep.Professions.PROF.LEATHERWORKING
+    elseif profID == 186 then internalID = CasualTBCPrep.Professions.PROF.MINING
+    elseif profID == 40 then internalID = CasualTBCPrep.Professions.PROF.POISONS
+    elseif profID == 393 then internalID = CasualTBCPrep.Professions.PROF.SKINNING
+    elseif profID == 197 then internalID = CasualTBCPrep.Professions.PROF.TAILORING
+    elseif profID == 633 then internalID = CasualTBCPrep.Professions.PROF.LOCKPICKING
+    end
+    return internalID
+end
+
 ---@param profID number
 ---@return boolean
 function CasualTBCPrep.Professions.IsPrimaryProfession(profID)

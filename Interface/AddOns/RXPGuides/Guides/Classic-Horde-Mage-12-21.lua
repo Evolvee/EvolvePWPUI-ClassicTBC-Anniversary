@@ -1,8 +1,10 @@
 local faction = UnitFactionGroup("player")
 if faction == "Alliance" then return end
 
+if GetLocale() == "zhCN" then return end
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 << Horde Mage
 #name 12-17 The Barrens AoE
 #version 1
@@ -705,6 +707,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #classic
+#tbc
 << Horde Mage
 #name 17-21 Stonetalon/Barrens AoE
 #version 1

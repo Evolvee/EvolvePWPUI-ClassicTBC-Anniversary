@@ -1,10 +1,10 @@
-## Interface: 11508, 110205, 50502, 120000
+## Interface: 11508, 110205, 50502, 120000, 110207
 ## Title: RestedXP Guides
 ## Notes: In-game leveling guides
 ## Author: RestedXP
-## Version: v4.9.8
+## Version: v4.9.19
 ## OptionalDeps: Questie, RXPGuides_Themes
-## SavedVariables: RXPData, RXPDB, RXPSettings
+## SavedVariables: RXPData, RXPDB, RXPSettings, RXPString
 ## SavedVariablesPerCharacter: RXPCData, RXPCTrackingData, RXPCComms, RXPCSettings
 ## X-Curse-Project-ID: 486246
 ## X-Wago-ID: ZKbebq61
@@ -12,7 +12,7 @@
 libs\embeds_Mainline.xml [AllowLoadGameType mainline]
 libs\embeds.xml [AllowLoadGameType classic]
 locale\locales.xml
-UI\includes.xml [AllowLoadGameType classic]
+UI\includes.xml
 
 Locale.lua
 Themes.lua
@@ -42,13 +42,13 @@ InventoryManager.lua
 map.lua
 functions.lua
 GuideLoader.lua
-HardcoreIntroUI.lua [AllowLoadGameType vanilla]
 
 Guides/GuideList-Mainline.xml [AllowLoadGameType mainline]
 Guides/GuideList-cata.xml [AllowLoadGameType cata]
 Guides/GuideList-mop.xml [AllowLoadGameType mists]
 Guides/GuideList-classic.xml [AllowLoadGameType vanilla]
 Guides/GuideList-tbc.xml [AllowLoadGameType tbc]
+lang/Guides-zhCN/GuideList-tbc.xml [AllowLoadGameType tbc]
 
 Talents.lua [AllowLoadGameType cata,vanilla,tbc]
 Guides/Talents/cata.xml [AllowLoadGameType cata]

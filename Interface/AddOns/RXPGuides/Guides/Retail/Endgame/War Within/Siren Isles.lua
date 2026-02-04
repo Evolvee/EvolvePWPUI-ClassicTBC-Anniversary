@@ -8,10 +8,7 @@ RXPGuides.RegisterGuide([[
 #name ag) Siren Isle Campaign
 #displayname |cFF00CCFF1|r - Campaign
 #next ah) Chapter 1 - Trust Issues
-
-
 --WEEK 1 CAMPAIGN START
-
 step
     .goto 2339,41.85,26.20
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dawn|r
@@ -240,9 +237,7 @@ step
     .turnin 84725 >>Turn in The Circlet Calls
     .accept 84726 >>Accept Uncovered Mysteries
     .target Angorla
-
 --CONTRUBUTION
-
 step
     .goto 2369,69.40,43.69
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jack the Hammer|r
@@ -364,7 +359,6 @@ step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Apprentice Tanmar|r
     .turnin 85653 >>Turn in Dipping a Toe
     .target Apprentice Tanmar
-
 step
     .isQuestAvailable 85654
     .isQuestTurnedIn 85653
@@ -442,7 +436,6 @@ step
     #label EquipCyresCircleUnleashingPower
     .isOnQuest 85655
     .equip 11,228411 >>Equip the Cyre's Circle
-
 step
     .isOnQuest 85655
     #completewith EquipCyresCircleUnleashingPower
@@ -520,7 +513,6 @@ step
     .turnin 85657 >>Turn in Cyrce Would Be So Proud
     .target Didi the Wrench
 ]])
-
 -- Siren Isle Dailies/Weeklies?
 RXPGuides.RegisterGuide([[
 #retail
@@ -529,8 +521,6 @@ RXPGuides.RegisterGuide([[
 #subgroup |cFFFCDC00(80)|r 11.0.7 Siren Isle
 #name ah) Siren Isle Weeklies
 #displayname |cFF00CCFF2|r - Weeklies
-
-
 step
     #loop
     .goto 2369,69.29,43.48,10,0

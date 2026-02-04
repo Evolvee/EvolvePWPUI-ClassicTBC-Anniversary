@@ -34,9 +34,9 @@ local scalingQuestKnownConstants = {
 ---@return number
 local function RoundXP(exp)
     if exp >= 1000 then
-        return math.floor((exp + 25) / 50) * 50 --Round to 50
+        return math.floor((exp + 25) / 50) * 50 --Round50
     else
-        return math.floor((exp + 2.5) / 5) * 5 --Round to 5
+        return math.floor((exp + 2.5) / 5) * 5 --Round5
     end
 end
 
@@ -52,7 +52,6 @@ function CasualTBCPrep.Experience.GetActualQuestExperienceValue(questLevel, ques
     local lvlDiff = charLevel - questLevel
 
     local xp = 0
-    -- This calc is probably accurate... probably
     if lvlDiff <= 5 then
         xp = questExp
     elseif lvlDiff >= 10 then

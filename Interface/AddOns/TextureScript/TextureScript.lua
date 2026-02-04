@@ -122,7 +122,8 @@ local cvars = {
     UnitNameInteractiveNPC = "0",
 	-- nameplates always focused (prevent fading/graying-out nonselected nameplates)
 	nameplateSelectedAlpha = "1",
-	nameplateNotSelectedAlpha = "1"
+	nameplateNotSelectedAlpha = "1",
+	UnitNamePlayerGuild = "0" -- hides the <guild> name from Player Names
 }
 
 local function CustomCvar()
@@ -179,7 +180,7 @@ local tooltipOwnerBlacklist = {
     "SocialsMicroButton",
     "LFGMicroButton",
     "HelpMicroButton",
-	--"WorldMapMicroButton",
+	"WorldMapMicroButton",
     "^KeyRingButton$", -- key ring
     "^CharacterBag%dSlot$", -- bags
     "^MainMenuBarBackpackButton$", -- backpack
@@ -519,8 +520,8 @@ local function OnInit()
     texture = HelpMicroButton:GetHighlightTexture()
     texture:SetAlpha(0)
 	
-	--texture = WorldMapMicroButton:GetHighlightTexture()
-    --texture:SetAlpha(0)
+	texture = WorldMapMicroButton:GetHighlightTexture()
+    texture:SetAlpha(0)
 	
 	-- Remove Fizzle sounds (this was previously done by replacing the actual sound in Data/Sounds)
     for _, fdid in pairs(sounds) do
@@ -853,92 +854,152 @@ end
 hooksecurefunc(TargetFrame, "CheckClassification", Classification)
 hooksecurefunc(FocusFrame, "CheckClassification", Classification)
 
+-- Smooth status bars
 
-local mmin, mmax, mabs = math.min, math.max, math.abs
-local floor = math.floor
---Smooth Status Bars (animated progress)
+local smoothing = {}
+local floor, next = math.floor, next
+local mabs = math.abs
+local UnitGUID = UnitGUID
+local smoothframe = CreateFrame("Frame")
+local UnitGetIncomingHeals = UnitGetIncomingHeals or (Precognito and Precognito.UnitGetTotalAbsorbs)
+
 local barstosmooth = {
     PlayerFrameHealthBar = "player",
     PlayerFrameManaBar = "player",
     TargetFrameHealthBar = "target",
     TargetFrameManaBar = "target",
-	-- Causes taints:
-    --PetFrameHealthBar = "pet",
-    --PetFrameManaBar = "pet",
     FocusFrameHealthBar = "focus",
     FocusFrameManaBar = "focus",
-    MainMenuExpBar = "",
-    ReputationWatchStatusBar = "",
 }
 
-local smoothframe = CreateFrame("Frame")
-local smoothing = {}
-local inArena
+local function clamp(v, max)
+    local min = 0
+    max = max or 1
 
-local function AnimationTick()
-    local limit = 0.5
-
-    for bar, value in pairs(smoothing) do
-        local cur = bar:GetValue()
-        local new = cur + mmin((value - cur) / 12, mmax(value - cur, limit))
-        if new ~= new then
-            new = value
-        end
-        if cur == value or mabs(new - value) < 0.5 then
-            bar:SetValue_(value)
-            smoothing[bar] = nil
-        else
-            bar:SetValue_(floor(new))
-        end
+    if v >= max then
+        return max
+    elseif v <= min then
+        return min
     end
+
+    return v
 end
 
-local function SmoothSetValue(self, value)
-    self.finalValue = value
-    if self.unit then
-        local guid = UnitGUID(self.unit)
-        if value == self:GetValue() or not guid or guid ~= self.lastGuid then
-            smoothing[self] = nil
-            self:SetValue_(value)
-        else
-            smoothing[self] = value
-        end
-        self.lastGuid = guid
-    else
-        local _, max = self:GetMinMaxValues()
-        if value == self:GetValue() or self._max and self._max ~= max then
-            smoothing[self] = nil
-            self:SetValue_(value)
-        else
-            smoothing[self] = value
-        end
-        self._max = max
-    end
+local function lerp(startValue, endValue, amount)
+    return startValue + (endValue - startValue) * amount
 end
 
-local function SmoothBar(bar)
-    if not bar.SetValue_ then
-        bar.SetValue_ = bar.SetValue
-        bar.SetValue = SmoothSetValue
-    end
+local function isCloseEnough(new, target, range)
+    return range > 0.0 and mabs((new - target) / range) <= 0.001
 end
 
-smoothframe:SetScript("OnUpdate", AnimationTick)
+local function hasAbsorbValue(unit)
+    if not unit then return false end
 
-local function SetSmooth()
-    for k, v in pairs(barstosmooth) do
-        if _G[k] then
-            SmoothBar(_G[k])
-            _G[k]:SetScript("OnHide", function(frame)
-                frame.lastGuid = nil;
-                frame.max_ = nil
-            end)
-            if v ~= "" then
-                _G[k].unit = v
+    if UnitGetIncomingHeals(unit) and UnitGetIncomingHeals(unit) > 0 then
+        return true
+    end
+
+    return false
+end
+
+local function AnimationTick(_, elapsed)
+    for unitFrame, targetValue in next, smoothing do
+        if hasAbsorbValue(unitFrame.unit) then
+            smoothing[unitFrame] = nil
+            unitFrame:SetValue_(unitFrame._value)
+            if not next(smoothing) then
+                smoothframe:SetScript("OnUpdate", nil)
+            end
+        else
+            local newValue = lerp(unitFrame._value, targetValue, clamp(0.33 * elapsed * 60))
+            unitFrame:SetValue_(floor(newValue))
+            unitFrame._value = newValue
+
+            if not unitFrame:IsVisible() or isCloseEnough(newValue, targetValue, unitFrame._max) then
+                unitFrame:SetValue_(targetValue)
+                unitFrame._value = targetValue
+                smoothing[unitFrame] = nil
+
+                if not next(smoothing) then
+                    smoothframe:SetScript("OnUpdate", nil)
+                end
             end
         end
     end
 end
+
+local function SetSmoothedValue(self, value)
+    self.finalValue = value
+    local guid = UnitGUID(self.unit)
+
+    if hasAbsorbValue(self.unit) or not self:IsVisible() or isCloseEnough(self._value, value, self._max) or (self.unit and guid ~= self.guid) then
+        self.guid = guid
+        smoothing[self] = nil
+        self:SetValue_(floor(value))
+        self._value = self:GetValue()
+        return
+    end
+
+    smoothing[self] = clamp(value, self._max)
+
+    if not smoothframe:GetScript("OnUpdate") then
+        smoothframe:SetScript("OnUpdate", AnimationTick)
+    end
+end
+
+local function SmoothSetValue(self, min, max)
+    if self.updatingMinMax then
+        return
+    end
+
+    self.updatingMinMax = true
+    self:SetMinMaxValues_(min, max)
+
+    if self._max and self._max ~= max then
+        local ratio = (max ~= 0 and self._max and self._max ~= 0) and (max / self._max) or 1
+
+        local target = smoothing[self]
+        if target then
+            smoothing[self] = target * ratio
+        end
+
+        local cur = self._value
+        if cur then
+            self:SetValue_(cur * ratio)
+            self._value = cur * ratio
+        end
+    end
+
+    self._max = max
+    self.updatingMinMax = false
+end
+
+local function SmoothBar(bar)
+    local _
+    _, bar._max = bar:GetMinMaxValues()
+    bar._value = bar:GetValue()
+
+    if not bar.SetValue_ then
+        bar.SetValue_ = bar.SetValue
+        bar.SetValue = SetSmoothedValue
+    end
+    if not bar.SetMinMaxValues_ then
+        bar.SetMinMaxValues_ = bar.SetMinMaxValues
+        bar.SetMinMaxValues = SmoothSetValue
+    end
+end
+
+for barName, unit in pairs(barstosmooth) do
+            local statusbar = _G[barName]
+            if statusbar then
+                SmoothBar(statusbar)
+                statusbar:HookScript("OnHide", function(self)
+                    self.guid, self.max_ = nil, nil
+                end)
+                statusbar.unit = unit ~= "" and unit or nil
+            end
+        end
 
 -- statusbar.lockColor causes taints
 local function colour(statusbar, unit)
@@ -1146,12 +1207,27 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
     self:Show()
 end)
 
--- Handling in 2.5.5 EDIT MODE
--- Change BuffFrame position
---hooksecurefunc("UIParent_UpdateTopFramePositions", function()
---    BuffFrame:ClearAllPoints()
---    BuffFrame:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -180, -13)
---end)
+-- Remove server name and/or (*) and abbreviations from Target/Focus frame Player name
+local lock = false
+local function HookName(frame)
+    if not frame or not frame.name then return end
+
+    hooksecurefunc(frame.name, "SetText", function(self, text)
+        if not text or lock then return end
+
+        local clean = text
+            :gsub("%-[^|]+", "")      -- remove realm
+            :gsub("%s*%(%*%)", "")    -- remove (*)
+
+        if clean ~= text then
+            lock = true
+            self:SetText(clean)
+            lock = false
+        end
+    end)
+end
+HookName(TargetFrame)
+HookName(FocusFrame)
 
 -- stop Gladdy from showing nameplates (necessary for the next script)
 -- "Lock Frame" inside Gladdy must be Toggled ON!
@@ -1928,6 +2004,49 @@ StyleUnitName(FocusFrame, -173, 30)
 -- Disable the default Blizzard shit arena timer tracker that is never correct... like wtf are u doing... the most dogshit lazy ignorant and incompetent company i have ever seen, the enshitification of wow with retail dogshit continues
 TimerTracker:UnregisterAllEvents()
 
+-- AUTO-TAB BINDING SWITCHER (PvP vs PvE)
+local TabSwitcherFrame = CreateFrame("Frame")
+
+local TAB_KEYS = {
+    primary = "TAB"
+}
+
+local function UpdateTabBindings()
+    -- Important: Bindings cannot be changed while in combat
+    if InCombatLockdown() then 
+        -- If we are in combat, register to try again when combat ends
+        TabSwitcherFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+        return 
+    end
+
+    local _, instanceType = IsInInstance()
+    local isPvp = (instanceType == "pvp" or instanceType == "arena")
+
+    if isPvp then
+        -- PvP Mode: Target Players only
+        SetBinding(TAB_KEYS.primary, "TARGETNEARESTENEMYPLAYER")
+    else
+        -- PvE Mode: Target all Enemies
+        SetBinding(TAB_KEYS.primary, "TARGETNEARESTENEMY")
+    end
+end
+
+TabSwitcherFrame:SetScript("OnEvent", function(self, event, ...)
+    if event == "PLAYER_REGEN_ENABLED" then
+        UpdateTabBindings()
+        self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+    else
+        UpdateTabBindings()
+    end
+end)
+
+-- Events that should trigger a binding check
+TabSwitcherFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+TabSwitcherFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+-- Initial run on file load
+UpdateTabBindings()
+
 
 
 local evolvedFrame = CreateFrame("Frame")
@@ -1943,7 +2062,7 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
     if event == "PLAYER_LOGIN" then
         CustomCvar() -- Set our CVAR values
         OnInit() -- Init tons of shit
-        SetSmooth() -- SmoothBar init
+        --SetSmooth() -- SmoothBar init (removed since using Xyz´s smooth shit now)
         hooksecurefunc("CompactUnitFrame_UpdateName", PlateNames) -- has to be called after event
         UpdateBinds(self)
 		MoveWidget() -- UIWidgetBelowMinimapContainerFrame
@@ -2065,6 +2184,6 @@ FramerateLabel:SetPoint("CENTER", holder, "CENTER")
 COMBAT_TEXT_RESIST = "FUCK BLIZZARD"
 
 --Login message informing all scripts of this file were properly executed
-ChatFrame1:AddMessage("EvolvePWPUI-ClassicTBC-Anniversary v0.1 Loaded successfully!", 0, 205, 255)
+ChatFrame1:AddMessage("EvolvePWPUI-ClassicTBC-Anniversary v1.0 Loaded successfully!", 0, 205, 255)
 ChatFrame1:AddMessage("Check for updates at:", 89, 89, 89)
 ChatFrame1:AddMessage("https://github.com/Evolvee/EvolvePWPUI-ClassicTBC-Anniversary", 89, 89, 89)

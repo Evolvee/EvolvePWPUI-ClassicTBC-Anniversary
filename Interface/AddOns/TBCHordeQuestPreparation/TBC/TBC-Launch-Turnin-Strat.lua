@@ -16,7 +16,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		+ |cRXP_ENEMY_Go through the following steps thoroughly and make sure you have all of them ready!|r
+		+|cRXP_ENEMY_Go through the following steps thoroughly and make sure you have all of them ready!|r
 		>>|cRXP_WARN_Otherwise we cannot guarantee a flawless turnin process|r
 
 	step
@@ -24,12 +24,15 @@ RXPGuides.RegisterGuide([[
 		>>|cRXP_WARN_Always mandatory:|r
 		+Make sure your |cRXP_ENEMY_Hearthstone|r is set to |cFFfa9602Light's Hope Chapel|r
 		+Make sure you have |cRXP_ENEMY_at least 40 free bagslots|r
+		+Make sure to turn off the |cRXP_WARN_Turnin Warnings|r and |cRXP_WARN_Completion Warnings|r
 
 	step
 		>>|cRXP_WARN_If you are using our companion feature:|r
+		+Make sure to mark |cRXP_ENEMY_all BoE items|r as in Mailbox or an Alt in the UI (/tbc -> items tab)
 		+Make sure that |cRXP_ENEMY_all BoE items are sent and ready|r in your |cFFfa9602mailbox|r
 		>>Send all items that are not soulbound from another character to this one and keep them in the mailbox
 		+Open the companion (/tbc companion) and |cRXP_ENEMY_prepare the initial items|r from step 1
+		+|cRXP_WARN_This companion addin might break due to the server load on launch. Please dont blame the devs for stuff that is out of their hands and take out the mail by yourself!|r
 
 --- Kargath
 
@@ -54,6 +57,7 @@ RXPGuides.RegisterGuide([[
 	step
 		.goto Badlands,5.8,47.6
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Warlord Goretooth|r
+		>>He sometimes patrols down the tower towards |cRXP_FRIENDLY_Shadowmage Vivian Lagrave|r
 		.turnin -4132
 		.turnin -4903
 		.target Warlord Goretooth
@@ -61,6 +65,7 @@ RXPGuides.RegisterGuide([[
 	step
 		.goto Badlands,5.8,47.6
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Warlord Goretooth|r
+		>>He sometimes patrols down the tower towards |cRXP_FRIENDLY_Shadowmage Vivian Lagrave|r
 		.accept 4941
 		.target Warlord Goretooth
 		.isQuestTurnedIn 4903	
@@ -119,7 +124,6 @@ RXPGuides.RegisterGuide([[
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Cyrus Therepentous|r
 		.itemcount 10575,1
 		.accept 4022
-		.turnin 4022
 		.target Cyrus Therepentous
 		.isQuestAvailable 4022
 		.skipgossip			
@@ -130,9 +134,19 @@ RXPGuides.RegisterGuide([[
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Cyrus Therepentous|r
 		.itemcount 10575,1
 		.accept 4023
-		.turnin 4023
 		.target Cyrus Therepentous
 		.isQuestAvailable 4023
+		.isNotOnQuest 4022
+		.skipgossip	
+
+	step
+		#label BurningLast
+		.goto Burning Steppes,95.061,31.563
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Cyrus Therepentous|r
+		.itemcount 10575,1
+		.turnin -4022
+		.turnin -4023
+		.target Cyrus Therepentous
 		.skipgossip	
 
 --- Silithus		
@@ -147,6 +161,7 @@ RXPGuides.RegisterGuide([[
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Layo|r
 		.accept 1126
 		.target Layo Starstrike	
+		.isQuestTurnedIn 1125
 
 	step
 		.goto Silithus,51.74,37.91
@@ -166,11 +181,26 @@ RXPGuides.RegisterGuide([[
 		.skill cooking,<285,1
 
 	step
+		.goto Silithus,60.22,52.55
+		>>Click on the |cRXP_PICK_Gooey Nest|r at the top of the tower
+		>>Kill the two |cRXP_ENEMY_Hive'Ashi Ambushers|r that spawn on the top floor. Loot them for a |cRXP_LOOT_Encrusted Silithid Object|r
+		>>|cRXP_WARN_Be careful! Three|r |cRXP_ENEMY_Hive'Ashi Drones|r |cRXP_WARN_will spawn when you enter the bottom floor of the tower!|r
+		.complete 1126,1 
+		.mob Hive'Ashi Drone
+		.mob Hive'Ashi Ambusher			
+
+	step
 		.goto Silithus,67,69.6
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hermit Ortell|r
 		.turnin -8279
+		.target Hermit Ortell	
+
+	step
+		.goto Silithus,67,69.6
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hermit Ortell|r
 		.accept 8287
 		.target Hermit Ortell	
+		.isQuestTurnedIn 8279	
 
 	step
 		.goto Silithus,67,69.6
@@ -179,9 +209,9 @@ RXPGuides.RegisterGuide([[
 		.turnin 8323
 		.target Hermit Ortell	
 		.itemcount 20404,10	
+		.isQuestTurnedIn 8279
 
 	step
-		#completewith RutgarTurnin
 		.use 20461 >> Click |T133463:0|t[Brann Bronzebeard's Lost Letter] and accept |cRXP_LOOT_Brann Bronzebeard's Lost Letter|r
 		.accept 8308
 		.itemcount 20461,1
@@ -200,8 +230,16 @@ RXPGuides.RegisterGuide([[
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rutgar|r
 		.turnin -8308
 		.turnin -8309
+		.target Rutgar Glyphshaper
+
+	step
+		#label RutgarTurnin
+		.goto Silithus,41.3,88.5
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rutgar|r
 		.accept 8314
 		.target Rutgar Glyphshaper
+		.isQuestTurnedIn 8308
+		.isQuestTurnedIn 8309	
 		
 	step
 		.goto Silithus,45.00,92.20
@@ -221,7 +259,7 @@ RXPGuides.RegisterGuide([[
 		.skill cooking,<285,1	
 
 	step	
-		.use 21220
+		.use 21220>>Click |T132192:0|t[Head of Ossirian the Unscarred] and accept |cRXP_LOOT_The Fall of Ossirian|r
 		.accept 8791
 		.itemcount 21220,1
 
@@ -253,9 +291,21 @@ RXPGuides.RegisterGuide([[
 		.goto Silithus,48.6,37.9
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Huum Wildmane|r	
 		.turnin -8321
-		.accept 8343
-		.accept 8331
 		.target Huum Wildmane
+
+	step	
+		.goto Silithus,48.6,37.9
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Huum Wildmane|r	
+		.accept 8343
+		.target Huum Wildmane
+		.reputation 609,revered,<0,1 
+		
+	step	
+		.goto Silithus,48.6,37.9
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Huum Wildmane|r	
+		.accept 8331
+		.target Huum Wildmane	
+		.reputation 609,friendly,<0,1 	
 
 	step	
 		.goto Silithus,51.0,38.8
@@ -421,7 +471,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8700 << Druid
 		.turnin 8700 << Druid
 		.accept 8556 << Warrior
-		.turnin 8555 << Warrior
+		.turnin 8556 << Warrior
 		.target Windcaller Yessendra
 		.itemcount 20884,1
 		.reputation 609,honored,<0,1 
@@ -487,6 +537,7 @@ RXPGuides.RegisterGuide([[
 		>>Kill |cRXP_ENEMY_Emissary Roman'khan|r and loot him for |cRXP_LOOT_Crystal Unlocking Mechanism|r
 		.complete -8315,1	
 		.mob Emissary Roman'khan
+		.isOnQuest 8315
 
 	step
 		.goto Silithus,49.7,37.5
@@ -538,6 +589,14 @@ RXPGuides.RegisterGuide([[
 		.accept 6844
 		.target Layo Starstrike	
 		.isQuestTurnedIn 1126	
+
+	step
+		.destroy 17345 >>Destroy |T134437:0|t[Silithid Goo] to free up bag space
+		.itemcount 17345,1		
+
+	step
+		.destroy 20464 >>Destroy |T136192:0|t[Glyphs of Calling] to free up bag space
+		.itemcount 20464,1		
 
 --- Un'Goro
 
@@ -617,6 +676,7 @@ RXPGuides.RegisterGuide([[
 		>>Click the |cRXP_PICK_Northern Crystal Pylon|r
 		.complete 4285,1 
 		.isOnQuest 4285
+		.skipgossip
 
 	step	
 		.goto Un'Goro Crater,48.3,20.9,20,0
@@ -634,6 +694,7 @@ RXPGuides.RegisterGuide([[
 		>>Click the |cRXP_PICK_Western Crsytal Pylon|r
 		.complete 4288,1
 		.isOnQuest 4288
+		.skipgossip
 		
 	step
 		#completewith next
@@ -650,6 +711,7 @@ RXPGuides.RegisterGuide([[
 	step
 		.goto Un'Goro Crater,51.90,49.85
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ringo|r
+		>>If Ringo is not there, skip this step. It is only 4k experience
 		.turnin -4492
 		.target Ringo		
 
@@ -680,7 +742,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		.goto Un'Goro Crater,49.6,45.7
-		.use 12472 >>|cRXP_WARN_Climb up to the top of the volcano, then use|r |T132995:0|t[Krakle's Thermometer]
+		.use 12472 >>Use |T132995:0|t[Krakle's Thermometer] at the waypoint
 		.complete 974,1 
 		.isOnQuest 974
 
@@ -728,9 +790,28 @@ RXPGuides.RegisterGuide([[
 	step
 		.goto Tanaris,52.30,28.92
 		+|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gimblethorn|r and collect your items via "/tbc companion"
+		>>Also bank any items that you don't need anymore to save bag space
 		>>Once done, or when you picked up your items yourself, complete this step manually
+		.bankdeposit 12264, 12529, 11905, 20422, 20451
 		.target Gimblethorn
 		
+	step
+		.goto Tanaris,52.63,28.12
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dirge Quikcleave|r
+		.accept 8586
+		.turnin 8586
+		.target Dirge Quikcleave
+		.isQuestTurnedIn 8585
+		.itemcount 9061,20
+		.itemcount 8150,20
+
+	step
+		.goto Tanaris,52.63,28.12
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dirge Quikcleave|r
+		.accept 8587
+		.target Dirge Quikcleave
+		.isQuestTurnedIn 8586	
+
 	step
 		.goto Tanaris,52.47,27.23
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mux Manascrambler|r
@@ -755,6 +836,34 @@ RXPGuides.RegisterGuide([[
 		.isQuestTurnedIn 4507
 
 	step
+		.goto Tanaris,50.90,27.00
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Pestlezugg|r
+		.vendor >>|cRXP_BUY_Sell your junk and unneeded quest rewards to free up space|r
+		.target Alchemist Pestlezugg	
+		
+	step
+		.goto Tanaris,65.24,18.58
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Narain Soothfancy|r
+		.turnin -8587
+		.turnin -8620
+		.turnin -8578
+		.target Narain Soothfancy	
+
+	step
+		.goto Tanaris,65.24,18.58
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Narain Soothfancy|r
+		.accept 8728
+		.turnin 8728
+		.target Narain Soothfancy
+		.isQuestTurnedIn 8587
+		.isQuestTurnedIn 8578
+		.isQuestTurnedIn 8620
+		.itemcount 12360,20
+		.itemcount 18562,20
+		.itemcount 12800,10
+		.itemcount 12361,10		
+
+	step
 		.goto Tanaris,66.8,24.0
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Prospector Ironboot|r
 		.turnin -4788
@@ -771,20 +880,20 @@ RXPGuides.RegisterGuide([[
 		.goto Tanaris,67.0,22.4
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yeh'kinya|r
 		>>|cRXP_WARN_This starts a 1:30-5min respawn, so try to have everyone turn this in at the same time|r
+		>>When anyone is turning in "Confront Yeh'kinya', you get 20 seconds to turnin, before he goes RP
 		.turnin -8181
 		.target Yeh'kinya
 
-	step	
-		.goto Tanaris,67.0,22.4
-		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yeh'kinya|r
+	step
+		.goto Tanaris,66.8,24.0
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Prospector Ironboot|r
 		.accept 8182
-		.target Yeh'kinya
-		.isQuestTurnedIn 8181
+		.target Prospector Ironboot
+		.isQuestTurnedIn 8181	
 		
 	step
 		#completewith Tanarislast
-		.goto Tanaris,64.2,51.4
-		>>Travel to |cFFfa9602The Caverns of Time|r	
+		.goto Tanaris,64.2,51.4,50 >>Travel to |cFFfa9602The Caverns of Time|r	
 	
 	step
 		.goto Tanaris,64.2,51.4
@@ -892,13 +1001,15 @@ RXPGuides.RegisterGuide([[
 		.reputation 910,revered,<0,1 	
 		
 	step
-		#label Tanarislast
 		.goto Tanaris,64.2,51.4
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Anachronos|r
 		.turnin 8751
 		.target Anachronos
 		.isQuestTurnedIn 8747
 		.reputation 910,exalted,<0,1 		
+
+	step
+		#label Tanarislast		
 
 --- Winterspring
 
@@ -911,24 +1022,43 @@ RXPGuides.RegisterGuide([[
 		.goto Winterspring,61.93,38.37
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Storm Shadowhoof|r
 		.turnin -5056
-		.accept 5057
 		.target Storm Shadowhoof		
 
 	step
 		.goto Winterspring,61.93,38.37
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Storm Shadowhoof|r
-		.turnin -5057
-		.target Storm Shadowhoof		
+		.turnin 5057
+		.target Storm Shadowhoof	
+		.isQuestTurnedIn 5056			
 
+	step
+		.goto Winterspring,61.33,37.19
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Seril Scourgebane|r
+		.turnin -5307
+		.target Seril Scourgebane
+
+	step
+		.goto Winterspring,61.33,37.13
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lilith the Lithe|r
+		.turnin -5305
+		.target Lilith the Lithe
+		
+	step
+		.goto Winterspring,61.30,37.07
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kilram|r
+		.turnin -5306
+		.target Kilram
+		
 	step
 		.goto Winterspring,61.919,38.298
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Witch Doctor Mau'ari|r
 		.turnin -969
-		.target Witch Doctor Mau'ari
+		.target Witch Doctor Mau'ari		
 
 	step
 		.goto Winterspring,61.35,38.97
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gregor Greystone|r
+		>>|cRXP_WARN_Both of these quests give only minor experience. If you struggle with space in your questlog drop these|r
 		.accept 6029
 		.accept 6030
 		.target Gregor Greystone
@@ -1042,22 +1172,6 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		.use 20644 >>Click |T136163:0|t[Nightmare Engulfed Object] and accept |cRXP_LOOT_Shrouded in Nightmare|r
-		.accept 8446
-		.itemcount 20644,1
-
-	step
-		.goto Felwood,65.5,0.9,15,0
-		.goto Moonglade,35.7,72.4,15,0
-		.goto Moonglade,36.19,41.78
-		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Keeper Remulos|r
-		.turnin 8446
-		.itemcount 20644,1
-		.target Keeper Remulos
-
-	step
-		#completewith next
-		.goto Felwood,65.5,0.9,15,0
 		.goto Moonglade,35.7,72.4,15,0
 		.goto Moonglade,40.00,43.59,15,0
 		.goto Moonglade,42.13,34.94,5 >>Travel to |cFFfa9602Nighthaven|r
@@ -1065,14 +1179,18 @@ RXPGuides.RegisterGuide([[
 		.subzoneskip 2362
 
 	step
-		.goto Moonglade,44.7,35.5
+		.goto Moonglade,44.7,35.5,20,0
+		.goto Moonglade,47.7,39.7
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Umber|r
+		>>|cRXP_FRIENDLY_Umber|r |cRXP_WARN_patrols over the bridge into the next building|r
 		.turnin -6844
 		.target Umber
 
 	step
-		.goto Moonglade,44.7,35.5
+		.goto Moonglade,44.7,35.5,20,0
+		.goto Moonglade,47.7,39.7
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Umber|r
+		>>|cRXP_FRIENDLY_Umber|r |cRXP_WARN_patrols over the bridge into the next building|r
 		.accept 6845
 		.target Umber		
 		.isQuestTurnedIn 6844
@@ -1093,18 +1211,43 @@ RXPGuides.RegisterGuide([[
 		.goto Moonglade,51.70,45.00
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rabine|r
 		.accept 5526
-		.turnin 5526
 		.target Rabine Saturna	
 		.itemcount 18501,1
 		.isQuestTurnedIn 5527
+
+	step
+		.use 18539 >> Use |T132595:0|t[Reliquary of Purity] to combine it with the Felvine Shard
+		.complete 5526,1
+
+	step
+		.goto Moonglade,51.70,45.00
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rabine|r
+		.turnin -5526
+		.target Rabine Saturna	
+		.isQuestTurnedIn 5527		
 		
 	step
+		.goto Moonglade,47.7,39.7,20,0
 		.goto Moonglade,44.7,35.5
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Umber|r
+		>>|cRXP_FRIENDLY_Umber|r |cRXP_WARN_patrols over the bridge into the next building|r
 		.accept 1185
 		.turnin 1185
 		.target Umber		
 		.isQuestTurnedIn 6845
+
+	step
+		#completewith next
+		.use 20644 >>Click |T136163:0|t[Nightmare Engulfed Object] and accept |cRXP_LOOT_Shrouded in Nightmare|r
+		.accept 8446
+		.itemcount 20644,1
+
+	step
+		.goto Moonglade,36.19,41.78
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Keeper Remulos|r
+		.turnin 8446
+		.itemcount 20644,1
+		.target Keeper Remulos		
 	
 --- Felwood
 
@@ -1112,9 +1255,14 @@ RXPGuides.RegisterGuide([[
 		#completewith Felwoodlast
 		.goto Moonglade,32.2,66.6
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Faustron|r
-		.fly Felwood >>Fly to |cFFfa9602Felwood|r
+		.fly Bloodvenom Post >>Fly to |cFFfa9602Felwood|r
 		.target Faustron
 		.zoneskip Felwood
+
+	step
+		.goto Felwood,34.80,52.94
+		+Open your |cRXP_PICK_Mailbox|r and collect your items via "/tbc companion"
+		>>Once done, or when you picked up your items yourself, complete this step manually	
 
 	step
 		#completewith next
@@ -1138,13 +1286,28 @@ RXPGuides.RegisterGuide([[
 		
 	step
 		#completewith Felwoodlast
-		.goto Felwood,35.23,50.25,15,0
-		.goto Felwood,37.0,49.0,15,0
-		.goto Felwood,37.4,49.1,15,0
-		.goto Felwood,39.8,53.0,15,0
-		.goto Felwood,41.0,57.3,15,0
-		.goto Felwood,43.4,74.4,15,0
-		.goto Felwood,46.75,83.08,40 >>Travel to |cRXP_FRIENDLY_Maybess Riverbreeze|r
+		.goto Felwood,34.4,53.8
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brakkar|r
+		.fly Emerald Sanctuary>>Fly to |cFFfa9602Emerald Sanctuary|r
+		.target Brakkar
+
+	step
+		.goto Felwood,51.18,82.22
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Greta Mosshoof|r
+		.turnin -5242
+		.target Greta Mosshoof			
+		
+	step
+		.goto Felwood,51.14,81.76
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kelek Skykeeper|r
+		.turnin -5128
+		.target Kelek Skykeeper	
+
+	step
+		.goto Felwood,51.35,82.01
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jessir Moonbow|r
+		.turnin -5385
+		.target Jessir Moonbow	
 
 	step
 		.goto Felwood,46.75,83.08
@@ -1191,23 +1354,7 @@ RXPGuides.RegisterGuide([[
 		.itemcount 11512,5	
 
 	step
-		.goto Felwood,51.18,82.22
-		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Greta Mosshoof|r
-		.turnin -5242
-		.target Greta Mosshoof			
-		
-	step
-		.goto Felwood,51.14,81.76
-		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kelek Skykeeper|r
-		.turnin -5128
-		.target Kelek Skykeeper	
-
-	step
 		#label Felwoodlast
-		.goto Felwood,51.35,82.01
-		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jessir Moonbow|r
-		.turnin -5385
-		.target Jessir Moonbow	
 
 --- Orgrimmar
 	
@@ -1336,11 +1483,33 @@ RXPGuides.RegisterGuide([[
 		.goto Orgrimmar,31.74,37.82
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thrall|r
 		.turnin -4941
+		.turnin -4974
 		.turnin -4004
 		.turnin -7490
 		.turnin -7783
 		.turnin -8485
 		.target Thrall
+
+	step
+		.goto Orgrimmar,31.74,37.82
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thrall|r
+		.accept 6566
+		.target Thrall	
+		.isQuestTurnedIn 4974	
+
+	step
+		.goto Orgrimmar,31.74,37.82
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thrall|r
+		.complete 6566,1
+		.target Thrall	
+		.isOnQuest 6566	
+		.skipgossip	
+
+	step
+		.goto Orgrimmar,31.74,37.82
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thrall|r
+		.turnin -6566
+		.target Thrall		
 
 	step
 		.goto Orgrimmar,31.74,37.82
@@ -1369,6 +1538,37 @@ RXPGuides.RegisterGuide([[
 		.goto Orgrimmar,62.18,40.49
 		+Open your |cRXP_PICK_Mailbox|r and collect your items via "/tbc companion"
 		>>Once done, or when you picked up your items yourself, complete this step manually
+
+	step
+		>>Get |cRXP_LOOT_Battle of Warsong Gulch|r shared from another toon or complete manually if not available
+		.goto Orgrimmar,79.78,30.34
+		.accept 8430
+		.itemcount 20558,3
+
+	step
+		>>Get |cRXP_LOOT_Conquering Arathi Basin|r shared from another toon or complete manually if not available
+		.goto Orgrimmar,79.78,30.34
+		.accept 8439
+		.itemcount 20559,3
+		
+	step
+		>>Get |cRXP_LOOT_Invaders of Alterac Valley|r shared from another toon or complete manually if not available
+		.goto Orgrimmar,79.78,30.34
+		.accept 8369
+		.itemcount 20560,3
+
+	step
+		.goto Orgrimmar,79.78,30.34
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Horde Warbringer|r
+		.turnin -8430
+		.turnin -8439
+		.turnin -8369
+		.turnin -11338
+		.turnin -11335
+		.turnin -11336
+		.turnin -11337
+		.turnin -11340
+		.turnin -95457
 
 	step
 		.goto Orgrimmar,63.61,51.22
@@ -1406,6 +1606,16 @@ RXPGuides.RegisterGuide([[
 		.isQuestTurnedIn 7831
 
 	step
+		.goto Orgrimmar,62.8,50.4
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tor'phan|r
+		.vendor >>|cRXP_BUY_Sell your junk and unneeded quest rewards to free up space|r
+		.target Tor'phan		
+
+	step
+		.destroy 11516 >> Delete any remaining |T132804:0|t[Cenarion Plant Salve]
+		.itemcount 11516,1
+
+	step
 		.goto Orgrimmar,55.9,57.5,8,0
 		.goto Orgrimmar,56.26,46.68
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zilzibin Drumlore|r
@@ -1432,17 +1642,17 @@ RXPGuides.RegisterGuide([[
 		.turnin -7784
 		.target High Overlord Saurfang	
 
-	step
-		.goto Orgrimmar,49.58,69.15
-		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_High Overlord Saurfang|r
+	step	
+		.goto Orgrimmar,49.58,69.13
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Karus|r
 		.turnin -4511
-		.target High Overlord Saurfang	
+		.target Karus	
 
 	step
 		#label Orgrimmarlast
 		.goto Orgrimmar,49.58,69.13
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Karus|r and collect your items via "/tbc companion"
-		>>Once done, or when you picked up your items yourself, complete this step manually
+		+Once done, or when you picked up your items yourself, complete this step manually
 		.target Karus	
 
 --- Silvermoon City
@@ -1451,6 +1661,13 @@ RXPGuides.RegisterGuide([[
 		#completewith Silvermoonlast
 		.zone Silvermoon City >>Take Portal or get summon to |cFFfa9602Silvermoon City|r
 		.zoneskip Silvermoon City
+
+	step
+		#completewith Silvermoonlast
+		.goto Silvermoon City,56.2,23.0,15,0
+		.goto Silvermoon City,72.6,43.8,15,0
+		.goto Silvermoon City,75.5,59.0,15,0
+		.goto Silvermoon City,56.6,52.8,50 >>Travel to |cFFfa9602The Bazaar|r in Silvermoon City
 
 	step <<tbc
 		.goto Silvermoon City,56.6,52.8
@@ -1538,8 +1755,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith EPL1
-		.zone Eastern Plaguelands >> Hearth to |cFFfa9602Lights Hope Chapel|r
-		.use 6948
+		.hs >> Hearth to |cFFfa9602Lights Hope Chapel|r
 		.zoneskip Eastern Plaguelands
 
 	step
@@ -1585,7 +1801,7 @@ RXPGuides.RegisterGuide([[
 		.isQuestTurnedIn 9233
 
 	step	
-		.goto Eastern Plaguelands,81.4,58.5
+		.goto Eastern Plaguelands,81.2,59.0
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rayne|r	
 		.accept 9136
 		.turnin 9136
@@ -1708,6 +1924,10 @@ RXPGuides.RegisterGuide([[
 		.target Dispatch Commander Metz		
 		.itemcount 12844,1
 
+	step
+		.destroy 22568 >>Destroy |T134940:0|t[Sealed Craftsman's Writ] to free up bag space
+		.itemcount 22568,1			
+
 	step	
 		.goto Eastern Plaguelands,80.0,57.6
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Emissary Gormok|r	
@@ -1808,7 +2028,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith next
-		.goto 1415,52.8,26.4
+		.goto 1415,50.95,36.53
 		.subzone 2057 >>Enter |cFFfa9602Scholomance|r
 
 	step
@@ -1832,8 +2052,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith EPL2
-		.zone Eastern Plaguelands >> Hearth to |cFFfa9602Lights Hope Chapel|r
-		.use 6948
+		.hs >> Hearth to |cFFfa9602Lights Hope Chapel|r
 		.zoneskip Eastern Plaguelands
 
 	step	
@@ -1861,6 +2080,7 @@ RXPGuides.RegisterGuide([[
 		.use 15736 >>Use |T133715:0|t[Smokey's Special Compound] to destroy |cRXP_ENEMY_Scourge Ziggurats|r
 		>>Try to destroy at least 4 before entering Stratholme
 		.complete 6041,1
+		.isOnQuest 6041
 		
 	step
 		.goto Eastern Plaguelands,14.45,33.74
@@ -1896,7 +2116,7 @@ RXPGuides.RegisterGuide([[
 	step
 		#completewith StratholmeLive
 		#label StratholmeEntry1
-		.goto Eastern Kingdoms,55.12,17.36,8 >> Enter |cFFfa9602Stratholme|r
+		.goto Eastern Kingdoms,52.97,28.68,8 >> Enter |cFFfa9602Stratholme|r
 	
 	step
 		#completewith StratholmeLive
@@ -1935,8 +2155,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith EPL3
-		.zone Eastern Plaguelands >> Hearth to |cFFfa9602Lights Hope Chapel|r
-		.use 6948
+		.hs >> Hearth to |cFFfa9602Lights Hope Chapel|r
 		.zoneskip Eastern Plaguelands
 
 	step
@@ -1971,6 +2190,7 @@ RXPGuides.RegisterGuide([[
 		#completewith next
 		.use 15736 >>Use |T133715:0|t[Smokey's Special Compound] to destroy |cRXP_ENEMY_Scourge Ziggurats|r
 		.complete 6041,1	
+		.isOnQuest 6041
 
 	step
 		#completewith StratholmeUndead
@@ -2053,8 +2273,7 @@ RXPGuides.RegisterGuide([[
 
 	step
 		#completewith EPL4
-		.zone Eastern Plaguelands >> Hearth to |cFFfa9602Lights Hope Chapel|r
-		.use 6948
+		.hs >> Hearth to |cFFfa9602Lights Hope Chapel|r
 		.zoneskip Eastern Plaguelands
 
 	step	
@@ -2085,7 +2304,7 @@ RXPGuides.RegisterGuide([[
 	step	
 		.goto Eastern Plaguelands,81.7,58.0
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lord Maxwell Tyrosus|r
-		.accept 5465
+		.accept 5265
 		.target Lord Maxwell Tyrosus	
 		.isQuestTurnedIn 5264	
 		
@@ -2134,6 +2353,12 @@ RXPGuides.RegisterGuide([[
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Egan|r
 		.turnin -5282
 		.target Egan
+
+	step
+		#completewith next
+		.goto Eastern Plaguelands,16.5,29.1,10,0
+		.goto Eastern Plaguelands,7.2,41.2,15 >> Travel through the |cFFfa9602Terrorweb Tunnel|r
+		>>|cRXP_WARN_Try to avoid the mobs and especially elite as much as possible as their web will slow you down and they deal quite alot of damage|r		
 
 	step	
 		.goto Eastern Plaguelands,7.6,43.6
@@ -2193,7 +2418,7 @@ RXPGuides.RegisterGuide([[
 		.goto Western Plaguelands,37.80,57.60,50,0
 		>>Kill the |cRXP_ENEMY_Jabbering Ghoul|r. Loot it for the |cRXP_LOOT_Good Luck Other-Half-Charm|r
 		>>|cRXP_WARN_Skip this quest if |cRXP_ENEMY_Jabbering Ghoul|r is not up
-		.use 12722 >> Use it to create the |cRXP_LOOT_Good Luck Good Luck Charm|r
+		.use 12722 >>Click |T133443:0|t[Good Luck Other-Half-Charm] to create the |cRXP_LOOT_Good Luck Charm|r
 		.complete 5051,1 
 		.unitscan Jabbering Ghoul
 		.isOnQuest 5051	
@@ -2220,6 +2445,7 @@ RXPGuides.RegisterGuide([[
 	step
 		.goto Tirisfal Glades,83.1,71.6
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Alexi Barov|r
+		>>|cRXP_WARN_Alliance gets a quest to kill him, if he is not up try to swap layer or skip this step|r
 		.turnin -5341	
 		.turnin -5342
 		.target Alexi Barov
@@ -2228,7 +2454,15 @@ RXPGuides.RegisterGuide([[
 		.goto Tirisfal Glades,83.2,71.2
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mehlar Dawnblade|r
 		.turnin -9444
-		.target Mehlar Dawnblade			
+		.target Mehlar Dawnblade
+		
+	step << Paladin
+		.goto Tirisfal Glades,83.2,71.2
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mehlar Dawnblade|r
+		.accept 10590
+		.turnin 10590
+		.target Mehlar Dawnblade
+		.itemcount 12840,20
 		
 	step
 		.goto Tirisfal Glades,83.3,69.2
@@ -2357,7 +2591,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8063
 		.turnin 8063
 		.target Falthir the Sightless
-		.reputation 270,friendly,>=1
+		.reputation 270,friendly,<0,1
 		.itemcount 19717,1
 
 	step << Rogue
@@ -2366,7 +2600,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8072
 		.turnin 8072
 		.target Falthir the Sightless
-		.reputation 270,honored,>=1
+		.reputation 270,honored,<0,1
 		.itemcount 19719,1
 
 	step << Rogue
@@ -2375,7 +2609,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8073
 		.turnin 8073	
 		.target Falthir the Sightless
-		.reputation 270,revered,>=1
+		.reputation 270,revered,<0,1
 		.itemcount 19724,1
 
 	step << Hunter
@@ -2416,7 +2650,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8062
 		.turnin 8062
 		.target Falthir the Sightless
-		.reputation 270,friendly,>=1
+		.reputation 270,friendly,<0,1
 		.itemcount 19716,1	
 		
 	step << Hunter
@@ -2425,7 +2659,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8066
 		.turnin 8066
 		.target Falthir the Sightless
-		.reputation 270,honored,>=1
+		.reputation 270,honored,<0,1
 		.itemcount 19721,1
 	
 	step << Hunter
@@ -2434,7 +2668,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8067
 		.turnin 8067	
 		.target Falthir the Sightless
-		.reputation 270,revered,>=1
+		.reputation 270,revered,<0,1
 		.itemcount 19724,1	
 
 	step << Paladin
@@ -2593,7 +2827,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8059
 		.turnin 8059	
 		.target Al'tabim the All-Seeing
-		.reputation 270,friendly,>=1
+		.reputation 270,friendly,<0,1
 		.itemcount 19718,1
 
 	step << Warlock
@@ -2602,7 +2836,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8076
 		.turnin 8076
 		.target Al'tabim the All-Seeing
-		.reputation 270,honored,>=1
+		.reputation 270,honored,<0,1
 		.itemcount 19720,1
 
 	step << Warlock
@@ -2611,7 +2845,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8077
 		.turnin 8077		
 		.target Al'tabim the All-Seeing
-		.reputation 270,revered,>=1
+		.reputation 270,revered,<0,1
 		.itemcount 19723,1
 		
 	step << Priest
@@ -2652,7 +2886,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8061
 		.turnin 8061
 		.target Al'tabim the All-Seeing	
-		.reputation 270,friendly,>=1
+		.reputation 270,friendly,<0,1
 		.itemcount 19718,1
 
 	step << Priest
@@ -2661,7 +2895,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8070
 		.turnin 8070
 		.target Al'tabim the All-Seeing
-		.reputation 270,honored,>=1
+		.reputation 270,honored,<0,1
 		.itemcount 19720,1		
 
 	step << Priest
@@ -2670,7 +2904,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8071
 		.turnin 8071	
 		.target Al'tabim the All-Seeing	
-		.reputation 270,revered,>=1
+		.reputation 270,revered,<0,1
 		.itemcount 19724,1
 
 	step << Mage
@@ -2711,7 +2945,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8060
 		.turnin 8060	
 		.target Al'tabim the All-Seeing
-		.reputation 270,friendly,>=1
+		.reputation 270,friendly,<0,1
 		.itemcount 19716,1
 
 	step << Mage
@@ -2720,7 +2954,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8068
 		.turnin 8068
 		.target Al'tabim the All-Seeing
-		.reputation 270,honored,>=1
+		.reputation 270,honored,<0,1
 		.itemcount 19721,1
 
 	step << Mage
@@ -2729,7 +2963,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8069
 		.turnin 8069		
 		.target Al'tabim the All-Seeing
-		.reputation 270,revered,>=1
+		.reputation 270,revered,<0,1
 		.itemcount 19723,1
 
 	step << Shaman
@@ -2770,7 +3004,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8056
 		.turnin 8056
 		.target Maywiki of Zuldazar
-		.reputation 270,friendly,>=1
+		.reputation 270,friendly,<0,1
 		.itemcount 19717,1
 
 	step << Shaman
@@ -2779,7 +3013,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8074
 		.turnin 8074
 		.target Maywiki of Zuldazar
-		.reputation 270,honored,>=1
+		.reputation 270,honored,<0,1
 		.itemcount 19719,1
 
 	step << Shaman
@@ -2788,7 +3022,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8075
 		.turnin 8075
 		.target Maywiki of Zuldazar
-		.reputation 270,revered,>=1
+		.reputation 270,revered,<0,1
 		.itemcount 19722,1
 
 	step << Druid
@@ -2829,7 +3063,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8057
 		.turnin 8057
 		.target Maywiki of Zuldazar
-		.reputation 270,friendly,>=1
+		.reputation 270,friendly,<0,1
 		.itemcount 19718,1
 
 	step << Druid
@@ -2838,7 +3072,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8064
 		.turnin 8064
 		.target Maywiki of Zuldazar
-		.reputation 270,honored,>=1
+		.reputation 270,honored,<0,1
 		.itemcount 19720,1
 
 	step << Druid
@@ -2847,7 +3081,7 @@ RXPGuides.RegisterGuide([[
 		.accept 8065
 		.turnin 8065
 		.target Maywiki of Zuldazar
-		.reputation 270,revered,>=1
+		.reputation 270,revered,<0,1
 		.itemcount 19722,1
 
 	step
@@ -2859,6 +3093,12 @@ RXPGuides.RegisterGuide([[
 		#completewith Hillsbradlast
 		.zone Hillsbrad Foothills >> Get summon to |cFFfa9602Hillsbrad Foothills|r
 		.zoneskip Hillsbrad Foothills
+
+	step
+		.goto Hillsbrad Foothills,62.6,19.9
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kayren Soothallow|r
+		.vendor >>|cRXP_BUY_Sell your junk and unneeded quest rewards to free up space|r
+		.target Kayren Soothallow		
 
 	step
 		.goto Hillsbrad Foothills,62.36,19.75
@@ -2879,7 +3119,7 @@ RXPGuides.RegisterGuide([[
 		.isQuestTurnedIn 2937
 	
 	step
-		#completewith next
+		#completewith Hillsbradlast
 		.zone Alterac Mountains >>Travel to |cFFfa9602Alterac Mountains|r
 		.zoneskip Alterac Mountains
 
@@ -2892,34 +3132,9 @@ RXPGuides.RegisterGuide([[
 	step
 		.goto Alterac Mountains,63.84,60.47
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Voggah Deathgrip|r
-		.accept 8272
 		.turnin 8272
 		.isQuestTurnedIn 7142
 		.target Voggah Deathgrip
-
-	step
-		.goto Alterac Mountains,63.08,59.87
-		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Horde Warbringer|r
-		.accept 8430
-		.turnin 8430
-		.target Horde Warbringer
-		.itemcount 20558,3
-
-	step
-		.goto Alterac Mountains,63.08,59.87
-		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Horde Warbringer|r	
-		.accept 8439
-		.turnin 8439
-		.target Horde Warbringer
-		.itemcount 20559,3
-		
-	step
-		.goto Alterac Mountains,63.08,59.87
-		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Horde Warbringer|r
-		.accept 8369
-		.turnin 8369
-		.target Horde Warbringer	
-		.itemcount 20560,3
 
 	step
 		.goto Alterac Mountains,62.27,58.89
@@ -2958,7 +3173,6 @@ RXPGuides.RegisterGuide([[
 		.isQuestTurnedIn 7161
 
 	step
-		#label Hillsbradlast
 		.goto Alterac Mountains,62.2,59.0
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Warmaster Laggrond|r
 		.accept 7167
@@ -2973,7 +3187,10 @@ RXPGuides.RegisterGuide([[
 		.turnin -7101
 		.turnin -7124
 		.turnin -7082
-		.target Corporal Teeka Bloodsnarl			
+		.target Corporal Teeka Bloodsnarl	
+		
+	step
+		#label Hillsbradlast
 
 --- Undercity
 
@@ -2981,13 +3198,6 @@ RXPGuides.RegisterGuide([[
 		#completewith Undercitylast
 		.zone Undercity >>Take Portal or get summon to |cFFfa9602Undercity|r
 		.zoneskip Undercity
-
-	step << Warlock
-		.goto Undercity,88.9,15.9
-		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Richard Kerwin|r
-		.trainer >> Train your class spells
-		.target Richard Kerwin
-		.xp <62,1	
 
 	step
 		.goto Undercity,71.65,29.28
@@ -3029,7 +3239,7 @@ RXPGuides.RegisterGuide([[
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Carolyn Ward|r
 		.trainer >> Train your class spells
 		.target Carolyn Ward
-		.xp <62,1
+		.xp <61,1
 
 	step
 		#completewith next
@@ -3057,7 +3267,7 @@ RXPGuides.RegisterGuide([[
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Champion Cyssa Dawnrose|r
 		.trainer >> Train your class spells
 		.target Champion Cyssa Dawnrose
-		.xp <62,1	
+		.xp <61,1	
 		
 	step
 		#label Undercitylast		
@@ -3074,22 +3284,15 @@ RXPGuides.RegisterGuide([[
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Archmage Shymm|r
 		.trainer >> Train your class spells
 		.target Archmage Shymm
-		.xp <62,1
+		.xp <61,1
 
 	step << Priest
 		.goto Thunder Bluff,24.5,22.6
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Malakai Cross|r
 		.trainer >> Train your class spells
 		.target Malakai Cross
-		.xp <62,1
+		.xp <61,1
 		
-	step << Shaman
-		.goto Thunder Bluff,22.0,18.8
-		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Beram Skychaser|r
-		.trainer >> Train your class spells
-		.target Beram Skychaser
-		.xp <62,1
-
 	step
 		.goto Thunder Bluff,43.1,42.8
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rumstag Proudstrider|r
@@ -3130,7 +3333,7 @@ RXPGuides.RegisterGuide([[
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kym Wildmane|r
 		.trainer >> Train your class spells
 		.target Kym Wildmane
-		.xp <62,1
+		.xp <61,1
 
 	step
 		.goto Thunder Bluff,75.7,31.6
@@ -3140,13 +3343,51 @@ RXPGuides.RegisterGuide([[
 		.target Nara Wildmane
 
 	step
-		#label Thunderlast
 		.goto Thunder Bluff,78.50,28.60
 		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Arch Druid Hamuul Runetotem|r
 		.accept 3761
-		.turnin 3761
 		.target Arch Druid Hamuul Runetotem		
 		.itemcount 11018,20
+
+	step
+		.goto Thunder Bluff,77.6,22.4
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ghede|r
+		.turnin -3761
+		.target Ghede		
+
+	step
+		.goto Thunder Bluff,78.50,28.60
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Arch Druid Hamuul Runetotem|r
+		.accept 3782
+		.target Arch Druid Hamuul Runetotem		
+		.isQuestTurnedIn 3761
+
+	step
+		.goto Thunder Bluff,70.8,33.8
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bashana Runetotem|r
+		.turnin -3782
+		.target Bashana Runetotem		
+		.isQuestTurnedIn 3761		
+
+	step
+		.goto Thunder Bluff,70.8,33.8
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bashana Runetotem|r
+		.accept 3786
+		.turnin 3786
+		.target Bashana Runetotem		
+		.isQuestTurnedIn 3782
+		.itemcount 11040,10
+
+	step
+		.destroy 11020 >>Destroy |T133651:0|t[Evergreen Pouch] to free up bag space
+		.itemcount 11020,1		
+
+	step
+		.destroy 11022 >>Destroy |T136074:0|t[Packet of Tharlendris Seeds] to free up bag space
+		.itemcount 11022,1			
+
+	step
+		#label Thunderlast
 
 --- Swamp of Sorrows		
 
@@ -3159,6 +3400,34 @@ RXPGuides.RegisterGuide([[
 		.goto Swamp of Sorrows,45.45,55.08
 		+Open your |cRXP_PICK_Mailbox|r and collect your items via "/tbc companion"
 		>>Once done, or when you picked up your items yourself, complete this step manually		
+
+	step << Warlock
+		.goto Swamp of Sorrows,48.6,55.6
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kartosh|r
+		.trainer >> Train your class spells
+		.target Kartosh
+		.xp <61,1	
+		
+	step << Warrior
+		.goto Swamp of Sorrows,44.9,57.6
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Malosh|r
+		.trainer >> Train your class spells
+		.target Malosh
+		.xp <61,1
+		
+	step << Hunter
+		.goto Swamp of Sorrows,47.3,53.4
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ogromm|r
+		.trainer >> Train your class spells
+		.target Ogromm	
+		.xp <61,1
+
+	step << Shaman
+		.goto Swamp of Sorrows,48.2,57.9
+		>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Haromm|r
+		.trainer >> Train your class spells
+		.target Haromm	
+		.xp <61,1		
 
 	step
 		.goto Swamp of Sorrows,34.28,66.17

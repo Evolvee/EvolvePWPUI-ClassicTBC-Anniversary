@@ -10,7 +10,7 @@ CasualTBCPrep.Classes.ShamanID = 7
 CasualTBCPrep.Classes.WarriorID = 1
 CasualTBCPrep.Classes.PaladinID = 2
 
-local classData = { -- Token & Name set below
+local classData = {
     [CasualTBCPrep.Classes.MageID] = {  },
     [CasualTBCPrep.Classes.PriestID] = { },
     [CasualTBCPrep.Classes.WarlockID] = { },

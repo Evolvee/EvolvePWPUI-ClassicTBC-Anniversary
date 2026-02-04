@@ -1,0 +1,39 @@
+## Interface: 20505
+
+## Title: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[PvP]|r
+## Title-deDE: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[PvP]|r
+## Title-esES: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[JcJ]|r
+## Title-esMX: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[JcJ]|r
+## Title-frFR: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[JcJ]|r
+## Title-itIT: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[PvP]|r
+## Title-koKR: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLoot 클래식 |cFF0099FF[PvP]|r
+## Title-ptBR: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[JxJ]|r
+## Title-ruRU: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLootTBC |cFF0099FF[PvP]|r
+## Title-zhCN: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t AtlasLoot经典版 |cFF0099FF[PvP]|r
+## Title-zhTW: |TInterface\AddOns\AtlasLootClassic\atlasTBC:16|t 副本戰利品查詢經典版 |cFF0099FF[PvP]|r
+
+## Notes: AtlasLoot loot tables from PvP
+## Notes-deDE: AtlasLoot Beuteverzeichnis für PvP
+## Notes-esES: AtlasLoot tablas de botín de JcJ
+## Notes-esMX: AtlasLoot tablas de botín de JcJ
+## Notes-frFR: Tables de butin JcJ
+## Notes-itIT: AtlasLoot loot tables from PvP
+## Notes-koKR: L["Notes-PvP"] = "PvP에 대한 AtlasLoot 전리품 테이블"
+## Notes-ptBR: Tabelas de saque AtlasLoot de JxJ
+## Notes-ruRU: Таблицы добычи AtlasLoot для PvP.
+## Notes-zhCN: AtlasLoot  PvP掉落列表
+## Notes-zhTW: PvP 物品資料庫。
+
+## Author: Lag123, nanderson11, sliccer
+## Version: BCC 2.5.4
+## Group: AtlasLootClassic
+## IconTexture: Interface\Icons\INV_Box_01
+## Dependencies: AtlasLootClassic
+## LoadOnDemand: 1
+## X-AtlasLootClassic-LootModule: 1
+
+Locales\Locales.xml
+
+private.lua
+data.lua
+data-tbc.lua

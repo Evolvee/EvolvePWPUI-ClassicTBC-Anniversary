@@ -142,7 +142,6 @@ function CasualTBCPrep.WM_Route.RefreshRoute()
 	local metroLineStartOffset = yOffset - 5
 	local metroLineEndOffset = 55
 
-	-- [Metro]
 	local basePath = "Interface\\AddOns\\" .. CasualTBCPrep.AddonNameInternal .. "\\Resources\\Images\\"
 	local basePathRouteLine = basePath .. "RouteLine\\"
 	local basePathRouteTravel = basePath .. "RouteTravel\\"
@@ -177,7 +176,6 @@ function CasualTBCPrep.WM_Route.RefreshRoute()
 	local sectionFrame = nil
 	local lastSectionEnabled = true
 
-	--Don't use CasualTBCPrep.Routing.GetActiveSectionsInCurrentRoute(), we need to show the disabled routes
 	for i, sectionKey in ipairs(route.sectionOrder) do
 		local section = route.sections[sectionKey]
 
@@ -415,7 +413,6 @@ function CasualTBCPrep.WM_Route.RefreshRoute()
 				timeText:SetTextColor(1, 0.82, 0)
 				table.insert(frameRoute.texts, timeText)
 
-				-- Tooltip
 				local ttLines = { }
 				if showDebugData == 1 then
 					table.insert(ttLines, CasualTBCPrep.CreateDebugText("SectionID: ", section.key))
