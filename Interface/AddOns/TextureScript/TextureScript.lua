@@ -264,6 +264,7 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
         end
     end)
 	-- Add more spacing between PartyFrames (<3 Pyralis)
+	--[[
 	local isUpdating = false
     hooksecurefunc(pFrame, "SetPoint", function(frame)
         if isUpdating or InCombatLockdown() then return end
@@ -280,7 +281,7 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
             isUpdating = false
         end
     end)
-
+	--]]
     hooksecurefunc(pFrame.PartyMemberOverlay.Status, "Show", pFrame.PartyMemberOverlay.Status.Hide)
 end
 
@@ -1866,48 +1867,6 @@ local function skipEventFrame()
     end
 end
 
--- Add MMR at the bottom of Arena Scoreboard
-local teamRatingFrame = CreateFrame("frame", "TeamRatingTextFrame", WorldStateScoreFrame)
-teamRatingFrame:SetPoint("BOTTOM", WorldStateScoreFrameLeaveButton, "TOP", 0, 12)
-teamRatingFrame:SetSize(300, 80)
-teamRatingFrame:Hide()
-teamRatingFrame.names = teamRatingFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-teamRatingFrame.ratings = teamRatingFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-teamRatingFrame.names:SetFont("Fonts/FRIZQT__.TTF", 24)
-teamRatingFrame.ratings:SetFont("Fonts/FRIZQT__.TTF", 24)
-teamRatingFrame.names:SetJustifyH("LEFT")
-teamRatingFrame.ratings:SetJustifyH("LEFT")
-teamRatingFrame.ratings:SetPoint("TOPLEFT", teamRatingFrame.names, "TOPRIGHT", 0, 0)
-
-teamRatingFrame:SetScript("OnShow", function()
-    local nWidth = teamRatingFrame.names:GetWidth()
-    local rWidth = teamRatingFrame.ratings:GetWidth()
-    local x = (nWidth / 2) - ((nWidth + rWidth - 10) / 2) -- no idea why "- 10" helps centering it!
-    teamRatingFrame.names:ClearAllPoints()
-    teamRatingFrame.names:SetPoint("BOTTOM", teamRatingFrame, "BOTTOM", x, 0)
-end)
-
-teamRatingFrame:SetScript("OnEvent", function(_, event)
-    if event == "UPDATE_BATTLEFIELD_SCORE" then
-        local _, isRatedArena = IsActiveBattlefieldArena()
-        if isRatedArena then
-            local name1, _, newRating1, mmr1 = GetBattlefieldTeamInfo(0)
-            local name2, _, _, mmr2 = GetBattlefieldTeamInfo(1)
-            if newRating1 and newRating1 > 0 then
-                local nameText = string_format('|cffbd67ff"%s" |r\n|cffffd500"%s" |r', name1, name2)
-                local ratingText = string_format('|cffbd67ffMMR: %d|r\n|cffffd500MMR: %d|r', mmr1, mmr2)
-                teamRatingFrame.names:SetText(nameText)
-                teamRatingFrame.ratings:SetText(ratingText)
-                teamRatingFrame:Show()
-                return
-            end
-        end
-    end
-    teamRatingFrame:Hide()
-end)
-teamRatingFrame:RegisterEvent("UPDATE_BATTLEFIELD_SCORE")
-teamRatingFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-
 -- There doesnt seem to be any animation on 2.5.5 (just keeping it in here in case this shit comes back...)
 -- Removing the flashing animation of coooldown finish at action bars
 --for k, v in pairs(_G) do
@@ -2047,6 +2006,138 @@ TabSwitcherFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 -- Initial run on file load
 UpdateTabBindings()
 
+-- TEMP XYZ PARTY SPACING TEMP
+local groupHeader = CreateFrame("Frame", nil, UIParent, "SecureFrameTemplate")
+local evolveHeader = CreateFrame("Frame", nil, groupHeader, "SecureGroupHeaderTemplate, SecureHandlerStateTemplate")
+
+function evolveHeader:Execute(body) return SecureHandlerExecute(self, body) end
+function evolveHeader:SetFrameRef(label, refFrame) return SecureHandlerSetFrameRef(self, label, refFrame) end
+
+evolveHeader:Execute([==[
+    Manager = self
+    UnitFrames = newtable()
+    EvolveFrames = newtable()
+    EvolveUnitMap = newtable()
+    OriginalY = newtable()
+
+    refreshUnitChange = [[
+        local unit = self:GetAttribute("unit")
+        local frame = self:GetAttribute("UnitFrame")
+
+        if frame then
+            self:GetAttribute("Manager"):RunAttribute("onEvolveUnitChanged", self:GetID(), value)
+        end
+    ]]
+
+    Manager:SetAttribute("onEvolveUnitChanged", [[
+        local id, unit = ...
+        if EvolveUnitMap[id] ~= unit then
+            EvolveUnitMap[id] = unit
+            Manager:RunAttribute("DelayLayout")
+        end
+    ]])
+
+    Manager:SetAttribute("template", "SecureHandlerAttributeTemplate")
+    Manager:SetAttribute("strictFiltering", true)
+
+    Manager:SetAttribute("initialConfigFunction", [=[
+        tinsert(EvolveFrames, self)
+
+        self:SetID(#EvolveFrames)
+        self:SetAttribute("Manager", Manager)
+
+        local frame = UnitFrames[#EvolveFrames]
+        if frame then self:SetAttribute("UnitFrame", frame) end
+
+        self:SetAttribute("refreshUnitChange", refreshUnitChange)
+
+        Manager:CallMethod("UpdateUnitCount", #EvolveFrames)
+    ]=])
+]==])
+
+evolveHeader:SetAttribute("DelayLayout", [[
+    Manager:SetAttribute("state-timer", "reset")
+]])
+
+evolveHeader:SetAttribute("_onstate-timer", [=[
+    if newstate ~= "reset" then
+        local count = #EvolveFrames
+        for i = 1, count do
+            local frm = UnitFrames[i]
+            if not frm then return end
+
+            local point, relativeTo, relativePoint, x, y = frm:GetPoint()
+            if point then
+                if not OriginalY[i] then
+                    OriginalY[i] = y
+                end
+                local yAdjustment = (i - 1) * 25
+                frm:ClearAllPoints()
+                frm:SetPoint(point, relativeTo, relativePoint, x, OriginalY[i] - yAdjustment)
+            end
+        end
+    end
+]=])
+
+RegisterStateDriver(evolveHeader, "timer", "[pet]pet;nopet;")
+
+function evolveHeader:UpdateUnitCount(count)
+    for i = (self.__InitedCount or 0) + 1, count do
+        local child = self:GetAttribute("child" .. i)
+
+        child:SetAttribute("refreshUnitChange", nil)
+        child:SetAttribute("_onattributechanged", [[
+            if name == "unit" then
+                if type(value) == "string" then
+                    value = strlower(value)
+                else
+                    value = nil
+                end
+
+                if self:GetAttribute("UnitFrame") then
+                    self:GetAttribute("Manager"):RunAttribute("onEvolveUnitChanged", self:GetID(), value)
+                end
+            end
+        ]])
+    end
+    self.__InitedCount = count
+end
+
+local loader = CreateFrame("Frame")
+loader:RegisterEvent("PLAYER_ENTERING_WORLD")
+loader:RegisterEvent("GROUP_ROSTER_UPDATE")
+loader:SetScript("OnEvent", function()
+    if InCombatLockdown() then return end
+    
+    evolveHeader:SetAttribute("showParty", true)
+    
+    local activeFrames = {}
+    for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
+        if pFrame.unit and string.match(pFrame.unit, "^party%d") then
+            local index = tonumber(string.match(pFrame.unit, "%d+"))
+            if index and index >= 1 and index <= 4 then
+                activeFrames[index] = pFrame
+            end
+        end
+    end
+
+    for i = 1, 4 do
+        if activeFrames[i] and not activeFrames[i].evolveHooked then
+            activeFrames[i].evolveHooked = true
+            evolveHeader:SetFrameRef("UnitFrame", activeFrames[i])
+            
+            evolveHeader:Execute(string.format([=[
+                local frame = Manager:GetFrameRef("UnitFrame")
+                UnitFrames[%d] = frame
+                
+                local evolve = EvolveFrames[%d]
+                if evolve then
+                    evolve:SetAttribute("UnitFrame", frame)
+                end
+            ]=], i, i))
+        end
+    end
+end)
 
 
 local evolvedFrame = CreateFrame("Frame")
@@ -2174,7 +2265,7 @@ FramerateLabel:SetPoint("CENTER", holder, "CENTER")
 
 
 -- Temporary way to disable the dogshit cata spellqueue they brought to tbc instead of using the proper Retail TBC one that bypasses GCD: /console SpellQueueWindow 0
--- ^^ current value: 130 (100+ latency)
+-- ^^ current value: 150 (100+ latency)
 
 -- trying to remove the cancer weather that is not part of the video settings as it used to be in 2.4.3: /console set weatherdensity 0 // /console WeatherDensity 0
 

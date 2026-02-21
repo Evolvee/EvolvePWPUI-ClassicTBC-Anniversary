@@ -97,7 +97,7 @@ local function SafeApplyGridLayout(regions, initialAnchor, layout)
     end
 end
 
-local function DBFrame(self)
+function DeBuffFilter.DBFrame(self)
     local framesToLayout = {}
     local seenSpells = {}
     local isDebuff = self == DebuffFrame
@@ -265,5 +265,5 @@ local function DBFrame(self)
 
 end
 
-hooksecurefunc(BuffFrame, "UpdateAuraButtons", DBFrame)
-hooksecurefunc(DebuffFrame, "UpdateAuraButtons", DBFrame)
+hooksecurefunc(BuffFrame, "UpdateAuraButtons", DeBuffFilter.DBFrame)
+hooksecurefunc(DebuffFrame, "UpdateAuraButtons", DeBuffFilter.DBFrame)

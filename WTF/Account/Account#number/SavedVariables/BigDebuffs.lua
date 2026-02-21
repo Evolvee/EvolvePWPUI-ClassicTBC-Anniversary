@@ -3,6 +3,7 @@ BigDebuffsDB = {
 ["profileKeys"] = {
 ["Evolvebugged - Classic Anniversary PTR Realm"] = "Default",
 ["Evolverror - Classic Anniversary PTR Realm"] = "Default",
+["Evolve - Spineshatter"] = "Default",
 ["Tremortest - Classic Anniversary PTR Realm"] = "Default",
 ["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
 ["Testcolors - Classic Anniversary PTR Realm"] = "Default",
@@ -30,11 +31,11 @@ BigDebuffsDB = {
 },
 ["priority"] = {
 ["immunities"] = 100,
-["buffs_speed_boost"] = 1,
-["interrupts"] = 10,
 ["cc"] = 80,
-["immunities_spells"] = 95,
+["interrupts"] = 10,
+["buffs_speed_boost"] = 1,
 ["roots"] = 30,
+["immunities_spells"] = 95,
 ["buffs_other"] = 20,
 },
 ["spells"] = {
@@ -173,9 +174,9 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["raidFrames"] = 0,
 },
-[12292] = {
+[23694] = {
 ["nameplates"] = 0,
-["unitFrames"] = 0,
+["raidFrames"] = 0,
 },
 [1022] = {
 },
@@ -195,12 +196,12 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
+[12292] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
 [6940] = {
 ["nameplates"] = 0,
-},
-[23694] = {
-["nameplates"] = 0,
-["raidFrames"] = 0,
 },
 [30300] = {
 ["nameplates"] = 0,
@@ -361,11 +362,10 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[14751] = {
+[20230] = {
 ["nameplates"] = 0,
-["unitFrames"] = 0,
 },
-[676] = {
+[14751] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
@@ -373,8 +373,9 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["raidFrames"] = 0,
 },
-[20230] = {
+[676] = {
 ["nameplates"] = 0,
+["unitFrames"] = 0,
 },
 [7744] = {
 ["nameplates"] = 0,
@@ -511,22 +512,33 @@ BigDebuffsDB = {
 ["unitFrames"] = {
 ["cooldownFontEffect"] = "THICKOUTLINE",
 ["cooldownFont"] = "DorisPP",
+["party3"] = {
+},
 ["tooltips"] = false,
 ["arena2"] = {
 },
+["party4"] = {
+},
 ["arena5"] = {
 },
-["arena1"] = {
+["arena4"] = {
+},
+["targettarget"] = {
+["enabled"] = false,
 },
 ["player"] = {
 ["enabled"] = false,
 },
-["arena4"] = {
+["arena1"] = {
+},
+["party1"] = {
+},
+["party2"] = {
+},
+["arena3"] = {
 },
 ["arena"] = {
 ["enabled"] = false,
-},
-["arena3"] = {
 },
 },
 },

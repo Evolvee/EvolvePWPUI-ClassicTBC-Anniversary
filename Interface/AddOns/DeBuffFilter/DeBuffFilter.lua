@@ -40,24 +40,24 @@ local function adjustCastbar(frame)
     if frame.boss then
         defaultY = 6 - yOffset
     elseif parentFrame.haveToT then
-        if parentFrame.buffsOnTop or (parentFrame.auraRows or 0) <= 1 then
+        if parentFrame.buffsOnTop or (parentFrame.dbfaurarow or 0) <= 1 then
             defaultY = -25
         else
-            anchorFrame = parentFrame.spellbarAnchor
+            anchorFrame = parentFrame.dbfspellanchor
             defaultX = 22 + addXOffset
             defaultY = -15 - yOffset
         end
     elseif parentFrame.haveElite then
-        if parentFrame.buffsOnTop or (parentFrame.auraRows or 0) <= 1 then
+        if parentFrame.buffsOnTop or (parentFrame.dbfaurarow or 0) <= 1 then
             defaultY = -9
         else
-            anchorFrame = parentFrame.spellbarAnchor
+            anchorFrame = parentFrame.dbfspellanchor
             defaultX = 22 + addXOffset
             defaultY = -15 - yOffset
         end
     else
-        if not parentFrame.buffsOnTop and (parentFrame.auraRows or 0) > 0 then
-            anchorFrame = parentFrame.spellbarAnchor
+        if not parentFrame.buffsOnTop and (parentFrame.dbfaurarow or 0) > 0 then
+            anchorFrame = parentFrame.dbfspellanchor
             defaultX = 22 + addXOffset
             defaultY = -15 - yOffset
         else
@@ -214,10 +214,10 @@ local function UpdateBuffAnchor(self, buffName, numDebuffs, anchorBuff, size, of
 
     if anchorBuff == nil then
         buffName:SetPoint(point .. "LEFT", self, relativePoint .. "LEFT", AURA_START_X, startY)
-        self.spellbarAnchor = buffName
+        self.dbfspellanchor = buffName
     elseif newRow then
         buffName:SetPoint(point .. "LEFT", anchorBuff, relativePoint .. "LEFT", 0, -offsetY)
-        self.spellbarAnchor = buffName
+        self.dbfspellanchor = buffName
     else
         buffName:SetPoint(point .. "LEFT", anchorBuff, point .. "RIGHT", offsetX, 0)
     end
@@ -249,13 +249,13 @@ local function UpdateDebuffAnchor(self, debuffName, numBuffs, anchorDebuff, size
         debuffName:SetPoint(point .. "LEFT", self, relativePoint .. "LEFT", AURA_START_X, startY)
         local isFriend = UnitIsFriend("player", self.unit)
         if isFriend or (not isFriend and numBuffs == 0) then
-            self.spellbarAnchor = debuffName
+            self.dbfspellanchor = debuffName
         end
     elseif newRow then
         debuffName:SetPoint(point .. "LEFT", anchorDebuff, relativePoint .. "LEFT", 0, -offsetY)
         local isFriend = UnitIsFriend("player", self.unit)
         if isFriend or (not isFriend and numBuffs == 0) then
-            self.spellbarAnchor = debuffName
+            self.dbfspellanchor = debuffName
         end
     else
         debuffName:SetPoint(point .. "LEFT", anchorDebuff, point .. "RIGHT", offsetX, 0)
@@ -297,7 +297,7 @@ local function updateLayout(frame, auraList, numOppositeAuras, updateFunc, offse
 
             if lastBuff == nil then
                 rowWidth = size
-                frame.auraRows = frame.auraRows + 1
+                frame.dbfaurarow = frame.dbfaurarow + 1
 
                 if previousAnchor then
                     if frame.largestAura then
@@ -330,13 +330,13 @@ local function updateLayout(frame, auraList, numOppositeAuras, updateFunc, offse
                     if biggestAura and anchorRowAura and biggestAura >= mfloor(anchorRowAura:GetHeight() + 0.5) then
                         distance = (yDistance * 2) + (biggestAura - anchorRowAura:GetHeight())
                     elseif yDistance == 1 and data.largeAura then
-                        distance = yDistance + yDistance
+                        distance = 2
                     else
                         distance = yDistance
                     end
                     updateFunc(frame, dbf, numOppositeAuras, anchorRowAura, size, offsetX, distance, mirrorAurasVertically, true)
                     rowWidth = size
-                    frame.auraRows = frame.auraRows + 1
+                    frame.dbfaurarow = frame.dbfaurarow + 1
                     anchorRowAura = dbf
                     distance = yDistance
                     biggestAura = 0
@@ -640,9 +640,9 @@ local function Filterino(self)
     local mirrorAurasVertically = self.buffsOnTop and true or false
     local offsetX = db.horizontalSpace
 
-    self.auraRows = 0
+    self.dbfaurarow = 0
     self.largestAura = 0
-    self.spellbarAnchor = nil
+    self.dbfspellanchor = nil
     local lastAnchor = nil
 
     if isEnemy then

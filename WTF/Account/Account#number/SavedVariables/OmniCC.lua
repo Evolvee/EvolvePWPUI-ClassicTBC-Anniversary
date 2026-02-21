@@ -1,20 +1,21 @@
 
 OmniCCDB = {
-["global"] = {
-["dbVersion"] = 6,
-["addonVersion"] = "11.2.8",
-},
 ["profileKeys"] = {
 ["Evolve - Classic Anniversary PTR Realm"] = "Default",
 ["Evolvepwp - Classic Anniversary PTR Realm"] = "Default",
 ["Testcolors - Classic Anniversary PTR Realm"] = "Default",
 ["Testcolours - Classic Anniversary PTR Realm"] = "Default",
 ["Evolverror - Classic Anniversary PTR Realm"] = "Default",
+["Evolve - Spineshatter"] = "Default",
 ["Tremortest - Classic Anniversary PTR Realm"] = "Default",
-["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
 ["Evolvebugged - Classic Anniversary PTR Realm"] = "Default",
+["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
 ["Tremorttest - Classic Anniversary PTR Realm"] = "Default",
 ["Testclrz - Classic Anniversary PTR Realm"] = "Default",
+},
+["global"] = {
+["dbVersion"] = 6,
+["addonVersion"] = "11.2.8",
 },
 ["profiles"] = {
 ["Default"] = {
@@ -28,8 +29,9 @@ OmniCCDB = {
 "WeakAurasCooldown",
 "Character",
 "ContainerFrame",
-"EvolveDeBuff",
+"EvolveParty",
 "PartyMemberBuffTooltip",
+"DiminishIcon",
 },
 ["name"] = "Auras",
 ["id"] = "auras",
@@ -73,15 +75,15 @@ OmniCCDB = {
 ["themes"] = {
 ["HIDDEN"] = {
 ["textStyles"] = {
-["seconds"] = {
-["b"] = 0.9921569228172302,
-["g"] = 0.9803922176361084,
-},
 ["soon"] = {
 ["b"] = 0.9921569228172302,
 ["g"] = 0.9803922176361084,
 },
 ["minutes"] = {
+},
+["seconds"] = {
+["b"] = 0.9921569228172302,
+["g"] = 0.9803922176361084,
 },
 ["hours"] = {
 ["b"] = 1,
@@ -103,10 +105,6 @@ OmniCCDB = {
 },
 ["Action Bars"] = {
 ["textStyles"] = {
-["seconds"] = {
-["b"] = 0.9921569228172302,
-["g"] = 0.9803922176361084,
-},
 ["soon"] = {
 ["b"] = 0.9921569228172302,
 ["scale"] = 1,
@@ -114,13 +112,17 @@ OmniCCDB = {
 },
 ["minutes"] = {
 },
+["seconds"] = {
+["b"] = 0.9921569228172302,
+["g"] = 0.9803922176361084,
+},
 ["hours"] = {
 ["b"] = 1,
 ["g"] = 0.9764706492424011,
 ["r"] = 0.9960784912109375,
 },
 },
-["fontSize"] = 16,
+["fontFace"] = "Interface\\AddOns\\Gladdy\\Fonts\\DorisPP.TTF",
 ["minDuration"] = 5,
 ["fontOutline"] = "THICKOUTLINE",
 ["minSize"] = 0.16,
@@ -129,13 +131,11 @@ OmniCCDB = {
 ["g"] = 0.988235354423523,
 },
 ["effect"] = "none",
-["fontFace"] = "Interface\\AddOns\\Gladdy\\Fonts\\DorisPP.TTF",
+["fontSize"] = 16,
 ["name"] = "Action Bars",
 },
 ["Default"] = {
 ["textStyles"] = {
-["minutes"] = {
-},
 ["soon"] = {
 ["b"] = 0.9921569228172302,
 ["scale"] = 1,
@@ -144,6 +144,8 @@ OmniCCDB = {
 ["seconds"] = {
 ["b"] = 0.9921569228172302,
 ["g"] = 0.9803922176361084,
+},
+["minutes"] = {
 },
 ["hours"] = {
 ["b"] = 1,

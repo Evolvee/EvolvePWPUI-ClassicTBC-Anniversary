@@ -169,9 +169,9 @@ function DeBuffFilter:AddFilterOptions(aura, frame, settings, index)
         if frame == "TargetFrame" or frame == "FocusFrame" then
             if _G[frame] and _G[frame].UpdateAuras then _G[frame]:UpdateAuras() end
         elseif frame == "BuffFrame" then
-            if BuffFrame and BuffFrame.UpdateAuraButtons then BuffFrame:UpdateAuraButtons() end
+            if BuffFrame and BuffFrame.UpdateAuraButtons then DeBuffFilter.DBFrame(BuffFrame) end
         elseif frame == "DebuffFrame" then
-            if DebuffFrame and DebuffFrame.UpdateAuraButtons then DebuffFrame:UpdateAuraButtons() end
+            if DebuffFrame and DebuffFrame.UpdateAuraButtons then DeBuffFilter.DBFrame(DebuffFrame) end
         end
     end
 

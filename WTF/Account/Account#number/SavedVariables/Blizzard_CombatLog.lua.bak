@@ -501,6 +501,6 @@ nil,
 },
 },
 },
-["currentFilter"] = 1,
+["currentFilter"] = 2,
 }
 Blizzard_CombatLog_Filter_Version = 4.3

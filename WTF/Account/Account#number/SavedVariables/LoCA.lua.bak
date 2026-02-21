@@ -3,17 +3,18 @@ LoCADB = {
 ["profileKeys"] = {
 ["Evolvebugged - Classic Anniversary PTR Realm"] = "Default",
 ["Evolverror - Classic Anniversary PTR Realm"] = "Default",
-["Tremorttest - Classic Anniversary PTR Realm"] = "Default",
-["Testcolors - Classic Anniversary PTR Realm"] = "Default",
-["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
+["Evolve - Spineshatter"] = "Default",
 ["Tremortest - Classic Anniversary PTR Realm"] = "Default",
+["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
+["Testcolors - Classic Anniversary PTR Realm"] = "Default",
+["Tremorttest - Classic Anniversary PTR Realm"] = "Default",
 ["Testclrz - Classic Anniversary PTR Realm"] = "Default",
 },
 ["profiles"] = {
 ["Default"] = {
 ["debuffs"] = {
 ["showSecondsLabel"] = false,
-["scale"] = 1.6,
+["scale"] = 1.5,
 ["debuffsTable"] = {
 {
 ["name"] = "Frost Nova",
@@ -82,10 +83,6 @@ LoCADB = {
 {
 ["name"] = "Arcane Torrent",
 ["icon"] = 136222,
-},
-{
-["name"] = "Unstable Affliction",
-["icon"] = 135975,
 },
 {
 ["name"] = "Unstable Affliction",
@@ -188,6 +185,10 @@ LoCADB = {
 ["icon"] = 132325,
 },
 {
+["name"] = "Shadowfury",
+["icon"] = 136201,
+},
+{
 ["name"] = "Maim",
 ["icon"] = 132134,
 },
@@ -234,6 +235,10 @@ LoCADB = {
 {
 ["name"] = "Howl of Terror",
 ["icon"] = 136147,
+},
+{
+["name"] = "Seduction",
+["icon"] = 136175,
 },
 {
 ["name"] = "Death Coil",

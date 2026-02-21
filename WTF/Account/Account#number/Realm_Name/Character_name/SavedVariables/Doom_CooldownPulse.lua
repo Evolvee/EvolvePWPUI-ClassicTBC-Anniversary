@@ -1,5 +1,5 @@
 
 DCP_SavedPerCharacter = {
-["ignoredSpells"] = "Power Word: Shield, Purple Skeletal Warhorse, Fade",
+["ignoredSpells"] = "Power Word: Shield, Cerulean Phase-Hunter, Fade",
 ["invertIgnored"] = false,
 }

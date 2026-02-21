@@ -1,0 +1,13 @@
+
+NiceDamageDBv1 = {
+["profileKeys"] = {
+["Evolve - Spineshatter"] = "Default",
+},
+["profiles"] = {
+["Default"] = {
+["uiFont"] = "DorisPP",
+["uiOutline"] = "",
+["updateUiText"] = true,
+},
+},
+}

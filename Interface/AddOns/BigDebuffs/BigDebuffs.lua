@@ -798,7 +798,7 @@ local anchors = {
     },
 }
 
-if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
+
     anchors.Blizzard.units = {
         player = "PlayerFrame",
         pet = "PetPortrait",
@@ -815,7 +815,7 @@ if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
     for memberFrame in _G.PartyFrame.PartyMemberFramePool:EnumerateActive() do
         anchors.Blizzard.units[memberFrame.unit] = memberFrame
     end
-end
+
 
 BigDebuffs.anchors = anchors
 
