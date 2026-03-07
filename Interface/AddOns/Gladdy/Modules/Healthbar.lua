@@ -4,7 +4,6 @@ local str_find, str_gsub, str_sub, tinsert = string.find, string.gsub, string.su
 local UnitHealth, UnitHealthMax, UnitName, UnitExists, UnitIsDeadOrGhost = UnitHealth, UnitHealthMax, UnitName, UnitExists, UnitIsDeadOrGhost
 
 local CreateFrame = CreateFrame
-
 local CUSTOM_CLASS_COLORS = {
     ["HUNTER"] = { r = 0.6, g = 0.85, b = 0.2 },
     ["WARLOCK"] = { r = 0.4, g = 0, b = 0.8 },
@@ -17,6 +16,7 @@ local CUSTOM_CLASS_COLORS = {
     ["WARRIOR"] = { r = 0.7, g = 0.56, b = 0.42 },
     ["DEATHKNIGHT"] = { r = 0, g = 1 , b = 0.6 },
 };
+
 local Gladdy = LibStub("Gladdy")
 local L = Gladdy.L
 local AceGUIWidgetLSMlists = AceGUIWidgetLSMlists

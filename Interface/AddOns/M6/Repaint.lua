@@ -172,12 +172,18 @@ local cueButtonRepaint, cueMassRepaint, mayHaveExternalListeners, curUpdateOwner
 			rangeR, rangeG, rangeB = fromHexColor(conf.icRangeColor)
 		end
 	end
+	local GetPartialHintRaw, bcd1, bcd2, spareCW if MODERN then
+		GetPartialHintRaw = MC.GetPartialHintRaw
+		bcd1, bcd2 = {}, {}
+		local f = CreateFrame("Frame")
+		f:Hide()
+		spareCW = CreateFrame("Cooldown", nil, f)
+	end
+
 	local function updateOne(wp, wi, iname, usable, state, icon, _, count, cd, cd2, tf, ta, ext, lab)
 		curUpdateOwner = wp
 		if state == nil then
 			usable, state, icon, _, count, cd, cd2, tf, ta, ext = true, 0, "Interface\\Icons\\INV_Misc_QuestionMark", "", 0, 0, 0
-		else
-			cd, cd2 = cd or 0, cd2 or 0
 		end
 		if state % 524288 >= 262144 then
 			wi:SetAtlas(icon)
@@ -198,12 +204,20 @@ local cueButtonRepaint, cueMassRepaint, mayHaveExternalListeners, curUpdateOwner
 		usable = usable ~= false
 		local active, overlay, usableCharge = state % 2 > 0, state % 4 > 1, usable or (state % 128 >= 64)
 		local rUsable = state % 2048 < 1024
-		if wp.cooldown then
+		local isPartiallyHinted = state % 1048576 >= 524288
+		local cdHintID, holdCount = isPartiallyHinted and cd == nil and cd2, isPartiallyHinted and state % 2097152 >= 1048576
+		local cdw = wp.cooldown
+		if not cdw then
+		elseif cdHintID then
+			bcd1.startTime, bcd1.duration, bcd1.isEnabled, bcd1.modRate = GetPartialHintRaw(cdHintID, "cooldownInfo")
+			bcd2.currentCharges, bcd2.maxCharges, bcd2.cooldownStartTime, bcd2.cooldownDuration, bcd2.chargeModRate = GetPartialHintRaw(cdHintID, "chargeInfo")
+			ActionButton_ApplyCooldown(cdw, bcd1, wp.chargeCooldown or cdw, bcd2.currentCharges ~= nil and bcd2 or nil, wp.lossOfControlCooldown or spareCW, nil)
+		else
+			cd, cd2 = cd or 0, cd2 or 0
 			local cdCountingDown = state % 4096 < 2048
-			local start = cd2 > 0 and GetTime()+cd-cd2 or 0
+			local start = cd and cd2 > 0 and GetTime()+cd-cd2 or 0
 			local drawSwipe = not rUsable or not usableCharge
 			local drawEdge = usableCharge
-			local cdw = wp.cooldown
 			cdw:SetEdgeTexture("Interface\\Cooldown\\edge")
 			cdw:SetSwipeColor(0, 0, 0)
 			cdw:SetHideCountdownNumbers(cv_noCountdownForCooldowns or usableCharge and rUsable)
@@ -235,18 +249,23 @@ local cueButtonRepaint, cueMassRepaint, mayHaveExternalListeners, curUpdateOwner
 		local ic, nt = wp.icon, wp.NormalTexture
 		if ic and nt then
 			local nomana, norange, hasrange = state % 16 > 7, state % 32 > 15, state % 1024 > 511
+			local cdDuration = usable and cdHintID and GetPartialHintRaw(cdHintID, "cooldownDuration")
+			local cdZero = (cdDuration or nil) and cdDuration:IsZero()
+			local ev = MODERN and C_CurveUtil.EvaluateColorValueFromBoolean
 			if nomana then
 				ic:SetVertexColor(manaR, manaG, manaB)
 				nt:SetVertexColor(0.5, 0.5, 1.0)
-			elseif (cd2 ~= 0.001) and (usable or cd2 > 0 or norange) and rUsable then
-				if norange then
-					ic:SetVertexColor(rangeR, rangeG, rangeB)
-				else
-					ic:SetVertexColor(1.0, 1.0, 1.0)
-				end
-				nt:SetVertexColor(1.0, 1.0, 1.0)
 			else
-				ic:SetVertexColor(0.4, 0.4, 0.4)
+				local ir, ig, ib = 1,1,1
+				if norange then
+					ir, ig, ib = rangeR, rangeG, rangeB
+				end
+				if cdZero ~= nil then
+					ir, ig, ib = ev(cdZero, ir, 0.4), ev(cdZero, ig, 0.4), ev(cdZero, ib, 0.4)
+				elseif not ((cd2 ~= 0.001) and (usable or cd2 > 0 or norange) and rUsable) then
+					ir, ig, ib = 0.4, 0.4, 0.4
+				end
+				ic:SetVertexColor(ir, ig, ib)
 				nt:SetVertexColor(1.0, 1.0, 1.0)
 			end
 			local cn = wp.HotKey
@@ -272,11 +291,13 @@ local cueButtonRepaint, cueMassRepaint, mayHaveExternalListeners, curUpdateOwner
 		end
 		local cnt = wp.Count
 		if cnt then
-			if (count or 0) < 1 then
-				cnt:SetText("")
-			else
-				cnt:SetText(count > (wp.maxDisplayCount or 9999) and "*" or count)
+			local tcount = count
+			if not (MODERN and issecretvalue(count)) then
+				tcount = (count or 0) < 1 and ""
+				      or count > (wp.maxDisplayCount or 9999) and "*"
+				      or count
 			end
+			cnt:SetText(tcount)
 		end
 		if wp.action then
 			(overlay and ShowOverlayGlow or HideOverlayGlow)(wp)
@@ -403,7 +424,7 @@ do -- watcherOnUpdate / watcherMarkAllUpdated
 	local delay, WAIT_INTERVAL, haveMO = 0, 0.15
 	function watcherOnUpdate(elapsed)
 		local hadMO = haveMO
-		haveMO = UnitGUID("mouseover")
+		haveMO = UnitGUID("mouseover") ~= nil
 		if delay > elapsed and hadMO == haveMO then
 			delay = delay - elapsed
 			return

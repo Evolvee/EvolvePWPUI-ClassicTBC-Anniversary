@@ -1,6 +1,6 @@
 ## Interface: 120001, 120000, 110207, 50503, 40402, 38000, 30405, 30300, 20505, 11508
 ## Title: MiniClickDown
-## Notes: I fucking paid 5 bucks for this shit and now its available for free -.-
+## Notes: I fucking paid 5 bucks for this shit and now its available for free -.- fuck you.
 ## Author: Verz
 ## Version: 1.0.0
 ## IconTexture: Interface\AddOns\MiniClickDown\icon.blp

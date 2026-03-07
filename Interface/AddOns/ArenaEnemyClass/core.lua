@@ -41,11 +41,17 @@ local function AddClassIfNotSeen(classes, class)
 end
 
 local function DetermineClasses(class1, class2, class3)
-    if (class1 == nil and class2 == nil and class3 == nil) or (GladdyButtonFrame3 and GladdyButtonFrame3:IsShown()) then
-        return -- all stealth
-    end
+    local teamSize = (select(6, GetBattlefieldStatus(1)))
 
-    local teamSize = (select(3, GetBattlefieldStatus(1)))
+    if not class1 and not class2 and not class3 then
+        if teamSize == 2 then
+            return "UNKNOWN", "UNKNOWN"
+        elseif teamSize == 3 then
+            return "UNKNOWN", "UNKNOWN", "UNKNOWN"
+        end
+        print("ArenaEnemyClass: no classes for strange team size!")
+        return nil
+    end
 
     -- add each visible class to the classes list
     local classes = {}
@@ -378,7 +384,7 @@ end
 
 local function DetectClass(class1, class2, class3)
     if not class1 and not class2 and not class3 then
-        class1, class2, class3 = DetermineClasses(select(2, UnitClass("arena1")), select(2, UnitClass("arena2")), select(2, UnitClass("arena3")))
+        class1, class2, class3 = DetermineClasses((UnitClassBase("arena1")), (UnitClassBase("arena2")), (UnitClassBase("arena3")))
     end
 
     if class3 then
@@ -403,6 +409,8 @@ local function DetectClass(class1, class2, class3)
     end
 end
 
+
+
 function EICTest(amount, guess)
     if amount == 3 then
         DetectClass("PRIEST", "DRUID", guess and "GUESS_ROGUE" or "WARRIOR")
@@ -416,7 +424,7 @@ arenaWatcher:Hide()
 local arenaWatcherElapsed = 0
 arenaWatcher:SetScript("OnUpdate", function(self, elapsed)
     arenaWatcherElapsed = arenaWatcherElapsed + elapsed
-    if UnitExists("arena1") or UnitExists("arena2") or UnitExists("arena3") or arenaWatcherElapsed > 1 then
+    if (UnitClassBase("arena1")) or (UnitClassBase("arena2")) or (UnitClassBase("arena3")) or arenaWatcherElapsed > 1.2 then
         PlaySoundFile("Interface\\Addons\\ArenaEnemyClass\\Finish.ogg")
         DetectClass()
         self:Hide()
@@ -425,9 +433,13 @@ end)
 
 BossBanner:RegisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL")
 BossBanner:SetScript("OnEvent", function(self, event, arg1)
-    local teamSize = (select(3, GetBattlefieldStatus(1)))
-	if arg1 == "The Arena battle has begun!" and teamSize <= 3 then
-        arenaWatcherElapsed = 0
-        arenaWatcher:Show()
+	if arg1 == "The Arena battle has begun!" then
+        local teamSize = (select(6, GetBattlefieldStatus(1)))
+        if teamSize == 2 or teamSize == 3 then
+            arenaWatcherElapsed = 0
+            arenaWatcher:Show()
+        elseif teamSize ~= 5 then
+            print("Strange teamSize: ", GetBattlefieldStatus(1))
+        end
     end
 end)

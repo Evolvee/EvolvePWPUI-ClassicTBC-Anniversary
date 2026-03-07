@@ -1,0 +1,9 @@
+## Interface: 20505
+## Title: BigAuras
+## Author: Qblolz, Evolve, Xyz
+## Version: 1.0.4
+## SavedVariables: BigAurasDB
+
+Libs/LibStub/LibStub.lua
+embeds.xml
+load.xml

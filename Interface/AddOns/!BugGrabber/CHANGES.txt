@@ -1,8 +1,9 @@
 ------------------------------------------------------------------------
-r346 | funkehdude | 2026-01-13 16:55:56 +0000 (Tue, 13 Jan 2026) | 1 line
+r364 | funkehdude | 2026-02-28 11:18:56 +0000 (Sat, 28 Feb 2026) | 1 line
 Changed paths:
-   M /trunk/!BugGrabber.toc
+   M /trunk/.luacheckrc
+   M /trunk/BugGrabber.lua
 
-Bump toc
+Clean up chat link handler
 ------------------------------------------------------------------------
 

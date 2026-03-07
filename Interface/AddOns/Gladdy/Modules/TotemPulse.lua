@@ -264,7 +264,7 @@ function TotemPulse:CreateCooldownFrame(style)
             totemTick.cd = CreateFrame("Cooldown", nil, totemTick, "CooldownFrameTemplate")
             totemTick.cd:SetAllPoints(totemTick)
             totemTick.cd.noCooldownCount = true
-            totemTick:SetFrameStrata("TOOLTIP")
+            totemTick:SetFrameStrata("MEDIUM")
             totemTick:SetFrameLevel(4)
             totemTick.cd:SetReverse(Gladdy.db.totemPulseCooldownReverse)
             totemTick.cd:SetHideCountdownNumbers(true)
@@ -307,7 +307,6 @@ function TotemPulse:CreateCooldownFrame(style)
 
             totemTick.spark = totemTick.bar:CreateTexture(nil, "OVERLAY")
             totemTick.spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
-			totemTick.spark:SetAlpha(0)
             totemTick.spark:SetBlendMode("ADD")
             totemTick.spark:SetWidth(8)
             totemTick.spark:SetHeight(style == "Vertical" and Gladdy.db.totemPulseBarWidth or Gladdy.db.totemPulseBarHeight)
@@ -425,7 +424,7 @@ end
 
 function TotemPulse:UpdateBarPartial(bar)
     local style = bar.id and Gladdy.db.totemPulseTotems["totem" .. bar.id].style
-	bar:SetFrameStrata("TOOLTIP")
+
     bar:SetWidth(Gladdy.db.totemPulseBarWidth)
     bar:SetHeight(Gladdy.db.totemPulseBarHeight)
 
@@ -445,9 +444,9 @@ function TotemPulse:UpdateBarPartial(bar)
                 bar.spark:SetHeight(style == "Vertical" and gladdyTotemFrame:GetWidth() or gladdyTotemFrame:GetHeight())
             end
         elseif bar.id and gladdyTotemFrame and gladdyTotemFrame:IsShown() and not Gladdy.db.totemPulseTotems["totem" .. bar.id].attachToGladdyTotemFrame then
-            bar:SetPoint("CENTER", gladdyTotemFrame, "CENTER", 0, -7)
+            bar:SetPoint("TOP", gladdyTotemFrame, "BOTTOM", 0, -0.5)
         else
-            bar:SetPoint("CENTER", nameplate, "CENTER", 0, -7)
+            bar:SetPoint("TOP", nameplate, "BOTTOM", 0, -0.5)
         end
     end
     bar.bar:SetOrientation(style ~= "COOLDOWN" and style or bar.bar:GetOrientation())

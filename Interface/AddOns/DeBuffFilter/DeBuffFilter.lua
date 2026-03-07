@@ -103,24 +103,6 @@ function DeBuffFilter:ShouldAuraBeLarge(caster)
     end
 end
 
-local function safeSetPoint(frame, point, relativeTo, relativePoint, x, y)
-    if not frame or not relativeTo then
-        return
-    end
-    local current = relativeTo
-    while current do
-        if current == frame then
-            frame:ClearAllPoints()
-            frame:SetPoint(point, relativeTo:GetParent(), relativePoint, x, y)
-            return
-        end
-        local _, parent = current:GetPoint()
-        current = parent
-    end
-    frame:ClearAllPoints()
-    frame:SetPoint(point, relativeTo, relativePoint, x, y)
-end
-
 local function GetFramePosition(frame)
     if not frame then
         return 0, 0
@@ -193,98 +175,47 @@ function DeBuffFilter:TrackAuraDuration(frame, spellId, expirationTime, duration
             }
 end
 
-local function UpdateBuffAnchor(self, buffName, numDebuffs, anchorBuff, size, offsetX, offsetY, mirrorVertically, newRow)
-    local point, relativePoint
-    local startY
-    if mirrorVertically then
-        point = "BOTTOM"
-        relativePoint = "TOP"
-        startY = -19
-        if self.threatNumericIndicator:IsShown() then
-            startY = startY + self.threatNumericIndicator:GetHeight()
-        end
-        offsetY = -offsetY
-    else
-        point = "TOP"
-        relativePoint = "BOTTOM"
-        startY = AURA_START_Y
-    end
-
-    buffName:ClearAllPoints()
-
-    if anchorBuff == nil then
-        buffName:SetPoint(point .. "LEFT", self, relativePoint .. "LEFT", AURA_START_X, startY)
-        self.dbfspellanchor = buffName
-    elseif newRow then
-        buffName:SetPoint(point .. "LEFT", anchorBuff, relativePoint .. "LEFT", 0, -offsetY)
-        self.dbfspellanchor = buffName
-    else
-        buffName:SetPoint(point .. "LEFT", anchorBuff, point .. "RIGHT", offsetX, 0)
-    end
-
-    buffName:SetWidth(size)
-    buffName:SetHeight(size)
-end
-
-local function UpdateDebuffAnchor(self, debuffName, numBuffs, anchorDebuff, size, offsetX, offsetY, mirrorVertically, newRow)
-    local point, relativePoint
-    local startY
-    if mirrorVertically then
-        point = "BOTTOM"
-        relativePoint = "TOP"
-        startY = -19
-        if self.threatNumericIndicator:IsShown() then
-            startY = startY + self.threatNumericIndicator:GetHeight()
-        end
-        offsetY = -offsetY
-    else
-        point = "TOP"
-        relativePoint = "BOTTOM"
-        startY = AURA_START_Y
-    end
-
-    debuffName:ClearAllPoints()
-
-    if anchorDebuff == nil then
-        debuffName:SetPoint(point .. "LEFT", self, relativePoint .. "LEFT", AURA_START_X, startY)
-        local isFriend = UnitIsFriend("player", self.unit)
-        if isFriend or (not isFriend and numBuffs == 0) then
-            self.dbfspellanchor = debuffName
-        end
-    elseif newRow then
-        debuffName:SetPoint(point .. "LEFT", anchorDebuff, relativePoint .. "LEFT", 0, -offsetY)
-        local isFriend = UnitIsFriend("player", self.unit)
-        if isFriend or (not isFriend and numBuffs == 0) then
-            self.dbfspellanchor = debuffName
-        end
-    else
-        debuffName:SetPoint(point .. "LEFT", anchorDebuff, point .. "RIGHT", offsetX, 0)
-    end
-
-    debuffName:SetWidth(size)
-    debuffName:SetHeight(size)
-    local debuffFrame = _G[debuffName:GetName() .. "Border"]
-    if debuffFrame then
-        debuffFrame:SetWidth(size + 2)
-        debuffFrame:SetHeight(size + 2)
+local function UpdateAuraAnchor(self, auraFrame, size, xPos, yPos, mirrorVertically)
+    local point = mirrorVertically and "BOTTOMLEFT" or "TOPLEFT"
+    local relativePoint = mirrorVertically and "TOPLEFT" or "BOTTOMLEFT"
+    
+    auraFrame:ClearAllPoints()
+    auraFrame:SetPoint(point, self, relativePoint, xPos, yPos)
+    auraFrame:SetWidth(size)
+    auraFrame:SetHeight(size)
+    
+    local borderFrame = _G[auraFrame:GetName() .. "Border"]
+    if borderFrame then
+        borderFrame:SetWidth(size + 2)
+        borderFrame:SetHeight(size + 2)
     end
 end
 
-local function updateLayout(frame, auraList, numOppositeAuras, updateFunc, offsetX, mirrorAurasVertically, previousAnchor, startDistance)
+local function updateLayout(frame, auraList, numOppositeAuras, isBuff, offsetX, mirrorAurasVertically, startYOffset)
     local db = DeBuffFilter.db.profile
     local maxRowWidth = db.auraWidth
     local yDistance = db.verticalSpace
-    local rowWidth, anchorRowAura, lastBuff = 0, nil, nil
-    local distance = startDistance or yDistance
-    local biggestAura = 0
+    
+    local startX = AURA_START_X
+    local startY = AURA_START_Y
+    if mirrorAurasVertically then
+        startY = -19
+        if frame.threatNumericIndicator:IsShown() then
+            startY = startY + frame.threatNumericIndicator:GetHeight()
+        end
+    end
 
+    local currentX = startX
+    local currentY = startY
+    
+    if startYOffset and startYOffset > 0 then
+        currentY = mirrorAurasVertically and (startY + startYOffset) or (startY - startYOffset)
+    end
+    
+    local rowWidth = 0
+    local biggestAuraInRow = 0
     local haveToT = frame.totFrame and frame.totFrame:IsShown()
     local totFrameX, totFrameBottom = GetFramePosition(frame.totFrame)
-    local currentX, currentY
-
-    if previousAnchor then
-        anchorRowAura = previousAnchor
-    end
 
     for _, data in ipairs(auraList) do
         if data.shouldHide then
@@ -294,70 +225,73 @@ local function updateLayout(frame, auraList, numOppositeAuras, updateFunc, offse
         else
             local dbf, size = data.dbf, data.size
             dbf:Show()
-
-            if lastBuff == nil then
-                rowWidth = size
-                frame.dbfaurarow = frame.dbfaurarow + 1
-
-                if previousAnchor then
-                    if frame.largestAura then
-                        distance = frame.largestAura
-                    end
-                    updateFunc(frame, dbf, numOppositeAuras, previousAnchor, size, offsetX, distance, mirrorAurasVertically, true)
-                    anchorRowAura = dbf
-                else
-                    updateFunc(frame, dbf, numOppositeAuras, nil, size, offsetX, 0, mirrorAurasVertically, false)
-                    anchorRowAura = dbf
-                end
-
-                if frame.largestAura then
-                    distance = frame.largestAura
-                end
-            else
-                rowWidth = rowWidth + size + offsetX
-                local verticalDistance = currentY and (currentY - totFrameBottom) or 0
-                local horizontalDistance = rowWidth
-                if currentX then
-                    horizontalDistance = mfloor(mabs((currentX + size + offsetX) - totFrameX)) + 5
+            
+            if rowWidth > 0 then
+                local predictedWidth = rowWidth + size + offsetX
+                local absoluteAuraRightEdge = frame:GetLeft() + currentX + size + offsetX
+                local absoluteAuraBottomEdge = frame:GetBottom() + currentY
+                
+                local verticalDistance = absoluteAuraBottomEdge and (absoluteAuraBottomEdge - totFrameBottom) or 0
+                local horizontalDistance = predictedWidth
+                if absoluteAuraRightEdge then
+                    horizontalDistance = mfloor(mabs(absoluteAuraRightEdge - totFrameX)) + 5
                 end
 
                 local breakRow = false
-                if (haveToT and (horizontalDistance < size) and verticalDistance > 0) or (rowWidth > maxRowWidth) then
+                if (haveToT and (horizontalDistance < size) and verticalDistance > 0) or (predictedWidth > maxRowWidth) then
                     breakRow = true
                 end
-
+                
                 if breakRow then
-                    if biggestAura and anchorRowAura and biggestAura >= mfloor(anchorRowAura:GetHeight() + 0.5) then
-                        distance = (yDistance * 2) + (biggestAura - anchorRowAura:GetHeight())
-                    elseif yDistance == 1 and data.largeAura then
-                        distance = 2
-                    else
-                        distance = yDistance
-                    end
-                    updateFunc(frame, dbf, numOppositeAuras, anchorRowAura, size, offsetX, distance, mirrorAurasVertically, true)
-                    rowWidth = size
+                    local distance = yDistance
+                    if distance == 1 and data.largeAura then distance = 2 end
+                    local rowDrop = biggestAuraInRow + distance
+                    
+                    currentY = mirrorAurasVertically and (currentY + rowDrop) or (currentY - rowDrop)
+                    currentX = startX
+                    rowWidth = 0
+                    biggestAuraInRow = 0
                     frame.dbfaurarow = frame.dbfaurarow + 1
-                    anchorRowAura = dbf
-                    distance = yDistance
-                    biggestAura = 0
-                    frame.largestAura = nil
                 else
-                    updateFunc(frame, dbf, numOppositeAuras, lastBuff, size, offsetX, distance, mirrorAurasVertically, false)
+                    currentX = currentX + offsetX
                 end
+            else
+                frame.dbfaurarow = frame.dbfaurarow + 1
             end
-
-            lastBuff = dbf
-            currentX, currentY = dbf:GetLeft(), dbf:GetTop()
-            if not biggestAura or biggestAura < size then
-                biggestAura = size
+            
+            if size > biggestAuraInRow then
+                biggestAuraInRow = size
             end
-            local calc = (yDistance * 2) + (biggestAura - anchorRowAura:GetHeight())
+            
+            local calc = yDistance * 2
             if not frame.largestAura or frame.largestAura < calc then
                 frame.largestAura = calc
             end
+
+            UpdateAuraAnchor(frame, dbf, size, currentX, currentY, mirrorAurasVertically)
+            
+            if currentX == startX then
+                local isFriend = UnitIsFriend("player", frame.unit)
+                if not isBuff then
+                    if isFriend or (not isFriend and numOppositeAuras == 0) then
+                        frame.dbfspellanchor = dbf
+                    end
+                else
+                    frame.dbfspellanchor = dbf
+                end
+            end
+            
+            rowWidth = rowWidth + size
+            currentX = currentX + size
         end
     end
-    return anchorRowAura
+    
+    local totalOffset = 0
+    if frame.dbfaurarow > 0 and biggestAuraInRow > 0 then
+        totalOffset = mfloor(mabs(startY - currentY)) + biggestAuraInRow + 2
+    end
+    
+    return totalOffset
 end
 
 local function ProcessList(list, shouldSort)
@@ -645,12 +579,14 @@ local function Filterino(self)
     self.dbfspellanchor = nil
     local lastAnchor = nil
 
+    local Offset = 0
+
     if isEnemy then
-        lastAnchor = updateLayout(self, debuffList, numVisibleBuffs, UpdateDebuffAnchor, offsetX, mirrorAurasVertically, nil)
-        updateLayout(self, buffList, numVisibleDebuffs, UpdateBuffAnchor, offsetX, mirrorAurasVertically, lastAnchor, 2)
+        Offset = updateLayout(self, debuffList, numVisibleBuffs, false, offsetX, mirrorAurasVertically, 0)
+        updateLayout(self, buffList, numVisibleDebuffs, true, offsetX, mirrorAurasVertically, Offset)
     else
-        lastAnchor = updateLayout(self, buffList, numVisibleDebuffs, UpdateBuffAnchor, offsetX, mirrorAurasVertically, nil)
-        updateLayout(self, debuffList, numVisibleBuffs, UpdateDebuffAnchor, offsetX, mirrorAurasVertically, lastAnchor, 2)
+        Offset = updateLayout(self, buffList, numVisibleDebuffs, true, offsetX, mirrorAurasVertically, 0)
+        updateLayout(self, debuffList, numVisibleBuffs, false, offsetX, mirrorAurasVertically, Offset)
     end
 
     if self.spellbar then

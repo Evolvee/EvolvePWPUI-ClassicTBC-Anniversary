@@ -123,7 +123,9 @@ local cvars = {
 	-- nameplates always focused (prevent fading/graying-out nonselected nameplates)
 	nameplateSelectedAlpha = "1",
 	nameplateNotSelectedAlpha = "1",
-	UnitNamePlayerGuild = "0" -- hides the <guild> name from Player Names
+	UnitNamePlayerGuild = "0", -- hides the <guild> name from Player Names
+	floatingCombatTextCombatHealing = "1", -- keeps bugging out and randomly disabling itself on this dogpiss anniversaty shitclient
+	CursorFreelookStartDelta = "0" -- another hackfix for this new dogshit client (camera movement with mouse required movement before it actually moved, now its smooth)
 }
 
 local function CustomCvar()
@@ -281,7 +283,7 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
             isUpdating = false
         end
     end)
-	--]]
+]]--
     hooksecurefunc(pFrame.PartyMemberOverlay.Status, "Show", pFrame.PartyMemberOverlay.Status.Hide)
 end
 
@@ -1308,8 +1310,10 @@ local function HandleNewNameplate(nameplate, unit)
     end
 
     local creatureType, _, _, _, _, npcId = string_split("-", UnitGUID(unit))
-    -- the rest of nameplate stuff
-    if name:match("Totem") and not name:match("Tremor Totem") then
+    
+    if (name == "Tremor Totem" or npcId == "417") and UnitIsFriend("player", unit) then
+        HideNameplate(nameplate)
+    elseif name:match("Totem") and not name:match("Tremor Totem") then
         HideNameplate(nameplate)
     elseif (HideNameplateUnits[name] or HideNameplateUnits[npcId])
             or (creatureType == "Pet" and not ShowNameplatePetIds[npcId]) then
@@ -1517,7 +1521,7 @@ local function ClassIcons(nameplate, unit)
     local _, unitClass = UnitClass(unit)
     local name = UnitName(unit)
 
-    if (UnitIsPlayer(unit) and UnitIsFriend("player", unit) and not UnitIsEnemy("player", unit)) or (UnitIsUnit(unit, "pet") and name and (name == "Shadowfiend" or name == "Water Elemental")) then
+    if (UnitIsPlayer(unit) and UnitIsFriend("player", unit) and not UnitIsEnemy("player", unit)) or (UnitIsFriend("player", unit) and name and (name == "Shadowfiend" or name == "Water Elemental")) then
         if not nameplate.UnitFrame.texture then
             nameplate.UnitFrame.texture = nameplate.UnitFrame:CreateTexture(nil, "OVERLAY")
             nameplate.UnitFrame.texture:SetSize(40, 40)
@@ -2006,138 +2010,93 @@ TabSwitcherFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 -- Initial run on file load
 UpdateTabBindings()
 
+-- FPS counter positioning
+local holder = CreateFrame("Frame", "FPSHolder", UIParent)
+holder:SetSize(60, 20)
+holder:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -680, -720)
+FramerateLabel:ClearAllPoints()
+FramerateLabel:SetPoint("CENTER", holder, "CENTER")
+
+-- Attempt to hackfix the bugged Floating Combat Text randomly being turned off despite being turned on ... dogshit client ... dogshit company
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+frame:SetScript("OnEvent", function(self, event, isLogin, isReload)
+    SetCVar("enableFloatingCombatText", "0")
+    C_Timer.After(1.5, function()
+        SetCVar("enableFloatingCombatText", "1")
+    end)
+end)
+
 -- TEMP XYZ PARTY SPACING TEMP
-local groupHeader = CreateFrame("Frame", nil, UIParent, "SecureFrameTemplate")
-local evolveHeader = CreateFrame("Frame", nil, groupHeader, "SecureGroupHeaderTemplate, SecureHandlerStateTemplate")
+local eAnchor = CreateFrame("Frame", nil, UIParent, "SecureFrameTemplate")
+eAnchor:SetAllPoints(PartyFrame)
 
-function evolveHeader:Execute(body) return SecureHandlerExecute(self, body) end
-function evolveHeader:SetFrameRef(label, refFrame) return SecureHandlerSetFrameRef(self, label, refFrame) end
+local manager = CreateFrame("Frame", nil, UIParent, "SecureHandlerStateTemplate")
+SecureHandlerSetFrameRef(manager, "PartyFrameAnchor", eAnchor)
 
-evolveHeader:Execute([==[
-    Manager = self
-    UnitFrames = newtable()
-    EvolveFrames = newtable()
-    EvolveUnitMap = newtable()
-    OriginalY = newtable()
+manager:SetAttribute("_onstate-run", [[
+    if newstate == "ignore" then return end
 
-    refreshUnitChange = [[
-        local unit = self:GetAttribute("unit")
-        local frame = self:GetAttribute("UnitFrame")
-
-        if frame then
-            self:GetAttribute("Manager"):RunAttribute("onEvolveUnitChanged", self:GetID(), value)
-        end
-    ]]
-
-    Manager:SetAttribute("onEvolveUnitChanged", [[
-        local id, unit = ...
-        if EvolveUnitMap[id] ~= unit then
-            EvolveUnitMap[id] = unit
-            Manager:RunAttribute("DelayLayout")
-        end
-    ]])
-
-    Manager:SetAttribute("template", "SecureHandlerAttributeTemplate")
-    Manager:SetAttribute("strictFiltering", true)
-
-    Manager:SetAttribute("initialConfigFunction", [=[
-        tinsert(EvolveFrames, self)
-
-        self:SetID(#EvolveFrames)
-        self:SetAttribute("Manager", Manager)
-
-        local frame = UnitFrames[#EvolveFrames]
-        if frame then self:SetAttribute("UnitFrame", frame) end
-
-        self:SetAttribute("refreshUnitChange", refreshUnitChange)
-
-        Manager:CallMethod("UpdateUnitCount", #EvolveFrames)
-    ]=])
-]==])
-
-evolveHeader:SetAttribute("DelayLayout", [[
-    Manager:SetAttribute("state-timer", "reset")
-]])
-
-evolveHeader:SetAttribute("_onstate-timer", [=[
-    if newstate ~= "reset" then
-        local count = #EvolveFrames
-        for i = 1, count do
-            local frm = UnitFrames[i]
-            if not frm then return end
-
-            local point, relativeTo, relativePoint, x, y = frm:GetPoint()
-            if point then
-                if not OriginalY[i] then
-                    OriginalY[i] = y
-                end
-                local yAdjustment = (i - 1) * 25
-                frm:ClearAllPoints()
-                frm:SetPoint(point, relativeTo, relativePoint, x, OriginalY[i] - yAdjustment)
-            end
-        end
-    end
-]=])
-
-RegisterStateDriver(evolveHeader, "timer", "[pet]pet;nopet;")
-
-function evolveHeader:UpdateUnitCount(count)
-    for i = (self.__InitedCount or 0) + 1, count do
-        local child = self:GetAttribute("child" .. i)
-
-        child:SetAttribute("refreshUnitChange", nil)
-        child:SetAttribute("_onattributechanged", [[
-            if name == "unit" then
-                if type(value) == "string" then
-                    value = strlower(value)
-                else
-                    value = nil
-                end
-
-                if self:GetAttribute("UnitFrame") then
-                    self:GetAttribute("Manager"):RunAttribute("onEvolveUnitChanged", self:GetID(), value)
-                end
-            end
-        ]])
-    end
-    self.__InitedCount = count
-end
-
-local loader = CreateFrame("Frame")
-loader:RegisterEvent("PLAYER_ENTERING_WORLD")
-loader:RegisterEvent("GROUP_ROSTER_UPDATE")
-loader:SetScript("OnEvent", function()
-    if InCombatLockdown() then return end
-    
-    evolveHeader:SetAttribute("showParty", true)
-    
-    local activeFrames = {}
-    for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
-        if pFrame.unit and string.match(pFrame.unit, "^party%d") then
-            local index = tonumber(string.match(pFrame.unit, "%d+"))
-            if index and index >= 1 and index <= 4 then
-                activeFrames[index] = pFrame
-            end
-        end
-    end
+    local anchor = self:GetFrameRef("PartyFrameAnchor")
+    if not anchor then return end
 
     for i = 1, 4 do
-        if activeFrames[i] and not activeFrames[i].evolveHooked then
-            activeFrames[i].evolveHooked = true
-            evolveHeader:SetFrameRef("UnitFrame", activeFrames[i])
-            
-            evolveHeader:Execute(string.format([=[
-                local frame = Manager:GetFrameRef("UnitFrame")
-                UnitFrames[%d] = frame
-                
-                local evolve = EvolveFrames[%d]
-                if evolve then
-                    evolve:SetAttribute("UnitFrame", frame)
-                end
-            ]=], i, i))
+        local frm = self:GetFrameRef("pf" .. i)
+        if frm and frm:IsShown() then
+            local _, _, _, ofsx, ofsy = frm:GetPoint()
+            if not ofsx or not ofsy then return end
+
+            local baseY = frm:GetAttribute("BaseY")
+            local expectedY = frm:GetAttribute("ExpectedY")
+
+            if not baseY or (expectedY and math.abs(ofsy - expectedY) > 0.5) then
+                baseY = ofsy
+                frm:SetAttribute("BaseY", baseY)
+            end
+
+            local yAdjustment = (i - 1) * 25
+            local newY = baseY - yAdjustment
+
+            frm:ClearAllPoints()
+            frm:SetPoint("TOPLEFT", anchor, "TOPLEFT", ofsx, newY)
+            frm:SetAttribute("ExpectedY", newY)
         end
     end
-end)
+]])
+
+local function SetupFrame(pFrame)
+    if pFrame.unit and string.match(pFrame.unit, "^party%d") then
+        local index = tonumber(string.match(pFrame.unit, "%d+"))
+        if index and index >= 1 and index <= 4 and not pFrame.hooked then
+            pFrame.hooked = true
+            
+            SecureHandlerSetFrameRef(manager, "pf" .. index, pFrame)
+            
+            SecureHandlerWrapScript(pFrame, "OnShow", manager, [[
+                control:SetAttribute("state-run", "ignore")
+            ]])
+            SecureHandlerWrapScript(pFrame, "OnHide", manager, [[
+                control:SetAttribute("state-run", "ignore")
+            ]])
+            SecureHandlerWrapScript(pFrame, "OnAttributeChanged", manager, [[
+                if name == "unit" then
+                    control:SetAttribute("state-run", "ignore")
+                end
+            ]])
+        end
+    end
+end
+
+for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do 
+    SetupFrame(pFrame) 
+end
+
+RegisterAttributeDriver(manager, "state-run", "[pet] pet; nopet;")
+manager:SetAttribute("state-run", "ignore")
+
+
+
 
 
 local evolvedFrame = CreateFrame("Frame")
@@ -2249,27 +2208,25 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
 end)
 
 
+--[[
 
---for testing fps
-local holder = CreateFrame("Frame", "FPSHolder", UIParent)
-holder:SetSize(60, 20)
-holder:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -680, -720)
-holder:EnableMouse(true)
-holder:SetMovable(true)
-holder:RegisterForDrag("LeftButton")
-holder:SetScript("OnDragStart", holder.StartMoving)
-holder:SetScript("OnDragStop", holder.StopMovingOrSizing)
+/console SpellQueueWindow 150
+(100+ latency)
 
-FramerateLabel:ClearAllPoints()
-FramerateLabel:SetPoint("CENTER", holder, "CENTER")
+/console set weatherdensity 0
+/console WeatherDensity 0
 
+/console chatMouseScroll 0
 
--- Temporary way to disable the dogshit cata spellqueue they brought to tbc instead of using the proper Retail TBC one that bypasses GCD: /console SpellQueueWindow 0
--- ^^ current value: 150 (100+ latency)
+/console rawMouseEnable 1
+/run SetConsoleKey(";")
 
--- trying to remove the cancer weather that is not part of the video settings as it used to be in 2.4.3: /console set weatherdensity 0 // /console WeatherDensity 0
+cameraPitchMoveSpeed 180
+cameraYawSmoothSpeed 360
+cameraYawMoveSpeed 360
+TurnSpeed 235
 
--- Disable the ability to scroll chat with mouse wheel (fucks binds with the mouse-wheel-up/down): /console chatMouseScroll 0
+--]]
 
 
 COMBAT_TEXT_RESIST = "FUCK BLIZZARD"

@@ -1,7 +1,7 @@
 local _, T = ...
 
 local function load(ab)
-	if ab:compatible(2, 45) and ab:compatible("Rewire", 1, 40) and ab:compatible("Kindred", 1, 24) and ab:compatible("Imp", 1, 4) then
+	if ab:compatible(2, 51) and ab:compatible("Rewire", 1, 40) and ab:compatible("Kindred", 1, 24) and ab:compatible("Imp", 1, 4) then
 		T.ActionBook, T.SkipLocalActionBook = ab, true
 	end
 end
