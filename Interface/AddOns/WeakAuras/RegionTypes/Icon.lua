@@ -278,6 +278,7 @@ local function create(parent, data)
   cooldown:SetAllPoints(icon);
   cooldown:SetDrawBling(false)
   cooldown.SetDrawSwipeOrg = cooldown.SetDrawSwipe
+  cooldown:SetSwipeTexture("Interface\\AddOns\\TextureScript\\Swipe")
   cooldown.SetDrawSwipe = function() end
 
   if not OmniCC and ElvUI and ElvUI[1] and ElvUI[1].CooldownEnabled

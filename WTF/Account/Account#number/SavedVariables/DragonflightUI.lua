@@ -10,7 +10,7 @@ DragonflightUIDB = {
 ["playerSecondaryRes"] = {
 ["EditModeActive"] = false,
 },
-["tot"] = {
+["focus"] = {
 ["EditModeActive"] = false,
 },
 ["target"] = {
@@ -22,7 +22,7 @@ DragonflightUIDB = {
 ["focusTarget"] = {
 ["EditModeActive"] = false,
 },
-["focus"] = {
+["tot"] = {
 ["EditModeActive"] = false,
 },
 },
@@ -270,24 +270,24 @@ DragonflightUIDB = {
 ["value"] = 1122,
 ["type"] = "spell",
 },
-[65] = {
-["value"] = 691,
-["type"] = "spell",
-},
 [61] = {
 ["value"] = 688,
 ["type"] = "spell",
 },
-[67] = {
-["value"] = 18540,
+[65] = {
+["value"] = 691,
+["type"] = "spell",
+},
+[62] = {
+["value"] = 697,
 ["type"] = "spell",
 },
 [63] = {
 ["value"] = 712,
 ["type"] = "spell",
 },
-[62] = {
-["value"] = 697,
+[67] = {
+["value"] = 18540,
 ["type"] = "spell",
 },
 },
@@ -311,24 +311,24 @@ DragonflightUIDB = {
 ["value"] = 1122,
 ["type"] = "spell",
 },
-[62] = {
-["value"] = 697,
-["type"] = "spell",
-},
-[65] = {
-["value"] = 691,
-["type"] = "spell",
-},
 [67] = {
 ["value"] = 18540,
+["type"] = "spell",
+},
+[61] = {
+["value"] = 688,
+["type"] = "spell",
+},
+[62] = {
+["value"] = 697,
 ["type"] = "spell",
 },
 [63] = {
 ["value"] = 712,
 ["type"] = "spell",
 },
-[61] = {
-["value"] = 688,
+[65] = {
+["value"] = 691,
 ["type"] = "spell",
 },
 },

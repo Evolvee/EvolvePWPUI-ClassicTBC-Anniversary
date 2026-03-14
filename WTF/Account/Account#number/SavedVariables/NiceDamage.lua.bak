@@ -3,11 +3,16 @@ NiceDamageDBv1 = {
 ["profileKeys"] = {
 ["Evolve - Spineshatter"] = "Default",
 },
+["global"] = {
+["minimap"] = {
+["hide"] = false,
+},
+},
 ["profiles"] = {
 ["Default"] = {
-["uiFont"] = "DorisPP",
 ["uiOutline"] = "",
 ["updateUiText"] = true,
+["fontRampDuration"] = 3,
 },
 },
 }

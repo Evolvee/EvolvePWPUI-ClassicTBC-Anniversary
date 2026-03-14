@@ -3,11 +3,11 @@ BigDebuffsDB = {
 ["profileKeys"] = {
 ["Evolvebugged - Classic Anniversary PTR Realm"] = "Default",
 ["Evolverror - Classic Anniversary PTR Realm"] = "Default",
-["Evolve - Spineshatter"] = "Default",
-["Tremortest - Classic Anniversary PTR Realm"] = "Default",
-["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
-["Testcolors - Classic Anniversary PTR Realm"] = "Default",
 ["Tremorttest - Classic Anniversary PTR Realm"] = "Default",
+["Testcolors - Classic Anniversary PTR Realm"] = "Default",
+["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
+["Tremortest - Classic Anniversary PTR Realm"] = "Default",
+["Evolve - Spineshatter"] = "Default",
 ["Testclrz - Classic Anniversary PTR Realm"] = "Default",
 },
 ["profiles"] = {
@@ -18,16 +18,16 @@ BigDebuffsDB = {
 ["nameplates"] = {
 ["cooldownFontEffect"] = "THICKOUTLINE",
 ["cooldownFont"] = "DorisPP",
-["tooltips"] = false,
 ["buffs_speed_boost"] = false,
+["tooltips"] = false,
 ["enemyAnchor"] = {
 ["anchor"] = "RIGHT",
 ["x"] = 4,
 ["size"] = 30,
 },
-["buffs_other"] = false,
-["friendly"] = false,
 ["roots"] = false,
+["friendly"] = false,
+["buffs_other"] = false,
 },
 ["priority"] = {
 ["immunities"] = 100,
@@ -56,8 +56,8 @@ BigDebuffsDB = {
 },
 [1714] = {
 ["nameplates"] = 0,
-["unitFrames"] = 0,
 ["raidFrames"] = 0,
+["unitFrames"] = 0,
 },
 [19675] = {
 ["nameplates"] = 0,
@@ -77,13 +77,14 @@ BigDebuffsDB = {
 },
 [19306] = {
 ["nameplates"] = 0,
-["raidFrames"] = 0,
 ["unitFrames"] = 0,
+["raidFrames"] = 0,
 },
 [7812] = {
 ["nameplates"] = 0,
 },
-[28730] = {
+[13139] = {
+["nameplates"] = 0,
 ["raidFrames"] = 0,
 },
 [4511] = {
@@ -95,8 +96,8 @@ BigDebuffsDB = {
 },
 [3034] = {
 ["nameplates"] = 0,
-["unitFrames"] = 0,
 ["raidFrames"] = 0,
+["unitFrames"] = 0,
 },
 [5211] = {
 },
@@ -122,7 +123,8 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[5024] = {
+[28730] = {
+["raidFrames"] = 0,
 },
 [453] = {
 ["nameplates"] = 0,
@@ -139,11 +141,13 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[33891] = {
+[122] = {
 ["nameplates"] = 0,
+["raidFrames"] = 0,
 },
-[30456] = {
+[14530] = {
 ["nameplates"] = 0,
+["unitFrames"] = 0,
 },
 [6615] = {
 ["nameplates"] = 0,
@@ -158,9 +162,8 @@ BigDebuffsDB = {
 [16621] = {
 ["nameplates"] = 0,
 },
-[13138] = {
+[768] = {
 ["nameplates"] = 0,
-["raidFrames"] = 0,
 },
 [16689] = {
 ["nameplates"] = 0,
@@ -174,34 +177,35 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["raidFrames"] = 0,
 },
-[23694] = {
+[12292] = {
 ["nameplates"] = 0,
-["raidFrames"] = 0,
+["unitFrames"] = 0,
 },
 [1022] = {
 },
 [18223] = {
 ["nameplates"] = 0,
-["raidFrames"] = 0,
 ["unitFrames"] = 0,
+["raidFrames"] = 0,
 },
-[24858] = {
+[16857] = {
 ["nameplates"] = 0,
 },
-[25999] = {
+[3409] = {
 ["nameplates"] = 0,
+["unitFrames"] = 0,
 ["raidFrames"] = 0,
 },
 [1719] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[12292] = {
-["nameplates"] = 0,
-["unitFrames"] = 0,
-},
 [6940] = {
 ["nameplates"] = 0,
+},
+[23694] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
 },
 [30300] = {
 ["nameplates"] = 0,
@@ -210,9 +214,8 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[19229] = {
+[783] = {
 ["nameplates"] = 0,
-["raidFrames"] = 0,
 },
 [12042] = {
 ["nameplates"] = 0,
@@ -230,9 +233,9 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[23493] = {
+[33395] = {
 ["nameplates"] = 0,
-["unitFrames"] = 0,
+["raidFrames"] = 0,
 },
 [9634] = {
 ["nameplates"] = 0,
@@ -245,7 +248,7 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[29166] = {
+[23451] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
@@ -260,19 +263,19 @@ BigDebuffsDB = {
 [5487] = {
 ["nameplates"] = 0,
 },
-[19185] = {
+[3045] = {
 ["nameplates"] = 0,
-["raidFrames"] = 0,
+["unitFrames"] = 0,
 },
 [2379] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[23097] = {
+[23605] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[23605] = {
+[23097] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
@@ -292,12 +295,12 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
+[40120] = {
+["nameplates"] = 0,
+},
 [27046] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
-},
-[40120] = {
-["nameplates"] = 0,
 },
 [770] = {
 ["nameplates"] = 0,
@@ -332,18 +335,18 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[8178] = {
+[5384] = {
 ["nameplates"] = 0,
 },
 [23131] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[12548] = {
+[13159] = {
 ["nameplates"] = 0,
-["raidFrames"] = 0,
+["unitFrames"] = 0,
 },
-[13877] = {
+[13750] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
@@ -351,21 +354,22 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[12733] = {
+[14892] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
 [25046] = {
 ["raidFrames"] = 0,
 },
-[13494] = {
+[1044] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[20230] = {
-["nameplates"] = 0,
-},
 [14751] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[676] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
@@ -373,21 +377,19 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["raidFrames"] = 0,
 },
-[676] = {
+[20230] = {
 ["nameplates"] = 0,
-["unitFrames"] = 0,
 },
 [7744] = {
 ["nameplates"] = 0,
 },
-[34471] = {
-["nameplates"] = 0,
+[29443] = {
 },
 [12976] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[10060] = {
+[14251] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
@@ -402,11 +404,12 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[14251] = {
+[10060] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[29443] = {
+[34471] = {
+["nameplates"] = 0,
 },
 [14253] = {
 ["nameplates"] = 0,
@@ -420,23 +423,23 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[1044] = {
+[13494] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[14892] = {
+[12733] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[13750] = {
+[13877] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[13159] = {
+[12548] = {
 ["nameplates"] = 0,
-["unitFrames"] = 0,
+["raidFrames"] = 0,
 },
-[5384] = {
+[8178] = {
 ["nameplates"] = 0,
 },
 [16166] = {
@@ -454,39 +457,40 @@ BigDebuffsDB = {
 [22812] = {
 ["nameplates"] = 0,
 },
-[3045] = {
-["nameplates"] = 0,
-["unitFrames"] = 0,
-},
-[23451] = {
-["nameplates"] = 0,
-["unitFrames"] = 0,
-},
-[33395] = {
+[19185] = {
 ["nameplates"] = 0,
 ["raidFrames"] = 0,
 },
-[783] = {
+[29166] = {
 ["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[23493] = {
+["nameplates"] = 0,
+["unitFrames"] = 0,
+},
+[19229] = {
+["nameplates"] = 0,
+["raidFrames"] = 0,
 },
 [30823] = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[3409] = {
+[25999] = {
 ["nameplates"] = 0,
 ["raidFrames"] = 0,
-["unitFrames"] = 0,
 },
-[16857] = {
+[24858] = {
 ["nameplates"] = 0,
 },
 [12494] = {
 ["nameplates"] = 0,
 ["raidFrames"] = 0,
 },
-[768] = {
+[13138] = {
 ["nameplates"] = 0,
+["raidFrames"] = 0,
 },
 [543] = {
 ["nameplates"] = 0,
@@ -496,17 +500,13 @@ BigDebuffsDB = {
 ["nameplates"] = 0,
 ["unitFrames"] = 0,
 },
-[14530] = {
+[30456] = {
 ["nameplates"] = 0,
-["unitFrames"] = 0,
 },
-[122] = {
+[33891] = {
 ["nameplates"] = 0,
-["raidFrames"] = 0,
 },
-[13139] = {
-["nameplates"] = 0,
-["raidFrames"] = 0,
+[5024] = {
 },
 },
 ["unitFrames"] = {
@@ -529,16 +529,16 @@ BigDebuffsDB = {
 ["player"] = {
 ["enabled"] = false,
 },
-["arena1"] = {
-},
-["party1"] = {
+["arena"] = {
+["enabled"] = false,
 },
 ["party2"] = {
 },
+["party1"] = {
+},
 ["arena3"] = {
 },
-["arena"] = {
-["enabled"] = false,
+["arena1"] = {
 },
 },
 },

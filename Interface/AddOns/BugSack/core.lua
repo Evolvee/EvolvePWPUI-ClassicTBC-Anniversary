@@ -45,7 +45,7 @@ local onError
 do
 	local lastError = nil
 	function onError()
-		if not lastError or GetTime() > (lastError + 2) then
+		if not lastError or GetTime() > (lastError + (InCombatLockdown() and 60 or 3)) then
 			if not addon.db.mute then
 				local sound = media:Fetch("sound", addon.db.soundMedia)
 				if addon.db.useMaster then
@@ -194,23 +194,20 @@ function addon:UpdateDisplay()
 	-- noop, hooked by displays
 end
 
-do
-	local errors = {}
-	function addon:GetErrors(sessionId)
-		-- XXX I've never liked this function, maybe a BugGrabber redesign is in order,
-		-- XXX where we have one subtable in the DB per session ID.
-		if sessionId then
-			wipe(errors)
-			local db = BugGrabber:GetDB()
-			for i, e in next, db do
-				if sessionId == e.session then
-					errors[#errors + 1] = e
-				end
+function addon:GetErrors(sessionId)
+	-- XXX I've never liked this function, maybe a BugGrabber redesign is in order,
+	-- XXX where we have one subtable in the DB per session ID.
+	if sessionId then
+		local errors = {}
+		local db = BugGrabber:GetDB()
+		for i, e in next, db do
+			if sessionId == e.session then
+				errors[#errors + 1] = e
 			end
-			return errors
-		else
-			return BugGrabber:GetDB()
 		end
+		return errors
+	else
+		return BugGrabber:GetDB()
 	end
 end
 
@@ -259,6 +256,7 @@ do
 end
 
 function addon:Reset()
+	self:CloseSack()
 	BugGrabber:Reset()
 	self:UpdateDisplay()
 	print(L["All stored bugs have been exterminated painfully."])

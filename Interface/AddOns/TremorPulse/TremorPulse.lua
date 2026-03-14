@@ -89,12 +89,17 @@ end
 
 local function OnEvent(_, event, ...)
     if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-        local _, eventType, _, sourceGUID, _, _, _, destGUID, _, _, _, spellID, _, _, amount = CombatLogGetCurrentEventInfo()
+        local _, eventType, _, sourceGUID, _, sourceFlags, _, destGUID, _, _, _, spellID, _, _, amount = CombatLogGetCurrentEventInfo()
+
+        local isHostile = bit.band(sourceFlags, 0x00000040) ~= 0
 
         if eventType == "SPELL_CAST_SUCCESS" and spellID == TREMOR_SPELL_ID then
-            castTimers[sourceGUID] = GetTime()
+            if isHostile then
+                castTimers[sourceGUID] = GetTime()
+            end
 
         elseif eventType == "SPELL_SUMMON" and spellID == TREMOR_SPELL_ID then
+            if not isHostile then return end
             
             for oldGuid, info in pairs(activeTotems) do
                 if info.shaman == sourceGUID then
@@ -113,7 +118,8 @@ local function OnEvent(_, event, ...)
             activeTotems[destGUID] = { shaman = sourceGUID, spawnTime = startTime }
 
             local nameplate = GetNamePlateByGUID(destGUID)
-            if nameplate then
+            local unit = UnitTokenFromGUID(destGUID)
+            if nameplate and unit and not UnitIsFriend("player", unit) then
                 ShowPlate(nameplate, startTime)
             end
 
@@ -146,7 +152,7 @@ local function OnEvent(_, event, ...)
         local guid = UnitGUID(unit)
         local npcID = GetNPCID(guid)
         
-        if npcID == TREMOR_ID and not UnitIsDead(unit) then
+        if npcID == TREMOR_ID and not UnitIsDead(unit) and not UnitIsFriend("player", unit) then
             local data = activeTotems[guid]
             
             if not data then

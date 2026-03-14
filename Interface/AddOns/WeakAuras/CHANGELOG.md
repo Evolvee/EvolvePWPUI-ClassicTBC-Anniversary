@@ -1,20 +1,19 @@
-# [5.21.1](https://github.com/WeakAuras/WeakAuras2/tree/5.21.1) (2026-01-11)
+# [5.21.2](https://github.com/WeakAuras/WeakAuras2/tree/5.21.2) (2026-01-30)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/5.21.0...5.21.1)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/5.21.1...5.21.2)
 
 ## Highlights
 
-- Classic bug fixes
+- Add Titan encounter info
 
 ## Commits
 
-Barney (1):
+InfusOnWoW (2):
 
-- Update talent data for Mage based on the latest Titan patch (#6132)
+- Update WeakAurasModelPaths from wago.tools
+- Remove retail .toc files and disabled model path update for retail
 
-NoM0Re (3):
+NoM0Re (1):
 
-- Classic/TBC/Wrath: add groupRole and fetchRole to BuffTrigger2
-- Fix: Regression in talent load
-- Fix: Add missing difficulty entry
+- Titan: add next phase encounter list
 

@@ -175,7 +175,7 @@ function DeBuffFilter:TrackAuraDuration(frame, spellId, expirationTime, duration
             }
 end
 
-local function UpdateAuraAnchor(self, auraFrame, size, xPos, yPos, mirrorVertically)
+local function updateAuraPosition(self, auraFrame, size, xPos, yPos, mirrorVertically)
     local point = mirrorVertically and "BOTTOMLEFT" or "TOPLEFT"
     local relativePoint = mirrorVertically and "TOPLEFT" or "BOTTOMLEFT"
     
@@ -212,7 +212,6 @@ local function updateLayout(frame, auraList, numOppositeAuras, isBuff, offsetX, 
         currentY = mirrorAurasVertically and (startY + startYOffset) or (startY - startYOffset)
     end
     
-    local rowWidth = 0
     local biggestAuraInRow = 0
     local haveToT = frame.totFrame and frame.totFrame:IsShown()
     local totFrameX, totFrameBottom = GetFramePosition(frame.totFrame)
@@ -226,19 +225,19 @@ local function updateLayout(frame, auraList, numOppositeAuras, isBuff, offsetX, 
             local dbf, size = data.dbf, data.size
             dbf:Show()
             
-            if rowWidth > 0 then
-                local predictedWidth = rowWidth + size + offsetX
-                local absoluteAuraRightEdge = frame:GetLeft() + currentX + size + offsetX
-                local absoluteAuraBottomEdge = frame:GetBottom() + currentY
+            if (currentX - startX) > 0 then
+                local newWidth = (currentX - startX) + size + offsetX
+                local leftestAura = frame:GetLeft() + currentX + offsetX
+                local bottomEnd = frame:GetBottom() + currentY
                 
-                local verticalDistance = absoluteAuraBottomEdge and (absoluteAuraBottomEdge - totFrameBottom) or 0
-                local horizontalDistance = predictedWidth
-                if absoluteAuraRightEdge then
-                    horizontalDistance = mfloor(mabs(absoluteAuraRightEdge - totFrameX)) + 5
+                local verticalDistance = bottomEnd and (bottomEnd - totFrameBottom) or 0
+                local horizontalDistance = newWidth
+                if leftestAura then
+                    horizontalDistance = mfloor(mabs(leftestAura - totFrameX)) + 5
                 end
 
                 local breakRow = false
-                if (haveToT and (horizontalDistance < size) and verticalDistance > 0) or (predictedWidth > maxRowWidth) then
+                if (haveToT and (horizontalDistance < size) and verticalDistance > 0) or (newWidth > maxRowWidth) then
                     breakRow = true
                 end
                 
@@ -249,7 +248,6 @@ local function updateLayout(frame, auraList, numOppositeAuras, isBuff, offsetX, 
                     
                     currentY = mirrorAurasVertically and (currentY + rowDrop) or (currentY - rowDrop)
                     currentX = startX
-                    rowWidth = 0
                     biggestAuraInRow = 0
                     frame.dbfaurarow = frame.dbfaurarow + 1
                 else
@@ -268,7 +266,7 @@ local function updateLayout(frame, auraList, numOppositeAuras, isBuff, offsetX, 
                 frame.largestAura = calc
             end
 
-            UpdateAuraAnchor(frame, dbf, size, currentX, currentY, mirrorAurasVertically)
+            updateAuraPosition(frame, dbf, size, currentX, currentY, mirrorAurasVertically)
             
             if currentX == startX then
                 local isFriend = UnitIsFriend("player", frame.unit)
@@ -281,7 +279,6 @@ local function updateLayout(frame, auraList, numOppositeAuras, isBuff, offsetX, 
                 end
             end
             
-            rowWidth = rowWidth + size
             currentX = currentX + size
         end
     end

@@ -1062,6 +1062,42 @@ DeBuffFilterDB = {
 },
 },
 },
+["Stoneform"] = {
+[""] = {
+{
+["action"] = {
+["size"] = {
+["enabled"] = true,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+["otherSize"] = 25,
+["glow"] = false,
+["hide"] = false,
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Stoneform",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = true,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["b"] = 0.01176470704376698,
+["g"] = 0,
+["r"] = 1,
+},
+["priority"] = 0,
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
 ["Haste"] = {
 [""] = {
 {
@@ -1167,41 +1203,6 @@ DeBuffFilterDB = {
 },
 },
 },
-["Deterrence"] = {
-[""] = {
-{
-["action"] = {
-["glow"] = false,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = true,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "Deterrence",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = false,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["b"] = 0.85,
-["g"] = 1,
-["r"] = 1,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-},
 ["Demonic Knowledge"] = {
 ["FocusFrame"] = {
 {
@@ -1251,6 +1252,41 @@ DeBuffFilterDB = {
 ["enableStacksFilter"] = false,
 ["minDuration"] = 0,
 ["customName"] = "Demonic Knowledge",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = false,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["b"] = 0.85,
+["g"] = 1,
+["r"] = 1,
+},
+["priority"] = 0,
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+["Deterrence"] = {
+[""] = {
+{
+["action"] = {
+["glow"] = false,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+["hide"] = true,
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "Deterrence",
 ["settings"] = {
 ["priorityEnabled"] = false,
 ["alwaysEnableGlow"] = false,
@@ -1515,41 +1551,6 @@ DeBuffFilterDB = {
 },
 },
 },
-[1008] = {
-[""] = {
-{
-["action"] = {
-["glow"] = true,
-["size"] = {
-["enabled"] = false,
-["otherSize"] = 19,
-["selfSize"] = 21,
-},
-["hide"] = false,
-},
-["minStacks"] = 0,
-["enableStacksFilter"] = false,
-["minDuration"] = 0,
-["customName"] = "r1 amplify",
-["settings"] = {
-["priorityEnabled"] = false,
-["alwaysEnableGlow"] = true,
-["removeDuplicates"] = false,
-["ownOnly"] = false,
-["color"] = {
-["a"] = 1,
-["r"] = 0,
-["g"] = 1,
-["b"] = 0.05490196496248245,
-},
-["priority"] = 0,
-},
-["enableDurationFilter"] = false,
-["maxStacks"] = 0,
-["maxDuration"] = 0,
-},
-},
-},
 ["Hemorrhage"] = {
 [""] = {
 {
@@ -1578,6 +1579,41 @@ DeBuffFilterDB = {
 ["g"] = 1,
 ["b"] = 0.85,
 },
+},
+["enableDurationFilter"] = false,
+["maxStacks"] = 0,
+["maxDuration"] = 0,
+},
+},
+},
+[1008] = {
+[""] = {
+{
+["action"] = {
+["glow"] = true,
+["size"] = {
+["enabled"] = false,
+["otherSize"] = 19,
+["selfSize"] = 21,
+},
+["hide"] = false,
+},
+["minStacks"] = 0,
+["enableStacksFilter"] = false,
+["minDuration"] = 0,
+["customName"] = "r1 amplify",
+["settings"] = {
+["priorityEnabled"] = false,
+["alwaysEnableGlow"] = true,
+["removeDuplicates"] = false,
+["ownOnly"] = false,
+["color"] = {
+["a"] = 1,
+["r"] = 0,
+["g"] = 1,
+["b"] = 0.05490196496248245,
+},
+["priority"] = 0,
 },
 ["enableDurationFilter"] = false,
 ["maxStacks"] = 0,

@@ -1,2 +1,0 @@
-
-MiniTabTargetDB = nil

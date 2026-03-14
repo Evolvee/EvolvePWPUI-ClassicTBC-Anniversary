@@ -35,7 +35,6 @@ BigAurasSpells.spells = {
 			[1020] = {parent = 642}, -- Divine Shield r2
         [45438] = {category = "totalImmunity",priority = 1},
 
-
     --immunity
         [19263] = {category = "immunity",priority = 1},
         [46924] = {category = "immunity",priority = 1},
@@ -200,7 +199,7 @@ BigAurasSpells.spells = {
             -- Silences
         [47476]= {category = "crowdControl",priority = 1},	-- Strangulate
         [34490]= {category = "crowdControl",priority = 1},	-- Silencing Shot
-        [55021]= {category = "crowdControl",priority = 1},	-- Silenced - Improved Counterspell
+        [18469]= {category = "crowdControl",priority = 1},	-- Silenced - Improved Counterspell (Counterspell - Silenced)
             [18469] = {parent = 55021},
         [63529]= {category = "crowdControl",priority = 1},	-- Shield of the Templar
         [15487]= {category = "crowdControl",priority = 1},	-- Silence
@@ -228,7 +227,8 @@ BigAurasSpells.spells = {
 		[835]= {category = "crowdControl",priority = 1},	-- Tidal Charm
 		[32752]= {category = "crowdControl",priority = 1},	-- Summoning Disorientation
 		[43523]= {category = "crowdControl",priority = 1},	-- Unstable Affliction (Silence)
-
+		[31117]= {category = "crowdControl",priority = 1},	-- Unstable Affliction (Silence) - another one I guess? Idk
+		
     --defensive
         [66] = {category = "defensive",priority = 1},    -- Invisibility(mage)
             [32612] = {parent = 66},
