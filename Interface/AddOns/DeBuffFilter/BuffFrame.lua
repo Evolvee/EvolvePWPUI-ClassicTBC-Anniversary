@@ -47,14 +47,14 @@ local function SafeApplyGridLayout(regions, initialAnchor, layout)
     local sections = {}
     local currentSection = {}
     for i, region in ipairs(regions) do
-        table.insert(currentSection, region)
+        tinsert(currentSection, region)
         if #currentSection >= stride then
-            table.insert(sections, currentSection)
+            tinsert(sections, currentSection)
             currentSection = {}
         end
     end
     if #currentSection > 0 then
-        table.insert(sections, currentSection)
+        tinsert(sections, currentSection)
     end
 
     local pointA, relativeTo, pointB, startX, startY = GetAnchorData(initialAnchor)
@@ -74,26 +74,26 @@ local function SafeApplyGridLayout(regions, initialAnchor, layout)
 
             local finalX, finalY
             if isColumnBased then
-                finalX = startX + (secondaryOffset * secondaryMultiplier)
+                finalX = startX + secondaryOffset
                 finalY = startY + primaryOffset 
             else
                 finalX = startX + primaryOffset
-                finalY = startY + (secondaryOffset * secondaryMultiplier)
+                finalY = startY + secondaryOffset
             end
 
             region:ClearAllPoints()
             region:SetPoint(pointA, relativeTo, pointB, finalX, finalY)
 
-            local pSize = GetPrimarySize(region)
+            local pSize = GetPrimarySize(region, isColumnBased)
             primaryOffset = primaryOffset + (pSize * primaryMultiplier)
             
-            local sSize = GetSecondarySize(region)
+            local sSize = GetSecondarySize(region, isColumnBased)
             if sSize > maxSecondarySize then
                 maxSecondarySize = sSize
             end
         end
 
-        secondaryOffset = secondaryOffset + maxSecondarySize + secondaryPadding
+        secondaryOffset = secondaryOffset + ((maxSecondarySize + secondaryPadding) * secondaryMultiplier)
     end
 end
 
@@ -197,10 +197,32 @@ function DeBuffFilter.DBFrame(self)
                     auraFrame.DeBuffFilterGlow:Hide()
                 end
             else
-                if currentSize then
-                    auraFrame:SetSize(currentSize, currentSize)
-                    auraFrame.Icon:SetSize(currentSize, currentSize)
+                local size = currentSize or 30
+                local auraWidth, auraHeight, durationPoint, durationRelativePoint, iconPoint
+
+                if self.AuraContainer.isHorizontal then
+                    auraWidth = size
+                    auraHeight = size + 10
+                    durationPoint = self.AuraContainer.addIconsToTop and "BOTTOM" or "TOP"
+                    durationRelativePoint = self.AuraContainer.addIconsToTop and "TOP" or "BOTTOM"
+                    iconPoint = self.AuraContainer.addIconsToTop and "BOTTOM" or "TOP"
+                else
+                    auraWidth = size + 30
+                    auraHeight = size
+                    durationPoint = self.AuraContainer.addIconsToRight and "LEFT" or "RIGHT"
+                    durationRelativePoint = self.AuraContainer.addIconsToRight and "RIGHT" or "LEFT"
+                    iconPoint = self.AuraContainer.addIconsToRight and "LEFT" or "RIGHT"
                 end
+                
+                auraFrame:SetScale(self.AuraContainer.iconScale or 1)
+                auraFrame:SetSize(auraWidth, auraHeight)
+                auraFrame.Icon:SetSize(size, size)
+
+                auraFrame.Icon:ClearAllPoints()
+                auraFrame.Icon:SetPoint(iconPoint, auraFrame, iconPoint)
+
+                auraFrame.Duration:ClearAllPoints()
+                auraFrame.Duration:SetPoint(durationPoint, auraFrame.Icon, durationRelativePoint)
 
                 if shouldGlow then
                     if not auraFrame.DeBuffFilterGlow then
@@ -218,30 +240,13 @@ function DeBuffFilter.DBFrame(self)
                     end
 
                     local mod = (DeBuffFilter.db.profile.enableRetailGlow and 2.06 or 1.34)
-                    if currentSize then
-                        auraFrame.DeBuffFilterGlow:SetSize(currentSize * mod, currentSize * mod)
-                    else
-                        local w, h = auraFrame.Icon:GetSize()
-                        auraFrame.DeBuffFilterGlow:SetSize(w * mod, h * mod)
-                    end
+                    auraFrame.DeBuffFilterGlow:SetSize(size * mod, size * mod)
                     auraFrame.DeBuffFilterGlow:SetVertexColor(colorTable.r, colorTable.g, colorTable.b, colorTable.a)
                     auraFrame.DeBuffFilterGlow:Show()
 
                     if auraFrame.DebuffBorder and isDebuff then
                         auraFrame.DebuffBorder:Hide()
                     end
-
-                    local point, relativeTo, relativePoint, xOfs, yOfs = auraFrame.Duration:GetPoint()
-                    local yOffset, xOffset
-                    if not self.AuraContainer.isHorizontal then
-                        yOffset = yOfs
-                        xOffset = self.AuraContainer.addIconsToRight and 6 or -6
-                    else
-                        yOffset = self.AuraContainer.addIconsToTop and 4 or -4
-                        xOffset = xOfs
-                    end
-                    auraFrame.Duration:ClearAllPoints();
-                    auraFrame.Duration:SetPoint(point, relativeTo, relativePoint, xOffset, yOffset)
                 else
                     if auraFrame.DeBuffFilterGlow then
                         auraFrame.DeBuffFilterGlow:Hide()

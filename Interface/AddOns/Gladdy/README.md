@@ -4,7 +4,7 @@
 
 ---
 
-## [v2.70-Release Download Here](https://github.com/XiconQoo/Gladdy-TBC/releases/download/v2.70-Release/Gladdy_Classic_v2.70-Release.zip)
+## [v2.72-Release Download Here](https://github.com/XiconQoo/Gladdy-TBC/releases/download/v2.72-Release/Gladdy_Classic_v2.72-Release.zip)
 
 ###### <a target="_blank" rel="noopener noreferrer" href="https://www.paypal.me/dnbjunkee/10"><img src="https://raw.githubusercontent.com/XiconQoo/Gladdy/readme-media/Paypal-Donate.png" height="30" style="margin-top:-30px;position:relative;top:20px;"></a> Please consider donating if you like my work
 
@@ -76,11 +76,17 @@ Thank you!
 - **Klimp** (thanks for all the suggestions and active feedback)
 - **the whole TBC addons 2.4.3 discord** (thanks for the support and great community, especially the MVPs)
 - **Hydra** (thanks for constructive feedback and suggestions)
-- **Xyz** (thanks for suggestions and extensive testing <3)
+- **Xyz** (thanks for suggestions and extensive testing <3 https://github.com/XyzKangUI)
 
 ---
 
 ### Changes
+
+### v2.72-Release
+- fix nameplate icons appearing everywhere
+
+### v2.71-Release
+- fix Diminish not working in test mode when "show when aura applied" is disabled (did not affect actual arena)
 
 ### v2.70-Release
 - fix breaking Blizzard_CombatText on login

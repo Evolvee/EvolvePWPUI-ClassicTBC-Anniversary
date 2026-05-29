@@ -1,0 +1,11 @@
+# v0.3
+- Changed EquipmentSet menu/overview into dropdown menu instead
+- Added padding to UI elements for a prettier look
+
+
+# v0.2
+- fixed syntax error in EquipmentManagerClassic.lua, which caused an error
+
+
+# v0.1
+- Added button to Character Window

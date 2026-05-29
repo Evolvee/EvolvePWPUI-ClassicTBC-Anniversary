@@ -1,0 +1,8 @@
+## Interface: 30300
+## Author: Evolve
+## Notes: Button that enables larger player names on demand (arena eye) - deprecated on wotlk+ (unlimited nameplates in arena). Actually has nothing to do with OmniBar xdd
+## Version: 1
+## Title: OmnibarAdditionalButton2
+## Category: Evolve PWP UI
+
+OmnibarAdditionalButton2.lua

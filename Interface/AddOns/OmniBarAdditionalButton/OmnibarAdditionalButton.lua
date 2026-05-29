@@ -3,7 +3,7 @@ local OABframe
 OABframe = CreateFrame("Button", "OBframe", UIParent, "UIPanelButtonTemplate")
 OABframe:SetClampedToScreen(true)
 OABframe:EnableMouse(true)
-OABframe:SetAlpha(0.25)
+OABframe:SetAlpha(0.1)
 OABframe:SetSize(10, 10)
 OABframe:SetPoint("TOPRIGHT", 0, 0) -- position it wherever u want FeelsOkayMan
 OABframe:RegisterForClicks("RightButtonUp", "LeftButtonUp");

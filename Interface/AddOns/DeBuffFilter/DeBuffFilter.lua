@@ -242,8 +242,11 @@ local function updateLayout(frame, auraList, numOppositeAuras, isBuff, offsetX, 
                 end
                 
                 if breakRow then
-                    local distance = yDistance
-                    if distance == 1 and data.largeAura then distance = 2 end
+                    local distance = yDistance * 2
+                    if distance == 0 then
+                        distance = 2
+                    end
+                    
                     local rowDrop = biggestAuraInRow + distance
                     
                     currentY = mirrorAurasVertically and (currentY + rowDrop) or (currentY - rowDrop)
@@ -262,6 +265,10 @@ local function updateLayout(frame, auraList, numOppositeAuras, isBuff, offsetX, 
             end
             
             local calc = yDistance * 2
+            if calc == 0 then
+                calc = 2
+            end
+            
             if not frame.largestAura or frame.largestAura < calc then
                 frame.largestAura = calc
             end
@@ -285,7 +292,12 @@ local function updateLayout(frame, auraList, numOppositeAuras, isBuff, offsetX, 
     
     local totalOffset = 0
     if frame.dbfaurarow > 0 and biggestAuraInRow > 0 then
-        totalOffset = mfloor(mabs(startY - currentY)) + biggestAuraInRow + 2
+        local bottomPadding = yDistance * 2
+        if bottomPadding == 0 then
+            bottomPadding = 2
+        end
+        
+        totalOffset = mfloor(mabs(startY - currentY)) + biggestAuraInRow + bottomPadding
     end
     
     return totalOffset

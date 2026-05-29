@@ -1,7 +1,10 @@
-## Interface: 120000, 110205, 110207, 50503, 50502, 11508, 20504
+## Interface: 120001, 120005, 11508, 20505, 50503, 50504
 ## Title: AutoSellGrey
 ## Notes: Automatically sells grey items from your bags when visiting a vendor.
+## Notes-ukUA: Автоматично продає сірі предмети з сумок під час відвідування торговця.
+## IconTexture: Interface\Icons\INV_Misc_Coin_01
 ## Author: IceDNicco
-## Version: 1.8
+## Version: 3.10
 ## SavedVariables: AutoSellGreySettings
+AutoSellGrey_Localization.lua
 AutoSellGrey.lua

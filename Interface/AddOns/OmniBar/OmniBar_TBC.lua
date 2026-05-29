@@ -592,7 +592,7 @@ addon.Cooldowns = {
 
     --]]
 
-    [853] = { duration = 60, class = "PALADIN", adjust = -15 }, -- Hammer of Justice (Rank 1)
+    [853] = { duration = 50, class = "PALADIN", adjust = -15 }, -- Hammer of Justice (Rank 1)
         [5588] = { parent = 853 }, -- Hammer of Justice (Rank 2)
         [5589] = { parent = 853 }, -- Hammer of Justice (Rank 3)
         [10308] = { parent = 853 }, -- Hammer of Justice (Rank 4)

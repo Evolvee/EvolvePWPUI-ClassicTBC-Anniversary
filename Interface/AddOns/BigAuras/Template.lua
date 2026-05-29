@@ -212,77 +212,95 @@ local function DETECT_UNIT_AURA(self, unit)
     if unit ~= self.unit then return end
 
     local frame = self
-    local bestSpellID, bestCategoryPriority, bestSpellPriority = nil, -1, -1
-    local bestDuration, bestExpirationTime, bestIcon = 0, 0, nil
-
     for _, auraFilter in ipairs(auraFilters) do
         for i = 1, 40 do
-            local name, icon, count, dispelType, duration, expirationTime, source, isStealable, nameplateShowPersonal, spellID = UnitAura(unit, i, auraFilter)
-            if not spellID then break end
+            local name, icon, count, dispelType, duration, expirationTime, source, isStealable, nameplateShowPersonal, spellID, canApplyAura, isBossDebuff, castByPlayer, nameplateShowAll, timeMod = UnitAura(unit, i, auraFilter)
+            if spellID ~= nil then
+                local categoryPriority, spellPriority
+                local spellData = BigAuras:GetSpellDataBySpellID(unit, spellID)
+                if spellData ~= nil then
+                    categoryPriority = spellData.categoryPriority
+                    spellPriority = spellData.spellPriority
+                end
 
-            local spellData = BigAuras:GetSpellDataBySpellID(unit, spellID)
-            if spellData and spellData.categoryPriority and spellData.spellPriority then
-                local catPrio = spellData.categoryPriority
-                local spellPrio = spellData.spellPriority
+                if spellPriority and spellPriority > 0 and categoryPriority and categoryPriority > 0 then
+                    local hasAura = frame.auraTrackerStorage[spellID] and frame.auraTrackerStorage[spellID].status
 
-                if catPrio > 0 and spellPrio > 0 then
-                    if catPrio > bestCategoryPriority or 
-                       (catPrio == bestCategoryPriority and spellPrio > bestSpellPriority) or 
-                       (catPrio == bestCategoryPriority and spellPrio == bestSpellPriority and expirationTime > bestExpirationTime) then
-                        
-                        bestSpellID = spellID
-                        bestCategoryPriority = catPrio
-                        bestSpellPriority = spellPrio
-                        bestDuration = duration
-                        bestExpirationTime = expirationTime
-                        bestIcon = icon
+                    frame.auraTrackerStorage[spellID] = {
+                        categoryPriority = categoryPriority,
+                        spellPriority = spellPriority,
+                        status = false,
+                        auraFilter = auraFilter,
+                        expirationTime = expirationTime,
+                    }
+
+                    if (not hasAura and not frame.showingSpellID)
+                            or (hasAura and not frame.showingSpellID)
+                            or (frame.showingSpellID and (frame.showingCategoryPriority < categoryPriority or (frame.showingCategoryPriority == categoryPriority and frame.showingSpellPriority < spellPriority)))
+                            or (frame.showingSpellID and frame.showingSpellID == spellID and frame.showingSpellExpirationTime > expirationTime)
+                            or (frame.showingSpellID and frame.showingCategoryPriority == categoryPriority and frame.showingSpellPriority == spellPriority and frame.showingSpellExpirationTime < expirationTime)
+                    then
+                        frame.showingSpellID = spellID
+                        frame.showingSpellPriority = spellPriority
+                        frame.showingCategoryPriority = categoryPriority
+                        frame.showingSpellDuration = duration
+                        frame.showingSpellExpirationTime = expirationTime
+
+                        frame.Icon:SetTexture(icon)
+
+                        local isCircular = false
+                        if not frame.db.unlock and BigAuras.db.profile.anchor == "Blizzard" then
+                            if not ((BigAuras:support_s_Arena() or BigAuras:IsGladdyLoaded()) and BigAuras:isArenaUnit(unit)) then
+                                isCircular = true
+                            end
+                        end
+
+                        if isCircular then
+                            if frame.CircleMask then
+                                frame.Icon:AddMaskTexture(frame.CircleMask)
+                            end
+                            frame.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+                            frame.Cooldown:SetSwipeTexture("Interface/CHARACTERFRAME/TempPortraitAlphaMask")
+                            frame.Cooldown:SetUseCircularEdge(true)
+                        else
+                            if frame.CircleMask then
+                                frame.Icon:RemoveMaskTexture(frame.CircleMask)
+                            end
+                            frame.Icon:SetTexCoord(0, 1, 0, 1)
+                            frame.Cooldown:SetSwipeTexture("Interface/AddOns/TextureScript/Swipe")
+                            frame.Cooldown:SetUseCircularEdge(false)
+							frame.Cooldown:SetDrawEdge(true)
+							frame.Cooldown:SetEdgeScale(1.26)
+							--frame.Cooldown:SetScale(0.9)
+                        end
+
+                        frame:SetTime(expirationTime, duration)
                     end
                 end
             end
         end
     end
 
-    if bestSpellID then
-        frame.showingSpellID = bestSpellID
-        frame.showingCategoryPriority = bestCategoryPriority
-        frame.showingSpellPriority = bestSpellPriority
-        frame.showingSpellDuration = bestDuration
-        frame.showingSpellExpirationTime = bestExpirationTime
-
-        frame.Icon:SetTexture(bestIcon)
-
-        local isCircular = false
-        if not frame.db.unlock and BigAuras.db.profile.anchor == "Blizzard" then
-            if not ((BigAuras:support_s_Arena() or BigAuras:IsGladdyLoaded()) and BigAuras:isArenaUnit(unit)) then
-                isCircular = true
-            end
-        end
-
-        if isCircular then
-            if frame.CircleMask then
-                frame.Icon:AddMaskTexture(frame.CircleMask)
-            end
-            frame.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-            frame.Cooldown:SetSwipeTexture("Interface/CHARACTERFRAME/TempPortraitAlphaMask")
-            frame.Cooldown:SetUseCircularEdge(true)
+    for spellID, spellData in pairs(frame.auraTrackerStorage) do
+        if not spellData.status then
+            frame.auraTrackerStorage[spellID].status = true
         else
-            if frame.CircleMask then
-                frame.Icon:RemoveMaskTexture(frame.CircleMask)
-            end
-            frame.Icon:SetTexCoord(0, 1, 0, 1)
-            frame.Cooldown:SetSwipeTexture("Interface/AddOns/TextureScript/Swipe")
-            frame.Cooldown:SetUseCircularEdge(false)
-            frame.Cooldown:SetDrawEdge(true)
-            frame.Cooldown:SetEdgeScale(1.26)
-        end
+            frame.auraTrackerStorage[spellID] = nil
 
-        frame:SetTime(bestExpirationTime, bestDuration)
-    else
-        frame.showingSpellID = nil
-        frame.showingCategoryPriority = nil
-        if not frame.testMode then
-            frame:Hide()
+            if frame.showingSpellID == spellID then
+                frame.showingSpellID = nil
+                frame.showingSpellPriority = nil
+                frame.showingCategoryPriority = nil
+                frame.showingSpellDuration = nil
+                frame.showingSpellExpirationTime = nil
+                frame:UNIT_AURA(unit)
+                break
+            end
         end
+    end
+
+    if not frame.showingCategoryPriority and not frame.testMode then
+        frame:Hide()
     end
 end
 
@@ -302,6 +320,12 @@ end
 
 local function PLAYER_ENTERING_WORLD(self)
     self.Icon:SetTexture(nil)
+    self.auraTrackerStorage = {}
+    self.showingSpellID = nil
+    self.showingSpellPriority = nil
+    self.showingCategoryPriority = nil
+    self.showingSpellDuration = nil
+    self.showingSpellExpirationTime = nil
 end
 
 local function SetCooldownTime(self, expiration, duration)
@@ -376,7 +400,7 @@ function BigAuras:OnInitialize()
 end
 
 function BigAuras:getOrCreate(unit)
-    if not self.db.profile[unit] or not self.db.profile[unit].enable then
+    if not self.db.profile[unit].enable then
         return
     end
 
@@ -394,6 +418,12 @@ function BigAuras:getOrCreate(unit)
 
     if not self.frames[unit] then
         self.frames[unit] = frame
+        frame.auraTrackerStorage = {}
+        frame.showingSpellID = nil
+        frame.showingSpellPriority = nil
+        frame.showingCategoryPriority = nil
+        frame.showingSpellDuration = nil
+        frame.showingSpellExpirationTime = nil
 
         frame.db = self.db.profile[unit]
         frame.unit = unit
@@ -618,19 +648,20 @@ function BigAuras:GetSpellDataBySpellID(unit, targetSpellID)
 
     local profile = self.db.profile[unit]
 
-    local spellData
+    local _spellData
     if profile.spells[targetSpellID] then
-        local spell = profile.spells[targetSpellID]
-        if not spell or not spell.category or not profile.categories[spell.category] then
-            return nil
+        local  _spell = profile.spells[targetSpellID]
+
+        if _spell.parent then
+            _spell = profile.spells[_spell.parent]
         end
 
-        spellData = {
-            spellPriority = spell.priority,
-            categoryPriority = profile.categories[spell.category].priority,
+        _spellData = {
+            spellPriority = _spell.priority,
+            categoryPriority = profile.categories[_spell.category].priority,
         }
 
-        return spellData
+        return _spellData
     end
 
     return nil
@@ -653,10 +684,15 @@ local function HIDE_UNUSED()
         if not UnitExists(_frame.unit) then
             _frame:Hide()
             _frame.Icon:SetTexture(nil)
+            _frame.auraTrackerStorage = {}
+            _frame.showingSpellID = nil
+            _frame.showingSpellPriority = nil
+            _frame.showingCategoryPriority = nil
+            _frame.showingSpellDuration = nil
+            _frame.showingSpellExpirationTime = nil
         end
     end
 end
-
 
 BigAuras.events = CreateFrame("Frame")
 BigAuras.events:RegisterEvent("UPDATE_BATTLEFIELD_STATUS")

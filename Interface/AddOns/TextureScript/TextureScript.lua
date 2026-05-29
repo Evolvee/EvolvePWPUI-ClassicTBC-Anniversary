@@ -191,7 +191,9 @@ local tooltipOwnerBlacklist = {
 local function PlayerFrameArt()
     PlayerFrameTexture:SetTexture("Interface\\AddOns\\TextureScript\\UI-TargetingFrame")
     PlayerStatusTexture:SetTexture("Interface\\AddOns\\TextureScript\\UI-Player-Status")
-    PlayerFrameHealthBar:SetPoint("TOPLEFT", 90, -27)
+    local _, b, c = PlayerFrameHealthBar:GetPoint()
+    PlayerFrameHealthBar:ClearAllPoints()
+    PlayerFrameHealthBar:SetPoint("TOPLEFT", b, c, 90, -27)
     PlayerFrameHealthBar:SetWidth(118)
     PlayerFrameHealthBar:SetHeight(28)
     PlayerName:SetPoint("CENTER", 50, 35)
@@ -336,15 +338,19 @@ local function OnInit()
 
     TargetFrameHealthBar:SetWidth(118)
     TargetFrameHealthBar:SetHeight(30)
-    TargetFrameHealthBar:SetPoint("TOPRIGHT", -90.5, -27)
+    local _, b, c = TargetFrameHealthBar:GetPoint()
+    TargetFrameHealthBar:ClearAllPoints()
+    TargetFrameHealthBar:SetPoint("TOPRIGHT", b, c, -90.5, -27)
     TargetFrameTextureFrameName:SetPoint("CENTER", -33, 32)
     TargetFrameHealthBar.TextString:SetPoint("CENTER", -33, 8)
     TargetFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 17, "THICKOUTLINE")
-    TargetFrameManaBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 10, "THICKOUTLINE	")
+    TargetFrameManaBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 10, "THICKOUTLINE")
 
     FocusFrameHealthBar:SetWidth(118)
     FocusFrameHealthBar:SetHeight(30)
-    FocusFrameHealthBar:SetPoint("TOPRIGHT", -90.5, -27)
+    local _, b, c = FocusFrameHealthBar:GetPoint()
+    FocusFrameHealthBar:ClearAllPoints()
+    FocusFrameHealthBar:SetPoint("TOPRIGHT", b, c, -90.5, -27)
     FocusFrameTextureFrameName:SetPoint("CENTER", -33, 32)
     FocusFrameHealthBar.TextString:SetPoint("CENTER", -33, 8)
     FocusFrameHealthBar.TextString:SetFont("Fonts/FRIZQT__.TTF", 17, "THICKOUTLINE")
@@ -864,7 +870,6 @@ local floor, next = math.floor, next
 local mabs = math.abs
 local UnitGUID = UnitGUID
 local smoothframe = CreateFrame("Frame")
-local UnitGetIncomingHeals = UnitGetIncomingHeals or (Precognito and Precognito.UnitGetTotalAbsorbs)
 
 local barstosmooth = {
     PlayerFrameHealthBar = "player",
@@ -896,37 +901,19 @@ local function isCloseEnough(new, target, range)
     return range > 0.0 and mabs((new - target) / range) <= 0.001
 end
 
-local function hasAbsorbValue(unit)
-    if not unit then return false end
-
-    if UnitGetIncomingHeals(unit) and UnitGetIncomingHeals(unit) > 0 then
-        return true
-    end
-
-    return false
-end
-
 local function AnimationTick(_, elapsed)
     for unitFrame, targetValue in next, smoothing do
-        if hasAbsorbValue(unitFrame.unit) then
+        local newValue = lerp(unitFrame._value, targetValue, clamp(0.33 * elapsed * 60))
+        unitFrame:SetValue_(floor(newValue))
+        unitFrame._value = newValue
+
+        if not unitFrame:IsVisible() or isCloseEnough(newValue, targetValue, unitFrame._max) then
+            unitFrame:SetValue_(targetValue)
+            unitFrame._value = targetValue
             smoothing[unitFrame] = nil
-            unitFrame:SetValue_(unitFrame._value)
+
             if not next(smoothing) then
                 smoothframe:SetScript("OnUpdate", nil)
-            end
-        else
-            local newValue = lerp(unitFrame._value, targetValue, clamp(0.33 * elapsed * 60))
-            unitFrame:SetValue_(floor(newValue))
-            unitFrame._value = newValue
-
-            if not unitFrame:IsVisible() or isCloseEnough(newValue, targetValue, unitFrame._max) then
-                unitFrame:SetValue_(targetValue)
-                unitFrame._value = targetValue
-                smoothing[unitFrame] = nil
-
-                if not next(smoothing) then
-                    smoothframe:SetScript("OnUpdate", nil)
-                end
             end
         end
     end
@@ -936,7 +923,7 @@ local function SetSmoothedValue(self, value)
     self.finalValue = value
     local guid = UnitGUID(self.unit)
 
-    if hasAbsorbValue(self.unit) or not self:IsVisible() or isCloseEnough(self._value, value, self._max) or (self.unit and guid ~= self.guid) then
+    if not self:IsVisible() or isCloseEnough(self._value, value, self._max) or (self.unit and guid ~= self.guid) then
         self.guid = guid
         smoothing[self] = nil
         self:SetValue_(floor(value))
@@ -993,16 +980,16 @@ local function SmoothBar(bar)
     end
 end
 
-for barName, unit in pairs(barstosmooth) do
-            local statusbar = _G[barName]
-            if statusbar then
-                SmoothBar(statusbar)
-                statusbar:HookScript("OnHide", function(self)
-                    self.guid, self.max_ = nil, nil
-                end)
-                statusbar.unit = unit ~= "" and unit or nil
-            end
-        end
+    for barName, unit in pairs(barstosmooth) do
+         local statusbar = _G[barName]
+         if statusbar then
+            SmoothBar(statusbar)
+            statusbar:HookScript("OnHide", function(self)
+                self.guid, self._max = nil, nil
+            end)
+            statusbar.unit = unit ~= "" and unit or nil
+         end
+    end
 
 -- statusbar.lockColor causes taints
 local function colour(statusbar, unit)
@@ -2226,12 +2213,16 @@ cameraYawSmoothSpeed 360
 cameraYawMoveSpeed 360
 TurnSpeed 235
 
+mouse look speed 14.5
+autofollowspeed 14.5
+enable mouse sensitivity (YES) 3
+
 --]]
 
 
 COMBAT_TEXT_RESIST = "FUCK BLIZZARD"
 
 --Login message informing all scripts of this file were properly executed
-ChatFrame1:AddMessage("EvolvePWPUI-ClassicTBC-Anniversary v1.0 Loaded successfully!", 0, 205, 255)
+ChatFrame1:AddMessage("EvolvePWPUI-ClassicTBC-Anniversary v1.1 Loaded successfully!", 0, 205, 255)
 ChatFrame1:AddMessage("Check for updates at:", 89, 89, 89)
 ChatFrame1:AddMessage("https://github.com/Evolvee/EvolvePWPUI-ClassicTBC-Anniversary", 89, 89, 89)

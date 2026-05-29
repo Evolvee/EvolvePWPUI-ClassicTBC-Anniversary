@@ -1,0 +1,7 @@
+<Bindings>
+   <Binding name="Toggle Frame Visibility2" runOnUp="true" header="OmnibarAdditionalButton2">
+      if ( keystate == "down" ) then
+         OABframe2.ToggleVisible();
+      end
+   </Binding>
+</Bindings>

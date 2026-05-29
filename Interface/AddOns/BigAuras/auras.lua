@@ -34,6 +34,7 @@ BigAurasSpells.spells = {
         [642] = {category = "totalImmunity",priority = 1}, -- Divine Shield r1
 			[1020] = {parent = 642}, -- Divine Shield r2
         [45438] = {category = "totalImmunity",priority = 1},
+		[31224] = {category = "totalImmunity",priority = 1}, -- Cloak of Shadows (bugged on classic, works even against wands and its not being able to be penetratable via spell hit nor talents, therefore putting it to TOTAL IMMUNITY)
 
     --immunity
         [19263] = {category = "immunity",priority = 1},
@@ -42,7 +43,6 @@ BigAurasSpells.spells = {
         [34692] = {category = "immunity",priority = 1}, -- The Beast Within
             [34471] = {parent = 34692},
 		[19574] = {category = "immunity",priority = 1}, -- Bestial Wrath
-        [31224] = {category = "immunity",priority = 1},
 		[10278] = {category = "immunity",priority = 1}, -- Blessing of Protection
         [316243] = {category = "immunity",priority = 1},
         [316271] = {category = "immunity",priority = 1},
@@ -119,6 +119,9 @@ BigAurasSpells.spells = {
             [61780] = {parent = 118},	-- Polymorph (turkey)
             [71319] = {parent = 118},	-- Polymorph (turkey)
             [28272] = {parent = 118},	-- Polymorph (pig)
+			[12824] = {parent = 118},	-- Polymorph r2
+			[12825] = {parent = 118},	-- Polymorph r3
+			[12826] = {parent = 118},	-- Polymorph r4
         [10308]= {category = "crowdControl",priority = 1},	-- Hammer of Justice
             [853] = {parent = 10308},
             [5588] = {parent = 10308},
@@ -158,12 +161,12 @@ BigAurasSpells.spells = {
         [51514]= {category = "crowdControl",priority = 1},	-- Hex
         [18647]= {category = "crowdControl",priority = 1},	-- Banish (works against Warlocks using Metamorphasis and Druids using Tree Form)
             [710] = {parent = 18647},
-        [47860]= {category = "crowdControl",priority = 1},	-- Death Coil
-            [6789] = {parent = 47860},
-            [17925] = {parent = 47860},
-            [17926] = {parent = 47860},
-            [27223] = {parent = 47860},
-            [47859] = {parent = 47860},
+        [27223]= {category = "crowdControl",priority = 1},	-- Death Coil
+            [6789] = {parent = 27223},
+            [17925] = {parent = 27223},
+            [17926] = {parent = 27223},
+			[47860] = {parent = 27223},
+            [47859] = {parent = 27223},
         [6215]= {category = "crowdControl",priority = 1},	-- Fear
             [5782] = {parent = 6215},
             [6213] = {parent = 6215},
@@ -200,7 +203,6 @@ BigAurasSpells.spells = {
         [47476]= {category = "crowdControl",priority = 1},	-- Strangulate
         [34490]= {category = "crowdControl",priority = 1},	-- Silencing Shot
         [18469]= {category = "crowdControl",priority = 1},	-- Silenced - Improved Counterspell (Counterspell - Silenced)
-            [18469] = {parent = 55021},
         [63529]= {category = "crowdControl",priority = 1},	-- Shield of the Templar
         [15487]= {category = "crowdControl",priority = 1},	-- Silence
         [1330] = {category = "crowdControl",priority = 1},	-- Garrote - Silence

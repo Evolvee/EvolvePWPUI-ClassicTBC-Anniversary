@@ -43,9 +43,13 @@ media:Register("sound", "BugSack: Fatality", "Interface\\AddOns\\" .. addonName 
 
 local onError
 do
-	local lastError = nil
-	function onError()
-		if not lastError or GetTime() > (lastError + (InCombatLockdown() and 60 or 3)) then
+	local prevError = GetTime()-10
+	local errorList = {}
+	function onError(_, errorID)
+		local t = GetTime()
+		if t - prevError > 3 and (not errorList[errorID] or t - errorList[errorID] > 30) then
+			errorList[errorID] = t
+			prevError = t
 			if not addon.db.mute then
 				local sound = media:Fetch("sound", addon.db.soundMedia)
 				if addon.db.useMaster then
@@ -57,7 +61,6 @@ do
 			if addon.db.chatframe then
 				print(L["There's a bug in your soup!"])
 			end
-			lastError = GetTime()
 		end
 		-- If the frame is shown, we need to update it.
 		if (addon.db.auto and not InCombatLockdown()) or (BugSackFrame and BugSackFrame:IsShown()) then
@@ -73,6 +76,7 @@ end
 
 do
 	local eventFrame = CreateFrame("Frame")
+	local tbl = {}
 	eventFrame:SetScript("OnEvent", function(self, event, loadedAddon)
 		if loadedAddon ~= addonName then
 			return
@@ -155,7 +159,21 @@ do
 		-- Make sure we grab any errors fired before bugsack loaded.
 		local session = addon:GetErrors(BugGrabber:GetSessionId())
 		if #session > 0 then
-			onError()
+			if not addon.db.mute then
+				local sound = media:Fetch("sound", addon.db.soundMedia)
+				if addon.db.useMaster then
+					PlaySoundFile(sound, "Master")
+				else
+					PlaySoundFile(sound)
+				end
+			end
+			if addon.db.chatframe then
+				print(L["There's a bug in your soup!"])
+			end
+			if addon.db.auto then
+				addon:OpenSack()
+			end
+			addon:UpdateDisplay()
 		end
 
 		if addon.RegisterComm then
@@ -163,7 +181,8 @@ do
 		end
 
 		-- Set up our error event handler
-		BugGrabber.RegisterCallback(addon, "BugGrabber_BugGrabbed", onError)
+		EventRegistry:RegisterCallback("BugGrabber.BugGrabbed", onError, tbl)
+		EventRegistry:TriggerEvent("BugGrabber.DisplayRegistered")
 
 		-- Initialize settings now that database is ready
 		if addon.InitializeSettings then
@@ -242,14 +261,21 @@ do
 
 	local errorFormat = "%dx %s"
 	local errorFormatLocals = "%dx %s\n\nLocals:\n%s"
+	local EscapeDecimalNonPrintables = C_StringUtil and C_StringUtil.EscapeDecimalNonPrintables or function(err) return err end
 	function addon:FormatError(err)
 		if not err.locals then
-			local s = colorStack(tostring(err.message) .. (err.stack and "\n" .. tostring(err.stack) or ""))
-			local l = colorLocals(tostring(err.locals) or "")
-			return errorFormat:format(err.counter or -1, s, l)
+			local message = EscapeDecimalNonPrintables(err.message)
+			local stack = err.stack and EscapeDecimalNonPrintables(err.stack) or ""
+
+			local s = colorStack(message .. "\n" .. stack)
+			return errorFormat:format(err.counter or -1, s)
 		else
-			local s = colorStack(tostring(err.message) .. (err.stack and "\n" .. tostring(err.stack) or ""))
-			local l = colorLocals(tostring(err.locals) or "")
+			local message = EscapeDecimalNonPrintables(err.message)
+			local stack = err.stack and EscapeDecimalNonPrintables(err.stack) or ""
+			local locals = EscapeDecimalNonPrintables(err.locals)
+
+			local s = colorStack(message .. "\n" .. stack)
+			local l = colorLocals(locals)
 			return errorFormatLocals:format(err.counter or -1, s, l)
 		end
 	end
