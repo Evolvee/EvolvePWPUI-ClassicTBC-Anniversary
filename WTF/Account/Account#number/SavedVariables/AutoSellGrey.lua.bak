@@ -2,4 +2,10 @@
 AutoSellGreySettings = {
 ["enabled"] = true,
 ["limitSell"] = false,
+["showSummary"] = false,
+["maxItemsPerSession"] = 12,
+["minimapPos"] = 45,
+["language"] = "",
+["silentMode"] = true,
+["minimapButton"] = false,
 }

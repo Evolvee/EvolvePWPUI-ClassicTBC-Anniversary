@@ -1,6 +1,6 @@
 
 AutoRepairSettings = {
 ["enabled"] = true,
+["repairEquippedOnly"] = false,
 ["firstRun"] = true,
-["repairEquippedOnly"] = true,
 }

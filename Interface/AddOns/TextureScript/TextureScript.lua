@@ -2,6 +2,7 @@
 
 local UnitCastingInfo, UnitChannelInfo = UnitCastingInfo, UnitChannelInfo
 local np = {}
+local inArena = false
 local string_split = string.split
 local string_format = string.format
 
@@ -79,7 +80,6 @@ local function DarkenFrames(addon)
         ReputationXPBarTexture2,
         ReputationXPBarTexture3,
         MainMenuXPBarTextureMid,
-        MiniMapBattlefieldBorder,
         MiniMapMailBorder, }) do
         if v then
             v:SetVertexColor(0, 0, 0)
@@ -94,10 +94,12 @@ local function DarkenFrames(addon)
         end
     end
 
-    local a, b, c, d, e, f, _, _, _, _, _, l = WorldStateScoreFrame:GetRegions()
-    for _, v in pairs({ a, b, c, d, e, f, l }) do
-        if v then
-            v:SetVertexColor(0.15, 0.15, 0.15)
+    if WorldStateScoreFrame then
+        local a, b, c, d, e, f, _, _, _, _, _, l = WorldStateScoreFrame:GetRegions()
+        for _, v in pairs({ a, b, c, d, e, f, l }) do
+            if v then
+                v:SetVertexColor(0.15, 0.15, 0.15)
+            end
         end
     end
 end
@@ -148,7 +150,9 @@ local function ColorGuildTabs()
             break
         end
         color = CUSTOM_CLASS_COLORS[class]
-        _G["GuildFrameButton" .. i .. "Class"]:SetTextColor(color.r, color.g, color.b)
+        if color then
+            _G["GuildFrameButton" .. i .. "Class"]:SetTextColor(color.r, color.g, color.b)
+        end
     end
 end
 
@@ -164,7 +168,6 @@ local sounds = {
     601649, -- Naaru cancer (Alar sounds)
     601652, -- Naaru cancer 2
     567518, -- Friendlist (when someone logs in)
-    567407, -- Chat scroll button
 }
 
 local tooltipOwnerBlacklist = {
@@ -237,7 +240,7 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
     pFrame.PartyMemberOverlay.Name:Hide()
     pFrame.PartyMemberOverlay.PVPIcon:SetAlpha(0)
 
-    hooksecurefunc(pFrame, "UpdateMemberHealth", function(elapsed)
+    hooksecurefunc(pFrame, "UpdateMemberHealth", function(self)
         local healthbar = pFrame.healthbar
         local manabar = pFrame.manabar
         local hp = healthbar.finalValue or healthbar:GetValue()
@@ -573,7 +576,10 @@ local function OnInit()
 end
 	-- Hide	Macro & Keybind texts from Pet Action Bar (only has 10 slots)
 	for i = 1, 10 do
-        _G["PetActionButton" .. i .. "HotKey"]:SetAlpha(0)
+        local hotkey = _G["PetActionButton" .. i .. "HotKey"]
+        if hotkey then
+            hotkey:SetAlpha(0)
+        end
     end
 
 -- SpeedyActions level: Garage clicker & Pro Gaymer
@@ -586,10 +592,12 @@ local buttonNames = {
     ["MULTIACTIONBAR3BUTTON"] = "MultiBarRightButton",
     ["MULTIACTIONBAR4BUTTON"] = "MultiBarLeftButton",
     ["CLICK BT4Button"] = "BT4Button",
+    ["BT4Button"] = "BT4Button",
     ["MULTIACTIONBAR5BUTTON"] = "MultiBar5Button",
     ["MULTIACTIONBAR6BUTTON"] = "MultiBar6Button",
     ["MULTIACTIONBAR7BUTTON"] = "MultiBar7Button",
     ["CLICK DominosActionButton"] = "DominosActionButton",
+    ["DominosActionButton"] = "DominosActionButton",
 }
 
 local function ConvertActionButtonName(name)
@@ -617,11 +625,6 @@ local function WAHK(button, ok)
     end
 
     local clickButton, id
-    if button:match("BT4Button") then
-        clickButton = ("CLICK %s:LeftButton"):format(button)
-    elseif button:match("DominosActionButton") then
-        clickButton = ("CLICK %s:HOTKEY"):format(button)
-    end
 
     id = tonumber(button:match("(%d+)"))
 
@@ -633,9 +636,14 @@ local function WAHK(button, ok)
         id = tonumber(button:match("MultiBar7Button(%d+)"))
     end
 
-    local actionButtonType = btn.buttonType
-    local buttonType = actionButtonType and (actionButtonType .. id) or ("ACTIONBUTTON%d"):format(id)
-    clickButton = buttonType or ("CLICK " .. button .. ":LeftButton")
+    if button:match("BT4Button") then
+        clickButton = ("CLICK %s:LeftButton"):format(button)
+    elseif button:match("DominosActionButton") then
+        clickButton = ("CLICK %s:HOTKEY"):format(button)
+    else
+        local actionButtonType = btn.buttonType
+        clickButton = actionButtonType and (actionButtonType .. id) or ("ACTIONBUTTON%d"):format(id)
+    end
 
     local key, key2 = GetBindingKey(clickButton)
     if not key and not key2 then
@@ -651,19 +659,13 @@ local function WAHK(button, ok)
     end
 
     for v in pairs(cacheKeys) do
+        local targetBtn = btn
         local action = GetBindingAction(v, true)
         if action and action ~= "" then
-            btn = _G[ConvertActionButtonName(action)]
+            targetBtn = _G[ConvertActionButtonName(action)]
         end
 
-        if btn then
-            local btnName = btn:GetName()
-            local clk = tostring(btnName)
-
-            if not id then
-                id = tonumber(button:match("(%d+)"))
-            end
-
+        if targetBtn then
             local wahkName = "WAHK" .. v .. button
             local wahk = _G[wahkName] or CreateFrame("Button", wahkName, nil, "SecureActionButtonTemplate")
             wahkFrames[wahkName] = true
@@ -684,8 +686,8 @@ local function WAHK(button, ok)
                         obtn:SetButtonState("PUSHED")
                     end
                 else
-                    if btn then
-                        btn:SetButtonState("PUSHED")
+                    if targetBtn then
+                        targetBtn:SetButtonState("PUSHED")
                     end
                 end
             end)
@@ -696,8 +698,8 @@ local function WAHK(button, ok)
                         obtn:SetButtonState("NORMAL")
                     end
                 else
-                    if btn then
-                        btn:SetButtonState("NORMAL")
+                    if targetBtn then
+                        targetBtn:SetButtonState("NORMAL")
                     end
                 end
             end)
@@ -835,15 +837,8 @@ local function Classification(self, forceNormalTexture)
 
     self.nameBackground:Hide()
 
-    if classification == "elite" or classification == "worldboss" then
-        self.borderTexture:SetTexture("Interface\\AddOns\\TextureScript\\UI-TargetingFrame")
-    elseif classification == "rareelite" then
-        self.borderTexture:SetTexture("Interface\\AddOns\\TextureScript\\UI-TargetingFrame")
-    elseif classification == "rare" then
-        self.borderTexture:SetTexture("Interface\\AddOns\\TextureScript\\UI-TargetingFrame")
-    else
-        self.borderTexture:SetTexture("Interface\\AddOns\\TextureScript\\UI-TargetingFrame")
-    end
+    -- same texture for all classifications (elite/worldboss/rareelite/rare/normal)
+    self.borderTexture:SetTexture("Interface\\AddOns\\TextureScript\\UI-TargetingFrame")
 
     -- fix Blizzard's overlapping backgrounds causing a darker line
     if forceNormalTexture then
@@ -1149,7 +1144,8 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
         GameTooltipTextLeft1:SetFormattedText("%s", name)
 
         local guild = GetGuildInfo(unit)
-        if guild and strfind(GameTooltipTextLeft2:GetText(), guild) then
+        local line2Text = GameTooltipTextLeft2:GetText()
+        if guild and line2Text and strfind(line2Text, guild, 1, true) then
             GameTooltipTextLeft2:SetFormattedText("")
         end
 
@@ -1168,25 +1164,21 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
             end
         end
 
-        -- Totems/Pets
-        if not UnitIsPlayer(unit) then
-            for i = 1, self:NumLines() do
-                local lines = _G["GameTooltipTextLeft" .. i]
-                if i > 1 then
-                    if lines then
-                        lines:SetText("")
-                    end
-                end
-            end
-        end
-
         -- Add class-coloured names on mouseover tooltips
         local _, class = UnitClass(unit)
         local color = class and CUSTOM_CLASS_COLORS[class]
-        if color and UnitIsPlayer(unit) then
+        if color then
             local text = GameTooltipTextLeft1:GetText()
             if text then
-                GameTooltipTextLeft1:SetFormattedText("|cff%02x%02x%02x%s|r", color.r * 255, color.g * 255, color.b * 255, text:match("|cff\x\x\x\x\x\x(.+)|r") or text)
+                GameTooltipTextLeft1:SetFormattedText("|cff%02x%02x%02x%s|r", color.r * 255, color.g * 255, color.b * 255, text:match("|cff%x%x%x%x%x%x(.+)|r") or text)
+            end
+        end
+    else
+        -- Totems/Pets: strip everything below the name line
+        for i = 2, self:NumLines() do
+            local line = _G["GameTooltipTextLeft" .. i]
+            if line then
+                line:SetText("")
             end
         end
     end
@@ -1484,7 +1476,7 @@ for _, v in pairs({ TargetFrameSpellBar, FocusFrameSpellBar }) do
         v:HookScript("OnUpdate", function(self, elapsed)
             local r, g, b
             local castText = self.Text and self.Text:GetText()
-			-- XYZ? isnt this completely pointless now since I already removed the entire "Interrupted" mechanic above?
+
             if castText == INTERRUPTED or castText == FAILED then
                 self.holdTime = 0 -- faster fade out
                 return
@@ -2133,7 +2125,14 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
         end)
 	-- end of Hiding some 2.5.5 chat shit
         self:UnregisterEvent("PLAYER_LOGIN")
+    elseif event == "PLAYER_REGEN_ENABLED" then
+        -- UpdateBinds was deferred due to combat lockdown
+        self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+        UpdateBinds(self)
     elseif event == "UNIT_PET" then
+        if not UnitExists("pet") then
+            return
+        end
         local _, type = IsInInstance()
         if type ~= "arena" then
             return
@@ -2146,7 +2145,10 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
     elseif event == "ADDON_LOADED" then
         local addon = ...
         DarkenFrames(addon)
-        self:UnregisterEvent("ADDON_LOADED")
+        -- keep listening until Blizzard_TimeManager loads so its clock gets recolored too
+        if addon == "Blizzard_TimeManager" then
+            self:UnregisterEvent("ADDON_LOADED")
+        end
     elseif event == "PLAYER_ENTERING_WORLD" then
         local _, type = IsInInstance()
         if type == "arena" then
@@ -2223,6 +2225,6 @@ enable mouse sensitivity (YES) 3
 COMBAT_TEXT_RESIST = "FUCK BLIZZARD"
 
 --Login message informing all scripts of this file were properly executed
-ChatFrame1:AddMessage("EvolvePWPUI-ClassicTBC-Anniversary v1.1 Loaded successfully!", 0, 205, 255)
+ChatFrame1:AddMessage("EvolvePWPUI-ClassicTBC-Anniversary v1.2 Loaded successfully!", 0, 205, 255)
 ChatFrame1:AddMessage("Check for updates at:", 89, 89, 89)
 ChatFrame1:AddMessage("https://github.com/Evolvee/EvolvePWPUI-ClassicTBC-Anniversary", 89, 89, 89)

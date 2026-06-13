@@ -1,0 +1,7 @@
+## Interface: 20504
+## Title: Target Energy Ticker
+## Notes: Displays the Rogue energy tick on target/focus to fake Kicks.
+## Author: Xyz, Evolve
+## Category: Evolve PWP UI
+
+Core.lua

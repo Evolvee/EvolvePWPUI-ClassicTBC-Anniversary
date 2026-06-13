@@ -1,0 +1,22 @@
+
+MiniQueueTimerDB = {
+["FontSize"] = 24,
+["Point"] = "TOP",
+["PaddingX"] = 12,
+["FontPath"] = "Fonts\\FRIZQT__.TTF",
+["EstimatedFormat"] = "Estimated: %02d:%02d",
+["QueueFormat"] = "Time in queue: %02d:%02d",
+["Y"] = -97.5999755859375,
+["X"] = -9.5994291305542,
+["Version"] = 2,
+["RelativePoint"] = "TOP",
+["FontFlags"] = "THICKOUTLINE",
+["FontColor"] = {
+["A"] = 1,
+["R"] = 1,
+["G"] = 1,
+["B"] = 1,
+},
+["RelativeTo"] = "UIParent",
+["PaddingY"] = 8,
+}

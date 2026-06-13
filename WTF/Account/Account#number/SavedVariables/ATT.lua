@@ -21,20 +21,20 @@ ATTDB = {
 },
 ["alertCD"] = {
 },
-["iconOrder"] = {
+["positions"] = {
 },
-["IconRows"] = 1,
 ["alertCDtext"] = {
 },
+["IconRows"] = 1,
 ["iconOffsetX"] = 5,
 ["offsetY"] = 0,
 ["isEnabledGlyph"] = {
 },
-["positions"] = {
+["iconOrder"] = {
 },
 },
 ["ProfileSelected"] = "DEFAULT",
-["DAMAGER"] = {
+["Extra2"] = {
 ["glow"] = true,
 ["cooldownsSync"] = true,
 ["scale"] = 1,
@@ -55,16 +55,16 @@ ATTDB = {
 },
 ["alertCD"] = {
 },
-["iconOrder"] = {
+["positions"] = {
 },
-["IconRows"] = 1,
 ["alertCDtext"] = {
 },
+["IconRows"] = 1,
 ["iconOffsetX"] = 5,
 ["offsetY"] = 0,
 ["isEnabledGlyph"] = {
 },
-["positions"] = {
+["iconOrder"] = {
 },
 },
 ["DEFAULT"] = {
@@ -99,9 +99,9 @@ ATTDB = {
 },
 ["DRUID"] = {
 },
-["SHAMAN"] = {
-},
 ["ROGUE"] = {
+},
+["SHAMAN"] = {
 },
 },
 ["attachPos"] = 0,
@@ -120,9 +120,9 @@ ATTDB = {
 },
 ["DRUID"] = {
 },
-["SHAMAN"] = {
-},
 ["ROGUE"] = {
+},
+["SHAMAN"] = {
 },
 },
 ["offsetY"] = 0,
@@ -148,13 +148,13 @@ ATTDB = {
 },
 ["DRUID"] = {
 },
-["SHAMAN"] = {
-},
 ["ROGUE"] = {
 [8643] = 3,
 [31224] = 2,
-[2094] = 1,
 [36554] = 4,
+[2094] = 1,
+},
+["SHAMAN"] = {
 },
 },
 ["visOutsideSelf"] = true,
@@ -327,10 +327,29 @@ ATTDB = {
 ["x"] = 603.600002320607,
 },
 },
-["hidden"] = true,
-["visArenaSelf"] = true,
+["visInbgSelf"] = true,
+["IconRows"] = 2,
 ["visScenario"] = 0,
-["attach"] = 0,
+["customSpells"] = {
+["HUNTER"] = {
+},
+["WARRIOR"] = {
+},
+["PALADIN"] = {
+},
+["MAGE"] = {
+},
+["PRIEST"] = {
+},
+["WARLOCK"] = {
+},
+["DRUID"] = {
+},
+["ROGUE"] = {
+},
+["SHAMAN"] = {
+},
+},
 ["showIconBorders"] = true,
 ["isEnabledSpell"] = {
 ["HUNTER"] = {
@@ -357,25 +376,25 @@ ATTDB = {
 [30350] = true,
 [30351] = true,
 [34490] = true,
-[18851] = true,
+[27068] = true,
 [18834] = true,
-[18850] = true,
-[18849] = true,
+[28237] = true,
+[28236] = true,
 [18856] = true,
 [29593] = true,
 [18854] = true,
 [29592] = true,
-[28240] = true,
+[19503] = true,
 [37865] = true,
 [28239] = true,
-[19503] = true,
+[28240] = true,
 [18845] = true,
 [18846] = true,
 [28234] = true,
 [28235] = true,
-[28236] = true,
-[28237] = true,
-[27068] = true,
+[18849] = true,
+[18850] = true,
+[18851] = true,
 },
 ["WARRIOR"] = {
 [18851] = true,
@@ -400,9 +419,9 @@ ATTDB = {
 [30350] = true,
 [30351] = true,
 [18834] = true,
-[28243] = true,
-[18850] = true,
-[18849] = true,
+[28238] = true,
+[28237] = true,
+[28236] = true,
 [30349] = true,
 [30348] = true,
 [28240] = true,
@@ -413,9 +432,9 @@ ATTDB = {
 [18846] = true,
 [28234] = true,
 [28235] = true,
-[28236] = true,
-[28237] = true,
-[28238] = true,
+[18849] = true,
+[18850] = true,
+[28243] = true,
 },
 ["PALADIN"] = {
 [28238] = true,
@@ -441,25 +460,25 @@ ATTDB = {
 [30350] = true,
 [30351] = true,
 [1020] = true,
-[18851] = true,
+[10278] = true,
 [18834] = true,
-[18850] = true,
-[18849] = true,
-[28235] = true,
+[28237] = true,
+[28236] = true,
+[10308] = true,
 [29593] = true,
 [18856] = true,
 [29592] = true,
-[28240] = true,
+[18854] = true,
 [37865] = true,
 [28239] = true,
-[18854] = true,
+[28240] = true,
 [18845] = true,
 [18846] = true,
 [28234] = true,
-[10308] = true,
-[28236] = true,
-[28237] = true,
-[10278] = true,
+[28235] = true,
+[18849] = true,
+[18850] = true,
+[18851] = true,
 },
 ["MAGE"] = {
 [28238] = true,
@@ -484,26 +503,26 @@ ATTDB = {
 [30349] = true,
 [30350] = true,
 [30351] = true,
-[18851] = true,
-[18850] = true,
+[2139] = true,
+[28237] = true,
 [18834] = true,
-[18849] = true,
+[28236] = true,
 [18854] = true,
 [18856] = true,
 [29593] = true,
 [12043] = true,
-[28240] = true,
-[28239] = true,
-[37865] = true,
-[45438] = true,
 [29592] = true,
+[45438] = true,
+[37865] = true,
+[28239] = true,
+[28240] = true,
 [18845] = true,
 [18846] = true,
 [28234] = true,
 [28235] = true,
-[28236] = true,
-[28237] = true,
-[2139] = true,
+[18849] = true,
+[18850] = true,
+[18851] = true,
 },
 ["PRIEST"] = {
 [28238] = true,
@@ -531,23 +550,23 @@ ATTDB = {
 [30351] = true,
 [6346] = false,
 [18834] = true,
-[18851] = true,
-[18850] = true,
-[18849] = true,
+[10890] = true,
+[28237] = true,
+[28236] = true,
 [29593] = true,
 [18856] = true,
 [29592] = true,
 [18854] = true,
 [37865] = true,
-[28240] = true,
 [28239] = true,
+[28240] = true,
 [18845] = true,
 [18846] = true,
 [28234] = true,
 [28235] = true,
-[28236] = true,
-[28237] = true,
-[10890] = true,
+[18849] = true,
+[18850] = true,
+[18851] = true,
 },
 ["WARLOCK"] = {
 [28238] = true,
@@ -573,9 +592,9 @@ ATTDB = {
 [30351] = true,
 [19647] = true,
 [18834] = true,
-[18851] = true,
-[18850] = true,
-[18849] = true,
+[18854] = true,
+[28237] = true,
+[28236] = true,
 [29593] = true,
 [29592] = true,
 [18856] = true,
@@ -586,14 +605,59 @@ ATTDB = {
 [18846] = true,
 [28234] = true,
 [28235] = true,
-[28236] = true,
-[28237] = true,
-[18854] = true,
+[18849] = true,
+[18850] = true,
+[18851] = true,
 },
 ["DRUID"] = {
 [16979] = true,
 [29166] = true,
 [17116] = true,
+},
+["ROGUE"] = {
+[28238] = true,
+[18852] = true,
+[18853] = true,
+[28241] = true,
+[28242] = true,
+[28243] = true,
+[18857] = true,
+[18858] = true,
+[18859] = true,
+[18862] = true,
+[18863] = true,
+[18864] = true,
+[37864] = true,
+[31224] = true,
+[30343] = true,
+[30344] = true,
+[30345] = true,
+[30346] = true,
+[30348] = true,
+[30349] = true,
+[30350] = true,
+[30351] = true,
+[1766] = true,
+[28237] = true,
+[28236] = true,
+[18834] = true,
+[36554] = true,
+[18854] = true,
+[18856] = true,
+[29593] = true,
+[2094] = true,
+[29592] = true,
+[8643] = true,
+[37865] = true,
+[28239] = true,
+[28240] = true,
+[18845] = true,
+[18846] = true,
+[28234] = true,
+[28235] = true,
+[18849] = true,
+[18850] = true,
+[18851] = true,
 },
 ["SHAMAN"] = {
 [28238] = true,
@@ -620,11 +684,12 @@ ATTDB = {
 [16188] = true,
 [16190] = true,
 [18834] = true,
-[18851] = true,
-[18850] = true,
-[18849] = true,
-[29593] = true,
 [29592] = true,
+[28237] = true,
+[28236] = true,
+[18854] = true,
+[29593] = true,
+[8177] = true,
 [18856] = true,
 [37865] = true,
 [28239] = true,
@@ -633,85 +698,21 @@ ATTDB = {
 [18846] = true,
 [28234] = true,
 [28235] = true,
-[28236] = true,
-[28237] = true,
-[18854] = true,
-},
-["ROGUE"] = {
-[28238] = true,
-[18852] = true,
-[18853] = true,
-[28241] = true,
-[28242] = true,
-[28243] = true,
-[18857] = true,
-[18858] = true,
-[18859] = true,
-[18862] = true,
-[18863] = true,
-[18864] = true,
-[37864] = true,
-[31224] = true,
-[30343] = true,
-[30344] = true,
-[30345] = true,
-[30346] = true,
-[30348] = true,
-[30349] = true,
-[30350] = true,
-[30351] = true,
-[18851] = true,
-[18850] = true,
 [18849] = true,
-[18834] = true,
-[28235] = true,
-[18854] = true,
-[18856] = true,
-[29593] = true,
-[28240] = true,
-[28239] = true,
-[8643] = true,
-[37865] = true,
-[29592] = true,
-[2094] = true,
-[18845] = true,
-[18846] = true,
-[28234] = true,
-[36554] = true,
-[28236] = true,
-[28237] = true,
-[1766] = true,
+[18850] = true,
+[18851] = true,
 },
 },
 ["visInbg"] = 0,
-["visOutside"] = 0,
-["glow"] = true,
-["visArena"] = 5,
-["scale"] = 0.85,
 ["showTooltip"] = false,
+["scale"] = 0.85,
+["visArena"] = 5,
+["glow"] = true,
+["visOutside"] = 0,
 ["iconOffsetX"] = 1,
-["customSpells"] = {
-["HUNTER"] = {
-},
-["WARRIOR"] = {
-},
-["PALADIN"] = {
-},
-["MAGE"] = {
-},
-["PRIEST"] = {
-},
-["WARLOCK"] = {
-},
-["DRUID"] = {
-},
-["SHAMAN"] = {
-},
-["ROGUE"] = {
-},
-},
-["IconRows"] = 2,
-["visInbgSelf"] = true,
+["attach"] = 0,
+["visArenaSelf"] = true,
+["hidden"] = true,
 },
 ["HEALER"] = {
 ["glow"] = true,
@@ -734,16 +735,16 @@ ATTDB = {
 },
 ["alertCD"] = {
 },
-["iconOrder"] = {
+["positions"] = {
 },
-["IconRows"] = 1,
 ["alertCDtext"] = {
 },
+["IconRows"] = 1,
 ["iconOffsetX"] = 5,
 ["offsetY"] = 0,
 ["isEnabledGlyph"] = {
 },
-["positions"] = {
+["iconOrder"] = {
 },
 },
 ["Extra1"] = {
@@ -767,16 +768,49 @@ ATTDB = {
 },
 ["alertCD"] = {
 },
-["iconOrder"] = {
+["positions"] = {
 },
-["IconRows"] = 1,
 ["alertCDtext"] = {
 },
+["IconRows"] = 1,
 ["iconOffsetX"] = 5,
 ["offsetY"] = 0,
 ["isEnabledGlyph"] = {
 },
+["iconOrder"] = {
+},
+},
+["DAMAGER"] = {
+["glow"] = true,
+["cooldownsSync"] = true,
+["scale"] = 1,
+["showSelf"] = true,
+["raidGroupSize"] = 5,
+["isEnabledTrinkets"] = {
+},
+["bgMode"] = false,
+["offsetX"] = 0,
+["autoselectBG"] = false,
+["customSpells"] = {
+},
+["isEnabledRacial"] = {
+},
+["iconOffsetY"] = 2,
+["attach"] = 0,
+["isEnabledSpell"] = {
+},
+["alertCD"] = {
+},
 ["positions"] = {
+},
+["alertCDtext"] = {
+},
+["IconRows"] = 1,
+["iconOffsetX"] = 5,
+["offsetY"] = 0,
+["isEnabledGlyph"] = {
+},
+["iconOrder"] = {
 },
 },
 ["BG"] = {
@@ -800,49 +834,16 @@ ATTDB = {
 },
 ["alertCD"] = {
 },
-["iconOrder"] = {
+["positions"] = {
 },
-["IconRows"] = 1,
 ["alertCDtext"] = {
 },
+["IconRows"] = 1,
 ["iconOffsetX"] = 5,
 ["offsetY"] = 0,
 ["isEnabledGlyph"] = {
 },
-["positions"] = {
-},
-},
-["Extra2"] = {
-["glow"] = true,
-["cooldownsSync"] = true,
-["scale"] = 1,
-["showSelf"] = true,
-["raidGroupSize"] = 5,
-["isEnabledTrinkets"] = {
-},
-["bgMode"] = false,
-["offsetX"] = 0,
-["autoselectBG"] = false,
-["customSpells"] = {
-},
-["isEnabledRacial"] = {
-},
-["iconOffsetY"] = 2,
-["attach"] = 0,
-["isEnabledSpell"] = {
-},
-["alertCD"] = {
-},
 ["iconOrder"] = {
-},
-["IconRows"] = 1,
-["alertCDtext"] = {
-},
-["iconOffsetX"] = 5,
-["offsetY"] = 0,
-["isEnabledGlyph"] = {
-},
-["positions"] = {
 },
 },
 }

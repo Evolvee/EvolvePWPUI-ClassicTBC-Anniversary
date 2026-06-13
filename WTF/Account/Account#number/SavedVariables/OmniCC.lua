@@ -1,5 +1,9 @@
 
 OmniCCDB = {
+["global"] = {
+["dbVersion"] = 6,
+["addonVersion"] = "11.2.8",
+},
 ["profileKeys"] = {
 ["Evolve - Classic Anniversary PTR Realm"] = "Default",
 ["Evolvepwp - Classic Anniversary PTR Realm"] = "Default",
@@ -8,14 +12,10 @@ OmniCCDB = {
 ["Evolverror - Classic Anniversary PTR Realm"] = "Default",
 ["Evolve - Spineshatter"] = "Default",
 ["Tremortest - Classic Anniversary PTR Realm"] = "Default",
-["Evolvebugged - Classic Anniversary PTR Realm"] = "Default",
 ["Pettestclr - Classic Anniversary PTR Realm"] = "Default",
+["Evolvebugged - Classic Anniversary PTR Realm"] = "Default",
 ["Tremorttest - Classic Anniversary PTR Realm"] = "Default",
 ["Testclrz - Classic Anniversary PTR Realm"] = "Default",
-},
-["global"] = {
-["dbVersion"] = 6,
-["addonVersion"] = "11.2.8",
 },
 ["profiles"] = {
 ["Default"] = {
@@ -75,51 +75,51 @@ OmniCCDB = {
 ["themes"] = {
 ["HIDDEN"] = {
 ["textStyles"] = {
-["soon"] = {
+["seconds"] = {
 ["b"] = 0.9921569228172302,
 ["g"] = 0.9803922176361084,
 },
 ["minutes"] = {
 },
-["seconds"] = {
+["soon"] = {
 ["b"] = 0.9921569228172302,
 ["g"] = 0.9803922176361084,
 },
 ["hours"] = {
-["r"] = 0.9960784912109375,
-["g"] = 0.9764706492424011,
 ["b"] = 1,
+["g"] = 0.9764706492424011,
+["r"] = 0.9960784912109375,
 },
 },
 ["scaleText"] = false,
 ["tenthsDuration"] = 1,
 ["fontOutline"] = "THICKOUTLINE",
 ["minSize"] = 0.16,
-["enableText"] = false,
-["effect"] = "none",
-["name"] = "HIDDEN",
 ["fontShadow"] = {
 ["r"] = 0.9725490808486938,
 ["g"] = 0.988235354423523,
 },
+["effect"] = "none",
+["name"] = "HIDDEN",
+["enableText"] = false,
 },
 ["Action Bars"] = {
 ["textStyles"] = {
+["seconds"] = {
+["b"] = 0.9921569228172302,
+["g"] = 0.9803922176361084,
+},
+["minutes"] = {
+},
 ["soon"] = {
 ["b"] = 0.9921569228172302,
 ["scale"] = 1,
 ["g"] = 0.9803922176361084,
 },
-["minutes"] = {
-},
-["seconds"] = {
-["b"] = 0.9921569228172302,
-["g"] = 0.9803922176361084,
-},
 ["hours"] = {
-["r"] = 0.9960784912109375,
-["g"] = 0.9764706492424011,
 ["b"] = 1,
+["g"] = 0.9764706492424011,
+["r"] = 0.9960784912109375,
 },
 },
 ["fontSize"] = 16,
@@ -136,21 +136,21 @@ OmniCCDB = {
 },
 ["Default"] = {
 ["textStyles"] = {
-["soon"] = {
-["b"] = 0.9921569228172302,
-["scale"] = 1,
-["g"] = 0.9803922176361084,
+["minutes"] = {
 },
 ["seconds"] = {
 ["b"] = 0.9921569228172302,
 ["g"] = 0.9803922176361084,
 },
-["minutes"] = {
+["soon"] = {
+["b"] = 0.9921569228172302,
+["scale"] = 1,
+["g"] = 0.9803922176361084,
 },
 ["hours"] = {
-["r"] = 0.9960784912109375,
-["g"] = 0.9764706492424011,
 ["b"] = 1,
+["g"] = 0.9764706492424011,
+["r"] = 0.9960784912109375,
 },
 },
 ["fontFace"] = "Interface\\AddOns\\Gladdy\\Fonts\\DorisPP.TTF",

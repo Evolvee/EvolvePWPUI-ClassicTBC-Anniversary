@@ -57,6 +57,9 @@ BigAurasDB = {
 [26669] = {
 ["priority"] = 0,
 },
+[6346] = {
+["priority"] = 0,
+},
 [16857] = {
 ["priority"] = 5,
 },
@@ -70,6 +73,9 @@ BigAurasDB = {
 ["priority"] = 0,
 },
 [43039] = {
+["priority"] = 0,
+},
+[2825] = {
 ["priority"] = 0,
 },
 [43012] = {
@@ -129,6 +135,9 @@ BigAurasDB = {
 [3045] = {
 ["priority"] = 0,
 },
+[770] = {
+["priority"] = 0,
+},
 [2565] = {
 ["priority"] = 0,
 },
@@ -144,11 +153,14 @@ BigAurasDB = {
 [26669] = {
 ["priority"] = 0,
 },
+[16857] = {
+["priority"] = 0,
+},
 [676] = {
 ["priority"] = 0,
 },
-[51722] = {
-["priority"] = 0,
+[20594] = {
+["priority"] = 4,
 },
 [43010] = {
 ["priority"] = 0,
@@ -172,9 +184,12 @@ BigAurasDB = {
 ["priority"] = 7,
 },
 [6940] = {
-["priority"] = 7,
+["priority"] = 5,
 },
 [22842] = {
+["priority"] = 0,
+},
+[51722] = {
 ["priority"] = 0,
 },
 },
@@ -188,10 +203,10 @@ BigAurasDB = {
 ["arena1"] = {
 ["enable"] = false,
 },
-["arena4"] = {
+["arenapet1"] = {
 ["enable"] = false,
 },
-["arenapet1"] = {
+["arenapet3"] = {
 ["enable"] = false,
 },
 ["pet"] = {
@@ -262,6 +277,9 @@ BigAurasDB = {
 [26669] = {
 ["priority"] = 0,
 },
+[6346] = {
+["priority"] = 0,
+},
 [16857] = {
 ["priority"] = 5,
 },
@@ -275,6 +293,9 @@ BigAurasDB = {
 ["priority"] = 0,
 },
 [43039] = {
+["priority"] = 0,
+},
+[2825] = {
 ["priority"] = 0,
 },
 [43012] = {
@@ -305,8 +326,8 @@ BigAurasDB = {
 ["crowdControl"] = {
 ["priority"] = 10,
 },
-["roots"] = {
-["priority"] = 6,
+["totalImmunity"] = {
+["priority"] = 11,
 },
 ["offensive"] = {
 ["priority"] = 0,
@@ -314,33 +335,42 @@ BigAurasDB = {
 ["immunity"] = {
 ["priority"] = 0,
 },
-["totalImmunity"] = {
-["priority"] = 11,
-},
 ["defensive"] = {
 ["priority"] = 0,
 },
+["roots"] = {
+["priority"] = 6,
+},
 },
 ["spells"] = {
+[18469] = {
+["priority"] = 2,
+},
 [1330] = {
 ["priority"] = 2,
 },
+[31117] = {
+["priority"] = 2,
+},
 [15487] = {
+["priority"] = 2,
+},
+[24259] = {
+["priority"] = 2,
+},
+[43523] = {
+["priority"] = 2,
+},
+[18425] = {
+["priority"] = 2,
+},
+[18498] = {
 ["priority"] = 2,
 },
 [34490] = {
 ["priority"] = 2,
 },
 [28730] = {
-["priority"] = 2,
-},
-[43523] = {
-["priority"] = 2,
-},
-[18498] = {
-["priority"] = 2,
-},
-[24259] = {
 ["priority"] = 2,
 },
 [25046] = {
@@ -350,7 +380,7 @@ BigAurasDB = {
 ["unlock"] = true,
 ["size"] = 70,
 },
-["party1"] = {
+["party2"] = {
 ["categories"] = {
 ["other"] = {
 ["priority"] = 1,
@@ -364,11 +394,11 @@ BigAurasDB = {
 ["roots"] = {
 ["priority"] = 6,
 },
-["defensive"] = {
-["priority"] = 4,
-},
 ["totalImmunity"] = {
 ["priority"] = 11,
+},
+["defensive"] = {
+["priority"] = 4,
 },
 },
 ["spells"] = {
@@ -396,6 +426,9 @@ BigAurasDB = {
 [26669] = {
 ["priority"] = 0,
 },
+[6346] = {
+["priority"] = 0,
+},
 [16857] = {
 ["priority"] = 5,
 },
@@ -409,6 +442,9 @@ BigAurasDB = {
 ["priority"] = 0,
 },
 [43039] = {
+["priority"] = 0,
+},
+[2825] = {
 ["priority"] = 0,
 },
 [43012] = {
@@ -462,9 +498,6 @@ BigAurasDB = {
 [48066] = {
 ["priority"] = 0,
 },
-[43020] = {
-["priority"] = 0,
-},
 [18708] = {
 ["priority"] = 7,
 },
@@ -474,8 +507,8 @@ BigAurasDB = {
 [676] = {
 ["priority"] = 0,
 },
-[51722] = {
-["priority"] = 0,
+[20594] = {
+["priority"] = 2,
 },
 [43010] = {
 ["priority"] = 0,
@@ -501,7 +534,13 @@ BigAurasDB = {
 [6940] = {
 ["priority"] = 7,
 },
+[43020] = {
+["priority"] = 0,
+},
 [22842] = {
+["priority"] = 0,
+},
+[51722] = {
 ["priority"] = 0,
 },
 },
@@ -509,7 +548,7 @@ BigAurasDB = {
 ["partypet2"] = {
 ["enable"] = false,
 },
-["party2"] = {
+["party1"] = {
 ["categories"] = {
 ["other"] = {
 ["priority"] = 1,
@@ -523,11 +562,11 @@ BigAurasDB = {
 ["roots"] = {
 ["priority"] = 6,
 },
-["totalImmunity"] = {
-["priority"] = 11,
-},
 ["defensive"] = {
 ["priority"] = 4,
+},
+["totalImmunity"] = {
+["priority"] = 11,
 },
 },
 ["spells"] = {
@@ -555,6 +594,9 @@ BigAurasDB = {
 [26669] = {
 ["priority"] = 0,
 },
+[6346] = {
+["priority"] = 0,
+},
 [16857] = {
 ["priority"] = 5,
 },
@@ -568,6 +610,9 @@ BigAurasDB = {
 ["priority"] = 0,
 },
 [43039] = {
+["priority"] = 0,
+},
+[2825] = {
 ["priority"] = 0,
 },
 [43012] = {
@@ -590,7 +635,7 @@ BigAurasDB = {
 ["arena3"] = {
 ["enable"] = false,
 },
-["arenapet3"] = {
+["arena4"] = {
 ["enable"] = false,
 },
 },
