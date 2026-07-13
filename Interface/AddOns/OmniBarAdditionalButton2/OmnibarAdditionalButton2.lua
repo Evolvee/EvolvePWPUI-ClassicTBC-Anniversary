@@ -19,7 +19,7 @@ OABframe2:SetScript("OnClick", function(self)
             SetCVar("WorldTextMinSize", 64)
 			SetCVar("UnitNameOwn", 0)
 			SetCVar("UnitNameFriendlyPlayerName", 0)
-			ChatFrame1:AddMessage("Larget Player Names - ON", 1, 0, 0)
+			ChatFrame1:AddMessage("Large Player Names - ON", 1, 0, 0)
         else
             SetCVar("WorldTextMinSize", 5)
 			SetCVar("UnitNameOwn", 1)

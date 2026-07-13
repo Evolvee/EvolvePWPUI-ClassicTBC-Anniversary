@@ -1,0 +1,26 @@
+lightweight tag f0bafb923e2c9d2a94abaf72524f8f8389d0d5d3 1.1.7
+Author:	Infus <infus@squorn.de>
+Date:	Sun May 31 18:26:22 2026 +0200
+
+commit f0bafb923e2c9d2a94abaf72524f8f8389d0d5d3
+Author: Infus <infus@squorn.de>
+Date:   Sun May 31 18:25:33 2026 +0200
+
+    MOP: Prepare .toc file
+
+commit c86421f2e5b1500e3592fa8dd5dbc68f403c6287
+Author: Infus <infus@squorn.de>
+Date:   Sun May 31 18:25:08 2026 +0200
+
+    Remove depency on WeakAurasOptions
+    
+    It's not needed
+    
+    Fixes: #5
+
+commit 48fcb1c18eb8fa766729441691d60af96bcdf7df
+Author: Benjamin Staneck <staneck@gmail.com>
+Date:   Thu May 21 22:21:56 2026 +0200
+
+    Harden GitHub Actions workflows
+

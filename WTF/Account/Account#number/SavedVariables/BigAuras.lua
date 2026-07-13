@@ -39,6 +39,9 @@ BigAurasDB = {
 [3045] = {
 ["priority"] = 0,
 },
+[8178] = {
+["priority"] = 0,
+},
 [770] = {
 ["priority"] = 5,
 },
@@ -162,6 +165,9 @@ BigAurasDB = {
 [20594] = {
 ["priority"] = 4,
 },
+[51722] = {
+["priority"] = 0,
+},
 [43010] = {
 ["priority"] = 0,
 },
@@ -187,9 +193,6 @@ BigAurasDB = {
 ["priority"] = 5,
 },
 [22842] = {
-["priority"] = 0,
-},
-[51722] = {
 ["priority"] = 0,
 },
 },
@@ -257,6 +260,9 @@ BigAurasDB = {
 ["priority"] = 7,
 },
 [3045] = {
+["priority"] = 0,
+},
+[8178] = {
 ["priority"] = 0,
 },
 [770] = {
@@ -349,16 +355,7 @@ BigAurasDB = {
 [1330] = {
 ["priority"] = 2,
 },
-[31117] = {
-["priority"] = 2,
-},
 [15487] = {
-["priority"] = 2,
-},
-[24259] = {
-["priority"] = 2,
-},
-[43523] = {
 ["priority"] = 2,
 },
 [18425] = {
@@ -367,13 +364,22 @@ BigAurasDB = {
 [18498] = {
 ["priority"] = 2,
 },
+[43523] = {
+["priority"] = 2,
+},
 [34490] = {
+["priority"] = 2,
+},
+[24259] = {
+["priority"] = 2,
+},
+[25046] = {
 ["priority"] = 2,
 },
 [28730] = {
 ["priority"] = 2,
 },
-[25046] = {
+[31117] = {
 ["priority"] = 2,
 },
 },
@@ -406,6 +412,9 @@ BigAurasDB = {
 ["priority"] = 7,
 },
 [3045] = {
+["priority"] = 0,
+},
+[8178] = {
 ["priority"] = 0,
 },
 [770] = {
@@ -498,6 +507,9 @@ BigAurasDB = {
 [48066] = {
 ["priority"] = 0,
 },
+[43020] = {
+["priority"] = 0,
+},
 [18708] = {
 ["priority"] = 7,
 },
@@ -509,6 +521,9 @@ BigAurasDB = {
 },
 [20594] = {
 ["priority"] = 2,
+},
+[51722] = {
+["priority"] = 0,
 },
 [43010] = {
 ["priority"] = 0,
@@ -534,13 +549,7 @@ BigAurasDB = {
 [6940] = {
 ["priority"] = 7,
 },
-[43020] = {
-["priority"] = 0,
-},
 [22842] = {
-["priority"] = 0,
-},
-[51722] = {
 ["priority"] = 0,
 },
 },
@@ -574,6 +583,9 @@ BigAurasDB = {
 ["priority"] = 7,
 },
 [3045] = {
+["priority"] = 0,
+},
+[8178] = {
 ["priority"] = 0,
 },
 [770] = {

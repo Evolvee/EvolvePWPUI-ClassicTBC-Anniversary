@@ -6,3 +6,5 @@
 ## Category: Evolve PWP UI
 
 TextureScript.lua
+TS_PlateSize.lua
+## SavedVariables: TS_PlateDB

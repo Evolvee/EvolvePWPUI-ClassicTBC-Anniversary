@@ -135,7 +135,8 @@ function Castbar:CreateFrame(unit)
     end
 
     castBar.spellText = castBar:CreateFontString(nil, "OVERLAY")
-    castBar.spellText:SetFont(Gladdy:SMFetch("font", "auraFont"), Gladdy.db.castBarFontSize, Gladdy.db.castBarFontOutline)
+    castBar.spellText:SetFont(Gladdy:SMFetch("font", "auraFont"), Gladdy.db.castBarFontSize, Gladdy.db.castBarFontOutline ~= "NONE" and Gladdy.db.castBarFontOutline or nil)
+
     castBar.spellText:SetTextColor(Gladdy:SetColor(Gladdy.db.castBarFontColor))
     castBar.spellText:SetShadowOffset(1, -1)
     castBar.spellText:SetShadowColor(0, 0, 0, 1)
@@ -143,7 +144,8 @@ function Castbar:CreateFrame(unit)
     castBar.spellText:SetPoint("LEFT", 10, 0) -- Text of the spell
 
     castBar.timeText = castBar:CreateFontString(nil, "OVERLAY")
-    castBar.timeText:SetFont(Gladdy:SMFetch("font", "auraFont"), Gladdy.db.castBarFontSize, Gladdy.db.castBarFontOutline)
+    castBar.timeText:SetFont(Gladdy:SMFetch("font", "auraFont"), Gladdy.db.castBarFontSize, Gladdy.db.castBarFontOutline ~= "NONE" and Gladdy.db.castBarFontOutline or nil)
+
     castBar.timeText:SetTextColor(Gladdy:SetColor(Gladdy.db.castBarFontColor))
     castBar.timeText:SetShadowOffset(1, -1)
     castBar.timeText:SetShadowColor(0, 0, 0, 1)
@@ -240,7 +242,8 @@ function Castbar:UpdateFrame(unit)
 
     Gladdy:SetPosition(castBar, unit, "castBarXOffset", "castBarYOffset", Castbar:LegacySetPosition(castBar, unit, leftMargin, rightMargin), Castbar)
 
-    castBar.spellText:SetFont(Gladdy:SMFetch("font", "castBarFont"), Gladdy.db.castBarFontSize, Gladdy.db.castBarFontOutline)
+    castBar.spellText:SetFont(Gladdy:SMFetch("font", "castBarFont"), Gladdy.db.castBarFontSize, Gladdy.db.castBarFontOutline ~= "NONE" and Gladdy.db.castBarFontOutline or nil)
+
     castBar.spellText:SetTextColor(Gladdy:SetColor(Gladdy.db.castBarFontColor))
 
     if Gladdy.db.castBarSpellNameShow then
@@ -249,7 +252,8 @@ function Castbar:UpdateFrame(unit)
         castBar.spellText:Hide()
     end
 
-    castBar.timeText:SetFont(Gladdy:SMFetch("font", "castBarFont"), Gladdy.db.castBarFontSize, Gladdy.db.castBarFontOutline)
+    castBar.timeText:SetFont(Gladdy:SMFetch("font", "castBarFont"), Gladdy.db.castBarFontSize, Gladdy.db.castBarFontOutline ~= "NONE" and Gladdy.db.castBarFontOutline or nil)
+
     castBar.timeText:SetTextColor(Gladdy:SetColor(Gladdy.db.castBarFontColor))
 
     if Gladdy.db.castBarTimerShow then

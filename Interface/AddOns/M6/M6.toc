@@ -1,6 +1,6 @@
-## Interface: 11508, 20505, 50503, 120001
+## Interface: 11508, 20505, 50504, 120007
 ## Title: M6
-## Version: 8.2.1
+## Version: 8.6.1
 ## License: All rights reserved. Do not redistribute, in whole or in part, without explicit prior permission from the author.
 ## Author: foxlit
 ## Notes: Better macros for standard action bars (or key bindings)
@@ -9,6 +9,7 @@
 ## SavedVariables: M6DB
 ## SavedVariablesPerCharacter: M6PC
 ## IconTexture: Interface/Icons/secrets_of_the_empire_icon
+## Yak-UIKey: u64:xC15fn9_a3NgDKlLWnmQ1JggvZxD2BXkKUDVwT1yEXAGRoa9BEmw2bmv
 PackTag-4.lua
 Libs\Evie.lua
 Libs\exui\exui.xml

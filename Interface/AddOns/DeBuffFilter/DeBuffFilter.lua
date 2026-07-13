@@ -420,8 +420,8 @@ local function Filterino(self)
                                 if retailGlow then
                                     if not frameStealable.newTexture then
                                         frameStealable.newTexture = true
-                                        if C_Texture.GetAtlasInfo("newplayertutorial-drag-slotblue") then
-                                            frameStealable:SetAtlas("newplayertutorial-drag-slotblue")
+                                        if C_Texture.GetAtlasInfo("newplayertutorial-drag-slotgreen") then
+                                            frameStealable:SetAtlas("newplayertutorial-drag-slotgreen")
                                         else
                                             frameStealable:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Stealable")
                                         end
@@ -539,8 +539,8 @@ local function Filterino(self)
                                     if retailGlow then
                                         if not frameStealable.newTexture then
                                             frameStealable.newTexture = true
-                                            if C_Texture.GetAtlasInfo("newplayertutorial-drag-slotblue") then
-                                                frameStealable:SetAtlas("newplayertutorial-drag-slotblue")
+                                            if C_Texture.GetAtlasInfo("newplayertutorial-drag-slotgreen") then
+                                                frameStealable:SetAtlas("newplayertutorial-drag-slotgreen")
                                             else
                                                 frameStealable:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Stealable")
                                             end

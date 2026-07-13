@@ -395,12 +395,8 @@ BigAurasSpells.spells = {
 		[1066] = {category = "other", priority = 1}, -- Aquatic Form
 		[33943] = {category = "other", priority = 1}, -- Flight Form
 		[40120] = {category = "other", priority = 1}, -- Swift Flight Form
-		[22734] = {category = "other", priority = 1}, -- Drink (Water)
-			[46755] = {parent = 22734},
-			[27089] = {parent = 22734},
-			[43183] = {parent = 22734},
-			[27089] = {parent = 22734},
-			[44166] = {parent = 22734},
+		[27089] = {category = "other", priority = 1}, -- Drink (Water)
+
 		[770] = {category = "other", priority = 1}, -- Fearie Fire (priest dispel prio for PartyFrames)
 			[778] = {parent = 770},
 			[9749] = {parent = 770},

@@ -129,7 +129,7 @@ ATTdbs.dbImport = {
 		{	["ability"] = 26669, ["cooldown"] = 300, }, -- Evasion 
 		{	["ability"] = 31224, ["cooldown"] = 60, }, -- Cloak of Shadows
 		{	["ability"] = 26889, ["cooldown"] = 300,}, -- Vanish 
-		{	["ability"] = 2094, ["cooldown"] = 180,},  -- Blind
+		{	["ability"] = 2094, ["cooldown"] = 90,},  -- Blind
 		{	["ability"] = 11305, ["cooldown"] = 300,},  -- Sprint
 		{	["ability"] = 14177, ["cooldown"] = 180,}, -- Cold Blood --talent
         {	["ability"] = 13750, ["cooldown"] = 300,}, -- Adrenaline Rush --talent

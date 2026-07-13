@@ -3,8 +3,16 @@ local BuffRowSpacing = 4
 local HorizontalSpacing = 2
 local maxDebuffs = 8
 local iconSize = 13
-local xPos, yPos = 45, 6
-local mod, UnitDebuff, DebuffTypeColor = _G.mod, _G.UnitDebuff, _G.DebuffTypeColor
+local xPos, yPos = 40, 6
+local mod, UnitDebuff = _G.mod, _G.UnitDebuff
+
+local DebuffTypeColor = { };
+DebuffTypeColor["none"]	= { r = 0.80, g = 0, b = 0 };
+DebuffTypeColor["Magic"]	= { r = 0.20, g = 0.60, b = 1.00 };
+DebuffTypeColor["Curse"]	= { r = 0.60, g = 0.00, b = 1.00 };
+DebuffTypeColor["Disease"]	= { r = 0.60, g = 0.40, b = 0 };
+DebuffTypeColor["Poison"]	= { r = 0.00, g = 0.60, b = 0 };
+DebuffTypeColor[""]	= DebuffTypeColor["none"];
 
 local count = 0
 
@@ -85,8 +93,7 @@ local function UpdateDebuffs(frame, unit)
                 end
 
                 buffNameBorder = _G[frameName .. "Border"]
-                local color = debuffType and DebuffTypeColor[debuffType] or DebuffTypeColor["none"]
-                buffNameBorder:SetVertexColor(color.r, color.g, color.b)
+                AuraUtil.SetAuraBorderColor(buffNameBorder, debuffType)
 
                 buffNameCooldown = _G[frameName .. "Cooldown"]
                 if duration and expirationTime then

@@ -105,25 +105,31 @@ function DeBuffFilter.DBFrame(self)
     local frameName = isDebuff and "DebuffFrame" or "BuffFrame"
     local db = DeBuffFilter.db.profile
 
-    for i, auraInfo in ipairs(self.auraInfo or {}) do
-        local auraFrame = self.auraFrames[i]
+    for i, auraFrame in ipairs(self.auraFrames or {}) do
 
-        if auraFrame and auraFrame:IsShown() then
+        if auraFrame and not auraFrame.isAuraAnchor and not auraFrame.isExample and auraFrame:IsShown() then
             local shouldHide, shouldGlow, colorTable = false, false, { r = 1, g = 1, b = 0.85, a = 1 }
             local removeDuplicates = false
             local name, count, duration, expirationTime, source, spellId
             local currentSize = nil
 
             local buttonInfo = auraFrame.buttonInfo
-            if buttonInfo and buttonInfo.isTempEnchant then
+            if buttonInfo and buttonInfo.auraType == "TempEnchant" then
+                -- Blizzard renamed the "isTempEnchant" flag; temp enchants are now
+                -- identified via buttonInfo.auraType == "TempEnchant".
                 spellId = buttonInfo.ID
                 expirationTime = buttonInfo.expirationTime
                 name = "Temp Enchant"
                 source = "player"
                 count = 0
                 duration = 0
-            else
-                local auraData = C_UnitAuras.GetAuraDataByIndex("player", auraInfo.index, filter)
+            elseif buttonInfo and buttonInfo.index then
+                -- Blizzard's auraInfo entries no longer carry spellId/name/source directly,
+                -- so we still need GetAuraDataByIndex - but we must use buttonInfo.index
+                -- (the index Blizzard actually assigned to THIS frame), not a positional
+                -- guess from self.auraInfo, since auraFrames no longer line up 1:1 with
+                -- self.auraInfo when buffs are hidden/collapsed.
+                local auraData = C_UnitAuras.GetAuraDataByIndex("player", buttonInfo.index, filter)
                 if auraData then
                     spellId = auraData.spellId
                     name = auraData.name
@@ -228,8 +234,8 @@ function DeBuffFilter.DBFrame(self)
                     if not auraFrame.DeBuffFilterGlow then
                         auraFrame.DeBuffFilterGlow = auraFrame:CreateTexture(nil, "OVERLAY", nil, 7)
                         if DeBuffFilter.db.profile.enableRetailGlow then
-                            if C_Texture.GetAtlasInfo("newplayertutorial-drag-slotblue") then
-                                auraFrame.DeBuffFilterGlow:SetAtlas("newplayertutorial-drag-slotblue")
+                            if C_Texture.GetAtlasInfo("newplayertutorial-drag-slotgreen") then
+                                auraFrame.DeBuffFilterGlow:SetAtlas("newplayertutorial-drag-slotgreen")
                             end
                             auraFrame.DeBuffFilterGlow:SetDesaturated(true)
                         else
@@ -261,11 +267,30 @@ function DeBuffFilter.DBFrame(self)
         end
     end
     
-    if self.AuraContainer.currentGridLayoutInfo then
+    if self.AuraContainer.currentGridLayoutInfo and self.AuraContainer.currentGridLayoutInfo.anchor then
+        -- Don't reuse Blizzard's cached .layout table: it's now built by the new
+        -- GridLayoutUtil (CreateStandardGridLayout/CreateVerticalGridLayout), whose
+        -- internal field names are not the isColumnBased/stride/...Multiplier fields
+        -- SafeApplyGridLayout expects. Derive the layout directly from the
+        -- AuraContainer's own stable properties instead, so this doesn't break again
+        -- if Blizzard changes GridLayoutUtil's internals.
+        local container = self.AuraContainer
+        local isColumnBased = not container.isHorizontal
+        local xMultiplier = container.addIconsToRight and 1 or -1
+        local yMultiplier = container.addIconsToTop and 1 or -1
+        local padding = container.iconPadding or 0
+
         SafeApplyGridLayout(framesToLayout,
-        self.AuraContainer.currentGridLayoutInfo.anchor,
-        self.AuraContainer.currentGridLayoutInfo.layout
-       )
+            container.currentGridLayoutInfo.anchor,
+            {
+                isColumnBased = isColumnBased,
+                stride = container.iconStride or 1,
+                primarySizePadding = padding,
+                secondarySizePadding = padding,
+                primaryMultiplier = isColumnBased and yMultiplier or xMultiplier,
+                secondaryMultiplier = isColumnBased and xMultiplier or yMultiplier,
+            }
+        )
     end
 
 end

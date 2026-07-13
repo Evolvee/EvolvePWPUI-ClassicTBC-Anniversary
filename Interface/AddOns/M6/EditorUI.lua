@@ -57,6 +57,7 @@ local function EasyMenu(menuList, menuFrame, anchor, x, y, displayMode, autoHide
 	end
 	UIDropDownMenu_Initialize(menuFrame, EasyMenu_Initialize, displayMode, nil, menuList)
 	ToggleDropDownMenu(1, nil, menuFrame, anchor, x, y, menuList, nil, autoHideDelay)
+	DropDownList1:SetScale(UIParent:GetScale())
 end
 local function HideOwnTooltip(self)
 	if GameTooltip:IsOwned(self) then
@@ -234,12 +235,15 @@ local ed, mainPanel = {}, CreateFrame("Frame", "M6UI", UIParent, "PortraitFrameT
 			t:SetSize(10,12)
 			t:SetPoint("RIGHT", filterButton.MiddleRight, "RIGHT", -5, 0)
 			filterButton.Icon = t
-			local drop = CreateFrame("Frame", "M6UIFilterDropDown", filterButton, "UIDropDownMenuTemplate")
+			local drop = XU:Create("DropDown", nil, filterButton)
+			drop:SetAllPoints()
+			drop:Hide()
 			filterButton:SetScript("OnClick", function(self)
-				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
-				ToggleDropDownMenu(1, nil, drop, self, 0, 0)
-				DropDownList1:ClearAllPoints()
-				DropDownList1:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 12, 4)
+				drop:Click()
+				if DropDownList1:IsShown() then
+					DropDownList1:ClearAllPoints()
+					DropDownList1:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 12, 4)
+				end
 			end)
 			function filterButton:HandlesGlobalMouseEvent(btn)
 				return btn == "LeftButton"
@@ -893,17 +897,14 @@ local ed, mainPanel = {}, CreateFrame("Frame", "M6UI", UIParent, "PortraitFrameT
 			end
 			menu[1].tooltipText = isActive and L"Activated for current spec.\n\nSelect this option, or drag the macro icon directly to your action bars."
 			                                or L"Deactivated for current spec.\n\nSelect this option, or hold Shift while dragging the macro icon to activate, allowing the macro to be placed on your action bars."
-			if COMPAT ~= 40400 then
-				local warn = "Due Blizzard's macro system restrictions, M6 macros can only be executed |cffffffffusing bindings configured via M6|r."
-				local cur, valid = MC:GetAnyBrokeredBarPref()
-				if valid and not cur then
-					warn = "Brokered macro execution is disabled (use |cff00a0ff/m6 brokered-bars|r to adjust).\n" .. warn
-				elseif valid and cur then
-					warn = "Brokered macro execution is enabled for supported bars (use |cff00a0ff/m6 brokered-bars|r to adjust).\nM6 macros can also be executed using |cffffffffbindings configured via M6|r."
-				end
-				local patch = COMPAT > 11e4 and "11.0" or COMPAT > 4e4 and "4.4.1" or "1.15.4"
-				menu[1].tooltipText = menu[1].tooltipText .. "\n\n|TInterface/EncounterJournal/UI-EJ-WarningTextIcon:12:12:0:1|t |cffff6000Patch " .. patch .. "+|r\n" .. warn
+			local warn = "Due Blizzard's macro system restrictions, M6 macros can only be executed |cffffffffusing bindings configured via M6|r."
+			local cur, valid = MC:GetAnyBrokeredBarPref()
+			if valid and not cur then
+				warn = "Brokered macro execution is disabled (use |cff00a0ff/m6 brokered-bars|r to adjust).\n" .. warn
+			elseif valid and cur then
+				warn = "Brokered macro execution is enabled for supported bars (use |cff00a0ff/m6 brokered-bars|r to adjust).\nM6 macros can also be executed using |cffffffffbindings configured via M6|r."
 			end
+			menu[1].tooltipText = menu[1].tooltipText .. "\n\n|TInterface/EncounterJournal/UI-EJ-WarningTextIcon:12:12:0:1|t |cffff6000Macro recursion restrictions|r\n" .. warn
 			menu[2].disabled = not isActive
 			EasyMenu(menu, drop, "cursor", 9000, 9000, "MENU", 4)
 			DropDownList1:ClearAllPoints()

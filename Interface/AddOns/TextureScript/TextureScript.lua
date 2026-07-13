@@ -1,3 +1,5 @@
+TS_FinalValue = setmetatable({}, { __mode = "k" })
+
 --EVOLVE PWP UI
 
 local UnitCastingInfo, UnitChannelInfo = UnitCastingInfo, UnitChannelInfo
@@ -18,6 +20,23 @@ local CUSTOM_CLASS_COLORS = {
     ["WARRIOR"] = { r = 0.7, g = 0.56, b = 0.42 },
     ["DEATHKNIGHT"] = { r = 0, g = 1 , b = 0.6 },
 };
+
+-- Fixing the dogshit retail 2.5.6 border colors of debuffs
+local TS_DebuffColors = {
+    Magic   = { 0.20, 0.60, 1.00 },
+    Curse   = { 0.60, 0.00, 1.00 },
+    Disease = { 0.60, 0.40, 0.00 },
+    Poison  = { 0.00, 0.60, 0.00 },
+    Bleed   = { 0.80, 0.00, 0.00 },
+    None    = { 0.80, 0.00, 0.00 },
+}
+
+hooksecurefunc(AuraUtil, "SetAuraBorderColor", function(borderRegion, dispelType)
+    local c = TS_DebuffColors[dispelType or "None"] or TS_DebuffColors.None
+    if borderRegion and c then
+        borderRegion:SetVertexColor(c[1], c[2], c[3])
+    end
+end)
 
 --dark theme
 local function DarkenFrames(addon)
@@ -106,25 +125,36 @@ end
 
 -- CVars
 local cvars = {
-    ShowClassColorInFriendlyNameplate = "1",
-	ShowClassColorInNameplate = "1",
+    -- ShowClassColorInFriendlyNameplate = "1", --(DEPRECATED?)
+	-- ShowClassColorInNameplate = "1", --(DEPRECATED?)
+	nameplateShowClassColor = "1", -- 2.5.6
+	nameplateShowFriendlyClassColor = "1", -- 2.5.6
 	nameplateMaxDistance = "41",
-	nameplateGlobalScale = "1.12",
+	--nameplateGlobalScale = "1.12", --(DEPRECATED)
+	nameplateSize ="1", -- 2.5.6
+	
+	-- some hardcoded nameplate shit since we are testing this motherfucker a LOT
+	nameplateOverlapV = "1.1",
+	nameplateOverlapH = "0.8",
+	nameplateSelectedScale = "1",
+	
     threatWarning = "0",
-    predictedHealth = "1",
-    Sound_EnableDSPEffects = "0",
+    --predictedHealth = "0", --(DEPRECATED - gone completely, no substitution)
+    --Sound_EnableDSPEffects = "0", --(DEPRECATED?)
     nameplateShowFriendlyNPCs = "0",
     nameplateShowFriendlyMinions = "0",
 	nameplateShowEnemyMinions = "1", -- needed for our nameplate filtering aparently? otherwise no pets show up (felhunter)
-    nameplateShowFriendlyPets = "0",
-    nameplateShowFriendlyTotems = "0",
+    --nameplateShowFriendlyPets = "0", --(DEPRECATED)
+	nameplateShowFriendlyPlayerPets = "0", -- 2.5.6
+    --nameplateShowFriendlyTotems = "0", -- (DEPRECATED)
+	nameplateShowFriendlyPlayerTotems = "0", -- 2.5.6
+	nameplateShowDebuffsOnFriendly = "0", -- 2.5.6 (required not to show debuffs on shadowfiend / water ele and shit...)
     showPartyPets = "0",
 	UnitNameFriendlySpecialNPCName = "0",
     UnitNameHostleNPC = "0",
     UnitNameInteractiveNPC = "0",
-	-- nameplates always focused (prevent fading/graying-out nonselected nameplates)
-	nameplateSelectedAlpha = "1",
-	nameplateNotSelectedAlpha = "1",
+	nameplateSelectedAlpha = "1", -- nameplates always focused 1 (prevent fading/graying-out nonselected nameplates)
+	nameplateNotSelectedAlpha = "1", -- nameplates always focused 2 (prevent fading/graying-out nonselected nameplates)
 	UnitNamePlayerGuild = "0", -- hides the <guild> name from Player Names
 	floatingCombatTextCombatHealing = "1", -- keeps bugging out and randomly disabling itself on this dogpiss anniversaty shitclient
 	CursorFreelookStartDelta = "0" -- another hackfix for this new dogshit client (camera movement with mouse required movement before it actually moved, now its smooth)
@@ -206,6 +236,7 @@ local function PlayerFrameArt()
 end
 hooksecurefunc("PlayerFrame_ToPlayerArt", PlayerFrameArt)
 
+local barText = {}
 -- Create PartyMemberFrame StatusText
 for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
 
@@ -234,17 +265,23 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
     manaText:SetPoint("CENTER", 0, -0.5)
     manaText:Show()
 
-    pFrame.healthbar.fontString = healthText
-    pFrame.manabar.fontString = manaText
+    barText[pFrame] = {
+                health = healthText,
+                mana = manaText,
+                lastHP = nil,
+                lastMana = nil,
+               }
 
     pFrame.PartyMemberOverlay.Name:Hide()
     pFrame.PartyMemberOverlay.PVPIcon:SetAlpha(0)
 
     hooksecurefunc(pFrame, "UpdateMemberHealth", function(self)
+        local t = barText[self]
+        if not t then return end
         local healthbar = pFrame.healthbar
         local manabar = pFrame.manabar
-        local hp = healthbar.finalValue or healthbar:GetValue()
-        local mana = manabar.finalValue or manabar:GetValue()
+        local hp = TS_FinalValue[healthbar] or healthbar:GetValue()
+        local mana = TS_FinalValue[manabar] or manabar:GetValue()
         local powertype = UnitPowerType(pFrame.unit)
 
         local _, class = UnitClass(pFrame.unit)
@@ -253,17 +290,17 @@ for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
             healthbar:SetStatusBarColor(c.r, c.g, c.b)
         end
 
-        if hp ~= healthbar.lastTextValue then
-            healthbar.lastTextValue = hp
-            healthbar.fontString:SetText(healthbar.lastTextValue)
+        if hp ~= t.lastHP then
+            t.lastHP = hp
+            t.health:SetText(hp)
         end
 
         if powertype ~= 0 then
-            manabar.fontString:SetText("")
-            manabar.lastTextValue = -1
-        elseif mana ~= manabar.lastTextValue then
-            manabar.lastTextValue = mana
-            manabar.fontString:SetText(manabar.lastTextValue)
+            t.mana:SetText("")
+            t.lastMana = -1
+        elseif mana ~= t.lastMana then
+            t.lastMana = mana
+            t.mana:SetText(mana)
         end
 
         if ((pFrame.unitHPPercent > 0) and (pFrame.unitHPPercent <= 0.2)) then
@@ -813,7 +850,7 @@ end)
 
 
 local function TextStatusBar_UpdateTextString(statusFrame)
-    local value = statusFrame.finalValue or statusFrame:GetValue();
+    local value = TS_FinalValue[statusFrame] or statusFrame:GetValue();
     if statusFrame.TextString and statusFrame.currValue and statusFrame.currValue > 0 then
         statusFrame.TextString:SetText(value)
     else
@@ -861,6 +898,7 @@ hooksecurefunc(FocusFrame, "CheckClassification", Classification)
 -- Smooth status bars
 
 local smoothing = {}
+local smoothData = setmetatable({}, { __mode = "k" })
 local floor, next = math.floor, next
 local mabs = math.abs
 local UnitGUID = UnitGUID
@@ -873,6 +911,8 @@ local barstosmooth = {
     TargetFrameManaBar = "target",
     FocusFrameHealthBar = "focus",
     FocusFrameManaBar = "focus",
+    PetFrameHealthBar = "pet",
+    PetFrameManaBar = "pet",
 }
 
 local function clamp(v, max)
@@ -893,98 +933,137 @@ local function lerp(startValue, endValue, amount)
 end
 
 local function isCloseEnough(new, target, range)
-    return range > 0.0 and mabs((new - target) / range) <= 0.001
+    return range and range > 0.0 and mabs((new - target) / range) <= 0.001
 end
 
 local function AnimationTick(_, elapsed)
-    for unitFrame, targetValue in next, smoothing do
-        local newValue = lerp(unitFrame._value, targetValue, clamp(0.33 * elapsed * 60))
-        unitFrame:SetValue_(floor(newValue))
-        unitFrame._value = newValue
+    for bar, targetValue in next, smoothing do
+        local d = smoothData[bar]
 
-        if not unitFrame:IsVisible() or isCloseEnough(newValue, targetValue, unitFrame._max) then
-            unitFrame:SetValue_(targetValue)
-            unitFrame._value = targetValue
-            smoothing[unitFrame] = nil
+        if not d then
+            smoothing[bar] = nil
+        else
+            local newValue = lerp(d.value, targetValue, clamp(0.33 * elapsed * 60))
+            d.value = newValue
 
-            if not next(smoothing) then
-                smoothframe:SetScript("OnUpdate", nil)
+            d.isUpdating = true
+            bar:SetValue(floor(newValue))
+            d.isUpdating = false
+
+            if not bar:IsVisible() or isCloseEnough(newValue, targetValue, d.max) then
+                d.value = targetValue
+                smoothing[bar] = nil
+
+                d.isUpdating = true
+                bar:SetValue(targetValue)
+                d.isUpdating = false
+
+                if not next(smoothing) then
+                    smoothframe:SetScript("OnUpdate", nil)
+                end
             end
         end
     end
 end
 
-local function SetSmoothedValue(self, value)
-    self.finalValue = value
-    local guid = UnitGUID(self.unit)
+local function Hook_SetValue(self, value)
+    local d = smoothData[self]
+    if not d or d.isUpdating then return end
 
-    if not self:IsVisible() or isCloseEnough(self._value, value, self._max) or (self.unit and guid ~= self.guid) then
-        self.guid = guid
+    TS_FinalValue[self] = value
+
+    local unit = self.unit or d.unit
+    local guid = unit and UnitGUID(unit) or nil
+
+    if not self:IsVisible()
+        or isCloseEnough(d.value, value, d.max)
+        or (unit and guid ~= d.guid)
+    then
+        d.guid = guid
+        d.value = value
         smoothing[self] = nil
-        self:SetValue_(floor(value))
-        self._value = self:GetValue()
         return
     end
 
-    smoothing[self] = clamp(value, self._max)
+    d.guid = guid
+    smoothing[self] = clamp(value, d.max)
+
+    d.isUpdating = true
+    self:SetValue(d.value)
+    d.isUpdating = false
 
     if not smoothframe:GetScript("OnUpdate") then
         smoothframe:SetScript("OnUpdate", AnimationTick)
     end
 end
 
-local function SmoothSetValue(self, min, max)
-    if self.updatingMinMax then
-        return
-    end
+local function Hook_SetMinMaxValues(self, min, max)
+    local d = smoothData[self]
+    if not d then return end
 
-    self.updatingMinMax = true
-    self:SetMinMaxValues_(min, max)
-
-    if self._max and self._max ~= max then
-        local ratio = (max ~= 0 and self._max and self._max ~= 0) and (max / self._max) or 1
+    if d.max and d.max ~= max then
+        local ratio = (max ~= 0 and d.max ~= 0) and (max / d.max) or 1
 
         local target = smoothing[self]
         if target then
             smoothing[self] = target * ratio
         end
 
-        local cur = self._value
-        if cur then
-            self:SetValue_(cur * ratio)
-            self._value = cur * ratio
+        if d.value then
+            d.value = d.value * ratio
+
+            d.isUpdating = true
+            self:SetValue(d.value)
+            d.isUpdating = false
         end
     end
 
-    self._max = max
-    self.updatingMinMax = false
+    d.max = max
 end
 
-local function SmoothBar(bar)
-    local _
-    _, bar._max = bar:GetMinMaxValues()
-    bar._value = bar:GetValue()
+local function SmoothBar(bar, unit)
+    if not bar or smoothData[bar] then return end
 
-    if not bar.SetValue_ then
-        bar.SetValue_ = bar.SetValue
-        bar.SetValue = SetSmoothedValue
-    end
-    if not bar.SetMinMaxValues_ then
-        bar.SetMinMaxValues_ = bar.SetMinMaxValues
-        bar.SetMinMaxValues = SmoothSetValue
+    smoothData[bar] = {
+        value = bar:GetValue(),
+        max = select(2, bar:GetMinMaxValues()) or 100,
+        unit = (unit and unit ~= "") and unit or nil,
+        guid = nil,
+        isUpdating = false,
+    }
+
+    hooksecurefunc(bar, "SetValue", Hook_SetValue)
+    hooksecurefunc(bar, "SetMinMaxValues", Hook_SetMinMaxValues)
+
+    bar:HookScript("OnHide", function(self)
+        local d = smoothData[self]
+        if d then d.guid = nil end
+        smoothing[self] = nil
+        if not next(smoothing) then
+            smoothframe:SetScript("OnUpdate", nil)
+        end
+    end)
+end
+
+for barName, unit in pairs(barstosmooth) do
+    SmoothBar(_G[barName], unit)
+end
+
+local function SetupPartyBars()
+    if not PartyFrame or not PartyFrame.PartyMemberFramePool then return end
+
+    for pFrame in PartyFrame.PartyMemberFramePool:EnumerateActive() do
+        local unit = pFrame.unit
+        SmoothBar(pFrame.healthbar, unit)
+        SmoothBar(pFrame.manabar, unit)
     end
 end
 
-    for barName, unit in pairs(barstosmooth) do
-         local statusbar = _G[barName]
-         if statusbar then
-            SmoothBar(statusbar)
-            statusbar:HookScript("OnHide", function(self)
-                self.guid, self._max = nil, nil
-            end)
-            statusbar.unit = unit ~= "" and unit or nil
-         end
-    end
+SetupPartyBars()
+
+smoothframe:RegisterEvent("GROUP_ROSTER_UPDATE")
+smoothframe:RegisterEvent("PLAYER_ENTERING_WORLD")
+smoothframe:SetScript("OnEvent", SetupPartyBars)
 
 -- statusbar.lockColor causes taints
 local function colour(statusbar, unit)
@@ -1279,6 +1358,83 @@ local function HideNameplate(nameplate)
     end
 end
 
+local CastBarVisuals
+local function EvolveUI_UpdateAnchors(self)
+    if self:IsForbidden() then return end
+
+    local hb = self.HealthBarsContainer
+    local hBar = self.healthBar or (hb and hb.healthBar)
+    if not hb or not hBar then return end
+
+    --hBar:ClearAllPoints()
+    --hBar:SetPoint("TOPLEFT", hb, "TOPLEFT", 4, 0)
+    --hBar:SetPoint("BOTTOMRIGHT", hb, "BOTTOMRIGHT", -4, 0)
+
+	-- Adding in back the background hp status nameplate texture that retarded company Blizzard removed in 2.5.6
+    if not hBar.EvolveHealthBG then
+        local bg = hBar:CreateTexture(nil, "BACKGROUND")
+        bg:SetAllPoints(hBar)
+        bg:SetColorTexture(0.2, 0.2, 0.2, 0.85)
+        hBar.EvolveHealthBG = bg
+    end
+
+    -- Pin the name centered above the health bar (matches CenteredAboveHealthBar).
+    if self.name then
+        self.name:ClearAllPoints()
+        self.name:SetPoint("BOTTOM", hb, "TOP", 0, 2)
+        self.name:SetJustifyH("CENTER")
+    end
+
+    -- Swap the border texture only -- do NOT re-anchor it.
+    local borderTex = hBar.bgTexture
+    if borderTex then
+        local unit = self.unit or self.displayedUnit
+        if unit then
+            if UnitIsUnit("target", unit) then
+                borderTex:SetTexture("Interface\\AddOns\\TextureScript\\Nameplate-Border-Target-Highlight")
+            else
+                local name = UnitName(unit)
+                if name == "Tremor Totem" then
+                    borderTex:SetTexture("Interface\\AddOns\\TextureScript\\Nameplate-Border-TREMOR.blp")
+                elseif name == "Ebon Gargoyle" then
+                    borderTex:SetTexture("Interface\\AddOns\\TextureScript\\Nameplate-Border-GARGOYLE.blp")
+                else
+                    borderTex:SetTexture("Interface\\AddOns\\TextureScript\\Nameplate-Border.blp")
+                end
+            end
+        end
+    end
+end
+
+function CastBarVisuals(self)
+    if not self or self:IsForbidden() then return end
+    local container = self:GetParent()
+    local unitFrame = container and container:GetParent()
+    if not unitFrame then return end
+
+    if self.Text then
+        self.Text:ClearAllPoints()
+        if self.classicStyleCastBar then
+            self.Text:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+            self.Text:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
+        elseif self.Icon then
+            self.Text:SetPoint("LEFT", self.Icon, "RIGHT", 2, 1)
+        end
+        self.Text:Show()
+    end
+    
+    if self.Spark then
+        self.Spark.offsetY = self.classicStyleCastBar and 0 or 1
+    end
+
+    -- hide cast bars on friendly units (was in the old
+    -- Nameplate_CastBar_AdjustPosition hook, which no longer exists)
+    local u = unitFrame.unit or unitFrame.displayedUnit
+    if u and UnitIsFriend("player", u) and not UnitIsEnemy("player", u) then
+        self:Hide()
+    end
+end
+
 local function HandleNewNameplate(nameplate, unit)
     local name = UnitName(unit)
     if name == "Unknown" then
@@ -1304,7 +1460,6 @@ local function HandleNewNameplate(nameplate, unit)
         nameplate.UnitFrame:SetScale(0.5)
         nameplate.UnitFrame.name:SetAlpha(0)
     elseif name == "Tremor Totem" then
-        local texture = (nameplate.UnitFrame.HealthBarsContainer.border:GetRegions())
         local guid = UnitGUID(unit)
         if guid then
             local totem = tremorTotems[guid]
@@ -1314,12 +1469,12 @@ local function HandleNewNameplate(nameplate, unit)
                 tremorTotems[guid] = { ["shaman"] = "Unknown", ["nameplate"] = nameplate }
             end
             nameplate.tremorTotemGuid = guid
-            texture:SetTexture("Interface/Addons/TextureScript/Nameplate-Border-TREMOR.blp")
         end
+        -- border swap now handled via healthBar.bgTexture inside EvolveUI_UpdateAnchors
+        if nameplate.UnitFrame then EvolveUI_UpdateAnchors(nameplate.UnitFrame) end
     elseif name == "Ebon Gargoyle" then
-        local texture = (nameplate.UnitFrame.HealthBarsContainer.border:GetRegions())
-        texture:SetTexture("Interface/Addons/TextureScript/Nameplate-Border-GARGOYLE.blp")
-        end
+        if nameplate.UnitFrame then EvolveUI_UpdateAnchors(nameplate.UnitFrame) end
+    end
 end
 
 local function plateOnUpdateFrame()
@@ -1334,6 +1489,9 @@ local function plateOnUpdateFrame()
         plateEventFrame:Hide()
     end
 end
+
+plateEventFrame:SetScript("OnUpdate", plateOnUpdateFrame)
+plateEventFrame:Hide()
 
 
 -- PlaySound whenever an enemy casts Tremor Totem inside arena
@@ -1503,7 +1661,7 @@ local function ClassIcons(nameplate, unit)
     if (UnitIsPlayer(unit) and UnitIsFriend("player", unit) and not UnitIsEnemy("player", unit)) or (UnitIsFriend("player", unit) and name and (name == "Shadowfiend" or name == "Water Elemental")) then
         if not nameplate.UnitFrame.texture then
             nameplate.UnitFrame.texture = nameplate.UnitFrame:CreateTexture(nil, "OVERLAY")
-            nameplate.UnitFrame.texture:SetSize(40, 40)
+            nameplate.UnitFrame.texture:SetSize(55, 55)
             nameplate.UnitFrame.texture:SetPoint("CENTER", nameplate.UnitFrame, "CENTER", 0, 20)
             nameplate.UnitFrame.texture:Hide()
         end
@@ -1524,13 +1682,13 @@ local function ClassIcons(nameplate, unit)
         if nameplate.UnitFrame.HealthBarsContainer:GetAlpha() > 0 then
             nameplate.UnitFrame.HealthBarsContainer:SetAlpha(0)
         end
-        if nameplate.UnitFrame.LevelFrame:GetAlpha() > 0 then
+        if nameplate.UnitFrame.LevelFrame and nameplate.UnitFrame.LevelFrame:GetAlpha() > 0 then
             nameplate.UnitFrame.LevelFrame:SetAlpha(0)
         end
-        if nameplate.UnitFrame.selectionHighlight:GetAlpha() > 0 then
+        if nameplate.UnitFrame.selectionHighlight and nameplate.UnitFrame.selectionHighlight:GetAlpha() > 0 then
             nameplate.UnitFrame.selectionHighlight:SetAlpha(0)
         end
-        if nameplate.UnitFrame.RaidTargetFrame:GetAlpha() > 0 then
+        if nameplate.UnitFrame.RaidTargetFrame and nameplate.UnitFrame.RaidTargetFrame:GetAlpha() > 0 then
             nameplate.UnitFrame.RaidTargetFrame:SetAlpha(0)
         end
     else
@@ -1543,10 +1701,10 @@ local function ClassIcons(nameplate, unit)
         if nameplate.UnitFrame.HealthBarsContainer:GetAlpha() < 1 then
             nameplate.UnitFrame.HealthBarsContainer:SetAlpha(1)
         end
-        if nameplate.UnitFrame.LevelFrame:GetAlpha() < 1 then
+        if nameplate.UnitFrame.LevelFrame and nameplate.UnitFrame.LevelFrame:GetAlpha() < 1 then
             nameplate.UnitFrame.LevelFrame:SetAlpha(1)
         end
-        if nameplate.UnitFrame.RaidTargetFrame:GetAlpha() < 1 then
+        if nameplate.UnitFrame.RaidTargetFrame and nameplate.UnitFrame.RaidTargetFrame:GetAlpha() < 1 then
             nameplate.UnitFrame.RaidTargetFrame:SetAlpha(1)
         end
     end
@@ -1557,12 +1715,9 @@ local function AddPlates(unit)
     if not nameplate or nameplate:IsForbidden() then
         return
     end
-    -- Change border plate
-    local texture = (nameplate.UnitFrame.HealthBarsContainer.border:GetRegions())
-    if UnitIsUnit(unit, "target") then
-        texture:SetTexture("Interface\\Addons\\TextureScript\\Nameplate-Border-Target-Highlight")
-    else
-        texture:SetTexture("Interface/Addons/TextureScript/Nameplate-Border.blp")
+    local frame = nameplate.UnitFrame
+    if not frame then
+        return
     end
 
     if not np[nameplate] then
@@ -1570,57 +1725,74 @@ local function AddPlates(unit)
         nameplate:RegisterEvent("PLAYER_TARGET_CHANGED")
         nameplate:HookScript("OnEvent", function(self, event)
             if event == "PLAYER_TARGET_CHANGED" then
-                if not self.UnitFrame then
-                    return
+                if self.UnitFrame then
+                    EvolveUI_UpdateAnchors(self.UnitFrame)
                 end
-                if UnitIsUnit("target", self.UnitFrame.unit) then
-                    texture:SetTexture("Interface\\Addons\\TextureScript\\Nameplate-Border-Target-Highlight")
-                elseif UnitName(self.UnitFrame.unit) == "Tremor Totem" then
-                    texture:SetTexture("Interface\\Addons\\TextureScript\\Nameplate-Border-TREMOR")
-                else
-                    texture:SetTexture("Interface\\Addons\\TextureScript\\Nameplate-Border")
-                end
-            end
-        end)
-
-        nameplate.UnitFrame.castBar:HookScript("OnUpdate", function(self)
-            local unit = self:GetParent().unit
-            if unit then
-                local name = UnitCastingInfo(unit)
-
-                if not name then
-                    name = UnitChannelInfo(self.unit)
-                end
-                if not name then
-                    return
-                end
-                local r, g, b = getSpellColor(name)
-                self:SetStatusBarColor(r, g, b)
             end
         end)
     end
+    
+    if not frame.EvolveUI_Hooked then
+        if frame.UpdateAnchors then
+            hooksecurefunc(frame, "UpdateAnchors", EvolveUI_UpdateAnchors)
+        end
 
-    -- hide level and expand healthbar
-    nameplate.UnitFrame.LevelFrame:Hide()
-    local hb = nameplate.UnitFrame.HealthBarsContainer
-    hb:ClearAllPoints()
-    hb:SetPoint("BOTTOMLEFT", hb:GetParent(), "BOTTOMLEFT", 4, 4)
-    hb:SetPoint("BOTTOMRIGHT", hb:GetParent(), "BOTTOMRIGHT", -4, 4)
+        local cb = frame.CastBarsContainer and frame.CastBarsContainer.castBar
+        if cb then
+            cb:HookScript("OnShow", CastBarVisuals)
+
+            cb:HookScript("OnEvent", function(self, event)
+                if event == "UNIT_SPELLCAST_INTERRUPTED" or event == "UNIT_SPELLCAST_SUCCEEDED" then
+                    self:Hide()
+                end
+            end)
+
+            cb:HookScript("OnUpdate", function(self)
+                local parent = self:GetParent():GetParent()
+                local u = parent and (parent.unit or parent.namePlateUnitToken)
+                if u then
+                    local name = UnitCastingInfo(u)
+
+                    if not name then
+                        name = UnitChannelInfo(u)
+                    end
+                    if not name then
+                        return
+                    end
+                    local r, g, b = getSpellColor(name)
+                    self:SetStatusBarColor(r, g, b)
+                end
+            end)
+        end
+
+        frame.EvolveUI_Hooked = true
+    end
+
+    if frame.LevelFrame then
+        frame.LevelFrame:Hide()
+    end
 
     -- make the selection highlight a tiny bit smaller
-    local sh = nameplate.UnitFrame.selectionHighlight
+    local sh = frame.selectionHighlight
     --sh:ClearAllPoints()
     --sh:SetPoint("TOPLEFT", sh:GetParent(), "TOPLEFT", 1, -1)
     --sh:SetPoint("BOTTOMRIGHT", sh:GetParent(), "BOTTOMRIGHT", -1, 1)
-    sh:SetAlpha(0)
+    if sh then
+        sh:SetAlpha(0)
+    end
 
     ClassIcons(nameplate, unit)
 
     -- This is needed to restore scale due to the ShrinkPlates
-    if nameplate.UnitFrame:GetScale() < 1.0 then
-        nameplate.UnitFrame:SetScale(1.0)
-        nameplate.UnitFrame.name:SetAlpha(1.0)
+    if frame:GetScale() < 1.0 then
+        frame:SetScale(1.0)
+        frame:ClearAllPoints()
+        frame:SetAllPoints(nameplate) -- undo the shrunk TOPLEFT/BOTTOMRIGHT offsets
+        frame.name:SetAlpha(1.0)
     end
+
+    EvolveUI_UpdateAnchors(frame) -- also positions the cast bar
+
     HandleNewNameplate(nameplate, unit)
 end
 
@@ -1640,7 +1812,8 @@ local function RemovePlate(unit)
 end
 
 hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
-    if not string.find(frame.unit, "nameplate") or frame:IsForbidden() then
+    -- frame.unit can be nil on the new patch, guard before string.find
+    if not frame.unit or frame:IsForbidden() or not string.find(frame.unit, "nameplate") then
         return
     end
 
@@ -1757,26 +1930,10 @@ end
 
 -- copy pasting features from wotlk classic
 
-hooksecurefunc("Nameplate_CastBar_AdjustPosition", function(self)
-    if not self or self:IsForbidden() then
-        return
-    end
-
-    if UnitIsFriend("player", self.unit) and not UnitIsEnemy("player", self.unit) then
-        self:Hide()
-    end
-
-    self.Text:Show()
-
-    local parentFrame = self:GetParent()
-    if self.BorderShield:IsShown() then
-        self:ClearAllPoints()
-        self:SetPoint("TOP", parentFrame.HealthBarsContainer, "BOTTOM", 9, -12)
-    else
-        self:ClearAllPoints()
-        self:SetPoint("TOP", parentFrame.HealthBarsContainer, "BOTTOM", 9, -4)
-    end
-end)
+-- Nameplate_CastBar_AdjustPosition was removed in the new patch, so the old
+-- hooksecurefunc on it errored at load. Its behavior (cast bar positioning,
+-- shield offset, Text:Show, hiding friendly cast bars) now lives in
+-- CastBarVisuals, driven by the UpdateAnchors hook + OnShow + OnUpdate.
 
 -- leave arena on PVP icon doubleclick (useful when playing against RM/RR retards)
 MiniMapBattlefieldFrame:HookScript("OnDoubleClick", function()
@@ -2007,6 +2164,15 @@ frame:SetScript("OnEvent", function(self, event, isLogin, isReload)
     end)
 end)
 
+-- Attempt to hackfix dogshit 2.5.6 nameplates triggering display level randomly 
+hooksecurefunc("CompactUnitFrame_UpdateLevel", function(frame)
+                if frame and not frame:IsForbidden() and frame.unit and frame.unit:find("nameplate") then
+                    if frame.LevelFrame then
+                        frame.LevelFrame:Hide()
+                    end
+                end
+             end)
+
 -- TEMP XYZ PARTY SPACING TEMP
 local eAnchor = CreateFrame("Frame", nil, UIParent, "SecureFrameTemplate")
 eAnchor:SetAllPoints(PartyFrame)
@@ -2044,11 +2210,12 @@ manager:SetAttribute("_onstate-run", [[
     end
 ]])
 
+local pframes = {}
 local function SetupFrame(pFrame)
     if pFrame.unit and string.match(pFrame.unit, "^party%d") then
         local index = tonumber(string.match(pFrame.unit, "%d+"))
-        if index and index >= 1 and index <= 4 and not pFrame.hooked then
-            pFrame.hooked = true
+        if index and index >= 1 and index <= 4 and not pframes[pFrame] then
+            pframes[pFrame] = true
             
             SecureHandlerSetFrameRef(manager, "pf" .. index, pFrame)
             
@@ -2152,32 +2319,27 @@ evolvedFrame:SetScript("OnEvent", function(self, event, ...)
     elseif event == "PLAYER_ENTERING_WORLD" then
         local _, type = IsInInstance()
         if type == "arena" then
-            if GetCVar("nameplateShowFriends") == "0" then
-                SetCVar("nameplateShowFriends", 1)
+            if GetCVar("nameplateShowFriendlyPlayers") == "0" then
+                SetCVar("nameplateShowFriendlyPlayers", 1)
             end
 			-- needed for Elemental/Shadowfiend icon texture to be displayed?
-			if GetCVar("nameplateShowFriendlyMinions") == "0" then
-                SetCVar("nameplateShowFriendlyMinions", 1)
+			if GetCVar("nameplateShowFriendlyPlayerMinions") == "0" then
+                SetCVar("nameplateShowFriendlyPlayerMinions", 1)
             end
             inArena = true
         else
-            if GetCVar("nameplateShowFriends") == "1" then
-                SetCVar("nameplateShowFriends", 0)
+            if GetCVar("nameplateShowFriendlyPlayers") == "1" then
+                SetCVar("nameplateShowFriendlyPlayers", 0)
             end
 			-- needed for Elemental/Shadowfiend icon texture to be displayed?
-			if GetCVar("nameplateShowFriendlyMinions") == "1" then
-                SetCVar("nameplateShowFriendlyMinions", 0)
+			if GetCVar("nameplateShowFriendlyPlayerMinions") == "1" then
+                SetCVar("nameplateShowFriendlyPlayerMinions", 0)
             end
             inArena = false
         end
 
         -- clear the totems on loading screens
         tremorTotems = {}
-        if type == "arena" or type == "pvp" then
-            plateEventFrame:SetScript("OnUpdate", plateOnUpdateFrame)
-        else
-            plateEventFrame:SetScript("OnUpdate", nil)
-        end
 
         if type == "raid" then
             plateEventFrame:SetScript("OnEvent", nil)
@@ -2217,7 +2379,7 @@ TurnSpeed 235
 
 mouse look speed 14.5
 autofollowspeed 14.5
-enable mouse sensitivity (YES) 3
+enable mouse sensitivity (YES) - value 3
 
 --]]
 
@@ -2225,6 +2387,6 @@ enable mouse sensitivity (YES) 3
 COMBAT_TEXT_RESIST = "FUCK BLIZZARD"
 
 --Login message informing all scripts of this file were properly executed
-ChatFrame1:AddMessage("EvolvePWPUI-ClassicTBC-Anniversary v1.2 Loaded successfully!", 0, 205, 255)
+ChatFrame1:AddMessage("EvolvePWPUI-ClassicTBC-Anniversary v1.3 Loaded successfully!", 0, 205, 255)
 ChatFrame1:AddMessage("Check for updates at:", 89, 89, 89)
 ChatFrame1:AddMessage("https://github.com/Evolvee/EvolvePWPUI-ClassicTBC-Anniversary", 89, 89, 89)

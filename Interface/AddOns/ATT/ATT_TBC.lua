@@ -562,6 +562,7 @@ local function CreateIcon(anchor)
     
     local cd = CreateFrame("Cooldown", icon:GetName() .. "Cooldown", icon, "CooldownFrameTemplate")
     cd:SetHideCountdownNumbers(false)
+	cd:SetSwipeTexture("Interface\\AddOns\\TextureScript\\Swipe")
     icon.cd = cd
 
     icon.Start = function(sentCD, nextcharge, rate)

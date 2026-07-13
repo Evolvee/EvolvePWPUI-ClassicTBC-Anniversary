@@ -53,7 +53,8 @@ ATTdbs.dbModif = {
      [26669] = { ["mod"]= GetSpellInfo(13872), ["rank"] ={45, 90,}, }, 
      [11305] = { ["mod"]= GetSpellInfo(13872), ["rank"] ={45, 90,}, }, 
      [26889] = { ["mod"]= GetSpellInfo(14066), ["rank"] ={45, 90,}, }, 
-     [2094] = { ["mod"]= GetSpellInfo(14066), ["rank"] ={45, 90,}, }, 
+	 -- making Blind static CD... since I think the mods are bugging(?)
+     --[2094] = { ["mod"]= GetSpellInfo(14066), ["rank"] ={45, 90,}, }, 
      [8177] = { ["mod"]= GetSpellInfo(16293), ["rank"] ={1, 2,}, }, 
      [25454] = { ["mod"]= GetSpellInfo(16116), ["rank"] ={0.2, 0.4,0.6,0.8,1,}, }, 
      [25464] = { ["mod"]= GetSpellInfo(16116), ["rank"] ={0.2, 0.4,0.6,0.8,1,}, }, 

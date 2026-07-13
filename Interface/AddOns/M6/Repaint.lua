@@ -1,6 +1,7 @@
 local COMPAT, _, T = select(4, GetBuildInfo()), ...
 local EV, MC = T.Evie, T.M6Core
-local MODERN, ANNIVERSARY = COMPAT >= 10e4, COMPAT > 20504 and COMPAT < 3e4
+local MODERN = COMPAT > 12e4
+local MODERN_BARS = COMPAT > 2e4
 if not (EV and MC) then return end
 
 local watcherOnUpdate, watcherMarkAllUpdated
@@ -172,14 +173,14 @@ local cueButtonRepaint, cueMassRepaint, mayHaveExternalListeners, curUpdateOwner
 			rangeR, rangeG, rangeB = fromHexColor(conf.icRangeColor)
 		end
 	end
-	local GetPartialHintRaw, bcd1, bcd2, spareCW if MODERN then
-		GetPartialHintRaw = MC.GetPartialHintRaw
-		bcd1, bcd2 = {}, {}
-		local f = CreateFrame("Frame")
-		f:Hide()
-		spareCW = CreateFrame("Cooldown", nil, f)
+	local GetPartialHintRaw = MC.GetPartialHintRaw
+	local function ApplyCooldown12(cd1, cd2, cd3, duration, isRecharge)
+		local applyTo, _ = duration and (isRecharge and cd2 or cd1) or nil
+		_ = cd1 and cd1 ~= applyTo and cd1:Clear()
+		_ = cd2 and cd2 ~= applyTo and cd2:Clear()
+		_ = cd3 and cd3 ~= applyTo and cd3:Clear()
+		_ = applyTo and applyTo:SetCooldownFromDurationObject(duration)
 	end
-
 	local function updateOne(wp, wi, iname, usable, state, icon, _, count, cd, cd2, tf, ta, ext, lab)
 		curUpdateOwner = wp
 		if state == nil then
@@ -202,16 +203,16 @@ local cueButtonRepaint, cueMassRepaint, mayHaveExternalListeners, curUpdateOwner
 			return
 		end
 		usable = usable ~= false
-		local active, overlay, usableCharge = state % 2 > 0, state % 4 > 1, usable or (state % 128 >= 64)
+		local active, overlay, isRecharge = state % 2 > 0, state % 4 > 1, state % 128 >= 64
 		local rUsable = state % 2048 < 1024
 		local isPartiallyHinted = state % 1048576 >= 524288
-		local cdHintID, holdCount = isPartiallyHinted and cd == nil and cd2, isPartiallyHinted and state % 2097152 >= 1048576
+		local cdHintID = isPartiallyHinted and cd == nil and cd2
 		local cdw = wp.cooldown
+		local usableCharge = usable or isRecharge
+		local cdSecDuration = cdHintID and GetPartialHintRaw(cdHintID, isRecharge and "chargeDuration" or "cooldownDuration")
 		if not cdw then
 		elseif cdHintID then
-			bcd1.startTime, bcd1.duration, bcd1.isEnabled, bcd1.modRate = GetPartialHintRaw(cdHintID, "cooldownInfo")
-			bcd2.currentCharges, bcd2.maxCharges, bcd2.cooldownStartTime, bcd2.cooldownDuration, bcd2.chargeModRate = GetPartialHintRaw(cdHintID, "chargeInfo")
-			ActionButton_ApplyCooldown(cdw, bcd1, wp.chargeCooldown or cdw, bcd2.currentCharges ~= nil and bcd2 or nil, wp.lossOfControlCooldown or spareCW, nil)
+			ApplyCooldown12(cdw, wp.chargeCooldown, wp.lossOfControlCooldown, cdSecDuration, isRecharge)
 		else
 			cd, cd2 = cd or 0, cd2 or 0
 			local cdCountingDown = state % 4096 < 2048
@@ -249,8 +250,7 @@ local cueButtonRepaint, cueMassRepaint, mayHaveExternalListeners, curUpdateOwner
 		local ic, nt = wp.icon, wp.NormalTexture
 		if ic and nt then
 			local nomana, norange, hasrange = state % 16 > 7, state % 32 > 15, state % 1024 > 511
-			local cdDuration = usable and cdHintID and GetPartialHintRaw(cdHintID, "cooldownDuration")
-			local cdZero = (cdDuration or nil) and cdDuration:IsZero()
+			local cdZero = (usable and cdSecDuration and not isRecharge or nil) and cdSecDuration:IsZero()
 			local ev = MODERN and C_CurveUtil.EvaluateColorValueFromBoolean
 			if nomana then
 				ic:SetVertexColor(manaR, manaG, manaB)
@@ -417,6 +417,9 @@ do -- widget meta hooks
 	hooksecurefunc(protoTexture, "SetColorTexture", cueRelease)
 	hooksecurefunc(protoCooldown, "SetCooldown", cueUpdate)
 	hooksecurefunc(protoCooldown, "Clear", cueUpdate)
+	if protoCooldown.SetCooldownFromDurationObject then
+		hooksecurefunc(protoCooldown, "SetCooldownFromDurationObject", cueUpdate)
+	end
 	hooksecurefunc("CooldownFrame_Set", cueUpdate)
 end
 
@@ -455,7 +458,7 @@ end
 hooksecurefunc(GameTooltip, "SetOwner", function(_, o)
 	return cueButtonRepaint(o)
 end)
-if MODERN or ANNIVERSARY then
+if MODERN_BARS then
 	local type, rg = type, rawget
 	local qap, odd, s, p = {}, 1, nil, EnumerateFrames()
 	while p and p ~= s do
@@ -488,7 +491,7 @@ if MODERN or ANNIVERSARY then
 	hooksecurefunc(ActionBarActionButtonMixin, "OnUpdate", queueFromOnUpdate)
 	hooksecurefunc(ActionBarActionButtonMixin, "UpdateState", cueButtonRepaint)
 	hooksecurefunc(ActionBarActionButtonMixin, "UpdateUsable", cueButtonRepaint)
-else -- not MODERN
+else -- not MODERN_BARS
 	hooksecurefunc("ActionButton_OnUpdate", queueFromOnUpdate)
 	hooksecurefunc("ActionButton_UpdateState", cueButtonRepaint)
 	hooksecurefunc("ActionButton_UpdateUsable", cueButtonRepaint)

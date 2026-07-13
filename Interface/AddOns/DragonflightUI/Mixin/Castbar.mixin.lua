@@ -513,14 +513,14 @@ function DragonFlightUICastbarMixin:OnUpdate(elapsed)
     elseif (GetTime() < self.holdTime) then
         return;
     elseif (self.fadeOut) then
-        local alpha = self:GetAlpha() - CASTING_BAR_ALPHA_STEP;
-        if (alpha > 0) then
-            -- CastingBarFrame_ApplyAlpha(self, alpha);
-            self:SetAlpha(alpha)
-        else
-            self.fadeOut = nil;
-            self:Hide();
-        end
+local alpha = self:GetAlpha() - 0.05;
+
+if (alpha > 0) then
+    self:SetAlpha(alpha)
+else
+    self.fadeOut = nil;
+    self:Hide();
+end
     end
 
     if (self.casting or self.reverseChanneling or self.channeling) then
@@ -632,7 +632,7 @@ function DragonFlightUICastbarMixin:HandleInterruptOrSpellFailed(empoweredInterr
         --    else
         --        self.Text:SetText(INTERRUPTED);
         --        self.TextCompact:SetText(INTERRUPTED)
-         --   end
+        --    end
         --end
 
         self.casting = nil;
@@ -994,14 +994,22 @@ function DragonFlightUICastbarMixin:AutoPosition()
         return;
     end
 
-    local spellbarAnchor = parent.spellbarAnchor;
+local spellbarAnchor = parent.spellbarAnchor;
 
-    local autoDy = spellbarAnchor:GetBottom() - parent:GetBottom();
-    -- print(spellbarAnchor:GetBottom(), parent:GetBottom(), dy)
-    if autoDy >= 0 then autoDy = 0; end
-    -- print('~>', dy)
+local anchorBottom = spellbarAnchor:GetBottom();
+local parentBottom = parent:GetBottom();
 
-    self:SetPoint('TOPLEFT', parent, 'BOTTOMLEFT', dx, autoDy + dy)
+-- WoW 2.5.6 can return nil before frames are fully positioned
+if not anchorBottom or not parentBottom then
+    self:SetPoint('TOPLEFT', parent, 'BOTTOMLEFT', dx, dy)
+    return;
+end
+
+local autoDy = anchorBottom - parentBottom;
+
+if autoDy >= 0 then autoDy = 0; end
+
+self:SetPoint('TOPLEFT', parent, 'BOTTOMLEFT', dx, autoDy + dy)
 end
 
 function DragonFlightUICastbarMixin:AddTradeSkill()

@@ -273,7 +273,7 @@ function Diminishings:UpdateFrame(unit)
         icon.cooldownFrame:SetFrameStrata(Gladdy.db.drFrameStrata)
         icon.cooldownFrame:SetFrameLevel(Gladdy.db.drFrameLevel + 2)
 
-        icon.timeText:SetFont(Gladdy:SMFetch("font", "drFont"), (Gladdy.db.drIconSize/2 - 1) * Gladdy.db.drFontScale, Gladdy.db.drFontOutline)
+        icon.timeText:SetFont(Gladdy:SMFetch("font", "drFont"), (Gladdy.db.drIconSize/2 - 1) * Gladdy.db.drFontScale, Gladdy.db.drFontOutline ~= "NONE" and Gladdy.db.drFontOutline or nil)
         if Gladdy.db.drFontColorsEnabled then
             icon.timeText:SetTextColor(getDiminishColor(icon.diminishing))
         else
@@ -281,7 +281,7 @@ function Diminishings:UpdateFrame(unit)
         end
         icon.timeText:SetPoint("CENTER", icon, "CENTER", Gladdy.db.drFontXOffset, Gladdy.db.drFontYOffset)
 
-        icon.drLevelText:SetFont(Gladdy:SMFetch("font", "drLevelTextFont"), (Gladdy.db.drIconSize/2 - 1) * Gladdy.db.drLevelTextScale, Gladdy.db.drLevelOutline)
+        icon.drLevelText:SetFont(Gladdy:SMFetch("font", "drLevelTextFont"), (Gladdy.db.drIconSize/2 - 1) * Gladdy.db.drLevelTextScale, Gladdy.db.drLevelOutline ~= "NONE" and Gladdy.db.drLevelOutline or nil)
         if Gladdy.db.drLevelTextColorsEnabled then
             icon.drLevelText:SetTextColor(getDiminishColor(icon.diminishing))
         else
