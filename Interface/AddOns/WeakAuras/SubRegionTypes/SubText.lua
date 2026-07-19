@@ -202,15 +202,16 @@ local function modify(parent, region, parentData, data, first)
   local text = region.text;
 
   local fontPath = SharedMedia:Fetch("font", data.text_font);
-  text:SetFont(fontPath, data.text_fontSize, data.text_fontType);
+  local fontType = data.text_fontType == "None" and "" or data.text_fontType
+  text:SetFont(fontPath, data.text_fontSize, fontType);
   if not text:GetFont() and fontPath then -- workaround font not loading correctly
     local objectName = "WeakAuras-Font-" .. data.text_font
     local fontObject = _G[objectName] or CreateFont(objectName)
-    fontObject:SetFont(fontPath, data.text_fontSize, data.text_fontType == "None" and "" or data.text_fontType)
+    fontObject:SetFont(fontPath, data.text_fontSize, fontType)
     text:SetFontObject(fontObject)
   end
   if not text:GetFont() then -- Font invalid, set the font but keep the setting
-    text:SetFont(STANDARD_TEXT_FONT, data.text_fontSize, data.text_fontType);
+    text:SetFont(STANDARD_TEXT_FONT, data.text_fontSize, fontType);
   end
   if text:GetFont() then
     text:SetText(WeakAuras.ReplaceRaidMarkerSymbols(data.text_text));
@@ -409,9 +410,9 @@ local function modify(parent, region, parentData, data, first)
   function region:SetTextHeight(size)
     local fontPath = SharedMedia:Fetch("font", data.text_font);
     if not text:GetFont() then -- Font invalid, set the font but keep the setting
-      text:SetFont(STANDARD_TEXT_FONT, size, data.text_fontType);
+      text:SetFont(STANDARD_TEXT_FONT, size, fontType);
     else
-      region.text:SetFont(fontPath, size, data.text_fontType);
+      region.text:SetFont(fontPath, size, fontType);
     end
     region.text:SetTextHeight(size)
     region:UpdateAnchorOnTextChange();

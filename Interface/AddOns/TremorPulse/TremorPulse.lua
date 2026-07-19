@@ -14,14 +14,14 @@ local function CreateIconTextFrame()
     if not frame.text then
         frame.text = frame:CreateFontString(nil, "OVERLAY")
         frame.text:SetFont("Interface\\Addons\\Gladdy\\Fonts\\DorisPP.TTF", 19, "OUTLINE")
-        frame.text:SetPoint("CENTER", frame, "CENTER", 125, -10)
+        frame.text:SetPoint("CENTER", frame, "CENTER", 125, -57)
         frame.text:SetTextColor(1, 1, 1)
     end
 
     if not frame.icon then
         frame.icon = frame:CreateTexture(nil, "ARTWORK")
         frame.icon:SetSize(36, 42)
-        frame.icon:SetPoint("CENTER", frame, "CENTER", 125, -9)
+        frame.icon:SetPoint("CENTER", frame, "CENTER", 125, -56)
         frame.icon:SetTexture("Interface\\Addons\\TextureScript\\TremorPulseTexture")
     end
 

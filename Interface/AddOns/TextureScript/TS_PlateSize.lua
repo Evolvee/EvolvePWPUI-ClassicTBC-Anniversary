@@ -228,14 +228,14 @@ local PLATE_HEIGHT = 120
 
 local function PlateSize()
     local w = Clamp(math.max(db.barWidth + 40, db.clickWidth + 16) * db.scale, 60, 800)
-    -- Make the base plate tall enough to contain the click area at any Y offset.
-    -- The clickbox follows the health bar, so its position relative to the frame
-    -- center is barYOffset + clickVerticalAdjustment. Growth is symmetric
-    -- (2 * |total offset|) so the frame center never shifts and the visuals
-    -- anchored to CENTER stay exactly where they are.
-    local totalOffset = db.barYOffset + db.clickVerticalAdjustment
-    local clickReach = db.clickHeight + 2 * math.abs(totalOffset) + 20
-    local h = Clamp(math.max(PLATE_HEIGHT, clickReach) * db.scale, 20, 500)
+    -- The game holds the plate frame's BOTTOM fixed above the unit, and the
+    -- engine only hit-tests inside that frame. So the frame must be tall
+    -- enough to contain the click area. Since the visuals are anchored to the
+    -- frame's BOTTOM (the fixed point), any extra height grows purely upward
+    -- and is completely invisible - nothing on screen ever moves.
+    local barCenter = PLATE_HEIGHT / 2 + db.barYOffset
+    local clickTop  = barCenter + db.clickVerticalAdjustment + db.clickHeight / 2
+    local h = Clamp(math.max(PLATE_HEIGHT, clickTop + 10) * db.scale, 20, 500)
     return w, h
 end
 
@@ -410,7 +410,12 @@ function TS_ApplyPlateSize(frame)
     if not frame.tsIsTest and frame.unit and UnitIsUnit(frame.unit, "player") then return end
 
     local fs = frame:GetScale()
-    if not frame.tsIsTest and fs < db.scale - 0.25 then return end
+    -- Another addon (e.g. the ShrinkPlates logic in TextureScript) may have
+    -- scaled this plate down. Don't bail out - keep sizing/anchoring the bar
+    -- and border as normal, and just leave the frame's scale alone at the end.
+    -- Bailing out here left the health bar at Blizzard's UpdateAnchors size
+    -- while the border still followed our anchoring, so only the border shrank.
+    local externallyScaled = (not frame.tsIsTest) and fs < db.scale - 0.25
 
     local bar = frame.healthBar
     local box = GetBox(frame)
@@ -422,7 +427,10 @@ function TS_ApplyPlateSize(frame)
     end
 
     box:ClearAllPoints()
-    box:SetPoint("CENTER", frame, "CENTER", 0, db.barYOffset)
+    -- Anchor to the frame's BOTTOM, the point the game keeps fixed above the
+    -- unit. PLATE_HEIGHT/2 puts the bar exactly where it was at stock size,
+    -- and it now stays there no matter how tall the frame gets.
+    box:SetPoint("CENTER", frame, "BOTTOM", 0, PLATE_HEIGHT / 2 + db.barYOffset)
     box:SetSize(db.barWidth, db.barHeight)
 
     if bar and bar ~= box then
@@ -458,7 +466,7 @@ function TS_ApplyPlateSize(frame)
         end
     end
 
-    if math.abs(fs - db.scale) > 0.001 then
+    if not externallyScaled and math.abs(fs - db.scale) > 0.001 then
         frame:SetScale(db.scale)
     end
 end

@@ -422,23 +422,30 @@ local function OnInit()
     TargetFrameTextureFrameLevelText:SetAlpha(0)
     TargetFrameTextureFrameLeaderIcon:SetAlpha(0)
 	
-    -- TargetFrame castbar slight up-scaling & the status bar height adjustment (bottom alpha gap)
-    TargetFrameSpellBar:SetScale(1.13)
-	TargetFrameSpellBar:SetHeight(10.5)
-	--default WIDTH: TargetFrameSpellBar:SetWidth(150)
+    -- TargetFrame castbar slight up-scaling & the status bar height adjustment (bottom alpha gap + new art)
+	TargetFrameSpellBar:SetSize(140.5, 15)
+	TargetFrameSpellBar:SetScale(1.15)
+	--TargetFrameSpellBar:SetHeight(15)
+	local a, b, c, d, e = TargetFrameSpellBar.Border:GetPoint()
+	TargetFrameSpellBar.Border:SetPoint(a,b,c,d,20.5)
+	TargetFrameSpellBar.Spark:SetHeight(38)
 
-    -- FocusFrame castbar slight up-scaling
-    FocusFrameSpellBar:SetScale(1.13)
-	FocusFrameSpellBar:SetHeight(10.5)
+    -- FocusFrame castbar same shit as above
+	FocusFrameSpellBar:SetSize(140.5, 15)
+	FocusFrameSpellBar:SetScale(1.15)
+	--FocusFrameSpellBar:SetHeight(15)
+	local a, b, c, d, e = FocusFrameSpellBar.Border:GetPoint()
+	FocusFrameSpellBar.Border:SetPoint(a,b,c,d,20.5)
+	FocusFrameSpellBar.Spark:SetHeight(38)
 	
 	-- Fixing the default Blizzard bugged/mispotioned casting bar text... shit company
 	TargetFrameSpellBar.Text:ClearAllPoints()
-	TargetFrameSpellBar.Text:SetPoint("CENTER", 0, 0.05)
-	TargetFrameSpellBar.Text:SetFont("Fonts/FRIZQT__.TTF", 11, "OUTLINE")
+	TargetFrameSpellBar.Text:SetPoint("CENTER", 0, -0.5)
+	TargetFrameSpellBar.Text:SetFont("Fonts/FRIZQT__.TTF", 12.5, "OUTLINE")
 	
 	FocusFrameSpellBar.Text:ClearAllPoints()
-	FocusFrameSpellBar.Text:SetPoint("CENTER", 0, 0.05)
-	FocusFrameSpellBar.Text:SetFont("Fonts/FRIZQT__.TTF", 11, "OUTLINE")
+	FocusFrameSpellBar.Text:SetPoint("CENTER", 0, -0.5)
+	FocusFrameSpellBar.Text:SetFont("Fonts/FRIZQT__.TTF", 12.5, "OUTLINE")
 	
 	-- Slightly increase the size of Target/Focus spell cast bar icon
 	TargetFrameSpellBar.Icon:SetSize(26,26)
@@ -451,8 +458,8 @@ local function OnInit()
     for _, region in ipairs({ bar:GetRegions() }) do
         if region:IsObjectType("Texture") and region:GetDrawLayer() == "BACKGROUND" then
             region:ClearAllPoints()
-            region:SetPoint("TOPLEFT", bar, "TOPLEFT", 2, 2.5)
-            region:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", -2, -2)
+            region:SetPoint("TOPLEFT", bar, "TOPLEFT", 2, 0)
+            region:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 0.15, 1)
             break
         end
     end
@@ -462,18 +469,6 @@ local function OnInit()
 	-- Focus
 	FixCastBarBackground(FocusFrameSpellBar)
 	
-	-- Removing the "interrupted" status spell cast bar from Target/Focus
-	local f = CreateFrame("Frame")
-	f:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED")
-
-	f:SetScript("OnEvent", function(_, _, unit)
-		if unit == "target" and TargetFrameSpellBar then
-			TargetFrameSpellBar:Hide()
-		elseif unit == "focus" and FocusFrameSpellBar then
-			FocusFrameSpellBar:Hide()
-		end
-	end)
-
     --removing character "C" button image
     MicroButtonPortrait:Hide()
 
@@ -1632,24 +1627,17 @@ end
 for _, v in pairs({ TargetFrameSpellBar, FocusFrameSpellBar }) do
     if v then
         v:HookScript("OnUpdate", function(self, elapsed)
-            local r, g, b
-            local castText = self.Text and self.Text:GetText()
+            local name = UnitCastingInfo(self.unit)
 
-            if castText == INTERRUPTED or castText == FAILED then
-                self.holdTime = 0 -- faster fade out
-                return
-            else
-                local name = UnitCastingInfo(self.unit)
-
-                if not name then
-                    name = UnitChannelInfo(self.unit)
-                end
-                if not name then
-                    return
-                end
-                local r, g, b = getSpellColor(name)
-                self:SetStatusBarColor(r, g, b)
+            if not name then
+                name = UnitChannelInfo(self.unit)
             end
+            if not name then
+                return
+            end
+
+            local r, g, b = getSpellColor(name)
+            self:SetStatusBarColor(r, g, b)
         end)
     end
 end
@@ -1659,11 +1647,17 @@ local function ClassIcons(nameplate, unit)
     local name = UnitName(unit)
 
     if (UnitIsPlayer(unit) and UnitIsFriend("player", unit) and not UnitIsEnemy("player", unit)) or (UnitIsFriend("player", unit) and name and (name == "Shadowfiend" or name == "Water Elemental")) then
+        -- Friendly Shadowfiend / Water Elemental show at 70% of a friendly player marker
+        local isMinion = (name == "Shadowfiend" or name == "Water Elemental")
         if not nameplate.UnitFrame.texture then
             nameplate.UnitFrame.texture = nameplate.UnitFrame:CreateTexture(nil, "OVERLAY")
-            nameplate.UnitFrame.texture:SetSize(55, 55)
-            nameplate.UnitFrame.texture:SetPoint("CENTER", nameplate.UnitFrame, "CENTER", 0, 20)
+            nameplate.UnitFrame.texture:SetPoint("CENTER", nameplate.UnitFrame, "CENTER", 0, -40)
             nameplate.UnitFrame.texture:Hide()
+        end
+        local markerSize = isMinion and 33.6 or 48
+        if nameplate.UnitFrame.texture.tsSize ~= markerSize then
+            nameplate.UnitFrame.texture:SetSize(markerSize, markerSize)
+            nameplate.UnitFrame.texture.tsSize = markerSize
         end
         if name == "Shadowfiend" then
             unitClass = "Shadowfiend"
@@ -1740,12 +1734,6 @@ local function AddPlates(unit)
         local cb = frame.CastBarsContainer and frame.CastBarsContainer.castBar
         if cb then
             cb:HookScript("OnShow", CastBarVisuals)
-
-            cb:HookScript("OnEvent", function(self, event)
-                if event == "UNIT_SPELLCAST_INTERRUPTED" or event == "UNIT_SPELLCAST_SUCCEEDED" then
-                    self:Hide()
-                end
-            end)
 
             cb:HookScript("OnUpdate", function(self)
                 local parent = self:GetParent():GetParent()
@@ -2173,6 +2161,58 @@ hooksecurefunc("CompactUnitFrame_UpdateLevel", function(frame)
                 end
              end)
 
+-- Removing the "interrupted" / "successfull" red/green status bar from Target/Focus/Nameplates castbars
+local hooked = {}
+local origPlayFadeAnim = CastingBarMixin.PlayFadeAnim  -- capture before hooking
+
+local function OnFade(self)
+    if self.FadeOutAnim then self.FadeOutAnim:Stop() end
+    if self.HoldFadeOutAnim then self.HoldFadeOutAnim:Stop() end
+    self:Hide()
+end
+
+local function OnFinish(self)
+    local info = self.GetTypeInfo and self:GetTypeInfo(self.barType)
+    local anim = info and info.finishAnim and self[info.finishAnim]
+    if anim then anim:Stop() end
+    if self.Flash then self.Flash:Hide() end
+end
+
+local function OnInterrupt(self)
+    if self.StopInterruptAnims then self:StopInterruptAnims() end
+    if self.HoldFadeOutAnim then self.HoldFadeOutAnim:Stop() end
+    self:Hide()
+end
+
+local function Hook(t)
+    if not t or hooked[t] then return end
+    hooked[t] = true
+    hooksecurefunc(t, "PlayFadeAnim", OnFade)
+    hooksecurefunc(t, "PlayFinishAnim", OnFinish)
+    hooksecurefunc(t, "PlayInterruptAnims", OnInterrupt)
+end
+
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_LOGIN")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(_, event)
+    -- Future bars: hook the mixin tables they copy from.
+    Hook(CastingBarMixin)
+    Hook(NamePlateCastingBarMixin)          -- may be nil until Blizzard_NamePlates loads
+
+    if event == "PLAYER_LOGIN" then
+        -- Existing bars still hold the pre-hook reference; hook each instance.
+        local frame = EnumerateFrames()
+        while frame do
+            if frame.PlayFadeAnim == origPlayFadeAnim then
+                Hook(frame)
+            end
+            frame = EnumerateFrames(frame)
+        end
+    end
+end)
+
+
 -- TEMP XYZ PARTY SPACING TEMP
 local eAnchor = CreateFrame("Frame", nil, UIParent, "SecureFrameTemplate")
 eAnchor:SetAllPoints(PartyFrame)
@@ -2379,7 +2419,7 @@ TurnSpeed 235
 
 mouse look speed 14.5
 autofollowspeed 14.5
-enable mouse sensitivity (YES) - value 3
+enable mouse sensitivity (YES) - value 3 (0.69999998807907)
 
 --]]
 

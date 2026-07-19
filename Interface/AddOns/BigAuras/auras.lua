@@ -179,7 +179,11 @@ BigAurasSpells.spells = {
             [30414] = {parent = 47847},
             [47846] = {parent = 47847},
         [7922]= {category = "crowdControl",priority = 1},	-- Charge Stun
-        [20253]= {category = "crowdControl",priority = 1},	-- Intercept Stun (Warrior)
+        [20252]= {category = "crowdControl",priority = 1},	-- Intercept Stun (Warrior)
+		    [20616] = {parent = 20252},
+            [20617] = {parent = 20252},
+            [25272] = {parent = 20252},
+            [25275] = {parent = 20252},
         [12809]= {category = "crowdControl",priority = 1},	-- Concussion Blow
         [25274]= {category = "crowdControl",priority = 1},	-- Intercept (also Warlock Felguard ability)
             [30153] = {parent = 25274},
@@ -421,7 +425,7 @@ BigAurasSpells.spells = {
             [9853] = {parent = 53308},
             [26989] = {parent = 53308},
             [26989] = {parent = 53308},
-        [19675] = {category = "roots",priority = 1},	-- Feral Charge Effect (immobilize with interrupt [spell lockout, not silence])
+        [16979] = {category = "roots",priority = 1},	-- Feral Charge Effect (immobilize with interrupt [spell lockout, not silence])
         [48999] = {category = "roots",priority = 1},	-- Counterattack
             [19306] = {parent = 48999},
             [20909] = {parent = 48999},

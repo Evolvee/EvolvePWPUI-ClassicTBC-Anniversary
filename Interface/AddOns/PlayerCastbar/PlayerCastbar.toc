@@ -1,0 +1,8 @@
+## Interface: 11507
+## Title: Player Castbar
+## Notes: ai slop
+## Author: Xyz, Evolve
+## Category: Evolve PWP UI
+## SavedVariables: PlayerCastbarDB
+
+PlayerCastbar.lua

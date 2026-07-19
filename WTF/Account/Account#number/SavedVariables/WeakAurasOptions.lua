@@ -47361,13 +47361,13 @@ WeakAurasOptionsSaved = {
 ["version"] = "5.21.2",
 ["savedSnippets"] = {
 },
-["spellCacheStrings"] = true,
-["frame"] = {
-["xOffset"] = 928.4674377441406,
-["yOffset"] = 765.2739868164062,
-["height"] = 665,
-["width"] = 829.9999389648438,
-},
 ["spellCacheAchievements"] = true,
-["build"] = "68575",
+["frame"] = {
+["xOffset"] = 647.9353332519531,
+["width"] = 829.9999389648438,
+["height"] = 665,
+["yOffset"] = 751.411865234375,
+},
+["spellCacheStrings"] = true,
+["build"] = "68775",
 }
