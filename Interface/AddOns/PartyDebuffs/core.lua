@@ -28,6 +28,7 @@ local blacklist = {
     [GetSpellInfo(6343)] = true,
     [GetSpellInfo(29836)] = true,
     [GetSpellInfo(33191)] = true,
+	[GetSpellInfo(57723)] = true,
 	[GetSpellInfo(57724)] = true,
 }
 

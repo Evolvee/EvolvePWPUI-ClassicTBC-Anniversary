@@ -632,6 +632,8 @@ function OmniBar_UpdateBorder(self, icon)
 		then
 			icon.FocusTexture:SetAlpha(0)
 			icon.TargetTexture:SetAlpha(1)
+			--hackfix to change border color
+			icon.TargetTexture:SetVertexColor(1, 1, 0, 1)
 			border = true
 		else
 			icon.TargetTexture:SetAlpha(0)
@@ -656,6 +658,8 @@ function OmniBar_UpdateBorder(self, icon)
 		then
 			icon.FocusTexture:SetAlpha(0)
 			icon.TargetTexture:SetAlpha(1)
+			--hackfix to change the border colour :)
+			icon.TargetTexture:SetVertexColor(1, 1, 0, 1)
 			border = true
 		else
 			icon.TargetTexture:SetAlpha(0)

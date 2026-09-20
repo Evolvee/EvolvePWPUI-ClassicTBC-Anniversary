@@ -425,7 +425,7 @@ BigAurasSpells.spells = {
             [9853] = {parent = 53308},
             [26989] = {parent = 53308},
             [26989] = {parent = 53308},
-        [16979] = {category = "roots",priority = 1},	-- Feral Charge Effect (immobilize with interrupt [spell lockout, not silence])
+        [45334] = {category = "roots",priority = 1},	-- Feral Charge Effect (root...)
         [48999] = {category = "roots",priority = 1},	-- Counterattack
             [19306] = {parent = 48999},
             [20909] = {parent = 48999},

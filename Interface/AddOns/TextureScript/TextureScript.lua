@@ -427,7 +427,7 @@ local function OnInit()
 	TargetFrameSpellBar:SetScale(1.15)
 	--TargetFrameSpellBar:SetHeight(15)
 	local a, b, c, d, e = TargetFrameSpellBar.Border:GetPoint()
-	TargetFrameSpellBar.Border:SetPoint(a,b,c,d,20.5)
+	TargetFrameSpellBar.Border:SetPoint(a,b,c,-22.8,20.5)
 	TargetFrameSpellBar.Spark:SetHeight(38)
 
     -- FocusFrame castbar same shit as above
@@ -435,7 +435,7 @@ local function OnInit()
 	FocusFrameSpellBar:SetScale(1.15)
 	--FocusFrameSpellBar:SetHeight(15)
 	local a, b, c, d, e = FocusFrameSpellBar.Border:GetPoint()
-	FocusFrameSpellBar.Border:SetPoint(a,b,c,d,20.5)
+	FocusFrameSpellBar.Border:SetPoint(a,b,c,-22.8,20.5)
 	FocusFrameSpellBar.Spark:SetHeight(38)
 	
 	-- Fixing the default Blizzard bugged/mispotioned casting bar text... shit company
@@ -459,7 +459,7 @@ local function OnInit()
         if region:IsObjectType("Texture") and region:GetDrawLayer() == "BACKGROUND" then
             region:ClearAllPoints()
             region:SetPoint("TOPLEFT", bar, "TOPLEFT", 2, 0)
-            region:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 0.15, 1)
+            region:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 0.15, 0.5)
             break
         end
     end
@@ -1443,8 +1443,8 @@ local function HandleNewNameplate(nameplate, unit)
     
     if (name == "Tremor Totem" or npcId == "417") and UnitIsFriend("player", unit) then
         HideNameplate(nameplate)
-    elseif name:match("Totem") and not name:match("Tremor Totem") then
-        HideNameplate(nameplate)
+    elseif creatureType ~= "Player" and name:match("Totem") and not name:match("Tremor Totem") then
+		HideNameplate(nameplate)
     elseif (HideNameplateUnits[name] or HideNameplateUnits[npcId])
             or (creatureType == "Pet" and not ShowNameplatePetIds[npcId]) then
         HideNameplate(nameplate)
